@@ -11,7 +11,7 @@
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
 <link rel="stylesheet" href="/css/site.css">
 </helmet>
 
@@ -20,7 +20,7 @@
 <header class="topbar">
   <div class="wrap topbar-in">
     <a class="brand" href="/" onClick="{{ goHome }}">
-      <span class="brand-mark" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="17" rx="1"></rect><path d="M12 3.5v17"></path><path d="M9 11v3" stroke-linecap="round"></path></svg></span>
+      <span class="brand-mark" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><rect x="1.5" y="2.5" width="21" height="19" rx="4" fill="currentColor"></rect><path d="M12 6v12" stroke="#fff" stroke-width="1.8"></path><path d="M9 10.5v3" stroke="#fff" stroke-width="1.8" stroke-linecap="round"></path><path d="M5 18h14" stroke="#fff" stroke-width="1.4" opacity=".7"></path></svg></span>
       SlideRepairFL
     </a>
     <nav class="nav-links" aria-label="Main">
@@ -30,6 +30,7 @@
       <a href="/problems/hurricane-damaged-sliding-door" onClick="{{ goStorm }}">Storm help</a>
       <a href="/list-your-business" onClick="{{ goList }}">For businesses</a>
     </nav>
+    <a class="btn btn-primary btn-sm nav-cta" href="/pros" onClick="{{ goAll }}">Find a pro</a>
     <details class="menu">
       <summary aria-label="Open menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>Menu</summary>
       <div class="menu-panel">
@@ -51,75 +52,200 @@
 
   <section class="hero">
     <div class="wrap hero-grid">
-      <div class="stack" style="gap: 24px;">
-        <h1 class="h1" style="max-width: 13ch;">Sliding door trouble, explained.</h1>
-        <p class="lead">Find out what's wrong with your sliding glass door, what a fair repair costs in Florida, and which checked local pros can fix it.</p>
-        <div class="row">
-          <a class="btn btn-primary btn-phone-block" href="#problems">Find my problem</a>
-          <a class="btn btn-secondary btn-phone-block" href="/pros" onClick="{{ goAll }}">Search pros by city</a>
+      <div class="stack" style="gap: 22px;">
+        <span class="eyebrow">Florida's sliding door repair directory</span>
+        <h1 class="h1">Find a trusted sliding door pro in Florida</h1>
+        <p class="lead">Tell us what's wrong. See a fair price in plain numbers, then call a checked local pro. Free for homeowners.</p>
+        <form class="searchbox" onSubmit="{{ onHeroSearch }}" role="search">
+          <label>City or ZIP<input value="{{ query }}" onChange="{{ onQuery }}" placeholder="e.g. Tampa or 33602" autoComplete="postal-code"></label>
+          <label>What's wrong?
+            <select value="{{ heroSymptom }}" onChange="{{ onHeroSymptom }}">
+              <sc-for list="{{ heroOptions }}" as="o" hint-placeholder-count="9"><option value="{{ o.value }}">{{ o.label }}</option></sc-for>
+            </select>
+          </label>
+          <button type="submit" class="btn btn-primary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>Search
+          </button>
+        </form>
+        <div class="row" style="gap: 8px;">
+          <span class="tiny muted" style="font-weight: 600;">Popular:</span>
+          <sc-for list="{{ popular }}" as="s" hint-placeholder-count="4">
+            <a class="chip" href="{{ s.href }}" onClick="{{ s.pick }}">{{ s.title }}</a>
+          </sc-for>
         </div>
-        <p class="tiny muted">{{ totalCount }} checked pros · {{ totalReports }} real Florida price reports · free for homeowners</p>
       </div>
-      <figure style="margin: 0;">
-        <svg class="diagram" viewBox="0 0 520 380" role="img" aria-label="Diagram of a sliding glass door showing the rollers, track, lock, seals and glass">
-          <rect x="40" y="24" width="440" height="300" rx="2" fill="#FFFFFF" stroke="#15181D" stroke-width="2"></rect>
-          <rect x="54" y="38" width="218" height="272" fill="#FFFFFF" stroke="#15181D" stroke-width="1.5"></rect>
-          <rect x="68" y="52" width="190" height="244" fill="#EEF2F7" stroke="#9AA3AE" stroke-width="1"></rect>
-          <rect x="250" y="44" width="218" height="266" fill="#FFFFFF" stroke="#15181D" stroke-width="1.5"></rect>
-          <rect x="264" y="58" width="190" height="238" fill="#E6ECF4" stroke="#9AA3AE" stroke-width="1"></rect>
-          <path d="M96 80 136 120 M110 72 160 122" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" opacity="0.9"></path>
-          <path d="M290 86 330 126 M304 78 354 128" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" opacity="0.9"></path>
-          <rect x="256" y="158" width="7" height="46" rx="2" fill="#15181D"></rect>
-          <path d="M466 48v258" stroke="#1F3F8F" stroke-width="3" stroke-dasharray="5 4"></path>
-          <rect x="34" y="318" width="452" height="14" fill="#F6F6F3" stroke="#15181D" stroke-width="1.5"></rect>
-          <path d="M40 318h440" stroke="#15181D" stroke-width="2.5"></path>
-          <circle cx="282" cy="312" r="7" fill="#FFFFFF" stroke="#15181D" stroke-width="2"></circle>
-          <circle cx="436" cy="312" r="7" fill="#FFFFFF" stroke="#15181D" stroke-width="2"></circle>
-          <path d="M282 312 310 352" stroke="#1F3F8F" stroke-width="1.2"></path>
-          <circle cx="318" cy="358" r="12" fill="#1F3F8F"></circle><text x="318" y="362.5" text-anchor="middle" font-size="13" font-weight="700" fill="#FFFFFF" font-family="Geist, sans-serif">1</text>
-          <path d="M120 332 104 352" stroke="#1F3F8F" stroke-width="1.2"></path>
-          <circle cx="98" cy="358" r="12" fill="#1F3F8F"></circle><text x="98" y="362.5" text-anchor="middle" font-size="13" font-weight="700" fill="#FFFFFF" font-family="Geist, sans-serif">2</text>
-          <path d="M256 181 222 181" stroke="#1F3F8F" stroke-width="1.2"></path>
-          <circle cx="210" cy="181" r="12" fill="#1F3F8F"></circle><text x="210" y="185.5" text-anchor="middle" font-size="13" font-weight="700" fill="#FFFFFF" font-family="Geist, sans-serif">3</text>
-          <path d="M466 120 494 120" stroke="#1F3F8F" stroke-width="1.2"></path>
-          <circle cx="504" cy="120" r="12" fill="#1F3F8F"></circle><text x="504" y="124.5" text-anchor="middle" font-size="13" font-weight="700" fill="#FFFFFF" font-family="Geist, sans-serif">4</text>
-          <path d="M150 230 150 262" stroke="#1F3F8F" stroke-width="1.2"></path>
-          <circle cx="150" cy="218" r="12" fill="#1F3F8F"></circle><text x="150" y="222.5" text-anchor="middle" font-size="13" font-weight="700" fill="#FFFFFF" font-family="Geist, sans-serif">5</text>
-        </svg>
-        <figcaption>
-          <ul class="legend">
-            <sc-for list="{{ parts }}" as="pt" hint-placeholder-count="5">
-              <li><a href="{{ pt.href }}" onClick="{{ pt.pick }}"><span class="marker">{{ pt.n }}</span>{{ pt.label }}</a></li>
-            </sc-for>
-          </ul>
-        </figcaption>
-      </figure>
+
+      <div class="mosaic">
+        <figure class="tile tile-big" style="margin: 0;">
+          <span class="label">Which part is causing it?</span>
+          <svg class="diagram" viewBox="0 0 520 380" role="img" aria-label="Diagram of a sliding glass door showing the rollers, track, lock, seals and glass">
+            <rect x="40" y="24" width="440" height="300" rx="4" fill="#FFFFFF" stroke="#0E1726" stroke-width="2"></rect>
+            <rect x="54" y="38" width="218" height="272" fill="#FFFFFF" stroke="#0E1726" stroke-width="1.5"></rect>
+            <rect x="68" y="52" width="190" height="244" fill="#DCEEF5" stroke="#9FB3C2" stroke-width="1"></rect>
+            <rect x="250" y="44" width="218" height="266" fill="#FFFFFF" stroke="#0E1726" stroke-width="1.5"></rect>
+            <rect x="264" y="58" width="190" height="238" fill="#CFE6F0" stroke="#9FB3C2" stroke-width="1"></rect>
+            <path d="M96 80 136 120 M110 72 160 122" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round"></path>
+            <path d="M290 86 330 126 M304 78 354 128" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round"></path>
+            <rect x="256" y="158" width="7" height="46" rx="2" fill="#0E1726"></rect>
+            <path d="M466 48v258" stroke="#D93A2B" stroke-width="3" stroke-dasharray="5 4"></path>
+            <rect x="34" y="318" width="452" height="14" rx="2" fill="#F6F7F9" stroke="#0E1726" stroke-width="1.5"></rect>
+            <circle cx="282" cy="312" r="7" fill="#FFFFFF" stroke="#0E1726" stroke-width="2"></circle>
+            <circle cx="436" cy="312" r="7" fill="#FFFFFF" stroke="#0E1726" stroke-width="2"></circle>
+            <path d="M282 312 310 352" stroke="#D93A2B" stroke-width="1.4"></path>
+            <circle cx="318" cy="358" r="13" fill="#D93A2B"></circle><text x="318" y="362.5" text-anchor="middle" font-size="13" font-weight="700" fill="#FFFFFF" font-family="Plus Jakarta Sans, sans-serif">1</text>
+            <path d="M120 332 104 352" stroke="#D93A2B" stroke-width="1.4"></path>
+            <circle cx="98" cy="358" r="13" fill="#D93A2B"></circle><text x="98" y="362.5" text-anchor="middle" font-size="13" font-weight="700" fill="#FFFFFF" font-family="Plus Jakarta Sans, sans-serif">2</text>
+            <path d="M256 181 224 181" stroke="#D93A2B" stroke-width="1.4"></path>
+            <circle cx="210" cy="181" r="13" fill="#D93A2B"></circle><text x="210" y="185.5" text-anchor="middle" font-size="13" font-weight="700" fill="#FFFFFF" font-family="Plus Jakarta Sans, sans-serif">3</text>
+            <path d="M466 120 492 120" stroke="#D93A2B" stroke-width="1.4"></path>
+            <circle cx="504" cy="120" r="13" fill="#D93A2B"></circle><text x="504" y="124.5" text-anchor="middle" font-size="13" font-weight="700" fill="#FFFFFF" font-family="Plus Jakarta Sans, sans-serif">4</text>
+            <circle cx="150" cy="218" r="13" fill="#D93A2B"></circle><text x="150" y="222.5" text-anchor="middle" font-size="13" font-weight="700" fill="#FFFFFF" font-family="Plus Jakarta Sans, sans-serif">5</text>
+          </svg>
+          <figcaption>
+            <ul class="legend">
+              <sc-for list="{{ parts }}" as="pt" hint-placeholder-count="5">
+                <li><a href="{{ pt.href }}" onClick="{{ pt.pick }}"><span class="marker">{{ pt.n }}</span>{{ pt.label }}</a></li>
+              </sc-for>
+            </ul>
+          </figcaption>
+        </figure>
+        <a class="tile card-lift" href="/cost" onClick="{{ goPrices }}" style="text-decoration: none; color: var(--color-text);">
+          <span class="label">Fair price · roller replacement</span>
+          <span class="price-big" style="font-size: 30px;">{{ rollerPrice }}</span>
+          <span class="tiny muted">What most Florida homeowners paid</span>
+        </a>
+        <a class="tile card-lift" href="{{ topPro.href }}" onClick="{{ topPro.openNav }}" style="text-decoration: none; color: var(--color-text);">
+          <span class="tag tag-ok" style="align-self: flex-start;">Checked {{ topPro.lastCheck }}</span>
+          <strong style="font-size: 16px; line-height: 1.3;">{{ topPro.name }}</strong>
+          <span class="tiny"><span class="rating"><span class="star" aria-hidden="true">★</span>{{ topPro.ratingText }}</span> <span class="muted">· {{ topPro.reviewsText }}</span></span>
+        </a>
+      </div>
     </div>
   </section>
 
-  <section class="section" id="problems">
-    <div class="wrap stack" style="gap: 28px;">
-      <div class="stack-sm" style="max-width: 640px;">
-        <h2 class="h2">What is your door doing?</h2>
-        <p class="muted">Choose the closest match. Each guide explains the cause in plain English, what you can safely try yourself, and what the repair should cost.</p>
+  <section class="section" id="problems" style="padding-top: 24px;">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="stack-sm">
+          <h2 class="h2">What's wrong with your door?</h2>
+          <p class="muted">Pick the closest match for a plain-English guide and a fair price.</p>
+        </div>
+        <a class="btn btn-secondary btn-sm" href="/cost" onClick="{{ goPrices }}">All repair prices</a>
       </div>
-      <div class="issues">
+      <div class="tiles">
         <sc-for list="{{ symptoms }}" as="s" hint-placeholder-count="8">
-          <a class="{{ s.rowCls }}" href="{{ s.href }}" onClick="{{ s.pick }}">
-            <span class="issue-main"><span class="issue-title">{{ s.title }}</span><span class="issue-cause">{{ s.cause }}</span></span>
-            <span class="issue-price tnum">{{ s.priceRange }}</span>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg>
+          <a class="{{ s.tileCls }}" href="{{ s.href }}" onClick="{{ s.pick }}">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{ s.icon }}"></path></svg>
+            <span class="ptile-title">{{ s.title }}</span>
+            <span class="ptile-sub">{{ s.cause }}</span>
+            <span class="ptile-price tnum">{{ s.priceRange }}</span>
           </a>
         </sc-for>
       </div>
     </div>
   </section>
 
-  <section class="storm" id="storm">
-    <div class="wrap grid-2" style="align-items: center; padding-block: 40px;">
+  <section class="section section-alt">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="stack-sm">
+          <h2 class="h2">Browse by city</h2>
+          <p class="muted">Checked pros in {{ cityCount }} Florida cities and growing.</p>
+        </div>
+        <div class="row" style="gap: 8px;">
+          <button type="button" class="btn btn-secondary btn-round" aria-label="Scroll cities left" onClick="{{ cityPrev }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6"></path></svg></button>
+          <button type="button" class="btn btn-dark btn-round" aria-label="Scroll cities right" onClick="{{ cityNext }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg></button>
+        </div>
+      </div>
+      <div class="scroller" id="city-scroll">
+        <sc-for list="{{ cities }}" as="city" hint-placeholder-count="12">
+          <a class="city" href="{{ city.href }}" onClick="{{ city.onClick }}">
+            <span class="city-img" style="background: {{ city.bg }};"><span class="sun" aria-hidden="true"></span><span class="city-badge">{{ city.countText }}</span></span>
+            <span class="city-name">{{ city.name }}, FL <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+            <span class="city-sub">{{ city.county }} County</span>
+          </a>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <sc-if value="{{ showFeatured }}" hint-placeholder-val="{{ true }}">
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="stack-sm">
+            <h2 class="h2">Top-rated pros</h2>
+            <p class="muted">Featured listings are paid and always labeled. They never change ratings.</p>
+          </div>
+          <a class="btn btn-secondary btn-sm" href="/pros" onClick="{{ goAll }}">Browse all {{ totalCount }} pros</a>
+        </div>
+        <div class="grid-3">
+          <sc-for list="{{ featured }}" as="c" hint-placeholder-count="3">
+            <article class="pcard">
+              <div class="pcard-top" style="background: {{ c.bg }};">
+                <span class="tag">{{ c.mainService }}</span>
+                <span class="tag tag-ad">Ad</span>
+                <span class="pcard-initials" aria-hidden="true">{{ c.initials }}</span>
+              </div>
+              <div class="pcard-body">
+                <h3 class="pro-name"><a href="{{ c.href }}" onClick="{{ c.openNav }}">{{ c.name }}</a></h3>
+                <p class="small"><span class="rating"><span class="star" aria-hidden="true">★</span>{{ c.ratingText }}</span> <span class="muted">· {{ c.reviewsText }}</span></p>
+                <p class="pin"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>{{ c.location }}</p>
+                <p class="verified"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>Checked {{ c.lastCheck }}</p>
+                <div class="pcard-actions">
+                  <a class="btn btn-dark btn-sm" href="{{ c.callHref }}">Call now</a>
+                  <a class="btn btn-secondary btn-sm" href="{{ c.href }}" onClick="{{ c.openNav }}">Details</a>
+                </div>
+              </div>
+            </article>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+  </sc-if>
+
+  <section class="section section-alt" id="vetting">
+    <div class="wrap">
+      <div class="stack-sm" style="text-align: center; align-items: center; margin-bottom: 32px;">
+        <h2 class="h2">Checked before they're listed</h2>
+        <p class="muted" style="max-width: 56ch;">Insurance confirmed with the insurer, Florida license and Sunbiz registration verified, prices posted, reviews screened. Re-checked every 90 days.</p>
+      </div>
+      <div class="stats stats-4">
+        <div class="stat"><span class="stat-n">{{ totalCount }}</span><span class="stat-l">Checked pros</span></div>
+        <div class="stat"><span class="stat-n">{{ totalReports }}<em>+</em></span><span class="stat-l">Real price reports</span></div>
+        <div class="stat"><span class="stat-n">{{ cityCount }}</span><span class="stat-l">Florida cities</span></div>
+        <div class="stat"><span class="stat-n">47</span><span class="stat-l">Companies turned down</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap grid-2" style="gap: 40px; align-items: start;">
+      <div class="stack" style="gap: 18px;">
+        <h2 class="h2">What repairs cost in Florida</h2>
+        <p class="muted">From {{ totalReports }} reports Florida homeowners sent us after their repair. A quote inside the range is normal. Well above it? Ask why.</p>
+        <a class="btn btn-primary btn-phone-block" href="/cost" onClick="{{ goPrices }}" style="align-self: flex-start;">Read the price guide</a>
+      </div>
+      <div class="table">
+        <div class="table-head"><span>Repair</span><span>Most paid</span><span>Middle price</span><span>Reports</span></div>
+        <sc-for list="{{ priceIndex }}" as="pi" hint-placeholder-count="7">
+          <a class="price-row" href="/cost" onClick="{{ goPrices }}">
+            <span style="font-weight: 600;">{{ pi.label }}</span>
+            <span class="tnum" style="font-weight: 700;">{{ pi.range }}</span>
+            <span class="only-desk tnum muted">{{ pi.median }}</span>
+            <span class="only-desk tnum muted">{{ pi.count }}</span>
+          </a>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap" id="storm">
+    <div class="storm grid-2" style="align-items: center; padding: 32px 28px;">
       <div class="stack-sm">
-        <h2 class="h2">Door damaged in a storm?</h2>
-        <p class="muted">Keep everyone away from broken glass and take photos for insurance. If the door won't close or lock, call a pro who answers 24/7. Right now, {{ emergencyCount }} listed pros take emergency calls.</p>
+        <span class="eyebrow eyebrow-warn">Hurricane season</span>
+        <h2 class="h3">Door damaged in a storm?</h2>
+        <p class="muted small">Keep everyone away from broken glass and take photos for insurance. {{ emergencyCount }} listed pros answer 24/7.</p>
       </div>
       <div class="row" style="justify-content: flex-end;">
         <button type="button" class="btn btn-warn btn-phone-block" onClick="{{ showEmergency }}">See 24/7 pros</button>
@@ -129,93 +255,49 @@
   </section>
 
   <section class="section">
-    <div class="wrap grid-2" style="gap: 48px; align-items: start;">
-      <div class="stack" style="gap: 20px;">
-        <h2 class="h2">What repairs cost in Florida</h2>
-        <p class="muted">From {{ totalReports }} reports Florida homeowners sent us after their repair. A quote inside the range is normal; well above it, ask why.</p>
-        <a class="btn btn-secondary btn-phone-block" href="/cost" onClick="{{ goPrices }}" style="align-self: flex-start;">Read the full price guide</a>
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="h2">Guides for Florida homeowners</h2>
       </div>
-      <div>
-        <div class="table-head"><span>Repair</span><span>Most paid</span><span>Middle price</span><span>Reports</span></div>
-        <sc-for list="{{ priceIndex }}" as="pi" hint-placeholder-count="7">
-          <a class="price-row" href="/cost" onClick="{{ goPrices }}">
-            <span style="font-weight: 500;">{{ pi.label }}</span>
-            <span class="tnum" style="font-weight: 600;">{{ pi.range }}</span>
-            <span class="only-desk tnum muted">{{ pi.median }}</span>
-            <span class="only-desk tnum muted">{{ pi.count }}</span>
+      <div class="grid-3">
+        <sc-for list="{{ guides }}" as="g" hint-placeholder-count="3">
+          <a class="gcard" href="{{ g.href }}" onClick="{{ g.onClick }}">
+            <span class="gcard-img" style="background: {{ g.bg }};">
+              <span class="tag">{{ g.tag }}</span>
+              <svg class="art" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{ g.icon }}"></path></svg>
+            </span>
+            <span class="tiny muted">{{ g.meta }}</span>
+            <span class="gcard-title">{{ g.title }}</span>
           </a>
         </sc-for>
       </div>
     </div>
   </section>
 
-  <section class="section section-alt" id="vetting">
-    <div class="wrap grid-2" style="gap: 48px; align-items: start;">
-      <div class="stack" style="gap: 24px;">
-        <h2 class="h2">Every pro is checked before they're listed.</h2>
-        <p class="muted">We re-check every 90 days. Paying for a featured spot doesn't skip a single step, and ads are always labeled.</p>
-        <div class="stats">
-          <div class="stat"><span class="stat-n">61</span><span class="stat-l">Applied in 2026</span></div>
-          <div class="stat"><span class="stat-n">14</span><span class="stat-l">Passed</span></div>
-          <div class="stat"><span class="stat-n">47</span><span class="stat-l">Turned down</span></div>
+  <section class="wrap" style="padding-bottom: 72px;">
+    <div class="dark-band">
+      <h2 class="h2">Repair sliding doors in Florida?</h2>
+      <p style="color: #B8C0CF; max-width: 52ch; margin: 12px auto 0;">Get calls from homeowners who already know what's wrong and what it should cost.</p>
+      <div class="band-cards">
+        <div class="band-card">
+          <span class="ic" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>
+          <strong>Free basic listing</strong>
+          <span class="small muted">Profile, phone, repairs and service area at no cost once you pass our checks.</span>
+        </div>
+        <div class="band-card">
+          <span class="ic" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"></path></svg></span>
+          <strong>Direct calls, no lead fees</strong>
+          <span class="small muted">Homeowners call you directly. We don't sell the same lead to five companies.</span>
+        </div>
+        <div class="band-card">
+          <span class="ic" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 6v6c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V6z"></path></svg></span>
+          <strong>A badge people trust</strong>
+          <span class="small muted">"Checked by SlideRepairFL" shows you're insured, licensed and fairly priced.</span>
+          <a class="btn btn-primary btn-sm" href="/list-your-business" onClick="{{ goList }}" style="align-self: flex-start; margin-top: 8px;">List your business</a>
         </div>
       </div>
-      <ul class="checklist">
-        <sc-for list="{{ vetChecks }}" as="v" hint-placeholder-count="7">
-          <li><strong style="font-weight: 600;">{{ v.label }}</strong><span class="muted">, {{ v.how }}</span></li>
-        </sc-for>
-      </ul>
     </div>
-  </section>
-
-  <sc-if value="{{ showFeatured }}" hint-placeholder-val="{{ true }}">
-    <section class="section">
-      <div class="wrap stack" style="gap: 24px;">
-        <div class="row" style="justify-content: space-between; align-items: baseline;">
-          <h2 class="h2">Top-rated pros</h2>
-          <span class="tiny muted">Featured listings are paid and labeled</span>
-        </div>
-        <div>
-          <sc-for list="{{ featured }}" as="c" hint-placeholder-count="3">
-            <article class="pro">
-              <div class="pro-main">
-                <h3 class="pro-name"><a href="{{ c.href }}" onClick="{{ c.openNav }}">{{ c.name }}</a></h3>
-                <p class="small"><span class="rating"><span class="star" aria-hidden="true">★</span>{{ c.ratingText }}</span> <span class="muted">· {{ c.reviewsText }} · {{ c.location }}</span></p>
-                <p class="small"><span class="verified">Checked {{ c.lastCheck }}</span> <span class="muted">· {{ c.priceLine }}</span> <span class="tag tag-ad">Ad</span></p>
-              </div>
-              <div class="pro-actions">
-                <a class="btn btn-primary btn-block" href="{{ c.callHref }}">Call {{ c.phone }}</a>
-                <a class="btn btn-secondary btn-block" href="{{ c.href }}" onClick="{{ c.openNav }}">See details</a>
-              </div>
-            </article>
-          </sc-for>
-        </div>
-      </div>
-    </section>
-  </sc-if>
-
-  <section class="section">
-    <div class="wrap stack" style="gap: 24px;">
-      <div class="row" style="justify-content: space-between; align-items: baseline;">
-        <h2 class="h2">Sliding door repair by city</h2>
-        <a class="btn btn-ghost" href="/pros" onClick="{{ goAll }}">All {{ totalCount }} pros</a>
-      </div>
-      <ul class="linklist grid-3" style="border-top: 0;">
-        <sc-for list="{{ cities }}" as="city" hint-placeholder-count="12">
-          <li><a href="{{ city.href }}" onClick="{{ city.onClick }}"><span>{{ city.name }}</span><span class="tiny muted">{{ city.countText }}</span></a></li>
-        </sc-for>
-      </ul>
-    </div>
-  </section>
-
-  <section class="cta-band">
-    <div class="wrap grid-2" style="align-items: center; padding-block: 56px;">
-      <div class="stack-sm">
-        <h2 class="h2">Repair sliding doors in Florida?</h2>
-        <p style="color: #B9BEC6;">Listing is free for insured, checked companies that post their prices.</p>
-      </div>
-      <div class="row" style="justify-content: flex-end;"><a class="btn btn-secondary btn-phone-block" href="/list-your-business" onClick="{{ goList }}">List your business</a></div>
-    </div>
+    <div style="height: 40px;"></div>
   </section>
 </sc-if>
 
@@ -959,6 +1041,14 @@ const CAUSES = { 'hard-to-slide': 'Usually worn rollers', 'noisy': 'Worn or brok
 SYMPTOMS.forEach((s) => { s.cause = CAUSES[s.id]; });
 const PARTS = [['Rollers', 'hard-to-slide'], ['Track', 'off-track'], ['Lock & handle', 'wont-lock'], ['Seals & drains', 'leaking'], ['Glass', 'glass']];
 const symptomPath = (s) => '/problems/' + s.slug;
+// Florida sunset / gulf / citrus / lagoon tones for city and pro cards until real photos are added.
+const TONES = [
+  'linear-gradient(160deg, #FFB37A 0%, #F0603F 52%, #8C2F5A 100%)',
+  'linear-gradient(160deg, #7FD6E3 0%, #2389B2 55%, #0F416B 100%)',
+  'linear-gradient(160deg, #FFD27F 0%, #F39345 55%, #C9472E 100%)',
+  'linear-gradient(160deg, #8EDCC3 0%, #2F9E8E 55%, #155A6E 100%)'
+];
+const tone = (i) => TONES[i % TONES.length];
 const cityPath = (slug) => '/sliding-glass-door-repair/' + slug;
 const proPath = (c) => '/pros/' + c.slug;
 
@@ -1001,7 +1091,7 @@ function ROUTE_LIST() {
   return r;
 }
 
-const DEFAULTS = { view: 'home', symptom: null, query: '', service: 'All services', price: 'Any', emergency: false, sort: 'rating', mode: 'list', selectedId: null, compare: [], quoteSent: false, report: 'closed', listSent: false, plan: 'free' };
+const DEFAULTS = { view: 'home', symptom: null, heroSymptom: '', query: '', service: 'All services', price: 'Any', emergency: false, sort: 'rating', mode: 'list', selectedId: null, compare: [], quoteSent: false, report: 'closed', listSent: false, plan: 'free' };
 
 // ---------------------------------------------------------------------------
 // Component
@@ -1185,7 +1275,8 @@ class Component extends DCLogic {
         label: SERVICE_INFO[sv].label, cells: cmp.map((c) => { const pr = c.prices.find((x) => x.service === sv); return pr ? `${money(pr.lo)}–${money(pr.hi)}` : '—'; })
       }))
     ];
-    const symVals = (x) => ({ ...x, href: symptomPath(x), priceRange: PRICE_STATS[x.service].range, rowCls: x.emergency ? 'issue issue-warn' : 'issue', pick: nav(() => this.pickSymptom(x.id)) });
+    const symVals = (x) => ({ ...x, href: symptomPath(x), priceRange: PRICE_STATS[x.service].range, rowCls: x.emergency ? 'issue issue-warn' : 'issue', tileCls: x.emergency ? 'ptile ptile-warn' : 'ptile', pick: nav(() => this.pickSymptom(x.id)) });
+    const scrollCities = (dir) => () => { const el = document.getElementById('city-scroll'); if (el) el.scrollBy({ left: dir * el.clientWidth * 0.8, behavior: 'smooth' }); };
 
     return {
       showFeatured,
@@ -1202,6 +1293,20 @@ class Component extends DCLogic {
       seeAllForSymptom: nav(() => this.go('results', { service: sym.service, emergency: !!sym.emergency })),
 
       symptoms: SYMPTOMS.map(symVals),
+      popular: ['hard-to-slide', 'leaking', 'wont-lock', 'storm'].map((id) => symVals(SYMPTOMS.find((x) => x.id === id))),
+      heroSymptom: s.heroSymptom,
+      heroOptions: [{ value: '', label: 'Any repair' }, ...SYMPTOMS.map((x) => ({ value: x.id, label: x.title }))],
+      onHeroSymptom: (e) => set({ heroSymptom: e.target.value }),
+      onHeroSearch: (e) => { e.preventDefault(); if (s.heroSymptom) this.pickSymptom(s.heroSymptom); else this.go('results', { service: 'All services', emergency: false, symptom: null }); },
+      rollerPrice: PRICE_STATS['Rollers'].range,
+      topPro: all.slice().sort((a, b) => b.rating - a.rating || b.reviews - a.reviews)[0],
+      cityCount: CITIES.length,
+      cityPrev: scrollCities(-1), cityNext: scrollCities(1),
+      guides: [
+        { tag: 'Price guide', meta: 'Updated Oct 2026 · 5 min read', title: 'Sliding glass door repair cost in Florida (2026 prices)', href: '/cost', onClick: nav(() => this.go('prices')), bg: tone(0), icon: 'M12 2v20 M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6' },
+        { tag: 'Guide', meta: 'Leaks · 4 min read', title: 'Sliding door leaking when it rains? Causes and fixes', href: symptomPath(SYMPTOMS.find((x) => x.id === 'leaking')), onClick: nav(() => this.pickSymptom('leaking')), bg: tone(1), icon: SYMPTOMS.find((x) => x.id === 'leaking').icon },
+        { tag: 'Storm help', meta: 'Hurricane season · 4 min read', title: 'Hurricane-damaged sliding door: what to do first', href: symptomPath(SYMPTOMS.find((x) => x.id === 'storm')), onClick: nav(() => this.pickSymptom('storm')), bg: tone(3), icon: SYMPTOMS.find((x) => x.id === 'storm').icon }
+      ],
       parts: PARTS.map(([label, id], i) => ({ n: i + 1, label, href: symptomPath(SYMPTOMS.find((x) => x.id === id)), pick: nav(() => this.pickSymptom(id)) })),
       goProblems: nav(() => this.scrollToId('problems')),
       otherSymptoms: SYMPTOMS.filter((x) => x.id !== sym.id).map(symVals),
@@ -1226,11 +1331,11 @@ class Component extends DCLogic {
         return { label: info.label, lower: info.lower, slug: info.slug, what: info.what, factors: info.factors, median: st.median, range: st.range, count: st.count, guideHref: symptomPath(g), openGuide: nav(() => this.pickSymptom(g.id)), onClick: nav(() => this.go('results', { query: '', service: name, symptom: null })) };
       }),
       priceFaq: PRICE_FAQ,
-      cities: CITIES.map(([name, county, slug]) => {
+      cities: CITIES.map(([name, county, slug], i) => {
         const k = COMPANIES.filter((c) => c.city === name || c.areas.includes(name)).length;
-        return { name, county, href: cityPath(slug), countText: k === 1 ? '1 pro' : `${k} pros`, onClick: nav(() => this.go('results', { query: name, service: 'All services', emergency: false, symptom: null })) };
+        return { name, county, bg: tone(i), href: cityPath(slug), countText: k === 1 ? '1 pro' : `${k} pros`, onClick: nav(() => this.go('results', { query: name, service: 'All services', emergency: false, symptom: null })) };
       }),
-      featured: all.filter((c) => c.featured),
+      featured: all.filter((c) => c.featured).map((c, i) => ({ ...c, bg: tone(i + 1), initials: c.name.split(' ').slice(0, 2).map((w) => w[0]).join(''), mainService: c.emergency ? '24/7 storm calls' : SERVICE_INFO[c.services[0]].label })),
       vetChecks: VET,
       doorTypes: DOORS,
 
