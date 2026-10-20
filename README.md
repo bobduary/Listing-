@@ -1,4 +1,4 @@
-# SlideRepairFL: Florida sliding door repair directory
+# FixMySlide: Florida sliding door repair directory
 
 The directory designed in the "Florida Sliding Door Directory" canvas, built as a real website.
 
@@ -7,6 +7,7 @@ The directory designed in the "Florida Sliding Door Directory" canvas, built as 
 - `src/pages/Directory.dc.html`: the whole directory (template + logic), exported from the canvas and redesigned. It walks homeowners through ① what's wrong (8 problems) → ② fair Florida price → ③ checked pros who fix it.
 - **Pages (SEO):** the component's `static routes()` lists every public URL with its starting screen, title, description and JSON-LD. The build renders each one to its own static HTML file, and in the browser the app switches screens without reloading while keeping the address bar in sync.
   - `/`: home
+  - `/how-it-works`: how it works for homeowners and pros
   - `/problems/<slug>`: 8 problem guides with FAQ markup (e.g. `/problems/sliding-door-leaking`)
   - `/cost`: Florida repair price guide, price calculator and "Is my quote fair?" checker, with FAQ markup
   - `/pros` and `/sliding-glass-door-repair/<city>`: 12 city pages
@@ -15,7 +16,7 @@ The directory designed in the "Florida Sliding Door Directory" canvas, built as 
   - `/compare` (noindex) and `/list-your-business`
 - `src/runtime/`: renders canvas templates with React (`{{holes}}`, `sc-for`, `sc-if`, `style-hover`).
 - `scripts/build.mjs`: server-renders every route, bundles the JavaScript, and writes `robots.txt` (plus `sitemap.xml` once `src/site.js` has a domain).
-- `public/css/site.css`: the design (deep blue on white, Public Sans, phone-first, 18px base text).
+- `public/css/site.css`: the "Coastal Professional" design system (Trust Blue + Emerald, Plus Jakarta Sans + Inter, tonal layers instead of borders, Material Symbols icons).
 - `public/map-view.html`: the Leaflet map for the map view. Leaflet is in `public/vendor/`.
 
 ## Adding companies (data/companies.csv)
@@ -33,12 +34,14 @@ The directory is built from `data/companies.csv`: one row per company. Edit it i
 | `warranty`, `callout_fee`, `years_in_business` | Text, text, number |
 | `verified`, `license_number` | `yes` once they pass the full checks; license number if they have one |
 | `featured`, `premium` | `yes` for paid placement (shown as "Ad") and for a premium profile (photos and videos) |
-| `rating`, `review_count` | From SlideRepairFL's own reviews |
+| `rating`, `review_count` | From FixMySlide's own reviews |
 | `about`, `logo_url`, `photo_urls`, `video_urls` | Description; image/video links (`;`-separated). Photos and videos show on premium profiles. |
 | `lat`, `lng` | Optional. Without them, the city's location is used for distance. |
 | `sample` | `yes` marks the demo companies. Delete those rows when real companies are added. |
 
 City pages are created automatically for every city a company is based in.
+
+`data/images.csv` holds the site photos (hero, problem cards, How it Works) by key; swap a `url` to change a photo. They currently point to the images from the Stitch design; download them into `public/` and use local paths before launch, since those links may expire.
 
 `data/videos.csv` lists how-to videos for the problem pages: `problem` (e.g. `leaking` or `hard-to-slide`), `title`, `url`.
 

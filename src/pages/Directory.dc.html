@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Sliding Glass Door Repair in Florida | Checked Pros &amp; Fair Prices | SlideRepairFL</title>
+<title>Sliding Glass Door Repair in Florida | Checked Pros &amp; Fair Prices | FixMySlide</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
 </head>
@@ -11,7 +11,8 @@
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&icon_names=analytics,arrow_forward,bar_chart,build,call,check_circle,chevron_left,chevron_right,door_sliding,edit_document,edit_note,expand_more,format_quote,gpp_good,help,info,location_on,menu,payments,request_quote,search,shield,shield_with_heart,star,storefront,swap_horiz,thunderstorm,verified,verified_user,volume_up,water_drop&display=block">
 <link rel="stylesheet" href="/css/site.css">
 </helmet>
 
@@ -19,28 +20,24 @@
 
 <header class="topbar">
   <div class="wrap topbar-in">
-    <a class="brand" href="/" onClick="{{ goHome }}">
-      <span class="brand-mark" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><rect x="1.5" y="2.5" width="21" height="19" rx="4" fill="currentColor"></rect><path d="M12 6v12" stroke="#fff" stroke-width="1.8"></path><path d="M9 10.5v3" stroke="#fff" stroke-width="1.8" stroke-linecap="round"></path><path d="M5 18h14" stroke="#fff" stroke-width="1.4" opacity=".7"></path></svg></span>
-      SlideRepairFL
-    </a>
+    <a class="brand" href="/" onClick="{{ goHome }}"><span class="ms" aria-hidden="true">door_sliding</span>FixMySlide</a>
     <nav class="nav-links" aria-label="Main">
-      <a href="/#problems" onClick="{{ goProblems }}">Door problems</a>
-      <a href="/cost" onClick="{{ goPrices }}">Prices</a>
-      <a href="/pros" onClick="{{ goAll }}">Find a pro</a>
-      <a href="/problems/hurricane-damaged-sliding-door" onClick="{{ goStorm }}">Storm help</a>
-      <a href="/list-your-business" onClick="{{ goList }}">For businesses</a>
+      <a href="/pros" onClick="{{ goAll }}" aria-current="{{ navPros }}">Find a Pro</a>
+      <a href="/cost" onClick="{{ goPrices }}" aria-current="{{ navPrices }}">Pricing</a>
+      <a href="/how-it-works" onClick="{{ goHow }}" aria-current="{{ navHow }}">How it Works</a>
+      <a href="/problems/hurricane-damaged-sliding-door" onClick="{{ goStorm }}">Storm Help</a>
     </nav>
-    <a class="btn btn-primary btn-sm nav-cta" href="/pros" onClick="{{ goAll }}">Find a pro</a>
+    <a class="btn btn-primary btn-sm nav-cta" href="/list-your-business" onClick="{{ goList }}">Join as a Pro</a>
     <details class="menu">
-      <summary aria-label="Open menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>Menu</summary>
+      <summary aria-label="Open menu"><span class="ms" aria-hidden="true">menu</span></summary>
       <div class="menu-panel">
-        <a href="/#problems" onClick="{{ goProblems }}">Door problems</a>
-        <a href="/cost" onClick="{{ goPrices }}">Repair prices in Florida</a>
-        <a href="/pros" onClick="{{ goAll }}">Find a checked pro</a>
-        <a href="/problems/hurricane-damaged-sliding-door" onClick="{{ goStorm }}">Storm &amp; hurricane help</a>
-        <a href="/repair-or-replace" onClick="{{ goDecide }}">Repair or replace?</a>
-        <a href="/compare" onClick="{{ goCompare }}">Compare pros</a>
-        <a href="/list-your-business" onClick="{{ goList }}">For repair businesses</a>
+        <a href="/pros" onClick="{{ goAll }}"><span class="ms" aria-hidden="true">search</span>Find a Pro</a>
+        <a href="/#problems" onClick="{{ goProblems }}"><span class="ms" aria-hidden="true">door_sliding</span>What's wrong with my door?</a>
+        <a href="/cost" onClick="{{ goPrices }}"><span class="ms" aria-hidden="true">payments</span>Pricing &amp; quote check</a>
+        <a href="/repair-or-replace" onClick="{{ goDecide }}"><span class="ms" aria-hidden="true">help</span>Repair or replace?</a>
+        <a href="/problems/hurricane-damaged-sliding-door" onClick="{{ goStorm }}"><span class="ms" aria-hidden="true">thunderstorm</span>Storm help</a>
+        <a href="/how-it-works" onClick="{{ goHow }}"><span class="ms" aria-hidden="true">info</span>How it Works</a>
+        <a href="/list-your-business" onClick="{{ goList }}"><span class="ms" aria-hidden="true">storefront</span>Join as a Pro</a>
       </div>
     </details>
   </div>
@@ -51,96 +48,148 @@
 <!-- ================= HOME ================= -->
 <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
 
-  <section class="hero">
-    <div class="wrap hero-grid">
-      <div class="stack" style="gap: 22px;">
-        <span class="eyebrow">Florida's sliding door repair directory</span>
-        <h1 class="h1">Find a trusted sliding door pro in Florida</h1>
-        <p class="lead">Tell us what's wrong. See a fair price in plain numbers, then call a checked local pro. Free for homeowners.</p>
-        <form class="searchbox" onSubmit="{{ onHeroSearch }}" role="search">
-          <label>City or ZIP<input value="{{ query }}" onChange="{{ onQuery }}" placeholder="e.g. Tampa or 33602" autoComplete="postal-code"></label>
-          <label>What's wrong?
-            <select value="{{ heroSymptom }}" onChange="{{ onHeroSymptom }}">
-              <sc-for list="{{ heroOptions }}" as="o" hint-placeholder-count="9"><option value="{{ o.value }}">{{ o.label }}</option></sc-for>
-            </select>
-          </label>
-          <button type="submit" class="btn btn-primary">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>Search
-          </button>
-        </form>
-        <div class="row" style="gap: 8px;">
-          <span class="tiny muted" style="font-weight: 600;">Popular:</span>
-          <sc-for list="{{ popular }}" as="s" hint-placeholder-count="4">
-            <a class="chip" href="{{ s.href }}" onClick="{{ s.pick }}">{{ s.title }}</a>
-          </sc-for>
-        </div>
-      </div>
-
-      <div class="mosaic">
-        <figure class="tile tile-big" style="margin: 0;">
-          <span class="label">Which part is causing it?</span>
-          <svg class="diagram" viewBox="0 0 520 380" role="img" aria-label="Diagram of a sliding glass door showing the rollers, track, lock, seals and glass">
-            <rect x="40" y="24" width="440" height="300" rx="4" fill="#FFFFFF" stroke="#0E1726" stroke-width="2"></rect>
-            <rect x="54" y="38" width="218" height="272" fill="#FFFFFF" stroke="#0E1726" stroke-width="1.5"></rect>
-            <rect x="68" y="52" width="190" height="244" fill="#DCEEF5" stroke="#9FB3C2" stroke-width="1"></rect>
-            <rect x="250" y="44" width="218" height="266" fill="#FFFFFF" stroke="#0E1726" stroke-width="1.5"></rect>
-            <rect x="264" y="58" width="190" height="238" fill="#CFE6F0" stroke="#9FB3C2" stroke-width="1"></rect>
-            <path d="M96 80 136 120 M110 72 160 122" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round"></path>
-            <path d="M290 86 330 126 M304 78 354 128" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round"></path>
-            <rect x="256" y="158" width="7" height="46" rx="2" fill="#0E1726"></rect>
-            <path d="M466 48v258" stroke="#D93A2B" stroke-width="3" stroke-dasharray="5 4"></path>
-            <rect x="34" y="318" width="452" height="14" rx="2" fill="#F6F7F9" stroke="#0E1726" stroke-width="1.5"></rect>
-            <circle cx="282" cy="312" r="7" fill="#FFFFFF" stroke="#0E1726" stroke-width="2"></circle>
-            <circle cx="436" cy="312" r="7" fill="#FFFFFF" stroke="#0E1726" stroke-width="2"></circle>
-            <path d="M282 312 310 352" stroke="#D93A2B" stroke-width="1.4"></path>
-            <circle cx="318" cy="358" r="13" fill="#D93A2B"></circle><text x="318" y="362.5" text-anchor="middle" font-size="13" font-weight="700" fill="#FFFFFF" font-family="Plus Jakarta Sans, sans-serif">1</text>
-            <path d="M120 332 104 352" stroke="#D93A2B" stroke-width="1.4"></path>
-            <circle cx="98" cy="358" r="13" fill="#D93A2B"></circle><text x="98" y="362.5" text-anchor="middle" font-size="13" font-weight="700" fill="#FFFFFF" font-family="Plus Jakarta Sans, sans-serif">2</text>
-            <path d="M256 181 224 181" stroke="#D93A2B" stroke-width="1.4"></path>
-            <circle cx="210" cy="181" r="13" fill="#D93A2B"></circle><text x="210" y="185.5" text-anchor="middle" font-size="13" font-weight="700" fill="#FFFFFF" font-family="Plus Jakarta Sans, sans-serif">3</text>
-            <path d="M466 120 492 120" stroke="#D93A2B" stroke-width="1.4"></path>
-            <circle cx="504" cy="120" r="13" fill="#D93A2B"></circle><text x="504" y="124.5" text-anchor="middle" font-size="13" font-weight="700" fill="#FFFFFF" font-family="Plus Jakarta Sans, sans-serif">4</text>
-            <circle cx="150" cy="218" r="13" fill="#D93A2B"></circle><text x="150" y="222.5" text-anchor="middle" font-size="13" font-weight="700" fill="#FFFFFF" font-family="Plus Jakarta Sans, sans-serif">5</text>
-          </svg>
-          <figcaption>
-            <ul class="legend">
-              <sc-for list="{{ parts }}" as="pt" hint-placeholder-count="5">
-                <li><a href="{{ pt.href }}" onClick="{{ pt.pick }}"><span class="marker">{{ pt.n }}</span>{{ pt.label }}</a></li>
-              </sc-for>
-            </ul>
-          </figcaption>
-        </figure>
-        <a class="tile card-lift" href="/cost" onClick="{{ goPrices }}" style="text-decoration: none; color: var(--color-text);">
-          <span class="label">Fair price · roller replacement</span>
-          <span class="price-big" style="font-size: 30px;">{{ rollerPrice }}</span>
-          <span class="tiny muted">What most Florida homeowners paid</span>
-        </a>
-        <a class="tile card-lift" href="{{ topPro.href }}" onClick="{{ topPro.openNav }}" style="text-decoration: none; color: var(--color-text);">
-          <span class="{{ topPro.badgeCls }}" style="align-self: flex-start;">{{ topPro.badgeLabel }}</span>
-          <strong style="font-size: 16px; line-height: 1.3;">{{ topPro.name }}</strong>
-          <span class="tiny"><span class="rating"><span class="star" aria-hidden="true">★</span>{{ topPro.ratingText }}</span> <span class="muted">· {{ topPro.reviewsText }}</span></span>
-        </a>
+  <header class="hero-photo">
+    <div class="bg" style="background-image: url({{ img.hero }});" aria-hidden="true"></div>
+    <div class="tint" aria-hidden="true"></div>
+    <div class="wrap stack" style="gap: 28px;">
+      <h1 class="h1">Florida’s Most Trusted Sliding Door Experts.</h1>
+      <p class="lead">Stop overpaying for repairs. See the fair price first, then call a checked, insured sliding door pro near you.</p>
+      <form class="searchbox" onSubmit="{{ onHeroSearch }}" role="search">
+        <label><span class="ms" aria-hidden="true">location_on</span><span class="sr-only" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0);">City or ZIP code</span><input value="{{ query }}" onChange="{{ onQuery }}" placeholder="City or ZIP code" autoComplete="postal-code"></label>
+        <label><span class="ms" aria-hidden="true">build</span><span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0);">What's the problem?</span>
+          <select value="{{ heroSymptom }}" onChange="{{ onHeroSymptom }}">
+            <sc-for list="{{ heroOptions }}" as="o" hint-placeholder-count="9"><option value="{{ o.value }}">{{ o.label }}</option></sc-for>
+          </select>
+        </label>
+        <button type="submit" class="btn btn-primary">Search Pros<span class="ms" aria-hidden="true">arrow_forward</span></button>
+      </form>
+      <div class="hero-chips">
+        <span>Popular:</span>
+        <sc-for list="{{ popular }}" as="s" hint-placeholder-count="4"><a href="{{ s.href }}" onClick="{{ s.pick }}">{{ s.title }}</a></sc-for>
       </div>
     </div>
-  </section>
+  </header>
 
-  <section class="section" id="problems" style="padding-top: 24px;">
+  <section class="section" id="problems">
     <div class="wrap">
       <div class="section-head">
         <div class="stack-sm">
-          <h2 class="h2">What's wrong with your door?</h2>
-          <p class="muted">Pick the closest match for a plain-English guide and a fair price.</p>
+          <span class="eyebrow">Common issues</span>
+          <h2 class="h2">What can we help with?</h2>
         </div>
-        <a class="btn btn-secondary btn-sm" href="/cost" onClick="{{ goPrices }}">All repair prices</a>
+        <p class="muted" style="max-width: 440px;">Pick your problem for a plain-English explanation, the fair Florida price, and checked pros who fix it.</p>
       </div>
       <div class="tiles">
-        <sc-for list="{{ symptoms }}" as="s" hint-placeholder-count="8">
-          <a class="{{ s.tileCls }}" href="{{ s.href }}" onClick="{{ s.pick }}">
-            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{ s.icon }}"></path></svg>
+        <sc-for list="{{ photoProblems }}" as="s" hint-placeholder-count="4">
+          <a class="ptile" href="{{ s.href }}" onClick="{{ s.pick }}">
+            <span class="ptile-img" style="background-image: url({{ s.img }});" aria-hidden="true"></span>
             <span class="ptile-title">{{ s.title }}</span>
             <span class="ptile-sub">{{ s.cause }}</span>
             <span class="ptile-price tnum">{{ s.priceRange }}</span>
           </a>
+        </sc-for>
+      </div>
+      <div class="issue-chip-row">
+        <span class="small muted" style="font-weight: 600;">Something else?</span>
+        <sc-for list="{{ otherProblems }}" as="s" hint-placeholder-count="4">
+          <a class="chip" href="{{ s.href }}" onClick="{{ s.pick }}"><span class="ms" style="font-size: 18px;" aria-hidden="true">{{ s.ms }}</span>{{ s.title }}</a>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="wrap">
+      <div class="tc">
+        <div class="tc-left">
+          <h2 class="h2">Know the fair price before you call.</h2>
+          <p class="lead">Based on {{ totalReports }} price reports from Florida homeowners, so you never pay a "tourist tax" on a door repair.</p>
+          <div class="stack" style="gap: 22px;">
+            <sc-for list="{{ priceBars }}" as="b" hint-placeholder-count="4">
+              <a class="bar-row" href="/cost" onClick="{{ goPrices }}">
+                <span class="bar-top"><span>{{ b.label }}</span><strong class="tnum">{{ b.range }}</strong></span>
+                <span class="{{ b.cls }}"><span style="width: {{ b.width }};"></span></span>
+              </a>
+            </sc-for>
+          </div>
+          <a class="btn btn-secondary" href="/cost" onClick="{{ goPrices }}" style="align-self: flex-start;">See all repair prices</a>
+        </div>
+        <div class="tc-right">
+          <span class="ms" style="font-size: 88px;" aria-hidden="true">request_quote</span>
+          <h3>Already have a quote?</h3>
+          <p style="max-width: 34ch; opacity: 0.9;">Check it in 10 seconds. We'll tell you if it's low, normal or high for Florida.</p>
+          <a class="btn btn-white" href="/cost#checker" onClick="{{ goPrices }}">Is my quote fair?</a>
+          <a href="/cost#calculator" onClick="{{ goPrices }}" style="color: #fff; font-weight: 600;">Or estimate your repair cost →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div style="text-align: center; margin-bottom: 56px;">
+        <h2 class="h2">Simple, Fast, &amp; Transparent</h2>
+        <div class="rule" aria-hidden="true"></div>
+      </div>
+      <div class="steps3">
+        <div class="step3">
+          <span class="ic" aria-hidden="true"><span class="ms">edit_note</span></span>
+          <h3 class="h3">Describe the issue</h3>
+          <p class="muted">Pick what your door is doing. We explain the likely cause and what you can safely try first.</p>
+        </div>
+        <div class="step3">
+          <span class="ic mint" aria-hidden="true"><span class="ms">bar_chart</span></span>
+          <h3 class="h3">See the fair price</h3>
+          <p class="muted">Real prices Florida homeowners paid, plus a quick check for any quote you already have.</p>
+        </div>
+        <div class="step3">
+          <span class="ic" aria-hidden="true"><span class="ms">verified_user</span></span>
+          <h3 class="h3">Call a verified pro</h3>
+          <p class="muted">Insured, licensed local pros ranked by reviews, honest pricing and response time.</p>
+        </div>
+      </div>
+      <div style="text-align: center; margin-top: 40px;"><a class="btn btn-secondary" href="/how-it-works" onClick="{{ goHow }}">How it works</a></div>
+    </div>
+  </section>
+
+  <div class="trust-band">
+    <div class="wrap">
+      <span class="ms" aria-hidden="true">shield</span>
+      <div style="max-width: 640px;">
+        <h2>We do the background checks so you don't have to.</h2>
+        <p>Verified pros are checked for insurance, Florida licensing and posted prices, then re-checked every 90 days.</p>
+      </div>
+      <a class="btn btn-white" href="/how-it-works" onClick="{{ goHow }}">Learn more</a>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="h2">Top-rated pros in Florida</h2>
+        <a class="btn btn-ghost" href="/pros" onClick="{{ goAll }}">See all {{ totalCount }} pros<span class="ms" aria-hidden="true">arrow_forward</span></a>
+      </div>
+      <div class="grid-3">
+        <sc-for list="{{ featured }}" as="c" hint-placeholder-count="3">
+          <article class="pcard">
+            <div class="pcard-head">
+              <span class="avatar" aria-hidden="true">{{ c.initials }}</span>
+              <div class="stack-sm" style="gap: 2px; min-width: 0;">
+                <h3 class="pro-name" style="font-size: 19px;"><a href="{{ c.href }}" onClick="{{ c.openNav }}">{{ c.name }}</a></h3>
+                <span class="small"><span class="ms ms-fill star" style="font-size: 18px; vertical-align: -3px;" aria-hidden="true">star</span> <strong>{{ c.ratingText }}</strong> <span class="muted">({{ c.reviews }} reviews)</span></span>
+              </div>
+            </div>
+            <div class="row" style="gap: 8px;">
+              <span class="{{ c.badgeCls }}">{{ c.badgeLabel }}</span>
+              <span class="tag">{{ c.mainService }}</span>
+              <span class="tag tag-ad">Ad</span>
+            </div>
+            <p class="pin"><span class="ms" style="font-size: 18px; color: var(--color-accent);" aria-hidden="true">location_on</span>{{ c.location }}</p>
+            <div class="pcard-actions">
+              <a class="btn btn-primary btn-block" href="{{ c.callHref }}"><span class="ms" aria-hidden="true">call</span>Call now</a>
+              <a class="btn btn-secondary btn-block" href="{{ c.href }}" onClick="{{ c.openNav }}">View profile</a>
+            </div>
+          </article>
         </sc-for>
       </div>
     </div>
@@ -154,15 +203,15 @@
           <p class="muted">Checked pros in {{ cityCount }} Florida cities and growing.</p>
         </div>
         <div class="row" style="gap: 8px;">
-          <button type="button" class="btn btn-secondary btn-round" aria-label="Scroll cities left" onClick="{{ cityPrev }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6"></path></svg></button>
-          <button type="button" class="btn btn-dark btn-round" aria-label="Scroll cities right" onClick="{{ cityNext }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg></button>
+          <button type="button" class="btn btn-secondary btn-round" aria-label="Scroll cities left" onClick="{{ cityPrev }}"><span class="ms" aria-hidden="true">chevron_left</span></button>
+          <button type="button" class="btn btn-primary btn-round" aria-label="Scroll cities right" onClick="{{ cityNext }}"><span class="ms" aria-hidden="true">chevron_right</span></button>
         </div>
       </div>
       <div class="scroller" id="city-scroll">
         <sc-for list="{{ cities }}" as="city" hint-placeholder-count="12">
           <a class="city" href="{{ city.href }}" onClick="{{ city.onClick }}">
             <span class="city-img" style="background: {{ city.bg }};"><span class="sun" aria-hidden="true"></span><span class="city-badge">{{ city.countText }}</span></span>
-            <span class="city-name">{{ city.name }}, FL <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+            <span class="city-name">{{ city.name }}, FL <span class="ms" aria-hidden="true">arrow_forward</span></span>
             <span class="city-sub">{{ city.county }} County</span>
           </a>
         </sc-for>
@@ -170,136 +219,129 @@
     </div>
   </section>
 
-  <sc-if value="{{ showFeatured }}" hint-placeholder-val="{{ true }}">
-    <section class="section">
-      <div class="wrap">
-        <div class="section-head">
-          <div class="stack-sm">
-            <h2 class="h2">Top-rated pros</h2>
-            <p class="muted">Featured listings are paid and always labeled. They never change ratings.</p>
-          </div>
-          <a class="btn btn-secondary btn-sm" href="/pros" onClick="{{ goAll }}">Browse all {{ totalCount }} pros</a>
-        </div>
-        <div class="grid-3">
-          <sc-for list="{{ featured }}" as="c" hint-placeholder-count="3">
-            <article class="pcard">
-              <div class="pcard-top" style="background: {{ c.bg }};">
-                <span class="tag">{{ c.mainService }}</span>
-                <span class="tag tag-ad">Ad</span>
-                <span class="pcard-initials" aria-hidden="true">{{ c.initials }}</span>
-              </div>
-              <div class="pcard-body">
-                <h3 class="pro-name"><a href="{{ c.href }}" onClick="{{ c.openNav }}">{{ c.name }}</a></h3>
-                <p class="small"><span class="rating"><span class="star" aria-hidden="true">★</span>{{ c.ratingText }}</span> <span class="muted">· {{ c.reviewsText }}</span></p>
-                <p class="pin"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>{{ c.location }}</p>
-                <p class="small muted">{{ c.responseText }}</p>
-                <span class="{{ c.badgeCls }}" style="align-self: flex-start;">{{ c.badgeLabel }}</span>
-                <div class="pcard-actions">
-                  <a class="btn btn-dark btn-sm" href="{{ c.callHref }}">Call now</a>
-                  <a class="btn btn-secondary btn-sm" href="{{ c.href }}" onClick="{{ c.openNav }}">Details</a>
-                </div>
-              </div>
-            </article>
-          </sc-for>
-        </div>
-      </div>
-    </section>
-  </sc-if>
-
-  <section class="section section-alt" id="vetting">
-    <div class="wrap">
-      <div class="stack-sm" style="text-align: center; align-items: center; margin-bottom: 32px;">
-        <h2 class="h2">Checked before they're listed</h2>
-        <p class="muted" style="max-width: 56ch;">Insurance confirmed with the insurer, Florida license and Sunbiz registration verified, prices posted, reviews screened. Re-checked every 90 days.</p>
-      </div>
-      <div class="stats stats-4">
-        <div class="stat"><span class="stat-n">{{ totalCount }}</span><span class="stat-l">Checked pros</span></div>
-        <div class="stat"><span class="stat-n">{{ totalReports }}<em>+</em></span><span class="stat-l">Real price reports</span></div>
-        <div class="stat"><span class="stat-n">{{ cityCount }}</span><span class="stat-l">Florida cities</span></div>
-        <div class="stat"><span class="stat-n">47</span><span class="stat-l">Companies turned down</span></div>
-      </div>
-    </div>
-  </section>
-
   <section class="section">
-    <div class="wrap grid-2" style="gap: 40px; align-items: start;">
-      <div class="stack" style="gap: 18px;">
-        <h2 class="h2">What repairs cost in Florida</h2>
-        <p class="muted">From {{ totalReports }} reports Florida homeowners sent us after their repair. A quote inside the range is normal. Well above it? Ask why.</p>
-        <a class="btn btn-primary btn-phone-block" href="/cost" onClick="{{ goPrices }}" style="align-self: flex-start;">Read the price guide</a>
-      </div>
-      <div class="table">
-        <div class="table-head"><span>Repair</span><span>Most paid</span><span>Middle price</span><span>Reports</span></div>
-        <sc-for list="{{ priceIndex }}" as="pi" hint-placeholder-count="7">
-          <a class="price-row" href="/cost" onClick="{{ goPrices }}">
-            <span style="font-weight: 600;">{{ pi.label }}</span>
-            <span class="tnum" style="font-weight: 700;">{{ pi.range }}</span>
-            <span class="only-desk tnum muted">{{ pi.median }}</span>
-            <span class="only-desk tnum muted">{{ pi.count }}</span>
-          </a>
-        </sc-for>
-      </div>
+    <div class="wrap">
+      <figure class="quote-card">
+        <span class="ms q" aria-hidden="true">format_quote</span>
+        <blockquote>“{{ story.text }}”</blockquote>
+        <figcaption class="stack-sm" style="align-items: center; gap: 4px;">
+          <span class="avatar" aria-hidden="true">{{ story.initials }}</span>
+          <strong class="h4" style="margin-top: 8px;">{{ story.author }}</strong>
+          <span class="small muted">{{ story.where }}</span>
+        </figcaption>
+      </figure>
     </div>
   </section>
 
-  <section class="wrap" id="storm">
-    <div class="storm grid-2" style="align-items: center; padding: 32px 28px;">
+  <section class="wrap" id="storm" style="padding-bottom: 72px;">
+    <div class="storm grid-2" style="align-items: center; padding: 32px;">
       <div class="stack-sm">
         <span class="eyebrow eyebrow-warn">Hurricane season</span>
         <h2 class="h3">Door damaged in a storm?</h2>
         <p class="muted small">Keep everyone away from broken glass and take photos for insurance. {{ emergencyCount }} listed pros answer 24/7.</p>
       </div>
       <div class="row" style="justify-content: flex-end;">
-        <button type="button" class="btn btn-warn btn-phone-block" onClick="{{ showEmergency }}">See 24/7 pros</button>
+        <button type="button" class="btn btn-warn btn-phone-block" onClick="{{ showEmergency }}">I need help now</button>
         <a class="btn btn-secondary btn-phone-block" href="/problems/hurricane-damaged-sliding-door" onClick="{{ goStorm }}">What to do first</a>
       </div>
     </div>
   </section>
 
-  <section class="section">
+  <section class="pro-cta section">
     <div class="wrap">
-      <div class="section-head">
-        <h2 class="h2">Guides for Florida homeowners</h2>
+      <div class="stack" style="max-width: 680px;">
+        <h2>Are you a top-rated sliding door pro in Florida?</h2>
+        <p style="font-size: 18px; opacity: 0.8;">Join our network of checked professionals. Homeowners call you directly, already knowing what's wrong and the fair price. No lead fees.</p>
       </div>
-      <div class="grid-3">
-        <sc-for list="{{ guides }}" as="g" hint-placeholder-count="3">
-          <a class="gcard" href="{{ g.href }}" onClick="{{ g.onClick }}">
-            <span class="gcard-img" style="background: {{ g.bg }};">
-              <span class="tag">{{ g.tag }}</span>
-              <svg class="art" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{ g.icon }}"></path></svg>
-            </span>
-            <span class="tiny muted">{{ g.meta }}</span>
-            <span class="gcard-title">{{ g.title }}</span>
-          </a>
-        </sc-for>
+      <a class="btn" href="/list-your-business" onClick="{{ goList }}">Claim your profile</a>
+    </div>
+  </section>
+</sc-if>
+
+<!-- ================= HOW IT WORKS ================= -->
+<sc-if value="{{ isHow }}" hint-placeholder-val="{{ false }}">
+  <section class="hero-split">
+    <div class="wrap hero-split-grid">
+      <div class="stack" style="gap: 24px;">
+        <span class="tag tag-ok" style="align-self: flex-start; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; padding: 6px 16px;">The portal to Florida living</span>
+        <h1 class="h1" style="font-size: clamp(36px, 5vw, 60px);">Seamless service for <span class="text-primary">seamless transitions.</span></h1>
+        <p class="lead">Whether you're a homeowner who wants the door fixed right or a pro who does great work, FixMySlide connects you with transparency and trust.</p>
+      </div>
+      <div class="photo-frame">
+        <div class="photo" role="img" aria-label="Florida home with large sliding glass doors opening to a pool" style="background-image: url({{ img.howHero }});"></div>
+        <div class="glass-badge">
+          <span class="ic" aria-hidden="true"><span class="ms">verified</span></span>
+          <div><p style="font-weight: 700; font-size: 15px;">{{ verifiedCount }} verified pros</p><p class="tiny muted">Checked for insurance &amp; licensing</p></div>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="wrap" style="padding-bottom: 72px;">
-    <div class="dark-band">
-      <h2 class="h2">Repair sliding doors in Florida?</h2>
-      <p style="color: #B8C0CF; max-width: 52ch; margin: 12px auto 0;">Get calls from homeowners who already know what's wrong and what it should cost.</p>
-      <div class="band-cards">
-        <div class="band-card">
-          <span class="ic" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>
-          <strong>Free basic listing</strong>
-          <span class="small muted">Profile, phone, repairs and service area at no cost once you pass our checks.</span>
+  <section class="section section-alt">
+    <div class="wrap">
+      <div class="stack-sm" style="margin-bottom: 56px; max-width: 620px;">
+        <h2 class="h2">For homeowners</h2>
+        <p class="muted">Get your door working again in three simple steps. We handle the checking so you can enjoy the breeze.</p>
+      </div>
+      <div class="grid-3" style="grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));">
+        <div class="card card-lift stack" style="gap: 20px;">
+          <span class="avatar" style="border-radius: 16px; width: 56px; height: 56px;" aria-hidden="true"><span class="ms" style="font-size: 30px;">edit_document</span></span>
+          <h3 class="h3">1. Describe your issue</h3>
+          <p class="muted" style="flex: 1;">Tell us what your door is doing. We explain the likely cause in plain English and what you can safely try yourself.</p>
+          <a class="btn btn-ghost" href="/#problems" onClick="{{ goProblems }}" style="align-self: flex-start; padding-left: 0;">Get started<span class="ms" aria-hidden="true">arrow_forward</span></a>
         </div>
-        <div class="band-card">
-          <span class="ic" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"></path></svg></span>
-          <strong>Direct calls, no lead fees</strong>
-          <span class="small muted">Homeowners call you directly. We don't sell the same lead to five companies.</span>
+        <div class="card card-lift stack" style="gap: 20px;">
+          <span class="avatar" style="border-radius: 16px; width: 56px; height: 56px; background: var(--color-accent); color: #fff;" aria-hidden="true"><span class="ms" style="font-size: 30px;">analytics</span></span>
+          <h3 class="h3">2. Compare local rates</h3>
+          <p class="muted">See what Florida homeowners actually paid, estimate your cost, or check a quote you already have.</p>
+          <div class="card-soft" style="border-radius: 14px; padding: 16px;">
+            <div class="row tiny muted" style="justify-content: space-between; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;"><span>Repair</span><span>Most paid</span></div>
+            <sc-for list="{{ miniPrices }}" as="mp" hint-placeholder-count="3">
+              <div class="row small" style="justify-content: space-between; margin-top: 8px;"><span>{{ mp.label }}</span><strong class="tnum" style="color: var(--color-ok);">{{ mp.range }}</strong></div>
+            </sc-for>
+          </div>
         </div>
-        <div class="band-card">
-          <span class="ic" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 6v6c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V6z"></path></svg></span>
-          <strong>A badge people trust</strong>
-          <span class="small muted">"Checked by SlideRepairFL" shows you're insured, licensed and fairly priced.</span>
-          <a class="btn btn-primary btn-sm" href="/list-your-business" onClick="{{ goList }}" style="align-self: flex-start; margin-top: 8px;">List your business</a>
+        <div class="card card-lift stack" style="gap: 20px;">
+          <span class="avatar" style="border-radius: 16px; width: 56px; height: 56px; background: var(--color-ok-50); color: var(--color-ok-ink);" aria-hidden="true"><span class="ms" style="font-size: 30px;">verified_user</span></span>
+          <h3 class="h3">3. Call a verified pro</h3>
+          <p class="muted" style="flex: 1;">Verified pros pass our checks for active insurance, Florida licensing where required, and posted prices. Call them directly.</p>
+          <a class="btn btn-ghost" href="/pros" onClick="{{ goAll }}" style="align-self: flex-start; padding-left: 0;">Find a pro<span class="ms" aria-hidden="true">arrow_forward</span></a>
         </div>
       </div>
     </div>
-    <div style="height: 40px;"></div>
+  </section>
+
+  <section class="section">
+    <div class="wrap hero-split-grid" style="gap: 64px;">
+      <div class="photo-frame">
+        <div class="photo" role="img" aria-label="Technician repairing a sliding door track in a Florida home" style="background-image: url({{ img.proAtWork }}); height: clamp(320px, 44vw, 540px);"></div>
+      </div>
+      <div class="stack" style="gap: 36px;">
+        <div class="stack-sm">
+          <h2 class="h2">For professionals</h2>
+          <p class="muted">The fair way to grow your repair business. No lead fees: homeowners call you directly.</p>
+        </div>
+        <div class="nsteps">
+          <div class="nstep"><span class="n">1</span><div class="stack-sm" style="gap: 4px;"><h3 class="h4" style="font-size: 18px;">Join the directory</h3><p class="muted">Claim your profile <strong style="color: var(--color-text);">free during launch</strong>. Add your repairs, prices and service area.</p></div></div>
+          <div class="nstep"><span class="n">2</span><div class="stack-sm" style="gap: 4px;"><h3 class="h4" style="font-size: 18px;">Get verified</h3><p class="muted">Pass our insurance, licensing and Sunbiz checks to earn the Verified badge and rank higher.</p></div></div>
+          <div class="nstep"><span class="n">3</span><div class="stack-sm" style="gap: 4px;"><h3 class="h4" style="font-size: 18px;">Grow your business</h3><p class="muted">Homeowners call you directly. Keep <strong style="color: var(--color-text);">100% of your profits</strong>. We never charge for leads or completed jobs.</p></div></div>
+        </div>
+        <a class="btn btn-primary" href="/list-your-business" onClick="{{ goList }}" style="align-self: flex-start;">List your business today</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-high">
+    <div class="wrap stack" style="align-items: center; text-align: center; gap: 24px; max-width: 860px;">
+      <span style="width: 80px; height: 80px; border-radius: 50%; background: #fff; display: grid; place-items: center; box-shadow: var(--shadow-sm);" aria-hidden="true"><span class="ms ms-fill" style="font-size: 40px; color: var(--color-ok);">shield_with_heart</span></span>
+      <h2 class="h2">The FixMySlide promise</h2>
+      <p class="lead" style="margin: 0 auto;">If you ever have a problem with a pro, tap “Report a problem” on their profile. We follow up with the company, and pros with repeated complaints are removed.</p>
+      <div class="row" style="justify-content: center; gap: 28px; color: var(--color-muted); font-weight: 700;">
+        <span class="row" style="gap: 6px;"><span class="ms" aria-hidden="true">gpp_good</span>Licensed</span>
+        <span class="row" style="gap: 6px;"><span class="ms" aria-hidden="true">gpp_good</span>Insured</span>
+        <span class="row" style="gap: 6px;"><span class="ms" aria-hidden="true">gpp_good</span>Checked every 90 days</span>
+      </div>
+    </div>
   </section>
 </sc-if>
 
@@ -703,7 +745,7 @@
           <div class="row" style="justify-content: space-between; align-items: flex-end;">
             <div class="stack-sm" style="gap: 4px;">
               <h2 class="h3">Reviews</h2>
-              <p class="small muted"><span class="rating"><span class="star" aria-hidden="true">★</span>{{ sel.ratingText }}</span> from {{ sel.reviewsText }} · reviews from SlideRepairFL customers, checked by our team</p>
+              <p class="small muted"><span class="rating"><span class="star" aria-hidden="true">★</span>{{ sel.ratingText }}</span> from {{ sel.reviewsText }} · reviews from FixMySlide customers, checked by our team</p>
             </div>
             <sc-if value="{{ reviewClosed }}" hint-placeholder-val="{{ true }}"><button type="button" class="btn btn-secondary btn-sm" onClick="{{ openReview }}">Write a review</button></sc-if>
           </div>
@@ -891,7 +933,7 @@
       <sc-if value="{{ listSent }}" hint-placeholder-val="{{ false }}">
         <div class="stack">
           <h2 class="h3">Thanks. We'll check your details and publish within 2 business days.</h2>
-          <a class="btn btn-ghost" href="/" onClick="{{ goHome }}" style="align-self: flex-start; padding-left: 0;">Back to SlideRepairFL</a>
+          <a class="btn btn-ghost" href="/" onClick="{{ goHome }}" style="align-self: flex-start; padding-left: 0;">Back to FixMySlide</a>
         </div>
       </sc-if>
     </div>
@@ -912,31 +954,33 @@
 </sc-if>
 
 <footer class="footer">
-  <div class="wrap stack" style="gap: 28px;">
+  <div class="wrap stack" style="gap: 40px;">
     <div class="footer-cols">
       <div class="stack-sm">
-        <strong style="font-size: 19px;">SlideRepairFL</strong>
-        <p class="muted small">Plain-English help and checked local pros for sliding glass door repair in Florida.</p>
+        <strong style="font-family: var(--font-heading); font-size: 21px; color: #0F172A;">FixMySlide</strong>
+        <p class="small" style="color: #64748B;">Florida's sliding door authority. Fair prices, checked pros, plain-English help.</p>
       </div>
-      <nav class="stack-sm" aria-label="Problems">
-        <strong class="small">Door problems</strong>
-        <sc-for list="{{ symptoms }}" as="s" hint-placeholder-count="8"><a class="small" href="{{ s.href }}" onClick="{{ s.pick }}">{{ s.title }}</a></sc-for>
-      </nav>
-      <nav class="stack-sm" aria-label="Cities">
-        <strong class="small">Cities</strong>
-        <sc-for list="{{ cities }}" as="city" hint-placeholder-count="12"><a class="small" href="{{ city.href }}" onClick="{{ city.onClick }}">{{ city.name }}</a></sc-for>
-      </nav>
-      <nav class="stack-sm" aria-label="More">
-        <strong class="small">More</strong>
-        <a class="small" href="/cost" onClick="{{ goPrices }}">Price guide &amp; calculator</a>
+      <nav class="stack-sm" aria-label="Help">
+        <strong style="color: #0F172A;">Get help</strong>
+        <a class="small" href="/#problems" onClick="{{ goProblems }}">Browse problems</a>
+        <a class="small" href="/cost" onClick="{{ goPrices }}">Prices &amp; calculator</a>
         <a class="small" href="/cost#checker" onClick="{{ goPrices }}">Is my quote fair?</a>
         <a class="small" href="/repair-or-replace" onClick="{{ goDecide }}">Repair or replace?</a>
-        <a class="small" href="/pros" onClick="{{ goAll }}">Find a pro</a>
-        <a class="small" href="/compare" onClick="{{ goCompare }}">Compare pros</a>
-        <a class="small" href="/list-your-business" onClick="{{ goList }}">List your business</a>
+        <a class="small" href="/pros" onClick="{{ goAll }}">Verified pros</a>
+      </nav>
+      <nav class="stack-sm" aria-label="Door problems">
+        <strong style="color: #0F172A;">Door problems</strong>
+        <sc-for list="{{ symptoms }}" as="s" hint-placeholder-count="8"><a class="small" href="{{ s.href }}" onClick="{{ s.pick }}">{{ s.title }}</a></sc-for>
+      </nav>
+      <nav class="stack-sm" aria-label="Areas we serve">
+        <strong style="color: #0F172A;">Areas we serve</strong>
+        <sc-for list="{{ cities }}" as="city" hint-placeholder-count="12"><a class="small" href="{{ city.href }}" onClick="{{ city.onClick }}">{{ city.name }}</a></sc-for>
       </nav>
     </div>
-    <p class="tiny muted">Serving Florida only. Prices are reports from homeowners, not quotes. Always confirm licenses at myfloridalicense.com.</p>
+    <div class="row small" style="justify-content: space-between; color: #64748B; padding-top: 24px; box-shadow: inset 0 1px 0 #E2E8F0;">
+      <span>© 2026 FixMySlide. Florida's Sliding Door Authority.</span>
+      <span class="row" style="gap: 20px;"><a href="/how-it-works" onClick="{{ goHow }}">How it Works</a><a href="/list-your-business" onClick="{{ goList }}">For Pros</a></span>
+    </div>
   </div>
 </footer>
 </div>
@@ -1096,6 +1140,8 @@ function normalizeCompany(r, i) {
 }
 const COMPANIES = (SITE_DATA.companies || []).map(normalizeCompany).filter((c) => c.name && c.phone);
 const VIDEOS = (SITE_DATA.videos || []).filter((v) => v.url);
+// Photos (data/images.csv): key → url.
+const IMG = Object.fromEntries((SITE_DATA.images || []).map((r) => [r.key, r.url]));
 const REVIEWS = [
   { stars: '★★★★★', label: '5 out of 5 stars', text: 'Door had been grinding for a year. They replaced both rollers and straightened the track. It slides with one finger now, and the final bill matched the quote.', author: 'Dana R.' },
   { stars: '★★★★★', label: '5 out of 5 stars', text: 'Called at 7am after the storm, and the tech was here by noon. The price was inside the range on their profile, and he explained everything before starting.', author: 'Marco P.' },
@@ -1184,7 +1230,7 @@ const PRICE_FAQ = [
 ];
 
 function homeJsonLd() {
-  return { '@context': 'https://schema.org', '@type': 'WebSite', name: 'SlideRepairFL', description: 'Plain-English help and checked local pros for sliding glass door repair in Florida.' };
+  return { '@context': 'https://schema.org', '@type': 'WebSite', name: 'FixMySlide', description: 'Plain-English help and checked local pros for sliding glass door repair in Florida.' };
 }
 function faqJsonLd(faq) {
   return { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
@@ -1193,18 +1239,19 @@ function faqJsonLd(faq) {
 // Every public URL of the directory, with the state it opens in and its SEO tags.
 function ROUTE_LIST() {
   const r = [];
-  r.push({ path: '/', initial: { view: 'home' }, title: 'Sliding Glass Door Repair in Florida | Checked Pros & Fair Prices | SlideRepairFL', description: 'What’s wrong with your sliding door? Plain-English answers, fair Florida repair prices and checked local pros for rollers, tracks, locks, leaks, glass and storm damage.', jsonld: homeJsonLd() });
-  r.push({ path: '/cost', initial: { view: 'prices' }, title: 'Sliding Glass Door Repair Cost in Florida (2026 Prices) | SlideRepairFL', description: `What Florida homeowners actually paid for sliding door repairs: rollers ${PRICE_STATS['Rollers'].range}, tracks ${PRICE_STATS['Tracks'].range}, locks, glass, leaks and impact doors.`, jsonld: faqJsonLd(PRICE_FAQ) });
-  SYMPTOMS.forEach((s) => r.push({ path: symptomPath(s), initial: { view: 'guide', symptom: s.id }, title: s.seoTitle + ' | SlideRepairFL', description: `${s.explain.split('. ').slice(0, 2).join('. ')}. See fair Florida prices and checked pros.`, jsonld: faqJsonLd(symptomFaq(s)) }));
-  r.push({ path: '/repair-or-replace', initial: { view: 'decide' }, title: 'Repair or Replace a Sliding Glass Door? Quick Florida Guide | SlideRepairFL', description: 'Answer four quick questions to see whether repairing or replacing your sliding glass door makes more sense, with Florida repair prices.' });
-  r.push({ path: '/pros', initial: { view: 'results' }, title: 'Find a Sliding Glass Door Repair Pro in Florida | SlideRepairFL', description: 'Checked sliding glass door repair companies across Florida. Compare ratings, posted prices and what homeowners actually paid, then call direct.' });
+  r.push({ path: '/', initial: { view: 'home' }, title: 'Sliding Glass Door Repair in Florida | Checked Pros & Fair Prices | FixMySlide', description: 'What’s wrong with your sliding door? Plain-English answers, fair Florida repair prices and checked local pros for rollers, tracks, locks, leaks, glass and storm damage.', jsonld: homeJsonLd() });
+  r.push({ path: '/cost', initial: { view: 'prices' }, title: 'Sliding Glass Door Repair Cost in Florida (2026 Prices) | FixMySlide', description: `What Florida homeowners actually paid for sliding door repairs: rollers ${PRICE_STATS['Rollers'].range}, tracks ${PRICE_STATS['Tracks'].range}, locks, glass, leaks and impact doors.`, jsonld: faqJsonLd(PRICE_FAQ) });
+  SYMPTOMS.forEach((s) => r.push({ path: symptomPath(s), initial: { view: 'guide', symptom: s.id }, title: s.seoTitle + ' | FixMySlide', description: `${s.explain.split('. ').slice(0, 2).join('. ')}. See fair Florida prices and checked pros.`, jsonld: faqJsonLd(symptomFaq(s)) }));
+  r.push({ path: '/how-it-works', initial: { view: 'how' }, title: 'How FixMySlide Works | Fair Prices & Verified Sliding Door Pros in Florida', description: 'Describe your sliding door problem, see the fair Florida price, then call a verified, insured local pro. Free for homeowners, no lead fees for pros.' });
+  r.push({ path: '/repair-or-replace', initial: { view: 'decide' }, title: 'Repair or Replace a Sliding Glass Door? Quick Florida Guide | FixMySlide', description: 'Answer four quick questions to see whether repairing or replacing your sliding glass door makes more sense, with Florida repair prices.' });
+  r.push({ path: '/pros', initial: { view: 'results' }, title: 'Find a Sliding Glass Door Repair Pro in Florida | FixMySlide', description: 'Checked sliding glass door repair companies across Florida. Compare ratings, posted prices and what homeowners actually paid, then call direct.' });
   CITIES.forEach(([name, county, slug]) => {
     const n = COMPANIES.filter((c) => c.city === name || c.areas.includes(name)).length;
-    r.push({ path: cityPath(slug), initial: { view: 'results', query: name }, title: `Sliding Glass Door Repair in ${name}, FL | Checked Local Pros | SlideRepairFL`, description: `${n} checked sliding glass door repair ${n === 1 ? 'pro serves' : 'pros serve'} ${name} and ${county} County. Compare ratings and fair prices for rollers, tracks, locks and glass, then call direct.` });
+    r.push({ path: cityPath(slug), initial: { view: 'results', query: name }, title: `Sliding Glass Door Repair in ${name}, FL | Checked Local Pros | FixMySlide`, description: `${n} checked sliding glass door repair ${n === 1 ? 'pro serves' : 'pros serve'} ${name} and ${county} County. Compare ratings and fair prices for rollers, tracks, locks and glass, then call direct.` });
   });
-  COMPANIES.forEach((c) => r.push({ path: proPath(c), initial: { view: 'profile', selectedId: c.id }, title: `${c.name} — Sliding Door Repair in ${c.city}, FL | SlideRepairFL`, description: `${c.name}: ★ ${c.rating.toFixed(1)} from ${c.reviews} reviews. ${c.services.join(', ')} in ${c.areas.join(', ')}. Checked by SlideRepairFL, with posted prices.` }));
-  r.push({ path: '/compare', initial: { view: 'compare' }, title: 'Compare Sliding Door Repair Pros | SlideRepairFL', description: 'Compare up to three Florida sliding door repair pros side by side.', noindex: true });
-  r.push({ path: '/list-your-business', initial: { view: 'list' }, title: 'List Your Sliding Door Repair Business in Florida | SlideRepairFL', description: 'List your sliding door repair business free. Get a Verified badge, rank higher and get direct calls from Florida homeowners.' });
+  COMPANIES.forEach((c) => r.push({ path: proPath(c), initial: { view: 'profile', selectedId: c.id }, title: `${c.name} — Sliding Door Repair in ${c.city}, FL | FixMySlide`, description: `${c.name}: ★ ${c.rating.toFixed(1)} from ${c.reviews} reviews. ${c.services.join(', ')} in ${c.areas.join(', ')}. Checked by FixMySlide, with posted prices.` }));
+  r.push({ path: '/compare', initial: { view: 'compare' }, title: 'Compare Sliding Door Repair Pros | FixMySlide', description: 'Compare up to three Florida sliding door repair pros side by side.', noindex: true });
+  r.push({ path: '/list-your-business', initial: { view: 'list' }, title: 'List Your Sliding Door Repair Business in Florida | FixMySlide', description: 'List your sliding door repair business free. Get a Verified badge, rank higher and get direct calls from Florida homeowners.' });
   return r;
 }
 
@@ -1255,6 +1302,7 @@ class Component extends DCLogic {
     if (s.view === 'compare') return '/compare';
     if (s.view === 'list') return '/list-your-business';
     if (s.view === 'decide') return '/repair-or-replace';
+    if (s.view === 'how') return '/how-it-works';
     const city = CITIES.find(([name]) => name.toLowerCase() === (s.query || '').trim().toLowerCase());
     return city ? cityPath(city[2]) : '/pros';
   }
@@ -1461,7 +1509,7 @@ class Component extends DCLogic {
     const resultsTitle = s.emergency ? `24/7 sliding door help${place ? ' near ' + place : ' in Florida'}` : `${svcLabel} ${place ? 'in ' + place : 'in Florida'}`;
     const resultsIntro = cityHit
       ? `${results.length} checked ${results.length === 1 ? 'pro serves' : 'pros serve'} ${cityHit[0]} and ${cityHit[1]} County. In Florida, most homeowners paid ${PRICE_STATS['Rollers'].range} for roller replacement and ${PRICE_STATS['Tracks'].range} for track repair. Compare ratings and prices, then call direct.`
-      : 'Every company here passed our insurance, license, address and price checks. Compare ratings and what customers actually paid, then call direct. It’s free for homeowners.';
+      : 'Verified pros passed our insurance, license and price checks. Basic listings are real local businesses that haven’t finished verification yet. Compare ratings and what customers paid, then call direct. Free for homeowners.';
 
     const sel = dec(COMPANIES.find((c) => c.id === s.selectedId) || COMPANIES[0]);
     const cmp = s.compare.map((id) => all.find((c) => c.id === id));
@@ -1486,7 +1534,18 @@ class Component extends DCLogic {
 
     return {
       showFeatured,
-      isDecide: s.view === 'decide',
+      isDecide: s.view === 'decide', isHow: s.view === 'how',
+      goHow: nav(() => this.go('how')),
+      navPros: s.view === 'results' || s.view === 'profile' ? 'page' : null,
+      navPrices: s.view === 'prices' ? 'page' : null,
+      navHow: s.view === 'how' ? 'page' : null,
+      img: { hero: IMG.hero || '', howHero: IMG['how-hero'] || '', proAtWork: IMG['pro-at-work'] || '' },
+      photoProblems: ['hard-to-slide', 'glass', 'wont-lock', 'screen'].map((id) => { const x = SYMPTOMS.find((y) => y.id === id); return { ...symVals(x), img: IMG[id] || '' }; }),
+      otherProblems: [['noisy', 'volume_up'], ['off-track', 'swap_horiz'], ['leaking', 'water_drop'], ['storm', 'thunderstorm']].map(([id, ms]) => ({ ...symVals(SYMPTOMS.find((y) => y.id === id)), ms })),
+      priceBars: (() => { const list = ['Rollers', 'Tracks', 'Locks & handles', 'Glass replacement']; const max = Math.max(...list.map((n) => PRICE_NUM[n].p90)); return list.map((n, k) => ({ label: SERVICE_INFO[n].label, range: PRICE_STATS[n].range, width: Math.max(12, Math.round(PRICE_NUM[n].p50 / max * 100)) + '%', cls: k % 2 ? 'bar bar-alt' : 'bar' })); })(),
+      miniPrices: ['Rollers', 'Tracks', 'Glass replacement'].map((n) => ({ label: SERVICE_INFO[n].label, range: PRICE_STATS[n].range })),
+      verifiedCount: COMPANIES.filter((c) => c.verified).length,
+      story: (() => { const r = REVIEWS[0]; return { text: r.text, author: r.author, where: (all[0] && all[0].areas[0] ? all[0].areas[0] + ', FL' : 'Florida'), initials: r.author.split(' ').map((w) => w[0]).join('') }; })(),
       goDecide: nav(() => this.go('decide')),
       isHome: s.view === 'home', isGuide: s.view === 'guide', isPrices: s.view === 'prices', isResults: s.view === 'results', isProfile: s.view === 'profile', isList: s.view === 'list', isCompare: s.view === 'compare',
       goHome: nav(() => this.go('home')),
@@ -1503,7 +1562,7 @@ class Component extends DCLogic {
       symptoms: SYMPTOMS.map(symVals),
       popular: ['hard-to-slide', 'leaking', 'wont-lock', 'storm'].map((id) => symVals(SYMPTOMS.find((x) => x.id === id))),
       heroSymptom: s.heroSymptom,
-      heroOptions: [{ value: '', label: 'Any repair' }, ...SYMPTOMS.map((x) => ({ value: x.id, label: x.title }))],
+      heroOptions: [{ value: '', label: "What's the problem?" }, ...SYMPTOMS.map((x) => ({ value: x.id, label: x.title }))],
       onHeroSymptom: (e) => set({ heroSymptom: e.target.value }),
       onHeroSearch: (e) => { e.preventDefault(); if (s.heroSymptom) this.pickSymptom(s.heroSymptom); else this.go('results', { service: 'All services', emergency: false, symptom: null }); },
       rollerPrice: PRICE_STATS['Rollers'].range,

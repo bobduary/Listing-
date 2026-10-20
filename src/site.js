@@ -2,7 +2,7 @@
 // Set `url` once the directory has a domain (e.g. 'https://www.example.com');
 // canonical links, og:url and sitemap.xml are only written when it is set.
 export const SITE = {
-  name: 'SlideRepairFL',
+  name: 'FixMySlide',
   url: '',
   favicon: '',
   ogImage: '',
