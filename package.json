@@ -1,7 +1,7 @@
 {
-  "name": "gators-sliding-doors",
+  "name": "sliderepairfl",
   "version": "1.0.0",
-  "description": "Gator's Sliding Doors website",
+  "description": "SlideRepairFL — Florida sliding door repair directory",
   "scripts": {
     "build": "node scripts/build.mjs",
     "preview": "npx --yes serve@14.2.4 dist"
@@ -23,7 +23,8 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "esbuild": "^0.24.0"
+    "esbuild": "^0.24.0",
+    "leaflet": "^1.9.4"
   },
   "type": "module",
   "private": true

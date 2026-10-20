@@ -1,15 +1,15 @@
-# Gator's Sliding Doors website
+# SlideRepairFL: Florida sliding door repair directory
 
-The www.gatorsslidingdoors.com redesign, built from the "Gator's Sliding Doors — Website Redesign" design canvas.
+The directory designed in the "Florida Sliding Door Directory" canvas, built as a real website.
 
 ## How it works
 
-- `src/pages/*.dc.html`: one file per page, exported from the design canvas. Edit copy and layout here.
-- `src/routes.js`: maps each page file to its public URL (for example `Orlando` to `/locations/orlando`). Links between pages stay written as `Orlando.dc.html` in the templates and are rewritten automatically.
-- `src/site.js`: domain, favicon and social image used for canonical URLs, Open Graph tags and the sitemap.
-- `src/runtime/`: renders the page templates with React.
-- `scripts/build.mjs`: renders every page to static HTML (fully crawlable, with title, description, canonical and OG tags), bundles the JavaScript that powers the interactive parts (menus, shop cart, booking form, door finder, door designer), and writes `sitemap.xml` and `robots.txt`.
-- `public/assets/`: images from the canvas.
+- `src/pages/Directory.dc.html`: the directory, exported from the canvas (home, search results with list and map, company profiles, compare, "How we vet", "List your business").
+- `src/runtime/`: renders canvas templates with React, including `{{holes}}`, `sc-for`, `sc-if` and `style-hover`.
+- `scripts/build.mjs`: server-renders each page to static HTML (crawlable, with title and description tags), then bundles the JavaScript that makes it interactive. Output goes to `dist/`.
+- `public/map-view.html`: the Leaflet map shown in the map views. It talks to the page with `postMessage`. Leaflet is in `public/vendor/`.
+- `public/image-slot.js`: the canvas's photo placeholder element.
+- `public/_ds/modernist/styles.css`: a stand-in for the canvas's "Modernist" design system stylesheet, which wasn't included in the export. To get the exact original look, replace this file with the real `styles.css` from the canvas's `_ds/` folder.
 
 ## Commands
 
@@ -21,10 +21,8 @@ npm run preview   # serves dist/ locally
 
 ## Deploying
 
-The repo is set up for Vercel (`vercel.json`): import the repo, and Vercel runs `npm run build` and serves `dist/`.
+`vercel.json` is set up for Vercel: import the repo and it runs `npm run build` and serves `dist/`. Set `url` in `src/site.js` once there's a domain, so canonical links and `sitemap.xml` are written.
 
-## Adding a page
+## Status
 
-1. Add `src/pages/<Name>.dc.html`.
-2. Add `<Name>: '/its-url'` to `ROUTES` in `src/routes.js`.
-3. Images go in `public/assets/` and are referenced as `/assets/<file>`.
+The 14 companies, reviews and price reports in the page script are sample data from the design. The forms (quote request, price report, list your business) only show a confirmation and don't send anything yet.

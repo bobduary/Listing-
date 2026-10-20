@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Florida Sliding Door Repair Directory | SlideRepairFL</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="/_ds/modernist/styles.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&display=swap">
+<script src="/image-slot.js"></script>
+<style>
+body { margin: 0; background: var(--color-bg); color: var(--color-text); font-family: var(--font-body); text-wrap: pretty; }
+a { color: var(--color-accent-700); }
+a:hover { color: var(--color-accent); }
+</style>
+</helmet>
+
+<div style="min-height: 100vh; display: flex; flex-direction: column; font-size: 16px; line-height: 1.6;">
+
+<sc-if value="{{ showStorm }}" hint-placeholder-val="{{ false }}">
+  <div style="background: var(--color-text); color: var(--color-bg); font-size: 14px;">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 10px clamp(20px, 5vw, 56px); display: flex; gap: 16px; align-items: center; flex-wrap: wrap;">
+      <span style="width: 10px; height: 10px; background: var(--color-accent); flex: none;"></span>
+      <span style="flex: 1 1 280px;">Storm-damaged slider? Some companies take emergency calls 24/7 during hurricane season.</span>
+      <button type="button" onClick="{{ showEmergency }}" style="background: none; border: 0; color: var(--color-bg); font: inherit; font-weight: 700; cursor: pointer; padding: 0; text-decoration: underline; text-underline-offset: 3px;">See 24/7 companies</button>
+    </div>
+  </div>
+</sc-if>
+
+<nav class="nav" style="padding-inline: max(clamp(20px, 5vw, 56px), calc((100% - 1200px) / 2 + clamp(20px, 5vw, 56px))); gap: 24px; flex-wrap: wrap;">
+  <span class="nav-brand" onClick="{{ goHome }}" style="cursor: pointer; display: flex; align-items: center; gap: 10px;"><span style="width: 14px; height: 14px; background: var(--color-accent);"></span>SlideRepairFL</span>
+  <a href="#" onClick="{{ goAll }}">Find a pro</a>
+  <a href="#" onClick="{{ goMap }}">Map</a>
+  <a href="#" onClick="{{ goCompare }}">Compare</a>
+  <a href="#" onClick="{{ goVetting }}">How we vet</a>
+  <a href="#" onClick="{{ goList }}">List your business</a>
+  <button type="button" class="btn btn-primary" onClick="{{ goAll }}">Find a repair pro</button>
+</nav>
+
+<main style="flex: 1;">
+
+<!-- HOME -->
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+
+  <!-- Hero A · search-first -->
+  <sc-if value="{{ heroSearch }}" hint-placeholder-val="{{ true }}">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 56px);">
+      <section style="padding: clamp(56px, 9vw, 112px) 0 72px;">
+        <h1 style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(40px, 6.2vw, 84px); line-height: 1.04; letter-spacing: -0.02em; margin: 0 0 0 -0.05em; max-width: 15ch;">
+          <span style="display: block;">Stuck slider?</span>
+          <span style="display: block;">Find a Florida pro who fixes it this week.</span>
+        </h1>
+        <p style="font-size: 18px; line-height: 1.6; max-width: 56ch; margin: 28px 0 0; color: color-mix(in srgb, var(--color-text) 80%, transparent);">Sliding glass door repair companies across Florida — rollers, tracks, glass, locks and impact doors. Compare ratings and prices, then call direct.</p>
+        <form onSubmit="{{ onSearch }}" style="margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); border: 2px solid var(--color-text); max-width: 880px; background: var(--color-bg);">
+          <label style="display: flex; flex-direction: column; padding: 12px 16px; gap: 2px; border-right: 2px solid var(--color-divider);">
+            <span style="font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 70%, transparent);">City, county or ZIP</span>
+            <input value="{{ query }}" onChange="{{ onQuery }}" placeholder="e.g. Tampa or 33602" style="border: 0; background: transparent; font: inherit; font-size: 18px; padding: 4px 0; outline: none; color: var(--color-text);">
+          </label>
+          <label style="display: flex; flex-direction: column; padding: 12px 16px; gap: 2px;">
+            <span style="font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Repair needed</span>
+            <select value="{{ service }}" onChange="{{ onService }}" style="border: 0; background: transparent; font: inherit; font-size: 18px; padding: 4px 0; outline: none; color: var(--color-text); cursor: pointer;">
+              <sc-for list="{{ serviceOptions }}" as="opt" hint-placeholder-count="8"><option value="{{ opt }}">{{ opt }}</option></sc-for>
+            </select>
+          </label>
+          <button type="submit" class="btn btn-primary" style="min-height: 72px; font-size: 17px; justify-content: space-between; padding: 0 20px;">Search
+            <svg width="20" height="20" viewBox="0 0 24 24" style="fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+          </button>
+        </form>
+      </section>
+    </div>
+  </sc-if>
+
+  <!-- Hero B · map-first -->
+  <sc-if value="{{ heroMap }}" hint-placeholder-val="{{ false }}">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 56px);">
+      <section style="padding: 56px 0 72px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 40px; align-items: stretch;">
+        <div style="display: flex; flex-direction: column; gap: 24px; justify-content: center;">
+          <h1 style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(36px, 4.8vw, 64px); line-height: 1.04; letter-spacing: -0.02em; margin: 0 0 0 -0.05em;">
+            <span style="display: block;">Every sliding door pro in Florida.</span>
+            <span style="display: block;">One map.</span>
+          </h1>
+          <p style="margin: 0; font-size: 17px; max-width: 46ch; color: color-mix(in srgb, var(--color-text) 80%, transparent);">Tap a pin to see ratings, prices and photos — or search your city.</p>
+          <form onSubmit="{{ onSearch }}" style="display: flex; flex-direction: column; border: 2px solid var(--color-text); background: var(--color-bg);">
+            <label style="display: flex; flex-direction: column; padding: 12px 16px; gap: 2px; border-bottom: 2px solid var(--color-divider);">
+              <span style="font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 70%, transparent);">City, county or ZIP</span>
+              <input value="{{ query }}" onChange="{{ onQuery }}" placeholder="e.g. Naples or 34102" style="border: 0; background: transparent; font: inherit; font-size: 18px; padding: 4px 0; outline: none; color: var(--color-text);">
+            </label>
+            <label style="display: flex; flex-direction: column; padding: 12px 16px; gap: 2px;">
+              <span style="font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Repair needed</span>
+              <select value="{{ service }}" onChange="{{ onService }}" style="border: 0; background: transparent; font: inherit; font-size: 18px; padding: 4px 0; outline: none; color: var(--color-text); cursor: pointer;">
+                <sc-for list="{{ serviceOptions }}" as="opt" hint-placeholder-count="8"><option value="{{ opt }}">{{ opt }}</option></sc-for>
+              </select>
+            </label>
+            <button type="submit" class="btn btn-primary" style="min-height: 56px; font-size: 17px; justify-content: space-between; padding: 0 20px;">Search <span>→</span></button>
+          </form>
+        </div>
+        <iframe data-srfl-map="1" src="/map-view.html" title="Map of Florida sliding door repair companies" style="width: 100%; min-height: 520px; height: 100%; border: 2px solid var(--color-divider); display: block; background: var(--color-surface);"></iframe>
+      </section>
+    </div>
+  </sc-if>
+
+  <!-- Hero C · poster -->
+  <sc-if value="{{ heroPoster }}" hint-placeholder-val="{{ false }}">
+    <section style="background: var(--color-accent); color: var(--color-bg);">
+      <div style="max-width: 1200px; margin: 0 auto; padding: clamp(64px, 9vw, 120px) clamp(20px, 5vw, 56px) 64px;">
+        <h1 style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(48px, 8.4vw, 120px); line-height: 1.0; letter-spacing: -0.03em; margin: 0 0 0 -0.05em;">
+          <span style="display: block;">Sliding door repair.</span>
+          <span style="display: block;">Florida only.</span>
+        </h1>
+        <form onSubmit="{{ onSearch }}" style="margin-top: 48px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); max-width: 960px; background: var(--color-bg); color: var(--color-text);">
+          <label style="display: flex; flex-direction: column; padding: 14px 18px; gap: 2px; border-right: 2px solid var(--color-divider);">
+            <span style="font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 70%, transparent);">City, county or ZIP</span>
+            <input value="{{ query }}" onChange="{{ onQuery }}" placeholder="e.g. Orlando or 32801" style="border: 0; background: transparent; font: inherit; font-size: 18px; padding: 4px 0; outline: none; color: var(--color-text);">
+          </label>
+          <label style="display: flex; flex-direction: column; padding: 14px 18px; gap: 2px;">
+            <span style="font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Repair needed</span>
+            <select value="{{ service }}" onChange="{{ onService }}" style="border: 0; background: transparent; font: inherit; font-size: 18px; padding: 4px 0; outline: none; color: var(--color-text); cursor: pointer;">
+              <sc-for list="{{ serviceOptions }}" as="opt" hint-placeholder-count="8"><option value="{{ opt }}">{{ opt }}</option></sc-for>
+            </select>
+          </label>
+          <button type="submit" class="btn" style="min-height: 76px; font-size: 18px; justify-content: space-between; padding: 0 22px; background: var(--color-text); color: var(--color-bg);" style-hover="background: var(--color-neutral-800);">Find a pro <span>→</span></button>
+        </form>
+      </div>
+    </section>
+  </sc-if>
+
+  <div style="max-width: 1200px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 56px);">
+    <sc-if value="{{ heroNotPoster }}" hint-placeholder-val="{{ true }}">
+      <hr style="height: 2px; border: 0; margin: 0; background: var(--color-divider);">
+    </sc-if>
+    <section id="vetting" style="padding: 64px 0;">
+      <span style="display: block; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent-700); margin-bottom: 12px;">How we vet</span>
+      <h2 style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(30px, 3.6vw, 44px); line-height: 1.1; letter-spacing: -0.015em; margin: 0; max-width: 22ch;">We check every pro. Most don't make it.</h2>
+      <p style="margin: 20px 0 32px; font-size: 17px; max-width: 58ch; color: color-mix(in srgb, var(--color-text) 80%, transparent);">Every company is checked before it's listed and re-checked every 90 days. Paying for a featured spot doesn't skip a single step.</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 2px; background: var(--color-divider); border: 2px solid var(--color-divider); margin-bottom: 40px;">
+        <div style="background: var(--color-bg); padding: 20px; display: flex; flex-direction: column; gap: 4px;">
+          <span style="font-family: var(--font-heading); font-weight: 800; font-size: 48px; line-height: 1.1;">61</span>
+          <span style="font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Companies applied in 2026</span>
+        </div>
+        <div style="background: var(--color-bg); padding: 20px; display: flex; flex-direction: column; gap: 4px;">
+          <span style="font-family: var(--font-heading); font-weight: 800; font-size: 48px; line-height: 1.1;">14</span>
+          <span style="font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Approved and listed</span>
+        </div>
+        <div style="background: var(--color-bg); padding: 20px; display: flex; flex-direction: column; gap: 4px;">
+          <span style="font-family: var(--font-heading); font-weight: 800; font-size: 48px; line-height: 1.1; color: var(--color-accent);">47</span>
+          <span style="font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Turned down</span>
+        </div>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 32px 56px;">
+        <div>
+          <h3 style="font-family: var(--font-heading); font-weight: 800; font-size: 20px; margin: 0 0 12px;">What we check</h3>
+          <sc-for list="{{ vetChecks }}" as="v" hint-placeholder-count="7">
+            <div style="border-top: 2px solid var(--color-divider); padding: 12px 0; display: flex; gap: 12px; align-items: flex-start;">
+              <svg width="18" height="18" viewBox="0 0 24 24" style="fill: none; stroke: var(--color-accent); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; flex: none; margin-top: 3px;"><path d="M20 6 9 17l-5-5"></path></svg>
+              <span><strong>{{ v.label }}</strong> <span style="color: color-mix(in srgb, var(--color-text) 75%, transparent);">— {{ v.how }}</span></span>
+            </div>
+          </sc-for>
+        </div>
+        <div>
+          <h3 style="font-family: var(--font-heading); font-weight: 800; font-size: 20px; margin: 0 0 12px;">Why we said no</h3>
+          <sc-for list="{{ rejectReasons }}" as="r" hint-placeholder-count="5">
+            <div style="border-top: 2px solid var(--color-divider); padding: 12px 0; display: flex; justify-content: space-between; gap: 16px;">
+              <span>{{ r.label }}</span>
+              <strong style="font-feature-settings: 'tnum' 1;">{{ r.count }}</strong>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <hr style="height: 2px; border: 0; margin: 0; background: var(--color-divider);">
+    <section style="padding: 64px 0;">
+      <span style="display: block; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent-700); margin-bottom: 12px;">Florida price index</span>
+      <h2 style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(30px, 3.6vw, 44px); line-height: 1.1; letter-spacing: -0.015em; margin: 0; max-width: 22ch;">What homeowners actually paid</h2>
+      <p style="margin: 20px 0 28px; font-size: 17px; max-width: 58ch; color: color-mix(in srgb, var(--color-text) 80%, transparent);">From {{ totalReports }} price reports customers sent us after their repair. Every listed pro also posts a price range for each service.</p>
+      <div style="display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1.4fr) minmax(0, 1fr); gap: 16px; padding: 10px 0; border-bottom: 2px solid var(--color-text); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 70%, transparent);">
+        <span>Repair</span><span>Median paid</span><span>Most paid between</span><span>Reports</span>
+      </div>
+      <sc-for list="{{ priceIndex }}" as="pi" hint-placeholder-count="7">
+        <button type="button" onClick="{{ pi.onClick }}" style="display: grid; width: 100%; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1.4fr) minmax(0, 1fr); gap: 16px; padding: 14px 0; border: 0; border-bottom: 2px solid var(--color-divider); background: none; font: inherit; color: var(--color-text); text-align: left; cursor: pointer;" style-hover="background: var(--color-surface);">
+          <span style="font-weight: 700;">{{ pi.service }}</span>
+          <span style="font-family: var(--font-heading); font-weight: 800; font-size: 18px;">{{ pi.median }}</span>
+          <span>{{ pi.range }}</span>
+          <span style="color: color-mix(in srgb, var(--color-text) 75%, transparent);">{{ pi.count }}</span>
+        </button>
+      </sc-for>
+    </section>
+    <hr style="height: 2px; border: 0; margin: 0; background: var(--color-divider);">
+    <section style="padding: 64px 0;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; margin-bottom: 28px;">
+        <h2 style="font-family: var(--font-heading); font-weight: 800; font-size: 32px; line-height: 1.15; letter-spacing: -0.015em; margin: 0;">Browse by city</h2>
+        <button type="button" class="btn btn-ghost" onClick="{{ goAll }}">All {{ totalCount }} companies →</button>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 2px; background: var(--color-divider); border: 2px solid var(--color-divider);">
+        <sc-for list="{{ cities }}" as="city" hint-placeholder-count="12">
+          <button type="button" onClick="{{ city.onClick }}" style="background: var(--color-bg); border: 0; text-align: left; font: inherit; color: var(--color-text); padding: 20px; cursor: pointer; display: flex; flex-direction: column; gap: 4px;" style-hover="background: var(--color-surface);">
+            <span style="font-family: var(--font-heading); font-weight: 800; font-size: 20px; line-height: 1.2;">{{ city.name }}</span>
+            <span style="font-size: 13px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">{{ city.county }} County · {{ city.countText }}</span>
+          </button>
+        </sc-for>
+      </div>
+    </section>
+
+    <sc-if value="{{ showFeatured }}" hint-placeholder-val="{{ true }}">
+      <hr style="height: 2px; border: 0; margin: 0; background: var(--color-divider);">
+      <section style="padding: 64px 0;">
+        <span style="display: block; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent-700); margin-bottom: 12px;">Featured · paid placement</span>
+        <h2 style="font-family: var(--font-heading); font-weight: 800; font-size: 32px; line-height: 1.15; letter-spacing: -0.015em; margin: 0 0 28px;">Top-rated across the state</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px 24px;">
+          <sc-for list="{{ featured }}" as="c" hint-placeholder-count="3">
+            <article style="display: flex; flex-direction: column; gap: 10px;">
+              <div class="grayscale" style="aspect-ratio: 4 / 3; position: relative;">
+                <image-slot id="photo-{{ c.id }}-1" shape="rect" placeholder="Job photo"></image-slot>
+              </div>
+              <div style="display: flex; align-items: center; gap: 6px; font-size: 14px; padding-top: 4px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" style="fill: var(--color-accent); stroke: none;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <strong>{{ c.ratingText }}</strong><span style="color: color-mix(in srgb, var(--color-text) 70%, transparent);">{{ c.reviewsText }} · {{ c.price }}</span>
+              </div>
+              <h3 onClick="{{ c.open }}" style="font-family: var(--font-heading); font-weight: 800; font-size: 22px; line-height: 1.2; margin: 0; cursor: pointer;" style-hover="color: var(--color-accent);">{{ c.name }}</h3>
+              <span style="font-size: 14px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">{{ c.location }}</span>
+              <div style="display: flex; gap: 8px; margin-top: 6px; flex-wrap: wrap;">
+                <a class="btn btn-primary" href="{{ c.callHref }}" style="text-decoration: none;">{{ c.phone }}</a>
+                <button type="button" class="btn btn-secondary" onClick="{{ c.open }}">View profile</button>
+              </div>
+            </article>
+          </sc-for>
+        </div>
+      </section>
+    </sc-if>
+
+    <hr style="height: 2px; border: 0; margin: 0; background: var(--color-divider);">
+    <section style="padding: 64px 0;">
+      <h2 style="font-family: var(--font-heading); font-weight: 800; font-size: 32px; line-height: 1.15; letter-spacing: -0.015em; margin: 0 0 28px;">Browse by repair</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); column-gap: 48px;">
+        <sc-for list="{{ serviceLinks }}" as="sv" hint-placeholder-count="7">
+          <button type="button" onClick="{{ sv.onClick }}" style="background: none; border: 0; border-top: 2px solid var(--color-divider); font: inherit; color: var(--color-text); text-align: left; padding: 16px 0; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; cursor: pointer;" style-hover="color: var(--color-accent);">
+            <span style="font-weight: 700; font-size: 17px;">{{ sv.name }}</span>
+            <span style="font-size: 13px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">{{ sv.countText }}</span>
+          </button>
+        </sc-for>
+      </div>
+    </section>
+
+    <hr style="height: 2px; border: 0; margin: 0; background: var(--color-divider);">
+    <section style="padding: 64px 0 80px; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 32px;">
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <span style="font-family: var(--font-heading); font-weight: 800; font-size: 15px; font-feature-settings: 'tnum' 1;">01</span>
+        <h3 style="font-family: var(--font-heading); font-weight: 800; font-size: 22px; line-height: 1.2; margin: 0;">Search your area</h3>
+        <p style="margin: 0; font-size: 15px; color: color-mix(in srgb, var(--color-text) 80%, transparent);">Florida only, filtered by the cities and counties each company actually serves.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <span style="font-family: var(--font-heading); font-weight: 800; font-size: 15px; font-feature-settings: 'tnum' 1;">02</span>
+        <h3 style="font-family: var(--font-heading); font-weight: 800; font-size: 22px; line-height: 1.2; margin: 0;">Compare side by side</h3>
+        <p style="margin: 0; font-size: 15px; color: color-mix(in srgb, var(--color-text) 80%, transparent);">Pick up to three companies and line up ratings, prices, services and years in business.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <span style="font-family: var(--font-heading); font-weight: 800; font-size: 15px; font-feature-settings: 'tnum' 1;">03</span>
+        <h3 style="font-family: var(--font-heading); font-weight: 800; font-size: 22px; line-height: 1.2; margin: 0;">Call or get a quote</h3>
+        <p style="margin: 0; font-size: 15px; color: color-mix(in srgb, var(--color-text) 80%, transparent);">Ring the company direct or send one free quote request. No sign-up, no fee to homeowners.</p>
+      </div>
+    </section>
+  </div>
+
+  <section style="background: var(--color-accent); color: var(--color-bg);">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 80px clamp(20px, 5vw, 56px);">
+      <h2 style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(34px, 4.4vw, 58px); line-height: 1.06; letter-spacing: -0.015em; margin: 0 0 0 -0.05em; max-width: 18ch;">
+        <span style="display: block;">Repair sliding doors in Florida?</span>
+        <span style="display: block;">Get listed free.</span>
+      </h2>
+      <button type="button" class="btn btn-ghost" onClick="{{ goList }}" style="margin-top: 36px; color: var(--color-bg); border: 2px solid var(--color-bg); padding: 10px 18px; font-size: 16px;">List your business →</button>
+    </div>
+  </section>
+</sc-if>
+
+<!-- RESULTS -->
+<sc-if value="{{ isResults }}" hint-placeholder-val="{{ false }}">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 48px clamp(20px, 5vw, 56px) 120px;">
+    <span style="display: block; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent-700); margin-bottom: 12px;">{{ countText }}</span>
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 16px 24px; flex-wrap: wrap; margin-bottom: 32px;">
+      <h1 style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(30px, 4vw, 48px); line-height: 1.08; letter-spacing: -0.02em; margin: 0; flex: 1 1 400px;">{{ resultsTitle }}</h1>
+      <div class="seg">
+        <label class="seg-opt"><input type="radio" name="mode" checked="{{ modeList }}" onChange="{{ setList }}">List</label>
+        <label class="seg-opt"><input type="radio" name="mode" checked="{{ modeMap }}" onChange="{{ setMap }}">Map</label>
+      </div>
+    </div>
+    <hr style="height: 2px; border: 0; margin: 0; background: var(--color-divider);">
+    <div style="display: flex; flex-wrap: wrap; gap: 40px; padding-top: 32px; align-items: flex-start;">
+
+      <aside style="flex: 1 1 240px; max-width: 300px; display: flex; flex-direction: column; gap: 28px;">
+        <div class="field">
+          <label>City, county or ZIP</label>
+          <input class="input" value="{{ query }}" onChange="{{ onQuery }}" placeholder="Anywhere in Florida" style="min-height: 44px; font-size: 15px;">
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <span style="font-size: 12px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Sort</span>
+          <div class="seg" style="align-self: flex-start;">
+            <label class="seg-opt"><input type="radio" name="sort" checked="{{ sortRating }}" onChange="{{ sortByRating }}">Top rated</label>
+            <label class="seg-opt"><input type="radio" name="sort" checked="{{ sortPrice }}" onChange="{{ sortByPrice }}">Lowest price</label>
+            <label class="seg-opt"><input type="radio" name="sort" checked="{{ sortYears }}" onChange="{{ sortByYears }}">Experience</label>
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <span style="font-size: 12px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Price</span>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+            <sc-for list="{{ priceChips }}" as="t" hint-placeholder-count="4">
+              <sc-if value="{{ t.active }}">
+                <button type="button" onClick="{{ t.onClick }}" style="font: inherit; font-size: 13px; padding: 6px 12px; cursor: pointer; background: var(--color-text); color: var(--color-bg); border: 1px solid var(--color-text);">{{ t.label }}</button>
+              </sc-if>
+              <sc-if value="{{ t.inactive }}">
+                <button type="button" onClick="{{ t.onClick }}" style="font: inherit; font-size: 13px; padding: 6px 12px; cursor: pointer; background: transparent; color: var(--color-text); border: 1px solid var(--color-divider);" style-hover="border-color: var(--color-text);">{{ t.label }}</button>
+              </sc-if>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <span style="font-size: 12px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Repair</span>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+            <sc-for list="{{ serviceChips }}" as="ch" hint-placeholder-count="8">
+              <sc-if value="{{ ch.active }}">
+                <button type="button" onClick="{{ ch.onClick }}" style="font: inherit; font-size: 13px; padding: 6px 12px; cursor: pointer; background: var(--color-accent); color: var(--color-bg); border: 1px solid var(--color-accent);">{{ ch.name }}</button>
+              </sc-if>
+              <sc-if value="{{ ch.inactive }}">
+                <button type="button" onClick="{{ ch.onClick }}" style="font: inherit; font-size: 13px; padding: 6px 12px; cursor: pointer; background: transparent; color: var(--color-text); border: 1px solid var(--color-divider);" style-hover="border-color: var(--color-accent); color: var(--color-accent-700);">{{ ch.name }}</button>
+              </sc-if>
+            </sc-for>
+          </div>
+        </div>
+        <button type="button" class="btn btn-ghost" onClick="{{ clearFilters }}" style="align-self: flex-start;">Clear all filters</button>
+      </aside>
+
+      <div style="flex: 999 1 480px; min-width: 0;">
+        <p style="margin: 0 0 20px; font-size: 13px; max-width: 70ch; color: color-mix(in srgb, var(--color-text) 75%, transparent);">Ranked by rating, price honesty and verified jobs. <strong style="color: var(--color-text);">Featured · Ad</strong> spots are paid and labelled — they never change ratings, reviews or price scores.</p>
+        <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
+          <div style="border-top: 2px solid var(--color-text); padding: 40px 0; display: flex; flex-direction: column; gap: 12px; align-items: flex-start;">
+            <h2 style="font-family: var(--font-heading); font-weight: 800; font-size: 24px; margin: 0;">No companies match yet.</h2>
+            <p style="margin: 0; color: color-mix(in srgb, var(--color-text) 80%, transparent);">Try a nearby city or county, or loosen the filters.</p>
+            <button type="button" class="btn btn-secondary" onClick="{{ clearFilters }}">Clear filters</button>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ showMap }}" hint-placeholder-val="{{ false }}">
+          <iframe data-srfl-map="1" src="/map-view.html" title="Map of matching companies" style="width: 100%; height: 640px; border: 2px solid var(--color-divider); display: block; background: var(--color-surface);"></iframe>
+        </sc-if>
+
+        <sc-if value="{{ listRows }}" hint-placeholder-val="{{ true }}">
+          <sc-for list="{{ results }}" as="c" hint-placeholder-count="5">
+            <article style="border-top: 2px solid var(--color-divider); padding: 24px 0; display: flex; flex-wrap: wrap; gap: 20px 28px; align-items: flex-start;">
+              <div class="grayscale" onClick="{{ c.open }}" style="flex: 0 0 180px; aspect-ratio: 4 / 3; position: relative; cursor: pointer;">
+                <image-slot id="photo-{{ c.id }}-1" shape="rect" placeholder="Job photo"></image-slot>
+              </div>
+              <div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 8px; min-width: 0;">
+                <sc-if value="{{ c.isFeatured }}"><span class="tag tag-accent" style="align-self: flex-start;">Featured · Ad</span></sc-if>
+                <h2 onClick="{{ c.open }}" style="font-family: var(--font-heading); font-weight: 800; font-size: 24px; line-height: 1.2; margin: 0; cursor: pointer;" style-hover="color: var(--color-accent);">{{ c.name }}</h2>
+                <div style="display: flex; gap: 6px 16px; flex-wrap: wrap; align-items: center; font-size: 14px; color: color-mix(in srgb, var(--color-text) 75%, transparent);">
+                  <span style="display: flex; align-items: center; gap: 5px; color: var(--color-text);">
+                    <svg width="15" height="15" viewBox="0 0 24 24" style="fill: var(--color-accent); stroke: none;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    <strong>{{ c.ratingText }}</strong>
+                  </span>
+                  <span>{{ c.reviewsText }}</span>
+                  
+                  <span>{{ c.yearsText }} in business</span>
+                </div>
+                <div style="display: flex; gap: 6px 16px; flex-wrap: wrap; font-size: 13px;">
+                  <span style="display: flex; align-items: center; gap: 5px; font-weight: 700;"><svg width="15" height="15" viewBox="0 0 24 24" style="fill: none; stroke: var(--color-accent); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;"><path d="M20 6 9 17l-5-5"></path></svg>Verified {{ c.lastCheck }}</span>
+                  <span><strong>{{ c.honestyText }}</strong> of jobs within posted price</span>
+                  <span style="color: color-mix(in srgb, var(--color-text) 75%, transparent);">{{ c.reportCountText }}</span>
+                </div>
+                <span style="font-size: 14px;"><strong>{{ c.headline.service }}</strong> {{ c.headline.range }} posted · customers paid {{ c.headline.median }} median</span>
+                <span style="font-size: 14px;"><strong>Serves</strong> {{ c.areasText }}</span>
+                <div style="display: flex; gap: 6px 14px; flex-wrap: wrap; font-size: 13px; margin-top: 2px;">
+                  <sc-for list="{{ c.services }}" as="s" hint-placeholder-count="3"><span style="display: flex; align-items: center; gap: 6px;"><span style="width: 6px; height: 6px; background: var(--color-text);"></span>{{ s }}</span></sc-for>
+                </div>
+              </div>
+              <div style="flex: 0 0 190px; display: flex; flex-direction: column; gap: 8px;">
+                <a class="btn btn-primary" href="{{ c.callHref }}" style="justify-content: space-between; text-decoration: none; min-height: 44px;">{{ c.phone }}
+                  <svg width="16" height="16" viewBox="0 0 24 24" style="fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                </a>
+                <button type="button" class="btn btn-secondary" onClick="{{ c.open }}" style="justify-content: flex-start; min-height: 44px;">Get a quote</button>
+                <sc-if value="{{ c.comparing }}">
+                  <button type="button" onClick="{{ c.toggleCompare }}" style="font: inherit; font-size: 13px; min-height: 36px; padding: 0 12px; text-align: left; cursor: pointer; background: var(--color-text); color: var(--color-bg); border: 1px solid var(--color-text);">✓ In comparison</button>
+                </sc-if>
+                <sc-if value="{{ c.notComparing }}">
+                  <button type="button" onClick="{{ c.toggleCompare }}" style="font: inherit; font-size: 13px; min-height: 36px; padding: 0 12px; text-align: left; cursor: pointer; background: transparent; color: var(--color-text); border: 1px solid var(--color-divider);" style-hover="border-color: var(--color-text);">+ Compare</button>
+                </sc-if>
+              </div>
+            </article>
+          </sc-for>
+        </sc-if>
+
+        <sc-if value="{{ listCards }}" hint-placeholder-val="{{ false }}">
+          <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 2px; background: var(--color-divider); border: 2px solid var(--color-divider);">
+            <sc-for list="{{ results }}" as="c" hint-placeholder-count="6">
+              <article style="background: var(--color-bg); padding: 16px; display: flex; flex-direction: column; gap: 8px;">
+                <div class="grayscale" style="aspect-ratio: 4 / 3; position: relative;">
+                  <image-slot id="photo-{{ c.id }}-1" shape="rect" placeholder="Job photo"></image-slot>
+                </div>
+                <sc-if value="{{ c.isFeatured }}"><span class="tag tag-accent" style="align-self: flex-start;">Featured · Ad</span></sc-if>
+                <h2 onClick="{{ c.open }}" style="font-family: var(--font-heading); font-weight: 800; font-size: 20px; line-height: 1.2; margin: 0; cursor: pointer;" style-hover="color: var(--color-accent);">{{ c.name }}</h2>
+                <span style="font-size: 14px;"><strong>★ {{ c.ratingText }}</strong> · {{ c.reviewsText }} </span>
+                <span style="font-size: 13px; font-weight: 700;">✓ Verified · {{ c.honestyText }} price honesty</span>
+                <span style="font-size: 13px; color: color-mix(in srgb, var(--color-text) 75%, transparent); flex: 1;">{{ c.location }} · {{ c.yearsText }}</span>
+                <a class="btn btn-primary" href="{{ c.callHref }}" style="justify-content: flex-start; text-decoration: none;">{{ c.phone }}</a>
+                <div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px;">
+                  <button type="button" class="btn btn-secondary" onClick="{{ c.open }}" style="justify-content: flex-start;">Profile</button>
+                  <sc-if value="{{ c.comparing }}"><button type="button" class="btn" onClick="{{ c.toggleCompare }}" style="justify-content: flex-start; background: var(--color-text); color: var(--color-bg);">✓ Comparing</button></sc-if>
+                  <sc-if value="{{ c.notComparing }}"><button type="button" class="btn btn-secondary" onClick="{{ c.toggleCompare }}" style="justify-content: flex-start;">+ Compare</button></sc-if>
+                </div>
+              </article>
+            </sc-for>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
+<!-- PROFILE -->
+<sc-if value="{{ isProfile }}" hint-placeholder-val="{{ false }}">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 32px clamp(20px, 5vw, 56px) 120px;">
+    <button type="button" class="btn btn-ghost" onClick="{{ goBack }}" style="margin-bottom: 28px;">← Back to results</button>
+    <sc-if value="{{ sel.isFeatured }}"><span class="tag tag-accent" style="display: inline-flex; margin-bottom: 16px;">Featured · Ad</span></sc-if>
+    <h1 style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(34px, 5vw, 64px); line-height: 1.04; letter-spacing: -0.02em; margin: 0 0 0 -0.05em; max-width: 18ch;">{{ sel.name }}</h1>
+    <div style="display: flex; gap: 6px 20px; flex-wrap: wrap; align-items: center; margin: 20px 0 32px; font-size: 15px; color: color-mix(in srgb, var(--color-text) 75%, transparent);">
+      <span style="display: flex; align-items: center; gap: 6px; color: var(--color-text);">
+        <svg width="18" height="18" viewBox="0 0 24 24" style="fill: var(--color-accent); stroke: none;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+        <strong>{{ sel.ratingText }}</strong>
+      </span>
+      <span>{{ sel.reviewsText }}</span>
+      <span>{{ sel.location }}</span>
+      <sc-if value="{{ sel.comparing }}"><button type="button" class="btn btn-ghost" onClick="{{ sel.toggleCompare }}">✓ In comparison</button></sc-if>
+      <sc-if value="{{ sel.notComparing }}"><button type="button" class="btn btn-ghost" onClick="{{ sel.toggleCompare }}">+ Add to compare</button></sc-if>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; grid-template-rows: 200px 200px; gap: 2px; background: var(--color-divider); border: 2px solid var(--color-divider); margin-bottom: 40px;">
+      <div class="grayscale" style="grid-row: span 2; position: relative; background: var(--color-bg);"><image-slot id="photo-{{ sel.id }}-1" shape="rect" placeholder="Main job photo"></image-slot></div>
+      <div class="grayscale" style="position: relative; background: var(--color-bg);"><image-slot id="photo-{{ sel.id }}-2" shape="rect" placeholder="Before"></image-slot></div>
+      <div class="grayscale" style="position: relative; background: var(--color-bg);"><image-slot id="photo-{{ sel.id }}-3" shape="rect" placeholder="After"></image-slot></div>
+      <div class="grayscale" style="position: relative; background: var(--color-bg);"><image-slot id="photo-{{ sel.id }}-4" shape="rect" placeholder="Hardware"></image-slot></div>
+      <div class="grayscale" style="position: relative; background: var(--color-bg);"><image-slot id="photo-{{ sel.id }}-5" shape="rect" placeholder="Crew / van"></image-slot></div>
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 48px; align-items: flex-start;">
+      <div style="flex: 999 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 48px;">
+        <section style="border: 2px solid var(--color-text);">
+          <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; padding: 16px 20px; background: var(--color-text); color: var(--color-bg);">
+            <span style="display: flex; align-items: center; gap: 10px; font-family: var(--font-heading); font-weight: 800; font-size: 18px;"><span style="width: 12px; height: 12px; background: var(--color-accent);"></span>Verified by SlideRepairFL</span>
+            <span style="font-size: 13px;">Last checked {{ sel.lastCheck }} · next check {{ sel.nextCheck }}</span>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); column-gap: 24px; padding: 4px 20px 12px;">
+            <sc-for list="{{ sel.checks }}" as="ck" hint-placeholder-count="7">
+              <div style="border-top: 2px solid var(--color-divider); margin-top: -2px; padding: 12px 0; display: flex; gap: 10px; align-items: flex-start;">
+                <svg width="18" height="18" viewBox="0 0 24 24" style="fill: none; stroke: var(--color-accent); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; flex: none; margin-top: 3px;"><path d="M20 6 9 17l-5-5"></path></svg>
+                <span style="display: flex; flex-direction: column;"><strong style="font-size: 15px;">{{ ck.label }}</strong><span style="font-size: 13px; color: color-mix(in srgb, var(--color-text) 75%, transparent);">{{ ck.detail }}</span></span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="padding: 0 20px 16px;"><button type="button" class="btn btn-ghost" onClick="{{ goVetting }}" style="font-size: 13px;">How we vet every company →</button></div>
+        </section>
+        <section>
+          <span style="display: block; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent-700); margin-bottom: 12px;">About</span>
+          <p style="margin: 0; font-size: 18px; line-height: 1.6; max-width: 60ch;">{{ sel.blurb }}</p>
+        </section>
+
+        <section style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 2px; background: var(--color-divider); border: 2px solid var(--color-divider);">
+          <div style="background: var(--color-bg); padding: 18px; display: flex; flex-direction: column; gap: 4px;">
+            <span style="font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Call-out fee</span>
+            <span style="font-weight: 700;">{{ sel.callout }}</span>
+          </div>
+          <div style="background: var(--color-bg); padding: 18px; display: flex; flex-direction: column; gap: 4px;">
+            <span style="font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Warranty</span>
+            <span style="font-weight: 700;">{{ sel.warranty }}</span>
+          </div>
+          <div style="background: var(--color-bg); padding: 18px; display: flex; flex-direction: column; gap: 4px;">
+            <span style="font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 70%, transparent);">In business</span>
+            <span style="font-weight: 700;">{{ sel.yearsText }}</span>
+          </div>
+          <div style="background: var(--color-bg); padding: 18px; display: flex; flex-direction: column; gap: 4px;">
+            <span style="font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Hours</span>
+            <span style="font-weight: 700;">{{ sel.hours }}</span>
+          </div>
+        </section>
+
+        <section>
+          <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 16px 32px; flex-wrap: wrap; margin-bottom: 20px;">
+            <div>
+              <h2 style="font-family: var(--font-heading); font-weight: 800; font-size: 26px; margin: 0 0 6px;">Prices: posted vs. paid</h2>
+              <span style="font-size: 14px; color: color-mix(in srgb, var(--color-text) 75%, transparent);">The pro's posted range, and what {{ sel.reportCountText }} say customers actually paid.</span>
+            </div>
+            <div style="display: flex; flex-direction: column;">
+              <span style="font-family: var(--font-heading); font-weight: 800; font-size: 44px; line-height: 1;">{{ sel.honestyText }}</span>
+              <span style="font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Price honesty</span>
+            </div>
+          </div>
+          <div style="display: flex; gap: 8px 20px; flex-wrap: wrap; font-size: 12px; margin-bottom: 8px; color: color-mix(in srgb, var(--color-text) 75%, transparent);">
+            <span style="display: flex; align-items: center; gap: 6px;"><span style="width: 22px; height: 10px; background: var(--color-neutral-200); border: 2px solid var(--color-text);"></span>Posted range</span>
+            <span style="display: flex; align-items: center; gap: 6px;"><span style="width: 8px; height: 8px; background: var(--color-text);"></span>Paid within range</span>
+            <span style="display: flex; align-items: center; gap: 6px;"><span style="width: 8px; height: 8px; background: var(--color-accent);"></span>Paid above range</span>
+          </div>
+          <sc-for list="{{ sel.prices }}" as="p" hint-placeholder-count="4">
+            <div style="border-top: 2px solid var(--color-divider); padding: 14px 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 8px 24px; align-items: center;">
+              <div style="display: flex; flex-direction: column;">
+                <strong>{{ p.service }}</strong>
+                <span style="font-size: 13px; color: color-mix(in srgb, var(--color-text) 75%, transparent);">Posted {{ p.range }} · paid median {{ p.median }} · {{ p.countText }}</span>
+              </div>
+              <div style="position: relative; height: 28px;">
+                <div style="position: absolute; left: 0; right: 0; top: 13px; height: 2px; background: var(--color-divider);"></div>
+                <div style="position: absolute; top: 5px; height: 18px; left: {{ p.bandLeft }}; width: {{ p.bandWidth }}; background: var(--color-neutral-200); border: 2px solid var(--color-text); box-sizing: border-box;"></div>
+                <sc-for list="{{ p.dots }}" as="d" hint-placeholder-count="5">
+                  <span style="position: absolute; top: 10px; left: {{ d.left }}; width: 8px; height: 8px; margin-left: -4px; background: {{ d.color }};"></span>
+                </sc-for>
+              </div>
+            </div>
+          </sc-for>
+
+          <h3 style="font-family: var(--font-heading); font-weight: 800; font-size: 20px; margin: 32px 0 8px;">Recent price reports</h3>
+          <sc-for list="{{ sel.reportsList }}" as="rp" hint-placeholder-count="5">
+            <div style="border-top: 2px solid var(--color-divider); padding: 12px 0; display: flex; flex-wrap: wrap; gap: 6px 20px; align-items: baseline; font-size: 14px;">
+              <strong style="flex: 1 1 220px;">{{ rp.service }} <span style="font-weight: 400; color: color-mix(in srgb, var(--color-text) 75%, transparent);">· {{ rp.door }}</span></strong>
+              <span style="flex: 0 0 150px; color: color-mix(in srgb, var(--color-text) 75%, transparent);">{{ rp.where }} · {{ rp.date }}</span>
+              <span style="flex: 0 0 170px;">Quoted {{ rp.quotedText }} → <strong>paid {{ rp.paidText }}</strong></span>
+              <span style="flex: 0 0 auto; display: flex; gap: 6px;">
+                <sc-if value="{{ rp.receipt }}"><span class="tag tag-neutral">Receipt verified</span></sc-if>
+                <sc-if value="{{ rp.over }}"><span class="tag tag-accent">Over quote {{ rp.overText }}</span></sc-if>
+              </span>
+            </div>
+          </sc-for>
+          <div style="border-top: 2px solid var(--color-divider); padding-top: 16px;">
+            <sc-if value="{{ reportClosed }}" hint-placeholder-val="{{ true }}">
+              <button type="button" class="btn btn-secondary" onClick="{{ openReport }}" style="min-height: 44px;">Hired them? Report what you paid</button>
+            </sc-if>
+            <sc-if value="{{ reportFormOpen }}" hint-placeholder-val="{{ false }}">
+              <form onSubmit="{{ sendReport }}" style="background: var(--color-surface); padding: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 14px;">
+                <h3 style="grid-column: 1 / -1; font-family: var(--font-heading); font-weight: 800; font-size: 20px; margin: 0;">Report what you paid {{ sel.shortName }}</h3>
+                <div class="field"><label>Service</label><select class="input" style="min-height: 44px;"><sc-for list="{{ sel.services }}" as="s" hint-placeholder-count="4"><option>{{ s }}</option></sc-for></select></div>
+                <div class="field"><label>Door</label><select class="input" style="min-height: 44px;"><sc-for list="{{ doorTypes }}" as="dt" hint-placeholder-count="5"><option>{{ dt }}</option></sc-for></select></div>
+                <div class="field"><label>Month of job</label><input class="input" type="month" style="min-height: 44px;"></div>
+                <div class="field"><label>Quoted ($)</label><input class="input" inputMode="numeric" style="min-height: 44px;"></div>
+                <div class="field"><label>Final paid ($)</label><input class="input" inputMode="numeric" required="" style="min-height: 44px;"></div>
+                <div class="field"><label>Receipt or invoice (optional)</label><input class="input" type="file" accept="image/*,.pdf" style="min-height: 44px;"></div>
+                <div class="field" style="grid-column: 1 / -1;"><label>Anything we should know?</label><textarea class="input" placeholder="e.g. They found a bent track and charged extra — explained it first."></textarea></div>
+                <div style="grid-column: 1 / -1; display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+                  <button type="submit" class="btn btn-primary" style="min-height: 44px;">Submit price report</button>
+                  <span style="font-size: 12px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Receipts are checked by our team, never published. Your name stays private.</span>
+                </div>
+              </form>
+            </sc-if>
+            <sc-if value="{{ reportSent }}" hint-placeholder-val="{{ false }}">
+              <p style="margin: 0; font-weight: 700;">Thanks — your report goes live after we check it, usually within a day.</p>
+            </sc-if>
+          </div>
+        </section>
+
+        <section>
+          <h2 style="font-family: var(--font-heading); font-weight: 800; font-size: 26px; margin: 0 0 16px;">Services</h2>
+          <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); column-gap: 32px;">
+            <sc-for list="{{ sel.services }}" as="s" hint-placeholder-count="4">
+              <div style="border-top: 2px solid var(--color-divider); padding: 12px 0; display: flex; align-items: center; gap: 10px; font-weight: 600;">
+                <svg width="18" height="18" viewBox="0 0 24 24" style="fill: none; stroke: var(--color-accent); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; flex: none;"><path d="M20 6 9 17l-5-5"></path></svg>{{ s }}
+              </div>
+            </sc-for>
+          </div>
+        </section>
+
+        <section>
+          <h2 style="font-family: var(--font-heading); font-weight: 800; font-size: 26px; margin: 0 0 12px;">Service area</h2>
+          <p style="margin: 0; display: flex; gap: 10px; align-items: flex-start;">
+            <svg width="20" height="20" viewBox="0 0 24 24" style="fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex: none; margin-top: 3px;"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            <span>{{ sel.areasText }} · {{ sel.county }} County</span>
+          </p>
+        </section>
+
+        <section>
+          <div style="display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; margin-bottom: 16px;">
+            <h2 style="font-family: var(--font-heading); font-weight: 800; font-size: 26px; margin: 0;">Reviews</h2>
+            <span style="font-size: 15px;"><strong>★ {{ sel.ratingText }}</strong> from {{ sel.reviewsText }} · only from verified jobs · never removed for payment</span>
+          </div>
+          <sc-for list="{{ reviews }}" as="r" hint-placeholder-count="3">
+            <figure style="margin: 0; border-top: 2px solid var(--color-divider); padding: 20px 0; display: flex; flex-direction: column; gap: 8px;">
+              <span style="color: var(--color-accent); letter-spacing: 2px;">{{ r.stars }}</span>
+              <blockquote style="margin: 0; font-size: 16px; max-width: 62ch;">{{ r.text }}</blockquote>
+              <figcaption style="font-size: 13px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">{{ r.author }} · {{ r.where }}</figcaption>
+            </figure>
+          </sc-for>
+        </section>
+      </div>
+
+      <aside style="flex: 1 1 320px; max-width: 420px; position: sticky; top: 24px; background: var(--color-surface); border-top: 4px solid var(--color-accent); padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+        <a class="btn btn-primary" href="{{ sel.callHref }}" style="justify-content: space-between; text-decoration: none; min-height: 52px; font-size: 18px;">Call {{ sel.phone }}
+          <svg width="18" height="18" viewBox="0 0 24 24" style="fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+        </a>
+        <sc-if value="{{ quoteOpen }}" hint-placeholder-val="{{ true }}">
+          <form onSubmit="{{ sendQuote }}" style="display: flex; flex-direction: column; gap: 14px;">
+            <h2 style="font-family: var(--font-heading); font-weight: 800; font-size: 20px; margin: 4px 0 0;">Or request a free quote</h2>
+            <div class="field"><label>Your name</label><input class="input" required="" style="min-height: 44px;"></div>
+            <div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px;">
+              <div class="field"><label>Phone</label><input class="input" type="tel" required="" style="min-height: 44px;"></div>
+              <div class="field"><label>ZIP</label><input class="input" inputMode="numeric" maxLength="5" style="min-height: 44px;"></div>
+            </div>
+            <div class="field"><label>What's wrong?</label>
+              <select class="input" style="min-height: 44px;">
+                <sc-for list="{{ sel.services }}" as="s" hint-placeholder-count="4"><option>{{ s }}</option></sc-for>
+                <option>Not sure</option>
+              </select>
+            </div>
+            <div class="field"><label>Details (door size, brand, how old)</label><textarea class="input"></textarea></div>
+            <button type="submit" class="btn btn-secondary btn-block" style="min-height: 44px; justify-content: space-between;">Send to {{ sel.shortName }} <span>→</span></button>
+            <span style="font-size: 12px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Free for homeowners. Your details go only to this company.</span>
+          </form>
+        </sc-if>
+        <sc-if value="{{ quoteSent }}" hint-placeholder-val="{{ false }}">
+          <div style="display: flex; flex-direction: column; gap: 8px; padding-top: 8px;">
+            <h2 style="font-family: var(--font-heading); font-weight: 800; font-size: 22px; margin: 0;">Request sent.</h2>
+            <p style="margin: 0; font-size: 15px;">{{ sel.shortName }} usually replies within {{ sel.reply }}.</p>
+            <button type="button" class="btn btn-ghost" onClick="{{ goBack }}" style="align-self: flex-start;">Compare more companies</button>
+          </div>
+        </sc-if>
+      </aside>
+    </div>
+  </div>
+</sc-if>
+
+<!-- COMPARE -->
+<sc-if value="{{ isCompare }}" hint-placeholder-val="{{ false }}">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 32px clamp(20px, 5vw, 56px) 96px;">
+    <button type="button" class="btn btn-ghost" onClick="{{ goBack }}" style="margin-bottom: 28px;">← Back to results</button>
+    <h1 style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(32px, 4.4vw, 56px); line-height: 1.06; letter-spacing: -0.02em; margin: 0 0 32px -0.05em;">Compare companies</h1>
+
+    <sc-if value="{{ compareEmpty }}" hint-placeholder-val="{{ false }}">
+      <div style="border-top: 2px solid var(--color-text); padding: 32px 0; display: flex; flex-direction: column; gap: 12px; align-items: flex-start;">
+        <p style="margin: 0; font-size: 18px; max-width: 50ch;">Add up to three companies with “+ Compare” on any listing to see them side by side.</p>
+        <button type="button" class="btn btn-primary" onClick="{{ goAll }}">Browse companies</button>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ compareHas }}" hint-placeholder-val="{{ true }}">
+      <div style="overflow-x: auto;">
+        <div style="min-width: {{ compareMinWidth }}; border-top: 2px solid var(--color-text);">
+          <div style="display: grid; grid-template-columns: {{ compareCols }}; gap: 24px; padding: 24px 0; border-bottom: 2px solid var(--color-divider);">
+            <span></span>
+            <sc-for list="{{ compareList }}" as="c" hint-placeholder-count="2">
+              <div style="display: flex; flex-direction: column; gap: 10px;">
+                <div class="grayscale" style="aspect-ratio: 4 / 3; position: relative;"><image-slot id="photo-{{ c.id }}-1" shape="rect" placeholder="Job photo"></image-slot></div>
+                <h2 onClick="{{ c.open }}" style="font-family: var(--font-heading); font-weight: 800; font-size: 20px; line-height: 1.2; margin: 0; cursor: pointer;" style-hover="color: var(--color-accent);">{{ c.name }}</h2>
+                <span style="font-size: 13px; color: color-mix(in srgb, var(--color-text) 75%, transparent);">{{ c.location }}</span>
+                <button type="button" class="btn btn-ghost" onClick="{{ c.toggleCompare }}" style="align-self: flex-start; font-size: 13px;">Remove</button>
+              </div>
+            </sc-for>
+          </div>
+          <sc-for list="{{ compareRows }}" as="row" hint-placeholder-count="8">
+            <div style="display: grid; grid-template-columns: {{ compareCols }}; gap: 24px; padding: 14px 0; border-bottom: 2px solid var(--color-divider); align-items: baseline;">
+              <span style="font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 70%, transparent);">{{ row.label }}</span>
+              <sc-for list="{{ row.cells }}" as="cell" hint-placeholder-count="2">
+                <span style="font-size: 15px; font-weight: 600;">{{ cell }}</span>
+              </sc-for>
+            </div>
+          </sc-for>
+          <div style="display: grid; grid-template-columns: {{ compareCols }}; gap: 24px; padding: 20px 0;">
+            <span></span>
+            <sc-for list="{{ compareList }}" as="c" hint-placeholder-count="2">
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                <a class="btn btn-primary" href="{{ c.callHref }}" style="justify-content: flex-start; text-decoration: none; min-height: 44px;">Call {{ c.phone }}</a>
+                <button type="button" class="btn btn-secondary" onClick="{{ c.open }}" style="justify-content: flex-start; min-height: 44px;">Get a quote</button>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+  </div>
+</sc-if>
+
+<!-- LIST YOUR BUSINESS -->
+<sc-if value="{{ isList }}" hint-placeholder-val="{{ false }}">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 56px clamp(20px, 5vw, 56px) 96px; display: flex; flex-wrap: wrap; gap: 56px; align-items: flex-start;">
+    <div style="flex: 1 1 340px; display: flex; flex-direction: column; gap: 24px;">
+      <h1 style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(36px, 5vw, 64px); line-height: 1.04; letter-spacing: -0.02em; margin: 0 0 0 -0.05em;">Get found by Florida homeowners.</h1>
+      <p style="margin: 0; font-size: 18px; max-width: 46ch; color: color-mix(in srgb, var(--color-text) 80%, transparent);">Listing is free, but every company must pass our checks — insurance, business registration, Florida address, owner ID, a license where the work requires one — and post a price range for every service. Featured spots are labelled ads; they never change ratings, reviews or price scores.</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2px; background: var(--color-divider); border: 2px solid var(--color-divider);">
+        <div style="background: var(--color-bg); padding: 20px; display: flex; flex-direction: column; gap: 6px;">
+          <span style="font-family: var(--font-heading); font-weight: 800; font-size: 20px;">Basic</span>
+          <span style="font-family: var(--font-heading); font-weight: 800; font-size: 32px;">Free</span>
+          <span style="font-size: 14px;">Profile, phone, services, service area, 1 photo</span>
+        </div>
+        <div style="background: var(--color-bg); padding: 20px; display: flex; flex-direction: column; gap: 6px;">
+          <span style="font-family: var(--font-heading); font-weight: 800; font-size: 20px;">Featured</span>
+          <span style="font-family: var(--font-heading); font-weight: 800; font-size: 32px; color: var(--color-accent);">$49/mo</span>
+          <span style="font-size: 14px;">Top of your city, highlighted map pin, homepage spot, 5 photos</span>
+        </div>
+      </div>
+    </div>
+    <div style="flex: 1 1 380px; max-width: 520px; border-top: 2px solid var(--color-text); padding-top: 24px;">
+      <sc-if value="{{ listOpen }}" hint-placeholder-val="{{ true }}">
+        <form onSubmit="{{ sendListing }}" style="display: flex; flex-direction: column; gap: 16px;">
+          <div class="field"><label>Company name</label><input class="input" required="" style="min-height: 44px;"></div>
+          <div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px;">
+            <div class="field"><label>Phone</label><input class="input" type="tel" required="" style="min-height: 44px;"></div>
+            <div class="field"><label>Email</label><input class="input" type="email" required="" style="min-height: 44px;"></div>
+          </div>
+          <div class="field"><label>Main city</label>
+            <select class="input" style="min-height: 44px;">
+              <sc-for list="{{ cities }}" as="city" hint-placeholder-count="12"><option>{{ city.name }}</option></sc-for>
+              <option>Other Florida city</option>
+            </select>
+          </div>
+          <div class="field"><label>Cities you serve</label><input class="input" placeholder="Tampa, Brandon, Riverview…" style="min-height: 44px;"></div>
+          <div class="field"><label>Services and price ranges (required)</label><textarea class="input" required="" placeholder="Roller replacement $150–$250; Track repair $120–$200…"></textarea></div>
+          <div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px;">
+            <div class="field"><label>Florida license # (if any)</label><input class="input" style="min-height: 44px;"></div>
+            <div class="field"><label>Insurance certificate</label><input class="input" type="file" accept=".pdf,image/*" required="" style="min-height: 44px;"></div>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <span style="font-size: 12px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Plan</span>
+            <div class="seg" style="align-self: flex-start;">
+              <label class="seg-opt"><input type="radio" name="plan" checked="{{ planFree }}" onChange="{{ pickFree }}">Basic — free</label>
+              <label class="seg-opt"><input type="radio" name="plan" checked="{{ planFeatured }}" onChange="{{ pickFeatured }}">Featured — $49/mo</label>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block" style="min-height: 48px; justify-content: space-between;">Submit listing <span>→</span></button>
+        </form>
+      </sc-if>
+      <sc-if value="{{ listSent }}" hint-placeholder-val="{{ false }}">
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <h2 style="font-family: var(--font-heading); font-weight: 800; font-size: 28px; margin: 0;">Thanks — we'll verify and publish within 2 business days.</h2>
+          <button type="button" class="btn btn-ghost" onClick="{{ goHome }}" style="align-self: flex-start;">Back to the directory</button>
+        </div>
+      </sc-if>
+    </div>
+  </div>
+</sc-if>
+
+</main>
+
+<sc-if value="{{ showTray }}" hint-placeholder-val="{{ false }}">
+  <div style="position: sticky; bottom: 0; z-index: 10; background: var(--color-text); color: var(--color-bg); border-top: 4px solid var(--color-accent);">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 14px clamp(20px, 5vw, 56px); display: flex; gap: 12px 24px; align-items: center; flex-wrap: wrap;">
+      <span style="font-weight: 700;">{{ compareCountText }}</span>
+      <span style="flex: 1 1 240px; font-size: 14px;">{{ compareNames }}</span>
+      <button type="button" onClick="{{ clearCompare }}" style="background: none; border: 0; color: var(--color-bg); font: inherit; font-size: 14px; cursor: pointer; text-decoration: underline; text-underline-offset: 3px;">Clear</button>
+      <button type="button" class="btn btn-primary" onClick="{{ goCompare }}" style="min-height: 44px;">Compare now →</button>
+    </div>
+  </div>
+</sc-if>
+
+<footer style="border-top: 2px solid var(--color-divider);">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 28px clamp(20px, 5vw, 56px); display: flex; gap: 12px 32px; flex-wrap: wrap; align-items: baseline; font-size: 13px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">
+    <span style="font-family: var(--font-heading); font-weight: 800; font-size: 15px; color: var(--color-text);">SlideRepairFL</span>
+    <span style="flex: 1 1 260px;">Sliding door repair companies serving Florida only. Listings are self-reported; verify licenses at myfloridalicense.com.</span>
+    <a href="#" onClick="{{ goList }}">List your business</a>
+  </div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;homeLayout&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;search&quot;,&quot;map&quot;,&quot;poster&quot;],&quot;default&quot;:&quot;search&quot;,&quot;tsType&quot;:&quot;'search' | 'map' | 'poster'&quot;,&quot;section&quot;:&quot;Homepage&quot;},&quot;listingStyle&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;rows&quot;,&quot;cards&quot;],&quot;default&quot;:&quot;rows&quot;,&quot;tsType&quot;:&quot;'rows' | 'cards'&quot;,&quot;section&quot;:&quot;Results&quot;},&quot;showFeatured&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Results&quot;},&quot;stormBanner&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Homepage&quot;}}">
+class Component extends DCLogic {
+  state = { view: 'home', query: '', service: 'All services', price: 'Any', emergency: false, sort: 'rating', mode: 'list', selectedId: null, compare: [], quoteSent: false, report: 'closed', listSent: false, plan: 'free' };
+
+  SERVICES = ['Rollers', 'Tracks', 'Glass replacement', 'Locks & handles', 'Screen doors', 'Impact doors', 'Weatherstripping'];
+  BASE = { 'Rollers': [150, 250], 'Tracks': [120, 220], 'Glass replacement': [350, 800], 'Locks & handles': [85, 180], 'Screen doors': [60, 150], 'Impact doors': [600, 1800], 'Weatherstripping': [90, 180] };
+  DOORS = ['2-panel, 6 ft', '2-panel, 8 ft', '3-panel', '4-panel / multi-slide', 'Pocket slider', 'Impact-rated slider'];
+  MONTHS = ['Oct 2026', 'Sep 2026', 'Sep 2026', 'Aug 2026', 'Jul 2026', 'Jun 2026', 'May 2026'];
+  CITIES = [['Miami', 'Miami-Dade'], ['Tampa', 'Hillsborough'], ['Orlando', 'Orange'], ['Jacksonville', 'Duval'], ['Fort Lauderdale', 'Broward'], ['West Palm Beach', 'Palm Beach'], ['St. Petersburg', 'Pinellas'], ['Sarasota', 'Sarasota'], ['Naples', 'Collier'], ['Fort Myers', 'Lee'], ['Tallahassee', 'Leon'], ['Pensacola', 'Escambia']];
+  VET = [
+    { label: 'Insurance', how: 'certificate checked with the insurer, not just uploaded' },
+    { label: 'Florida license', how: 'looked up on DBPR wherever the work requires one' },
+    { label: 'Business registration', how: 'active and in good standing on Sunbiz' },
+    { label: 'Real Florida address', how: 'confirmed in person or by video walk-through' },
+    { label: 'Owner ID & background', how: 'government ID plus a background check' },
+    { label: 'Posted prices', how: 'a price range for every service they list' },
+    { label: 'Review audit', how: 'screened for fake or bought reviews' }
+  ];
+  REJECT = [
+    { label: 'No valid insurance', count: 17 },
+    { label: "Wouldn't post price ranges", count: 11 },
+    { label: 'Address could not be confirmed', count: 8 },
+    { label: 'Fake or bought reviews', count: 7 },
+    { label: 'Unlicensed for glass or impact work', count: 4 }
+  ];
+  COMPANIES = [
+    { id: 1, name: 'Gulf Glide Door Repair', city: 'Tampa', county: 'Hillsborough', zip: '33602', lat: 27.9506, lng: -82.4572, rating: 4.9, reviews: 212, featured: true, emergency: true, licensed: true, years: 14, price: '$$', phone: '(813) 555-0142', services: ['Rollers', 'Tracks', 'Glass replacement', 'Locks & handles', 'Weatherstripping'], areas: ['Tampa', 'Brandon', 'Riverview', 'Wesley Chapel', 'Lutz'], blurb: 'Family-run crew that rebuilds tracks and swaps rollers same day. Most jobs finish in under two hours, with a one-year parts warranty.' },
+    { id: 2, name: 'Biscayne Slider Co.', city: 'Miami', county: 'Miami-Dade', zip: '33131', lat: 25.7617, lng: -80.1918, rating: 4.8, reviews: 388, featured: true, emergency: true, licensed: true, years: 19, price: '$$$', phone: '(305) 555-0188', services: ['Rollers', 'Tracks', 'Impact doors', 'Glass replacement', 'Locks & handles'], areas: ['Miami', 'Coral Gables', 'Miami Beach', 'Hialeah', 'Doral'], blurb: 'High-rise and condo specialists. Impact-rated door repair and replacement to Miami-Dade code, with HOA paperwork handled.' },
+    { id: 3, name: 'Orange Blossom Door Works', city: 'Orlando', county: 'Orange', zip: '32801', lat: 28.5384, lng: -81.3789, rating: 4.7, reviews: 156, featured: false, emergency: false, licensed: true, years: 9, price: '$$', phone: '(407) 555-0117', services: ['Rollers', 'Tracks', 'Screen doors', 'Weatherstripping'], areas: ['Orlando', 'Winter Park', 'Kissimmee', 'Sanford', 'Lake Nona'], blurb: 'Sticky, grinding or off-track sliders fixed without replacing the door. Upfront flat-rate pricing quoted on the phone.' },
+    { id: 4, name: 'First Coast Track & Roller', city: 'Jacksonville', county: 'Duval', zip: '32202', lat: 30.3322, lng: -81.6557, rating: 4.8, reviews: 201, featured: true, emergency: true, licensed: true, years: 22, price: '$$', phone: '(904) 555-0163', services: ['Rollers', 'Tracks', 'Locks & handles', 'Screen doors'], areas: ['Jacksonville', 'Orange Park', 'Ponte Vedra', 'Fernandina Beach'], blurb: 'Two decades on Northeast Florida patio doors. Stainless rollers and track caps that stand up to salt air.' },
+    { id: 5, name: 'Las Olas Glass & Slider', city: 'Fort Lauderdale', county: 'Broward', zip: '33301', lat: 26.1224, lng: -80.1373, rating: 4.6, reviews: 97, featured: false, emergency: true, licensed: true, years: 7, price: '$$$', phone: '(954) 555-0129', services: ['Glass replacement', 'Impact doors', 'Locks & handles', 'Tracks'], areas: ['Fort Lauderdale', 'Hollywood', 'Pompano Beach', 'Plantation'], blurb: 'Fogged or cracked panels replaced with tempered or impact glass. Emergency board-up after storms.' },
+    { id: 6, name: 'Palm Coast Patio Doors', city: 'West Palm Beach', county: 'Palm Beach', zip: '33401', lat: 26.7153, lng: -80.0534, rating: 4.9, reviews: 143, featured: false, emergency: false, licensed: true, years: 11, price: '$$', phone: '(561) 555-0175', services: ['Rollers', 'Tracks', 'Screen doors', 'Weatherstripping', 'Glass replacement'], areas: ['West Palm Beach', 'Boca Raton', 'Jupiter', 'Wellington'], blurb: 'Quiet, careful work in occupied homes. Known for restoring older aluminum sliders to glide with one finger.' },
+    { id: 7, name: 'Suncoast Slide Fix', city: 'Sarasota', county: 'Sarasota', zip: '34236', lat: 27.3364, lng: -82.5307, rating: 4.7, reviews: 88, featured: false, emergency: false, licensed: true, years: 6, price: '$', phone: '(941) 555-0151', services: ['Rollers', 'Tracks', 'Screen doors'], areas: ['Sarasota', 'Bradenton', 'Venice', 'Lakewood Ranch'], blurb: 'Budget-friendly roller and track service. Screen doors rebuilt while you wait.' },
+    { id: 8, name: 'Naples Door Doctor', city: 'Naples', county: 'Collier', zip: '34102', lat: 26.142, lng: -81.7948, rating: 4.8, reviews: 119, featured: false, emergency: true, licensed: true, years: 15, price: '$$$', phone: '(239) 555-0194', services: ['Impact doors', 'Glass replacement', 'Rollers', 'Locks & handles'], areas: ['Naples', 'Marco Island', 'Bonita Springs', 'Estero'], blurb: 'Large multi-panel and pocket sliders on luxury homes. Experienced with the major Florida impact-door brands.' },
+    { id: 9, name: 'Caloosa Roller Repair', city: 'Fort Myers', county: 'Lee', zip: '33901', lat: 26.6406, lng: -81.8723, rating: 4.5, reviews: 64, featured: false, emergency: true, licensed: false, years: 4, price: '$', phone: '(239) 555-0108', services: ['Rollers', 'Tracks', 'Weatherstripping'], areas: ['Fort Myers', 'Cape Coral', 'Lehigh Acres'], blurb: 'Fast roller swaps and track cleaning. Evenings and weekends available.' },
+    { id: 10, name: 'Pinellas Pane & Track', city: 'St. Petersburg', county: 'Pinellas', zip: '33701', lat: 27.7676, lng: -82.6403, rating: 4.6, reviews: 132, featured: false, emergency: false, licensed: true, years: 12, price: '$$', phone: '(727) 555-0136', services: ['Glass replacement', 'Tracks', 'Rollers', 'Locks & handles'], areas: ['St. Petersburg', 'Clearwater', 'Largo', 'Dunedin'], blurb: 'Glass and hardware under one roof. Cracked panel replacement usually scheduled within 48 hours.' },
+    { id: 11, name: 'Capital City Sliders', city: 'Tallahassee', county: 'Leon', zip: '32301', lat: 30.4383, lng: -84.2807, rating: 4.7, reviews: 58, featured: false, emergency: false, licensed: true, years: 8, price: '$', phone: '(850) 555-0147', services: ['Rollers', 'Locks & handles', 'Screen doors'], areas: ['Tallahassee', 'Crawfordville', 'Quincy'], blurb: 'Student rentals, apartments and homes. Lock upgrades and security bars installed on request.' },
+    { id: 12, name: 'Emerald Coast Door Service', city: 'Pensacola', county: 'Escambia', zip: '32502', lat: 30.4213, lng: -87.2169, rating: 4.8, reviews: 77, featured: false, emergency: true, licensed: true, years: 17, price: '$$', phone: '(850) 555-0182', services: ['Impact doors', 'Rollers', 'Tracks', 'Weatherstripping'], areas: ['Pensacola', 'Navarre', 'Gulf Breeze', 'Destin'], blurb: 'Panhandle storm-prep specialists: impact door upgrades, re-sealing and post-hurricane repair.' },
+    { id: 13, name: 'Space Coast Glide', city: 'Melbourne', county: 'Brevard', zip: '32901', lat: 28.0836, lng: -80.6081, rating: 4.6, reviews: 71, featured: false, emergency: false, licensed: true, years: 5, price: '$$', phone: '(321) 555-0110', services: ['Rollers', 'Tracks', 'Screen doors', 'Glass replacement'], areas: ['Melbourne', 'Palm Bay', 'Cocoa Beach', 'Titusville'], blurb: 'Beachside homes and condos from Titusville to Palm Bay. Corrosion-resistant hardware standard.' },
+    { id: 14, name: 'Kendall Track Masters', city: 'Miami', county: 'Miami-Dade', zip: '33156', lat: 25.6793, lng: -80.3173, rating: 4.4, reviews: 45, featured: false, emergency: true, licensed: false, years: 3, price: '$', phone: '(786) 555-0121', services: ['Rollers', 'Tracks', 'Locks & handles'], areas: ['Kendall', 'Pinecrest', 'Homestead', 'Cutler Bay'], blurb: 'Affordable roller and track repair across South Dade. Same-day appointments most weekdays.' }
+  ];
+  REVIEWS = [
+    { stars: '★★★★★', text: 'Door had been grinding for a year. They replaced both rollers and straightened the track — it slides with one finger now. Final bill matched the quote.', author: 'Dana R.' },
+    { stars: '★★★★★', text: 'Called at 7am after the storm, tech was here by noon. Price was inside the range on their profile, and he explained everything before starting.', author: 'Marco P.' },
+    { stars: '★★★★☆', text: 'Good work on a cracked panel. Glass took a week to arrive but install was quick and clean.', author: 'Lisa T.' }
+  ];
+
+  buildData() {
+    if (this.COMPANIES[0].prices) return;
+    const tier = { '$': 0.8, '$$': 1, '$$$': 1.3 };
+    const r5 = v => Math.round(v / 5) * 5;
+    this.COMPANIES.forEach(c => {
+      let seed = c.id * 9301 + 49297;
+      const rnd = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
+      const target = 0.72 + (c.rating - 4.4) * 0.45;
+      c.prices = c.services.map(s => {
+        const lo = r5(this.BASE[s][0] * tier[c.price]), hi = r5(this.BASE[s][1] * tier[c.price]);
+        const n = 3 + Math.floor(rnd() * 6);
+        const reports = [];
+        for (let i = 0; i < n; i++) {
+          const within = rnd() < target;
+          const paid = within ? r5(lo + rnd() * (hi - lo)) : r5(hi * (1.06 + rnd() * 0.3));
+          const quoted = within ? (rnd() < 0.8 ? paid : r5(paid * 0.92)) : r5(hi * (0.9 + rnd() * 0.1));
+          reports.push({ service: s, paid, quoted, within, receipt: rnd() < 0.6, door: this.DOORS[Math.floor(rnd() * this.DOORS.length)], where: c.areas[Math.floor(rnd() * c.areas.length)], date: this.MONTHS[Math.floor(rnd() * this.MONTHS.length)] });
+        }
+        return { service: s, lo, hi, reports };
+      });
+      c.reports = c.prices.flatMap(p => p.reports);
+      c.honesty = Math.round(100 * c.reports.filter(r => r.within).length / c.reports.length);
+    });
+  }
+
+  componentDidMount() {
+    this._onMsg = e => {
+      const d = e.data || {};
+      if (d.type === 'srfl-map-ready') this.sendMap();
+      if (d.type === 'srfl-open') this.openProfile(d.id);
+    };
+    window.addEventListener('message', this._onMsg);
+  }
+  componentWillUnmount() { window.removeEventListener('message', this._onMsg); }
+  componentDidUpdate() { this.sendMap(); }
+  sendMap() {
+    const items = (this._mapItems || []).map(c => ({ id: c.id, name: c.name, lat: c.lat, lng: c.lng, ratingText: c.ratingText, reviewsText: c.reviewsText, price: c.honestyText + ' price honesty', location: c.location, phone: c.phone, callHref: c.callHref, isFeatured: c.isFeatured }));
+    document.querySelectorAll('iframe[data-srfl-map]').forEach(f => f.contentWindow && f.contentWindow.postMessage({ type: 'srfl-companies', items }, '*'));
+  }
+
+  go(view, extra = {}) { this.setState({ view, ...extra }); window.scrollTo(0, 0); }
+  openProfile(id) { this.go('profile', { selectedId: id, quoteSent: false, report: 'closed' }); }
+  toggleCompare(id) {
+    this.setState(s => ({ compare: s.compare.includes(id) ? s.compare.filter(x => x !== id) : (s.compare.length < 3 ? [...s.compare, id] : s.compare) }));
+  }
+
+  matches(c, s) {
+    const q = s.query.trim().toLowerCase();
+    if (q) {
+      if (/^\d+$/.test(q)) { if (!c.zip.startsWith(q.slice(0, 3))) return false; }
+      else if (![c.city, c.county, c.county + ' county', ...c.areas].some(x => x.toLowerCase().includes(q))) return false;
+    }
+    if (s.service !== 'All services' && !c.services.includes(s.service)) return false;
+    if (s.price !== 'Any' && c.price !== s.price) return false;
+    if (s.emergency && !c.emergency) return false;
+    return true;
+  }
+
+  decorate(c, showFeatured, compare) {
+    const money = v => v == null ? '—' : '$' + v.toLocaleString('en-US');
+    const median = arr => { const a = [...arr].sort((x, y) => x - y); return a[Math.floor(a.length / 2)]; };
+    const checks = ['Oct 2026', 'Sep 2026', 'Aug 2026'][c.id % 3];
+    const next = ['Jan 2027', 'Dec 2026', 'Nov 2026'][c.id % 3];
+    const ins = ['Mar 2027', 'Jun 2027', 'Feb 2027', 'Nov 2027'][c.id % 4];
+    const head = c.prices[0];
+    const prices = c.prices.map(p => {
+      const all = [p.lo, p.hi, ...p.reports.map(r => r.paid)];
+      const min = Math.min(...all) * 0.85, max = Math.max(...all) * 1.08, pct = v => ((v - min) / (max - min) * 100).toFixed(1) + '%';
+      return {
+        service: p.service, range: `${money(p.lo)}–${money(p.hi)}`, median: money(median(p.reports.map(r => r.paid))),
+        countText: p.reports.length + ' reports', bandLeft: pct(p.lo), bandWidth: ((p.hi - p.lo) / (max - min) * 100).toFixed(1) + '%',
+        dots: p.reports.map(r => ({ left: pct(r.paid), color: r.within ? 'var(--color-text)' : 'var(--color-accent)' }))
+      };
+    });
+    const order = { 'Oct 2026': 0, 'Sep 2026': 1, 'Aug 2026': 2, 'Jul 2026': 3, 'Jun 2026': 4, 'May 2026': 5 };
+    const reportsList = [...c.reports].sort((a, b) => order[a.date] - order[b.date]).slice(0, 5).map(r => ({
+      service: r.service, door: r.door, where: r.where, date: r.date, paidText: money(r.paid), quotedText: money(r.quoted),
+      receipt: r.receipt, over: r.paid > r.quoted, overText: '+' + money(r.paid - r.quoted)
+    }));
+    const comparing = compare.includes(c.id);
+    return {
+      ...c,
+      isFeatured: showFeatured && c.featured,
+      location: `${c.city} · ${c.county} County`,
+      ratingText: c.rating.toFixed(1),
+      reviewsText: `${c.reviews} reviews`,
+      yearsText: `${c.years} years`,
+      areasText: c.areas.join(', '),
+      callHref: 'tel:' + c.phone.replace(/\D/g, ''),
+      hours: c.emergency ? 'Open 24/7, incl. storms' : 'Mon–Sat, 7am–6pm',
+      callout: { '$': 'Free with repair', '$$': '$49, waived if hired', '$$$': '$89, waived if hired' }[c.price],
+      warranty: c.years >= 10 ? '1 year, parts & labor' : '90 days, parts & labor',
+      shortName: c.name.split(' ').slice(0, 2).join(' '),
+      reply: c.emergency ? '1 hour' : '1 business day',
+      lastCheck: checks, nextCheck: next,
+      honestyText: c.honesty + '%',
+      reportCountText: `${c.reports.length} price reports`,
+      headline: { service: head.service, range: `${money(head.lo)}–${money(head.hi)}`, median: money(median(head.reports.map(r => r.paid))) },
+      prices, reportsList,
+      checks: [
+        { label: 'Insurance', detail: `$1M general liability · confirmed with insurer · expires ${ins}` },
+        { label: 'Florida license', detail: c.licensed ? `Active on DBPR · checked ${checks}` : 'Not required — repair-only hardware work' },
+        { label: 'Business registration', detail: 'Active on Sunbiz' },
+        { label: 'Florida address', detail: `Confirmed in ${c.city}` },
+        { label: 'Owner ID & background', detail: 'Passed' },
+        { label: 'Posted prices', detail: `${c.services.length} of ${c.services.length} services priced` },
+        { label: 'Review audit', detail: `No suspicious patterns · ${checks}` }
+      ],
+      comparing, notComparing: !comparing,
+      toggleCompare: () => this.toggleCompare(c.id),
+      open: () => this.openProfile(c.id)
+    };
+  }
+
+  renderVals() {
+    this.buildData();
+    const s = this.state, p = this.props;
+    const showFeatured = p.showFeatured ?? true;
+    const home = p.homeLayout ?? 'search';
+    const layout = p.listingStyle ?? 'rows';
+    const set = patch => this.setState(patch);
+    const nav = fn => e => { if (e && e.preventDefault) e.preventDefault(); fn(); };
+    const money = v => v == null ? '—' : '$' + v.toLocaleString('en-US');
+    const dec = c => this.decorate(c, showFeatured, s.compare);
+    const tierN = { '$': 1, '$$': 2, '$$$': 3 };
+    const key = { rating: (a, b) => b.rating - a.rating || b.honesty - a.honesty, price: (a, b) => tierN[a.price] - tierN[b.price] || b.rating - a.rating, years: (a, b) => b.years - a.years }[s.sort];
+    const results = this.COMPANIES.filter(c => this.matches(c, s))
+      .sort((a, b) => (showFeatured ? (b.featured - a.featured) : 0) || key(a, b)).map(dec);
+    const all = this.COMPANIES.map(dec);
+    this._mapItems = s.view === 'results' ? results : all;
+
+    const q = s.query.trim();
+    const svcPart = s.service === 'All services' ? 'Sliding door repair' : `${s.service} repair`;
+    const sel = dec(this.COMPANIES.find(c => c.id === s.selectedId) || this.COMPANIES[0]);
+
+    const allReports = this.COMPANIES.flatMap(c => c.reports);
+    const priceIndex = this.SERVICES.map(name => {
+      const v = allReports.filter(r => r.service === name).map(r => r.paid).sort((a, b) => a - b);
+      const at = f => v[Math.min(v.length - 1, Math.floor(v.length * f))];
+      return { service: name, median: money(at(0.5)), range: `${money(at(0.1))}–${money(at(0.9))}`, count: `${v.length}`, onClick: () => this.go('results', { query: '', service: name }) };
+    });
+
+    const cmp = s.compare.map(id => all.find(c => c.id === id));
+    const n = cmp.length;
+    const compareRows = [
+      { label: 'Rating', cells: cmp.map(c => `★ ${c.ratingText} · ${c.reviewsText}`) },
+      { label: 'Price honesty', cells: cmp.map(c => `${c.honestyText} within posted price`) },
+      { label: 'Price reports', cells: cmp.map(c => c.reportCountText) },
+      { label: 'Last verified', cells: cmp.map(c => c.lastCheck) },
+      { label: 'Call-out fee', cells: cmp.map(c => c.callout) },
+      { label: 'Warranty', cells: cmp.map(c => c.warranty) },
+      { label: 'In business', cells: cmp.map(c => c.yearsText) },
+      { label: 'Service area', cells: cmp.map(c => c.areasText) },
+      ...this.SERVICES.filter(sv => cmp.some(c => c.services.includes(sv))).map(sv => ({
+        label: sv, cells: cmp.map(c => { const pr = c.prices.find(x => x.service === sv); return pr ? `${money(pr.lo)}–${money(pr.hi)}` : '—'; })
+      }))
+    ];
+
+    return {
+      showStorm: p.stormBanner ?? false,
+      showFeatured,
+      isHome: s.view === 'home', isResults: s.view === 'results', isProfile: s.view === 'profile', isList: s.view === 'list', isCompare: s.view === 'compare',
+      heroSearch: home === 'search', heroMap: home === 'map', heroPoster: home === 'poster', heroNotPoster: home !== 'poster',
+      goHome: nav(() => this.go('home')),
+      goAll: nav(() => this.go('results', { query: '', service: 'All services', price: 'Any', emergency: false, mode: 'list' })),
+      goMap: nav(() => this.go('results', { mode: 'map' })),
+      goCompare: nav(() => this.go('compare')),
+      goList: nav(() => this.go('list', { listSent: false })),
+      goVetting: nav(() => { this.setState({ view: 'home' }); setTimeout(() => { const el = document.getElementById('vetting'); window.scrollTo(0, el ? el.getBoundingClientRect().top + window.scrollY - 16 : 0); }, 60); }),
+      goBack: () => this.go('results'),
+      showEmergency: () => this.go('results', { emergency: true }),
+      query: s.query, service: s.service,
+      onQuery: e => set({ query: e.target.value }),
+      onService: e => set({ service: e.target.value }),
+      onSearch: e => { e.preventDefault(); this.go('results'); },
+      serviceOptions: ['All services', ...this.SERVICES],
+      totalCount: this.COMPANIES.length,
+      cities: this.CITIES.map(([name, county]) => {
+        const k = this.COMPANIES.filter(c => c.city === name || c.areas.includes(name)).length;
+        return { name, county, countText: k === 1 ? '1 company' : `${k} companies`, onClick: () => this.go('results', { query: name, service: 'All services' }) };
+      }),
+      featured: all.filter(c => c.featured),
+      serviceLinks: this.SERVICES.map(name => ({ name, countText: `${this.COMPANIES.filter(c => c.services.includes(name)).length} companies`, onClick: () => this.go('results', { query: '', service: name }) })),
+      vetChecks: this.VET, rejectReasons: this.REJECT,
+      totalReports: allReports.length, priceIndex,
+      doorTypes: this.DOORS,
+      results, noResults: results.length === 0,
+      modeList: s.mode === 'list', modeMap: s.mode === 'map',
+      setList: () => set({ mode: 'list' }), setMap: () => set({ mode: 'map' }),
+      showMap: s.mode === 'map' && results.length > 0,
+      listRows: s.mode === 'list' && layout === 'rows', listCards: s.mode === 'list' && layout === 'cards',
+      countText: results.length === 1 ? '1 verified company' : `${results.length} verified companies`,
+      resultsTitle: q ? `${svcPart} near ${q.replace(/^./, m => m.toUpperCase())}` : `${svcPart} in Florida`,
+      sortRating: s.sort === 'rating', sortPrice: s.sort === 'price', sortYears: s.sort === 'years',
+      sortByRating: () => set({ sort: 'rating' }), sortByPrice: () => set({ sort: 'price' }), sortByYears: () => set({ sort: 'years' }),
+      priceChips: ['Any', '$', '$$', '$$$'].map(t => ({ label: t, active: s.price === t, inactive: s.price !== t, onClick: () => set({ price: t }) })),
+      serviceChips: ['All services', ...this.SERVICES].map(name => ({ name, active: s.service === name, inactive: s.service !== name, onClick: () => set({ service: name }) })),
+      clearFilters: () => set({ query: '', service: 'All services', price: 'Any', emergency: false }),
+      sel,
+      reviews: this.REVIEWS.map(r => ({ ...r, where: sel.areas[0] })),
+      quoteOpen: !s.quoteSent, quoteSent: s.quoteSent,
+      sendQuote: e => { e.preventDefault(); set({ quoteSent: true }); },
+      reportClosed: s.report === 'closed', reportFormOpen: s.report === 'open', reportSent: s.report === 'sent',
+      openReport: () => set({ report: 'open' }),
+      sendReport: e => { e.preventDefault(); set({ report: 'sent' }); },
+      compareEmpty: n === 0, compareHas: n > 0,
+      compareList: cmp, compareRows,
+      compareCols: `minmax(140px, 180px) repeat(${Math.max(n, 1)}, minmax(200px, 1fr))`,
+      compareMinWidth: `${180 + Math.max(n, 1) * 224}px`,
+      showTray: n > 0 && s.view !== 'compare',
+      compareCountText: `${n} of 3 selected`,
+      compareNames: cmp.map(c => c.name).join(' · '),
+      clearCompare: () => set({ compare: [] }),
+      listOpen: !s.listSent, listSent: s.listSent,
+      sendListing: e => { e.preventDefault(); set({ listSent: true }); window.scrollTo(0, 0); },
+      planFree: s.plan === 'free', planFeatured: s.plan === 'featured',
+      pickFree: () => set({ plan: 'free' }), pickFeatured: () => set({ plan: 'featured' })
+    };
+  }
+}
+</script>
+</body>
+</html>

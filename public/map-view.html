@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SlideRepairFL map</title>
+<link rel="stylesheet" href="/_ds/modernist/styles.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700;800&display=swap">
+<link rel="stylesheet" href="/vendor/leaflet/leaflet.css">
+<script src="/vendor/leaflet/leaflet.js"></script>
+<style>
+html, body, #map { margin: 0; height: 100%; background: var(--color-surface); font-family: var(--font-body); }
+.leaflet-tile-pane { filter: grayscale(1) contrast(1.05); }
+.leaflet-popup-content-wrapper, .leaflet-popup-tip { border-radius: 0; box-shadow: var(--shadow-md); background: var(--color-bg); color: var(--color-text); }
+.leaflet-popup-content { margin: 14px 16px; font-size: 13px; line-height: 1.5; }
+.leaflet-bar a, .leaflet-bar { border-radius: 0 !important; }
+.pin { width: 14px; height: 14px; background: var(--color-accent); border: 2px solid var(--color-bg); box-shadow: var(--shadow-sm); }
+.pin.feat { width: 20px; height: 20px; background: var(--color-text); outline: 3px solid var(--color-accent); outline-offset: -3px; }
+.p-name { font-family: var(--font-heading); font-weight: 800; font-size: 16px; line-height: 1.2; margin: 0 0 4px; }
+.p-meta { color: color-mix(in srgb, var(--color-text) 75%, transparent); }
+.p-row { display: flex; gap: 6px; margin-top: 10px; }
+.p-row .btn { font-size: 12px; min-height: 32px; justify-content: flex-start; }
+</style>
+</head>
+<body>
+<div id="map"></div>
+<script>
+const map = L.map('map', { zoomControl: true, scrollWheelZoom: false }).fitBounds([[24.5, -87.6], [31.0, -80.0]]);
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '© OpenStreetMap contributors' }).addTo(map);
+const layer = L.layerGroup().addTo(map);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+let lastKey = '';
+function render(items) {
+  const key = items.map(i => i.id + (i.isFeatured ? 'f' : '')).join(',');
+  if (key === lastKey) return;
+  lastKey = key;
+  layer.clearLayers();
+  items.forEach(c => {
+    const icon = L.divIcon({ className: '', html: `<div class="pin${c.isFeatured ? ' feat' : ''}"></div>`, iconSize: c.isFeatured ? [20, 20] : [14, 14] });
+    const m = L.marker([c.lat, c.lng], { icon, title: c.name }).addTo(layer);
+    m.bindPopup(`<p class="p-name">${esc(c.name)}</p>
+      <div><strong>★ ${esc(c.ratingText)}</strong> <span class="p-meta">· ${esc(c.reviewsText)} · ${esc(c.price)}</span></div>
+      <div class="p-meta">${esc(c.location)}</div>
+      <div class="p-row"><button class="btn btn-primary" data-open="${c.id}">View profile</button><a class="btn btn-secondary" href="${esc(c.callHref)}" target="_top" style="text-decoration:none;color:inherit">${esc(c.phone)}</a></div>`);
+  });
+  if (items.length) map.fitBounds(L.latLngBounds(items.map(c => [c.lat, c.lng])).pad(0.25), { maxZoom: 10 });
+}
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-open]');
+  if (b) parent.postMessage({ type: 'srfl-open', id: Number(b.dataset.open) }, '*');
+});
+addEventListener('message', e => { if (e.data && e.data.type === 'srfl-companies') render(e.data.items); });
+parent.postMessage({ type: 'srfl-map-ready' }, '*');
+</script>
+</body>
+</html>

@@ -107,6 +107,43 @@ export function parseStyle(css) {
   return out;
 }
 
+// style-hover="..." / style-focus="..." etc.: state styles the canvas runtime
+// supports. Each becomes a generated class whose rule beats the inline style.
+export const pseudoRules = new Map();
+
+function importantify(css) {
+  return css.split(';').map((d) => d.trim()).filter(Boolean)
+    .map((d) => (/!\s*important$/i.test(d) ? d : d + ' !important')).join(';');
+}
+
+function pseudoClass(pseudo, css) {
+  const k = pseudo + '|' + css;
+  let h = 5381;
+  for (let i = 0; i < k.length; i++) h = ((h * 33) ^ k.charCodeAt(i)) >>> 0;
+  const cls = 'scp' + h.toString(36);
+  if (!pseudoRules.has(cls)) {
+    const el = pseudo === 'before' || pseudo === 'after';
+    pseudoRules.set(cls, '.' + cls + (el ? '::' : ':') + pseudo + '{' + (el ? css : importantify(css)) + '}');
+    if (typeof document !== 'undefined') injectPseudoRules();
+  }
+  return cls;
+}
+
+let sheetEl = null;
+const injected = new Set();
+export function injectPseudoRules() {
+  if (!sheetEl) {
+    sheetEl = document.getElementById('dc-pseudo') || document.createElement('style');
+    if (!sheetEl.parentNode) document.head.appendChild(sheetEl);
+    for (const m of sheetEl.textContent.matchAll(/\.(scp[a-z0-9]+)/g)) injected.add(m[1]);
+  }
+  for (const [cls, rule] of pseudoRules) {
+    if (injected.has(cls)) continue;
+    injected.add(cls);
+    sheetEl.appendChild(document.createTextNode(rule + '\n'));
+  }
+}
+
 function propName(name) {
   if (ATTR_NAMES[name]) return ATTR_NAMES[name];
   if (/^on[A-Z]/.test(name)) return name;
@@ -118,8 +155,10 @@ function propName(name) {
 function buildProps(tag, attrs, scope, key) {
   const props = { key };
   const hasChange = 'onChange' in attrs;
+  const pseudo = [];
   for (const name in attrs) {
     if (name.startsWith('hint-')) continue;
+    if (name.startsWith('style-')) { pseudo.push(pseudoClass(name.slice(6), attrs[name])); continue; }
     let v = value(attrs[name], scope);
     let p = propName(name);
     if (/^on[A-Z]/.test(p)) {
@@ -141,6 +180,7 @@ function buildProps(tag, attrs, scope, key) {
     if (v == null || v === false && !p.startsWith('aria-')) continue;
     props[p] = v;
   }
+  if (pseudo.length) props.className = [props.className, ...pseudo].filter(Boolean).join(' ');
   // Uncontrolled form fields keep working when the template binds no handler.
   const changeable = props.onChange || props.onInput;
   if ((tag === 'input' || tag === 'textarea' || tag === 'select') && 'value' in props && !changeable) {

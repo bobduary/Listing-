@@ -12,7 +12,7 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import * as esbuild from 'esbuild';
 import { ROUTES, COMPONENTS } from '../src/routes.js';
-import { makeComponent } from '../src/runtime/dc.js';
+import { makeComponent, pseudoRules } from '../src/runtime/dc.js';
 import { SITE } from '../src/site.js';
 
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
@@ -99,21 +99,25 @@ function outPath(route) {
 }
 
 function page({ c, html, helmet, route, description }) {
-  const url = SITE.url + (route === '/' ? '/' : route);
+  const url = SITE.url ? SITE.url + (route === '/' ? '/' : route) : '';
+  const meta = [
+    `<title>${esc(c.title)}</title>`,
+    description && `<meta name="description" content="${esc(description)}">`,
+    url && `<link rel="canonical" href="${url}">`,
+    `<meta property="og:type" content="website">`,
+    `<meta property="og:site_name" content="${esc(SITE.name)}">`,
+    `<meta property="og:title" content="${esc(c.title)}">`,
+    description && `<meta property="og:description" content="${esc(description)}">`,
+    url && `<meta property="og:url" content="${url}">`,
+    SITE.url && SITE.ogImage && `<meta property="og:image" content="${SITE.url}${SITE.ogImage}">`,
+    SITE.favicon && `<link rel="icon" href="${SITE.favicon}">`,
+  ].filter(Boolean);
   return `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${esc(c.title)}</title>
-${description ? `<meta name="description" content="${esc(description)}">\n` : ''}<link rel="canonical" href="${url}">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="${esc(SITE.name)}">
-<meta property="og:title" content="${esc(c.title)}">
-${description ? `<meta property="og:description" content="${esc(description)}">\n` : ''}<meta property="og:url" content="${url}">
-<meta property="og:image" content="${SITE.url}${SITE.ogImage}">
-<meta name="theme-color" content="#14201B">
-<link rel="icon" type="image/png" href="${SITE.favicon}">
+${meta.join('\n')}
 ${helmet.join('\n')}
 </head>
 <body>
@@ -150,6 +154,7 @@ async function main() {
     const Page = makeComponent(mods[name], ctx);
     const html = renderToString(React.createElement(Page));
     const helmet = [...new Set([...c.helmet, ...c.imports.flatMap((n) => compiled[n].helmet)])];
+    if (pseudoRules.size) helmet.push(`<style id="dc-pseudo">\n${[...pseudoRules.values()].join('\n')}\n</style>`);
     const route = ROUTES[name];
     const out = outPath(route);
     fs.mkdirSync(path.dirname(out), { recursive: true });
@@ -168,13 +173,15 @@ async function main() {
 
   fs.cpSync(path.join(ROOT, 'public'), DIST, { recursive: true });
 
-  const today = new Date().toISOString().slice(0, 10);
-  const urls = pages.filter((n) => n !== 'Checkout').map((n) =>
-    `  <url><loc>${SITE.url}${ROUTES[n] === '/' ? '/' : ROUTES[n]}</loc><lastmod>${today}</lastmod></url>`);
-  fs.writeFileSync(path.join(DIST, 'sitemap.xml'),
-    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`);
+  if (SITE.url) {
+    const today = new Date().toISOString().slice(0, 10);
+    const urls = pages.map((n) =>
+      `  <url><loc>${SITE.url}${ROUTES[n] === '/' ? '/' : ROUTES[n]}</loc><lastmod>${today}</lastmod></url>`);
+    fs.writeFileSync(path.join(DIST, 'sitemap.xml'),
+      `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`);
+  }
   fs.writeFileSync(path.join(DIST, 'robots.txt'),
-    `User-agent: *\nDisallow: /checkout\nSitemap: ${SITE.url}/sitemap.xml\n`);
+    `User-agent: *\nAllow: /\n${SITE.url ? `Sitemap: ${SITE.url}/sitemap.xml\n` : ''}`);
 
   console.log(`Built ${pages.length} pages into dist/`);
 }
