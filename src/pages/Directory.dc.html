@@ -2,668 +2,647 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Florida Sliding Door Repair Directory | SlideRepairFL</title>
+<title>Sliding Glass Door Repair in Florida | Checked Pros &amp; Fair Prices | SlideRepairFL</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
 </head>
 <body>
 <x-dc>
 <helmet>
-<link rel="stylesheet" href="/_ds/modernist/styles.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&display=swap">
-<script src="/image-slot.js"></script>
-<style>
-body { margin: 0; background: var(--color-bg); color: var(--color-text); font-family: var(--font-body); text-wrap: pretty; }
-a { color: var(--color-accent-700); }
-a:hover { color: var(--color-accent); }
-</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700;800&display=swap">
+<link rel="stylesheet" href="/css/site.css">
 </helmet>
 
-<div style="min-height: 100vh; display: flex; flex-direction: column; font-size: 16px; line-height: 1.6;">
+<div class="app">
 
-<sc-if value="{{ showStorm }}" hint-placeholder-val="{{ false }}">
-  <div style="background: var(--color-text); color: var(--color-bg); font-size: 14px;">
-    <div style="max-width: 1200px; margin: 0 auto; padding: 10px clamp(20px, 5vw, 56px); display: flex; gap: 16px; align-items: center; flex-wrap: wrap;">
-      <span style="width: 10px; height: 10px; background: var(--color-accent); flex: none;"></span>
-      <span style="flex: 1 1 280px;">Storm-damaged slider? Some companies take emergency calls 24/7 during hurricane season.</span>
-      <button type="button" onClick="{{ showEmergency }}" style="background: none; border: 0; color: var(--color-bg); font: inherit; font-weight: 700; cursor: pointer; padding: 0; text-decoration: underline; text-underline-offset: 3px;">See 24/7 companies</button>
-    </div>
+<header class="topbar">
+  <div class="wrap topbar-in">
+    <a class="brand" href="/" onClick="{{ goHome }}">
+      <span class="brand-mark" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h18v16H3z"></path><path d="M12 4v16"></path><path d="M15 12h2"></path></svg></span>
+      SlideRepairFL
+    </a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="/" onClick="{{ goHome }}">What's wrong?</a>
+      <a href="/cost" onClick="{{ goPrices }}">Prices</a>
+      <a href="/pros" onClick="{{ goAll }}">Find a pro</a>
+      <a href="/problems/hurricane-damaged-sliding-door" onClick="{{ goStorm }}">Storm help</a>
+      <a href="/list-your-business" onClick="{{ goList }}">For businesses</a>
+    </nav>
+    <details class="menu">
+      <summary aria-label="Open menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>Menu</summary>
+      <div class="menu-panel">
+        <a href="/" onClick="{{ goHome }}">What's wrong with my door?</a>
+        <a href="/cost" onClick="{{ goPrices }}">Repair prices in Florida</a>
+        <a href="/pros" onClick="{{ goAll }}">Find a checked pro</a>
+        <a href="/problems/hurricane-damaged-sliding-door" onClick="{{ goStorm }}">Storm &amp; hurricane help</a>
+        <a href="/compare" onClick="{{ goCompare }}">Compare pros</a>
+        <a href="/list-your-business" onClick="{{ goList }}">For repair businesses</a>
+      </div>
+    </details>
   </div>
-</sc-if>
+</header>
 
-<nav class="nav" style="padding-inline: max(clamp(20px, 5vw, 56px), calc((100% - 1200px) / 2 + clamp(20px, 5vw, 56px))); gap: 24px; flex-wrap: wrap;">
-  <span class="nav-brand" onClick="{{ goHome }}" style="cursor: pointer; display: flex; align-items: center; gap: 10px;"><span style="width: 14px; height: 14px; background: var(--color-accent);"></span>SlideRepairFL</span>
-  <a href="#" onClick="{{ goAll }}">Find a pro</a>
-  <a href="#" onClick="{{ goMap }}">Map</a>
-  <a href="#" onClick="{{ goCompare }}">Compare</a>
-  <a href="#" onClick="{{ goVetting }}">How we vet</a>
-  <a href="#" onClick="{{ goList }}">List your business</a>
-  <button type="button" class="btn btn-primary" onClick="{{ goAll }}">Find a repair pro</button>
-</nav>
+<main>
 
-<main style="flex: 1;">
-
-<!-- HOME -->
+<!-- ================= HOME ================= -->
 <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
 
-  <!-- Hero A · search-first -->
-  <sc-if value="{{ heroSearch }}" hint-placeholder-val="{{ true }}">
-    <div style="max-width: 1200px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 56px);">
-      <section style="padding: clamp(56px, 9vw, 112px) 0 72px;">
-        <h1 style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(40px, 6.2vw, 84px); line-height: 1.04; letter-spacing: -0.02em; margin: 0 0 0 -0.05em; max-width: 15ch;">
-          <span style="display: block;">Stuck slider?</span>
-          <span style="display: block;">Find a Florida pro who fixes it this week.</span>
-        </h1>
-        <p style="font-size: 18px; line-height: 1.6; max-width: 56ch; margin: 28px 0 0; color: color-mix(in srgb, var(--color-text) 80%, transparent);">Sliding glass door repair companies across Florida — rollers, tracks, glass, locks and impact doors. Compare ratings and prices, then call direct.</p>
-        <form onSubmit="{{ onSearch }}" style="margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); border: 2px solid var(--color-text); max-width: 880px; background: var(--color-bg);">
-          <label style="display: flex; flex-direction: column; padding: 12px 16px; gap: 2px; border-right: 2px solid var(--color-divider);">
-            <span style="font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 70%, transparent);">City, county or ZIP</span>
-            <input value="{{ query }}" onChange="{{ onQuery }}" placeholder="e.g. Tampa or 33602" style="border: 0; background: transparent; font: inherit; font-size: 18px; padding: 4px 0; outline: none; color: var(--color-text);">
-          </label>
-          <label style="display: flex; flex-direction: column; padding: 12px 16px; gap: 2px;">
-            <span style="font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Repair needed</span>
-            <select value="{{ service }}" onChange="{{ onService }}" style="border: 0; background: transparent; font: inherit; font-size: 18px; padding: 4px 0; outline: none; color: var(--color-text); cursor: pointer;">
-              <sc-for list="{{ serviceOptions }}" as="opt" hint-placeholder-count="8"><option value="{{ opt }}">{{ opt }}</option></sc-for>
-            </select>
-          </label>
-          <button type="submit" class="btn btn-primary" style="min-height: 72px; font-size: 17px; justify-content: space-between; padding: 0 20px;">Search
-            <svg width="20" height="20" viewBox="0 0 24 24" style="fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
-          </button>
-        </form>
-      </section>
-    </div>
-  </sc-if>
-
-  <!-- Hero B · map-first -->
-  <sc-if value="{{ heroMap }}" hint-placeholder-val="{{ false }}">
-    <div style="max-width: 1200px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 56px);">
-      <section style="padding: 56px 0 72px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 40px; align-items: stretch;">
-        <div style="display: flex; flex-direction: column; gap: 24px; justify-content: center;">
-          <h1 style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(36px, 4.8vw, 64px); line-height: 1.04; letter-spacing: -0.02em; margin: 0 0 0 -0.05em;">
-            <span style="display: block;">Every sliding door pro in Florida.</span>
-            <span style="display: block;">One map.</span>
-          </h1>
-          <p style="margin: 0; font-size: 17px; max-width: 46ch; color: color-mix(in srgb, var(--color-text) 80%, transparent);">Tap a pin to see ratings, prices and photos — or search your city.</p>
-          <form onSubmit="{{ onSearch }}" style="display: flex; flex-direction: column; border: 2px solid var(--color-text); background: var(--color-bg);">
-            <label style="display: flex; flex-direction: column; padding: 12px 16px; gap: 2px; border-bottom: 2px solid var(--color-divider);">
-              <span style="font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 70%, transparent);">City, county or ZIP</span>
-              <input value="{{ query }}" onChange="{{ onQuery }}" placeholder="e.g. Naples or 34102" style="border: 0; background: transparent; font: inherit; font-size: 18px; padding: 4px 0; outline: none; color: var(--color-text);">
-            </label>
-            <label style="display: flex; flex-direction: column; padding: 12px 16px; gap: 2px;">
-              <span style="font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Repair needed</span>
-              <select value="{{ service }}" onChange="{{ onService }}" style="border: 0; background: transparent; font: inherit; font-size: 18px; padding: 4px 0; outline: none; color: var(--color-text); cursor: pointer;">
-                <sc-for list="{{ serviceOptions }}" as="opt" hint-placeholder-count="8"><option value="{{ opt }}">{{ opt }}</option></sc-for>
-              </select>
-            </label>
-            <button type="submit" class="btn btn-primary" style="min-height: 56px; font-size: 17px; justify-content: space-between; padding: 0 20px;">Search <span>→</span></button>
-          </form>
-        </div>
-        <iframe data-srfl-map="1" src="/map-view.html" title="Map of Florida sliding door repair companies" style="width: 100%; min-height: 520px; height: 100%; border: 2px solid var(--color-divider); display: block; background: var(--color-surface);"></iframe>
-      </section>
-    </div>
-  </sc-if>
-
-  <!-- Hero C · poster -->
-  <sc-if value="{{ heroPoster }}" hint-placeholder-val="{{ false }}">
-    <section style="background: var(--color-accent); color: var(--color-bg);">
-      <div style="max-width: 1200px; margin: 0 auto; padding: clamp(64px, 9vw, 120px) clamp(20px, 5vw, 56px) 64px;">
-        <h1 style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(48px, 8.4vw, 120px); line-height: 1.0; letter-spacing: -0.03em; margin: 0 0 0 -0.05em;">
-          <span style="display: block;">Sliding door repair.</span>
-          <span style="display: block;">Florida only.</span>
-        </h1>
-        <form onSubmit="{{ onSearch }}" style="margin-top: 48px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); max-width: 960px; background: var(--color-bg); color: var(--color-text);">
-          <label style="display: flex; flex-direction: column; padding: 14px 18px; gap: 2px; border-right: 2px solid var(--color-divider);">
-            <span style="font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 70%, transparent);">City, county or ZIP</span>
-            <input value="{{ query }}" onChange="{{ onQuery }}" placeholder="e.g. Orlando or 32801" style="border: 0; background: transparent; font: inherit; font-size: 18px; padding: 4px 0; outline: none; color: var(--color-text);">
-          </label>
-          <label style="display: flex; flex-direction: column; padding: 14px 18px; gap: 2px;">
-            <span style="font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Repair needed</span>
-            <select value="{{ service }}" onChange="{{ onService }}" style="border: 0; background: transparent; font: inherit; font-size: 18px; padding: 4px 0; outline: none; color: var(--color-text); cursor: pointer;">
-              <sc-for list="{{ serviceOptions }}" as="opt" hint-placeholder-count="8"><option value="{{ opt }}">{{ opt }}</option></sc-for>
-            </select>
-          </label>
-          <button type="submit" class="btn" style="min-height: 76px; font-size: 18px; justify-content: space-between; padding: 0 22px; background: var(--color-text); color: var(--color-bg);" style-hover="background: var(--color-neutral-800);">Find a pro <span>→</span></button>
-        </form>
+  <section class="hero">
+    <div class="wrap stack" style="gap: 20px;">
+      <p class="eyebrow">Florida sliding glass door repair</p>
+      <h1 class="h1" style="max-width: 18ch;">What's wrong with your sliding door?</h1>
+      <p class="lead">Pick what you're seeing. We'll explain the likely cause in plain words, show what the repair should cost in Florida, and list checked local pros who can fix it.</p>
+      <ol class="steps" aria-label="How it works">
+        <li class="step step-on"><span class="step-n">1</span>What's wrong</li>
+        <li class="step"><span class="step-n">2</span>Fair price</li>
+        <li class="step"><span class="step-n">3</span>Who to call</li>
+      </ol>
+      <div class="symptom-grid" style="margin-top: 8px;">
+        <sc-for list="{{ symptoms }}" as="s" hint-placeholder-count="8">
+          <a class="{{ s.cls }}" href="{{ s.href }}" onClick="{{ s.pick }}">
+            <span class="symptom-icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="{{ s.icon }}"></path></svg></span>
+            <span class="symptom-title">{{ s.title }}</span>
+            <span class="symptom-sub">{{ s.sub }}</span>
+          </a>
+        </sc-for>
       </div>
-    </section>
-  </sc-if>
+      <p class="muted small">Already know what you need? <a href="/pros" onClick="{{ goAll }}">Search pros by city or ZIP →</a></p>
+    </div>
+  </section>
 
-  <div style="max-width: 1200px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 56px);">
-    <sc-if value="{{ heroNotPoster }}" hint-placeholder-val="{{ true }}">
-      <hr style="height: 2px; border: 0; margin: 0; background: var(--color-divider);">
-    </sc-if>
-    <section id="vetting" style="padding: 64px 0;">
-      <span style="display: block; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent-700); margin-bottom: 12px;">How we vet</span>
-      <h2 style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(30px, 3.6vw, 44px); line-height: 1.1; letter-spacing: -0.015em; margin: 0; max-width: 22ch;">We check every pro. Most don't make it.</h2>
-      <p style="margin: 20px 0 32px; font-size: 17px; max-width: 58ch; color: color-mix(in srgb, var(--color-text) 80%, transparent);">Every company is checked before it's listed and re-checked every 90 days. Paying for a featured spot doesn't skip a single step.</p>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 2px; background: var(--color-divider); border: 2px solid var(--color-divider); margin-bottom: 40px;">
-        <div style="background: var(--color-bg); padding: 20px; display: flex; flex-direction: column; gap: 4px;">
-          <span style="font-family: var(--font-heading); font-weight: 800; font-size: 48px; line-height: 1.1;">61</span>
-          <span style="font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Companies applied in 2026</span>
-        </div>
-        <div style="background: var(--color-bg); padding: 20px; display: flex; flex-direction: column; gap: 4px;">
-          <span style="font-family: var(--font-heading); font-weight: 800; font-size: 48px; line-height: 1.1;">14</span>
-          <span style="font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Approved and listed</span>
-        </div>
-        <div style="background: var(--color-bg); padding: 20px; display: flex; flex-direction: column; gap: 4px;">
-          <span style="font-family: var(--font-heading); font-weight: 800; font-size: 48px; line-height: 1.1; color: var(--color-accent);">47</span>
-          <span style="font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Turned down</span>
+  <section class="storm" id="storm">
+    <div class="wrap section grid-2" style="align-items: center; padding-block: 36px;">
+      <div class="stack-sm">
+        <p class="eyebrow eyebrow-warn">Storm help</p>
+        <h2 class="h2">Door damaged in a storm?</h2>
+        <p class="muted">Keep everyone away from broken glass and take photos for insurance. If the door won't close or lock, call a pro who answers 24/7. Right now, {{ emergencyCount }} listed pros take emergency calls.</p>
+      </div>
+      <div class="row">
+        <button type="button" class="btn btn-warn btn-phone-block" onClick="{{ showEmergency }}">See 24/7 pros</button>
+        <a class="btn btn-secondary btn-phone-block" href="/problems/hurricane-damaged-sliding-door" onClick="{{ goStorm }}">What to do first</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap stack" style="gap: 24px;">
+      <div class="stack-sm">
+        <p class="eyebrow">Florida price guide</p>
+        <h2 class="h2">What sliding door repairs cost</h2>
+        <p class="muted" style="max-width: 62ch;">Based on {{ totalReports }} reports from Florida homeowners after their repair. Use it to tell a fair quote from a high one.</p>
+      </div>
+      <div>
+        <sc-for list="{{ priceIndex }}" as="pi" hint-placeholder-count="7">
+          <a class="price-row" href="/cost" onClick="{{ goPrices }}">
+            <span style="font-weight: 700;">{{ pi.label }}</span>
+            <span class="tnum" style="font-weight: 800; color: var(--color-accent-700);">{{ pi.range }}</span>
+            <span class="only-desk muted small">Middle price {{ pi.median }}</span>
+            <span class="only-desk muted small">{{ pi.count }} reports</span>
+          </a>
+        </sc-for>
+      </div>
+      <a class="btn btn-secondary btn-phone-block" href="/cost" onClick="{{ goPrices }}" style="align-self: flex-start;">Full price guide &amp; what changes the price</a>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="vetting">
+    <div class="wrap grid-2" style="gap: 40px; align-items: start;">
+      <div class="stack">
+        <p class="eyebrow">How we check pros</p>
+        <h2 class="h2">Every pro is checked before they're listed.</h2>
+        <p class="muted">We re-check every 90 days. Paying for a featured spot doesn't skip a single step, and ads are always labeled.</p>
+        <div class="stats">
+          <div class="stat"><span class="stat-n">61</span><span class="stat-l">Applied in 2026</span></div>
+          <div class="stat"><span class="stat-n" style="color: var(--color-ok);">14</span><span class="stat-l">Passed &amp; listed</span></div>
+          <div class="stat"><span class="stat-n">47</span><span class="stat-l">Turned down</span></div>
         </div>
       </div>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 32px 56px;">
-        <div>
-          <h3 style="font-family: var(--font-heading); font-weight: 800; font-size: 20px; margin: 0 0 12px;">What we check</h3>
+      <div class="card">
+        <h3 class="h3" style="margin-bottom: 16px;">What we check</h3>
+        <ul class="checklist">
           <sc-for list="{{ vetChecks }}" as="v" hint-placeholder-count="7">
-            <div style="border-top: 2px solid var(--color-divider); padding: 12px 0; display: flex; gap: 12px; align-items: flex-start;">
-              <svg width="18" height="18" viewBox="0 0 24 24" style="fill: none; stroke: var(--color-accent); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; flex: none; margin-top: 3px;"><path d="M20 6 9 17l-5-5"></path></svg>
-              <span><strong>{{ v.label }}</strong> <span style="color: color-mix(in srgb, var(--color-text) 75%, transparent);">— {{ v.how }}</span></span>
-            </div>
+            <li><strong>{{ v.label }}</strong> <span class="muted">— {{ v.how }}</span></li>
           </sc-for>
-        </div>
-        <div>
-          <h3 style="font-family: var(--font-heading); font-weight: 800; font-size: 20px; margin: 0 0 12px;">Why we said no</h3>
-          <sc-for list="{{ rejectReasons }}" as="r" hint-placeholder-count="5">
-            <div style="border-top: 2px solid var(--color-divider); padding: 12px 0; display: flex; justify-content: space-between; gap: 16px;">
-              <span>{{ r.label }}</span>
-              <strong style="font-feature-settings: 'tnum' 1;">{{ r.count }}</strong>
-            </div>
-          </sc-for>
-        </div>
+        </ul>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <hr style="height: 2px; border: 0; margin: 0; background: var(--color-divider);">
-    <section style="padding: 64px 0;">
-      <span style="display: block; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent-700); margin-bottom: 12px;">Florida price index</span>
-      <h2 style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(30px, 3.6vw, 44px); line-height: 1.1; letter-spacing: -0.015em; margin: 0; max-width: 22ch;">What homeowners actually paid</h2>
-      <p style="margin: 20px 0 28px; font-size: 17px; max-width: 58ch; color: color-mix(in srgb, var(--color-text) 80%, transparent);">From {{ totalReports }} price reports customers sent us after their repair. Every listed pro also posts a price range for each service.</p>
-      <div style="display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1.4fr) minmax(0, 1fr); gap: 16px; padding: 10px 0; border-bottom: 2px solid var(--color-text); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 70%, transparent);">
-        <span>Repair</span><span>Median paid</span><span>Most paid between</span><span>Reports</span>
+  <section class="section">
+    <div class="wrap stack" style="gap: 24px;">
+      <div class="row" style="justify-content: space-between;">
+        <h2 class="h2">Sliding door repair by city</h2>
+        <a class="btn btn-ghost" href="/pros" onClick="{{ goAll }}">All {{ totalCount }} pros →</a>
       </div>
-      <sc-for list="{{ priceIndex }}" as="pi" hint-placeholder-count="7">
-        <button type="button" onClick="{{ pi.onClick }}" style="display: grid; width: 100%; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1.4fr) minmax(0, 1fr); gap: 16px; padding: 14px 0; border: 0; border-bottom: 2px solid var(--color-divider); background: none; font: inherit; color: var(--color-text); text-align: left; cursor: pointer;" style-hover="background: var(--color-surface);">
-          <span style="font-weight: 700;">{{ pi.service }}</span>
-          <span style="font-family: var(--font-heading); font-weight: 800; font-size: 18px;">{{ pi.median }}</span>
-          <span>{{ pi.range }}</span>
-          <span style="color: color-mix(in srgb, var(--color-text) 75%, transparent);">{{ pi.count }}</span>
-        </button>
-      </sc-for>
-    </section>
-    <hr style="height: 2px; border: 0; margin: 0; background: var(--color-divider);">
-    <section style="padding: 64px 0;">
-      <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; margin-bottom: 28px;">
-        <h2 style="font-family: var(--font-heading); font-weight: 800; font-size: 32px; line-height: 1.15; letter-spacing: -0.015em; margin: 0;">Browse by city</h2>
-        <button type="button" class="btn btn-ghost" onClick="{{ goAll }}">All {{ totalCount }} companies →</button>
-      </div>
-      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 2px; background: var(--color-divider); border: 2px solid var(--color-divider);">
+      <div class="grid-3">
         <sc-for list="{{ cities }}" as="city" hint-placeholder-count="12">
-          <button type="button" onClick="{{ city.onClick }}" style="background: var(--color-bg); border: 0; text-align: left; font: inherit; color: var(--color-text); padding: 20px; cursor: pointer; display: flex; flex-direction: column; gap: 4px;" style-hover="background: var(--color-surface);">
-            <span style="font-family: var(--font-heading); font-weight: 800; font-size: 20px; line-height: 1.2;">{{ city.name }}</span>
-            <span style="font-size: 13px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">{{ city.county }} County · {{ city.countText }}</span>
-          </button>
+          <a class="card" href="{{ city.href }}" onClick="{{ city.onClick }}" style="padding: 18px 20px; text-decoration: none; color: var(--color-text); display: flex; justify-content: space-between; align-items: center; gap: 12px;">
+            <span class="stack-sm" style="gap: 0;"><strong style="font-size: 19px;">{{ city.name }}</strong><span class="muted tiny">{{ city.county }} County · {{ city.countText }}</span></span>
+            <span aria-hidden="true" style="color: var(--color-accent); font-size: 22px;">›</span>
+          </a>
         </sc-for>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <sc-if value="{{ showFeatured }}" hint-placeholder-val="{{ true }}">
-      <hr style="height: 2px; border: 0; margin: 0; background: var(--color-divider);">
-      <section style="padding: 64px 0;">
-        <span style="display: block; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent-700); margin-bottom: 12px;">Featured · paid placement</span>
-        <h2 style="font-family: var(--font-heading); font-weight: 800; font-size: 32px; line-height: 1.15; letter-spacing: -0.015em; margin: 0 0 28px;">Top-rated across the state</h2>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px 24px;">
-          <sc-for list="{{ featured }}" as="c" hint-placeholder-count="3">
-            <article style="display: flex; flex-direction: column; gap: 10px;">
-              <div class="grayscale" style="aspect-ratio: 4 / 3; position: relative;">
-                <image-slot id="photo-{{ c.id }}-1" shape="rect" placeholder="Job photo"></image-slot>
-              </div>
-              <div style="display: flex; align-items: center; gap: 6px; font-size: 14px; padding-top: 4px;">
-                <svg width="16" height="16" viewBox="0 0 24 24" style="fill: var(--color-accent); stroke: none;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                <strong>{{ c.ratingText }}</strong><span style="color: color-mix(in srgb, var(--color-text) 70%, transparent);">{{ c.reviewsText }} · {{ c.price }}</span>
-              </div>
-              <h3 onClick="{{ c.open }}" style="font-family: var(--font-heading); font-weight: 800; font-size: 22px; line-height: 1.2; margin: 0; cursor: pointer;" style-hover="color: var(--color-accent);">{{ c.name }}</h3>
-              <span style="font-size: 14px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">{{ c.location }}</span>
-              <div style="display: flex; gap: 8px; margin-top: 6px; flex-wrap: wrap;">
-                <a class="btn btn-primary" href="{{ c.callHref }}" style="text-decoration: none;">{{ c.phone }}</a>
-                <button type="button" class="btn btn-secondary" onClick="{{ c.open }}">View profile</button>
-              </div>
-            </article>
-          </sc-for>
+  <sc-if value="{{ showFeatured }}" hint-placeholder-val="{{ true }}">
+    <section class="section section-alt">
+      <div class="wrap stack" style="gap: 20px;">
+        <div class="stack-sm">
+          <p class="eyebrow">Featured · paid placement</p>
+          <h2 class="h2">Top-rated pros across Florida</h2>
         </div>
-      </section>
-    </sc-if>
-
-    <hr style="height: 2px; border: 0; margin: 0; background: var(--color-divider);">
-    <section style="padding: 64px 0;">
-      <h2 style="font-family: var(--font-heading); font-weight: 800; font-size: 32px; line-height: 1.15; letter-spacing: -0.015em; margin: 0 0 28px;">Browse by repair</h2>
-      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); column-gap: 48px;">
-        <sc-for list="{{ serviceLinks }}" as="sv" hint-placeholder-count="7">
-          <button type="button" onClick="{{ sv.onClick }}" style="background: none; border: 0; border-top: 2px solid var(--color-divider); font: inherit; color: var(--color-text); text-align: left; padding: 16px 0; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; cursor: pointer;" style-hover="color: var(--color-accent);">
-            <span style="font-weight: 700; font-size: 17px;">{{ sv.name }}</span>
-            <span style="font-size: 13px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">{{ sv.countText }}</span>
-          </button>
+        <sc-for list="{{ featured }}" as="c" hint-placeholder-count="3">
+          <article class="pro">
+            <div class="pro-main">
+              <span class="tag tag-ad" style="align-self: flex-start;">Featured · Ad</span>
+              <h3 class="pro-name"><a href="{{ c.href }}" onClick="{{ c.openNav }}">{{ c.name }}</a></h3>
+              <p class="small"><span class="rating"><span class="star" aria-hidden="true">★</span>{{ c.ratingText }}</span> <span class="muted">· {{ c.reviewsText }} · {{ c.location }}</span></p>
+              <p class="verified"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>Checked {{ c.lastCheck }}</p>
+              <p class="small"><strong>{{ c.priceLine }}</strong></p>
+            </div>
+            <div class="pro-actions">
+              <a class="btn btn-primary btn-block" href="{{ c.callHref }}">Call {{ c.phone }}</a>
+              <a class="btn btn-secondary btn-block" href="{{ c.href }}" onClick="{{ c.openNav }}">See details</a>
+            </div>
+          </article>
         </sc-for>
       </div>
     </section>
+  </sc-if>
 
-    <hr style="height: 2px; border: 0; margin: 0; background: var(--color-divider);">
-    <section style="padding: 64px 0 80px; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 32px;">
-      <div style="display: flex; flex-direction: column; gap: 10px;">
-        <span style="font-family: var(--font-heading); font-weight: 800; font-size: 15px; font-feature-settings: 'tnum' 1;">01</span>
-        <h3 style="font-family: var(--font-heading); font-weight: 800; font-size: 22px; line-height: 1.2; margin: 0;">Search your area</h3>
-        <p style="margin: 0; font-size: 15px; color: color-mix(in srgb, var(--color-text) 80%, transparent);">Florida only, filtered by the cities and counties each company actually serves.</p>
+  <section class="section">
+    <div class="wrap grid-2" style="gap: 40px; align-items: start;">
+      <div class="stack">
+        <h2 class="h2">Common sliding door problems</h2>
+        <p class="muted">Plain-English guides: what's causing it, what you can safely try yourself, and when to call a pro.</p>
       </div>
-      <div style="display: flex; flex-direction: column; gap: 10px;">
-        <span style="font-family: var(--font-heading); font-weight: 800; font-size: 15px; font-feature-settings: 'tnum' 1;">02</span>
-        <h3 style="font-family: var(--font-heading); font-weight: 800; font-size: 22px; line-height: 1.2; margin: 0;">Compare side by side</h3>
-        <p style="margin: 0; font-size: 15px; color: color-mix(in srgb, var(--color-text) 80%, transparent);">Pick up to three companies and line up ratings, prices, services and years in business.</p>
-      </div>
-      <div style="display: flex; flex-direction: column; gap: 10px;">
-        <span style="font-family: var(--font-heading); font-weight: 800; font-size: 15px; font-feature-settings: 'tnum' 1;">03</span>
-        <h3 style="font-family: var(--font-heading); font-weight: 800; font-size: 22px; line-height: 1.2; margin: 0;">Call or get a quote</h3>
-        <p style="margin: 0; font-size: 15px; color: color-mix(in srgb, var(--color-text) 80%, transparent);">Ring the company direct or send one free quote request. No sign-up, no fee to homeowners.</p>
-      </div>
-    </section>
-  </div>
+      <ul class="linklist">
+        <sc-for list="{{ symptoms }}" as="s" hint-placeholder-count="8">
+          <li><a href="{{ s.href }}" onClick="{{ s.pick }}"><span>{{ s.linkText }}</span><span aria-hidden="true" style="color: var(--color-accent);">›</span></a></li>
+        </sc-for>
+      </ul>
+    </div>
+  </section>
 
-  <section style="background: var(--color-accent); color: var(--color-bg);">
-    <div style="max-width: 1200px; margin: 0 auto; padding: 80px clamp(20px, 5vw, 56px);">
-      <h2 style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(34px, 4.4vw, 58px); line-height: 1.06; letter-spacing: -0.015em; margin: 0 0 0 -0.05em; max-width: 18ch;">
-        <span style="display: block;">Repair sliding doors in Florida?</span>
-        <span style="display: block;">Get listed free.</span>
-      </h2>
-      <button type="button" class="btn btn-ghost" onClick="{{ goList }}" style="margin-top: 36px; color: var(--color-bg); border: 2px solid var(--color-bg); padding: 10px 18px; font-size: 16px;">List your business →</button>
+  <section class="cta-band">
+    <div class="wrap section grid-2" style="align-items: center;">
+      <div class="stack-sm">
+        <h2 class="h2">Do you repair sliding doors in Florida?</h2>
+        <p style="color: #D6E0FF;">Get listed free. Pass our checks, post your prices, and get calls from homeowners who already know what they need.</p>
+      </div>
+      <div class="row"><a class="btn btn-secondary btn-phone-block" href="/list-your-business" onClick="{{ goList }}">List your business →</a></div>
     </div>
   </section>
 </sc-if>
 
-<!-- RESULTS -->
-<sc-if value="{{ isResults }}" hint-placeholder-val="{{ false }}">
-  <div style="max-width: 1200px; margin: 0 auto; padding: 48px clamp(20px, 5vw, 56px) 120px;">
-    <span style="display: block; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent-700); margin-bottom: 12px;">{{ countText }}</span>
-    <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 16px 24px; flex-wrap: wrap; margin-bottom: 32px;">
-      <h1 style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(30px, 4vw, 48px); line-height: 1.08; letter-spacing: -0.02em; margin: 0; flex: 1 1 400px;">{{ resultsTitle }}</h1>
-      <div class="seg">
-        <label class="seg-opt"><input type="radio" name="mode" checked="{{ modeList }}" onChange="{{ setList }}">List</label>
-        <label class="seg-opt"><input type="radio" name="mode" checked="{{ modeMap }}" onChange="{{ setMap }}">Map</label>
-      </div>
+<!-- ================= PROBLEM GUIDE (step 2) ================= -->
+<sc-if value="{{ isGuide }}" hint-placeholder-val="{{ false }}">
+  <div class="wrap page stack" style="gap: 28px;">
+    <a class="btn btn-ghost" href="/" onClick="{{ goHome }}" style="align-self: flex-start; padding-left: 0;">← Pick a different problem</a>
+    <ol class="steps" aria-label="Progress">
+      <li class="step step-done"><span class="step-n">✓</span>What's wrong</li>
+      <li class="step step-on"><span class="step-n">2</span>Fair price</li>
+      <li class="step"><span class="step-n">3</span>Who to call</li>
+    </ol>
+    <div class="stack">
+      <p class="eyebrow">{{ sym.title }}</p>
+      <h1 class="h1 h1-sm" style="max-width: 24ch;">{{ sym.headline }}</h1>
+      <p class="lead">{{ sym.explain }}</p>
     </div>
-    <hr style="height: 2px; border: 0; margin: 0; background: var(--color-divider);">
-    <div style="display: flex; flex-wrap: wrap; gap: 40px; padding-top: 32px; align-items: flex-start;">
-
-      <aside style="flex: 1 1 240px; max-width: 300px; display: flex; flex-direction: column; gap: 28px;">
-        <div class="field">
-          <label>City, county or ZIP</label>
-          <input class="input" value="{{ query }}" onChange="{{ onQuery }}" placeholder="Anywhere in Florida" style="min-height: 44px; font-size: 15px;">
-        </div>
-        <div style="display: flex; flex-direction: column; gap: 10px;">
-          <span style="font-size: 12px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Sort</span>
-          <div class="seg" style="align-self: flex-start;">
-            <label class="seg-opt"><input type="radio" name="sort" checked="{{ sortRating }}" onChange="{{ sortByRating }}">Top rated</label>
-            <label class="seg-opt"><input type="radio" name="sort" checked="{{ sortPrice }}" onChange="{{ sortByPrice }}">Lowest price</label>
-            <label class="seg-opt"><input type="radio" name="sort" checked="{{ sortYears }}" onChange="{{ sortByYears }}">Experience</label>
-          </div>
-        </div>
-        <div style="display: flex; flex-direction: column; gap: 10px;">
-          <span style="font-size: 12px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Price</span>
-          <div style="display: flex; flex-wrap: wrap; gap: 6px;">
-            <sc-for list="{{ priceChips }}" as="t" hint-placeholder-count="4">
-              <sc-if value="{{ t.active }}">
-                <button type="button" onClick="{{ t.onClick }}" style="font: inherit; font-size: 13px; padding: 6px 12px; cursor: pointer; background: var(--color-text); color: var(--color-bg); border: 1px solid var(--color-text);">{{ t.label }}</button>
-              </sc-if>
-              <sc-if value="{{ t.inactive }}">
-                <button type="button" onClick="{{ t.onClick }}" style="font: inherit; font-size: 13px; padding: 6px 12px; cursor: pointer; background: transparent; color: var(--color-text); border: 1px solid var(--color-divider);" style-hover="border-color: var(--color-text);">{{ t.label }}</button>
-              </sc-if>
-            </sc-for>
-          </div>
-        </div>
-        <div style="display: flex; flex-direction: column; gap: 10px;">
-          <span style="font-size: 12px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Repair</span>
-          <div style="display: flex; flex-wrap: wrap; gap: 6px;">
-            <sc-for list="{{ serviceChips }}" as="ch" hint-placeholder-count="8">
-              <sc-if value="{{ ch.active }}">
-                <button type="button" onClick="{{ ch.onClick }}" style="font: inherit; font-size: 13px; padding: 6px 12px; cursor: pointer; background: var(--color-accent); color: var(--color-bg); border: 1px solid var(--color-accent);">{{ ch.name }}</button>
-              </sc-if>
-              <sc-if value="{{ ch.inactive }}">
-                <button type="button" onClick="{{ ch.onClick }}" style="font: inherit; font-size: 13px; padding: 6px 12px; cursor: pointer; background: transparent; color: var(--color-text); border: 1px solid var(--color-divider);" style-hover="border-color: var(--color-accent); color: var(--color-accent-700);">{{ ch.name }}</button>
-              </sc-if>
-            </sc-for>
-          </div>
-        </div>
-        <button type="button" class="btn btn-ghost" onClick="{{ clearFilters }}" style="align-self: flex-start;">Clear all filters</button>
-      </aside>
-
-      <div style="flex: 999 1 480px; min-width: 0;">
-        <p style="margin: 0 0 20px; font-size: 13px; max-width: 70ch; color: color-mix(in srgb, var(--color-text) 75%, transparent);">Ranked by rating, price honesty and verified jobs. <strong style="color: var(--color-text);">Featured · Ad</strong> spots are paid and labelled — they never change ratings, reviews or price scores.</p>
-        <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
-          <div style="border-top: 2px solid var(--color-text); padding: 40px 0; display: flex; flex-direction: column; gap: 12px; align-items: flex-start;">
-            <h2 style="font-family: var(--font-heading); font-weight: 800; font-size: 24px; margin: 0;">No companies match yet.</h2>
-            <p style="margin: 0; color: color-mix(in srgb, var(--color-text) 80%, transparent);">Try a nearby city or county, or loosen the filters.</p>
-            <button type="button" class="btn btn-secondary" onClick="{{ clearFilters }}">Clear filters</button>
-          </div>
-        </sc-if>
-
-        <sc-if value="{{ showMap }}" hint-placeholder-val="{{ false }}">
-          <iframe data-srfl-map="1" src="/map-view.html" title="Map of matching companies" style="width: 100%; height: 640px; border: 2px solid var(--color-divider); display: block; background: var(--color-surface);"></iframe>
-        </sc-if>
-
-        <sc-if value="{{ listRows }}" hint-placeholder-val="{{ true }}">
-          <sc-for list="{{ results }}" as="c" hint-placeholder-count="5">
-            <article style="border-top: 2px solid var(--color-divider); padding: 24px 0; display: flex; flex-wrap: wrap; gap: 20px 28px; align-items: flex-start;">
-              <div class="grayscale" onClick="{{ c.open }}" style="flex: 0 0 180px; aspect-ratio: 4 / 3; position: relative; cursor: pointer;">
-                <image-slot id="photo-{{ c.id }}-1" shape="rect" placeholder="Job photo"></image-slot>
-              </div>
-              <div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 8px; min-width: 0;">
-                <sc-if value="{{ c.isFeatured }}"><span class="tag tag-accent" style="align-self: flex-start;">Featured · Ad</span></sc-if>
-                <h2 onClick="{{ c.open }}" style="font-family: var(--font-heading); font-weight: 800; font-size: 24px; line-height: 1.2; margin: 0; cursor: pointer;" style-hover="color: var(--color-accent);">{{ c.name }}</h2>
-                <div style="display: flex; gap: 6px 16px; flex-wrap: wrap; align-items: center; font-size: 14px; color: color-mix(in srgb, var(--color-text) 75%, transparent);">
-                  <span style="display: flex; align-items: center; gap: 5px; color: var(--color-text);">
-                    <svg width="15" height="15" viewBox="0 0 24 24" style="fill: var(--color-accent); stroke: none;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                    <strong>{{ c.ratingText }}</strong>
-                  </span>
-                  <span>{{ c.reviewsText }}</span>
-                  
-                  <span>{{ c.yearsText }} in business</span>
-                </div>
-                <div style="display: flex; gap: 6px 16px; flex-wrap: wrap; font-size: 13px;">
-                  <span style="display: flex; align-items: center; gap: 5px; font-weight: 700;"><svg width="15" height="15" viewBox="0 0 24 24" style="fill: none; stroke: var(--color-accent); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;"><path d="M20 6 9 17l-5-5"></path></svg>Verified {{ c.lastCheck }}</span>
-                  <span><strong>{{ c.honestyText }}</strong> of jobs within posted price</span>
-                  <span style="color: color-mix(in srgb, var(--color-text) 75%, transparent);">{{ c.reportCountText }}</span>
-                </div>
-                <span style="font-size: 14px;"><strong>{{ c.headline.service }}</strong> {{ c.headline.range }} posted · customers paid {{ c.headline.median }} median</span>
-                <span style="font-size: 14px;"><strong>Serves</strong> {{ c.areasText }}</span>
-                <div style="display: flex; gap: 6px 14px; flex-wrap: wrap; font-size: 13px; margin-top: 2px;">
-                  <sc-for list="{{ c.services }}" as="s" hint-placeholder-count="3"><span style="display: flex; align-items: center; gap: 6px;"><span style="width: 6px; height: 6px; background: var(--color-text);"></span>{{ s }}</span></sc-for>
-                </div>
-              </div>
-              <div style="flex: 0 0 190px; display: flex; flex-direction: column; gap: 8px;">
-                <a class="btn btn-primary" href="{{ c.callHref }}" style="justify-content: space-between; text-decoration: none; min-height: 44px;">{{ c.phone }}
-                  <svg width="16" height="16" viewBox="0 0 24 24" style="fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                </a>
-                <button type="button" class="btn btn-secondary" onClick="{{ c.open }}" style="justify-content: flex-start; min-height: 44px;">Get a quote</button>
-                <sc-if value="{{ c.comparing }}">
-                  <button type="button" onClick="{{ c.toggleCompare }}" style="font: inherit; font-size: 13px; min-height: 36px; padding: 0 12px; text-align: left; cursor: pointer; background: var(--color-text); color: var(--color-bg); border: 1px solid var(--color-text);">✓ In comparison</button>
-                </sc-if>
-                <sc-if value="{{ c.notComparing }}">
-                  <button type="button" onClick="{{ c.toggleCompare }}" style="font: inherit; font-size: 13px; min-height: 36px; padding: 0 12px; text-align: left; cursor: pointer; background: transparent; color: var(--color-text); border: 1px solid var(--color-divider);" style-hover="border-color: var(--color-text);">+ Compare</button>
-                </sc-if>
-              </div>
-            </article>
-          </sc-for>
-        </sc-if>
-
-        <sc-if value="{{ listCards }}" hint-placeholder-val="{{ false }}">
-          <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 2px; background: var(--color-divider); border: 2px solid var(--color-divider);">
-            <sc-for list="{{ results }}" as="c" hint-placeholder-count="6">
-              <article style="background: var(--color-bg); padding: 16px; display: flex; flex-direction: column; gap: 8px;">
-                <div class="grayscale" style="aspect-ratio: 4 / 3; position: relative;">
-                  <image-slot id="photo-{{ c.id }}-1" shape="rect" placeholder="Job photo"></image-slot>
-                </div>
-                <sc-if value="{{ c.isFeatured }}"><span class="tag tag-accent" style="align-self: flex-start;">Featured · Ad</span></sc-if>
-                <h2 onClick="{{ c.open }}" style="font-family: var(--font-heading); font-weight: 800; font-size: 20px; line-height: 1.2; margin: 0; cursor: pointer;" style-hover="color: var(--color-accent);">{{ c.name }}</h2>
-                <span style="font-size: 14px;"><strong>★ {{ c.ratingText }}</strong> · {{ c.reviewsText }} </span>
-                <span style="font-size: 13px; font-weight: 700;">✓ Verified · {{ c.honestyText }} price honesty</span>
-                <span style="font-size: 13px; color: color-mix(in srgb, var(--color-text) 75%, transparent); flex: 1;">{{ c.location }} · {{ c.yearsText }}</span>
-                <a class="btn btn-primary" href="{{ c.callHref }}" style="justify-content: flex-start; text-decoration: none;">{{ c.phone }}</a>
-                <div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px;">
-                  <button type="button" class="btn btn-secondary" onClick="{{ c.open }}" style="justify-content: flex-start;">Profile</button>
-                  <sc-if value="{{ c.comparing }}"><button type="button" class="btn" onClick="{{ c.toggleCompare }}" style="justify-content: flex-start; background: var(--color-text); color: var(--color-bg);">✓ Comparing</button></sc-if>
-                  <sc-if value="{{ c.notComparing }}"><button type="button" class="btn btn-secondary" onClick="{{ c.toggleCompare }}" style="justify-content: flex-start;">+ Compare</button></sc-if>
-                </div>
-              </article>
-            </sc-for>
-          </div>
-        </sc-if>
+    <sc-if value="{{ sym.warning }}" hint-placeholder-val="{{ false }}">
+      <div class="notice notice-warn" role="note">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 2px;"><path d="m21.73 18-8-14a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"></path><path d="M12 9v4"></path><path d="M12 17h.01"></path></svg>
+        <span><strong>Safety first:</strong> {{ sym.warning }}</span>
       </div>
+    </sc-if>
+
+    <div class="grid-2" style="align-items: start;">
+      <section class="card stack">
+        <h2 class="h3">Try this first (free)</h2>
+        <ul class="checklist">
+          <sc-for list="{{ sym.checks }}" as="t" hint-placeholder-count="3"><li>{{ t }}</li></sc-for>
+        </ul>
+      </section>
+      <section class="card card-accent stack">
+        <h2 class="h3">Fair price in Florida</h2>
+        <div class="stack-sm" style="gap: 2px;">
+          <p class="price-big tnum">{{ guidePrice.range }}</p>
+          <p class="muted small">What most Florida homeowners paid for {{ guidePrice.label }}. Middle price <strong style="color: var(--color-text);">{{ guidePrice.median }}</strong>, from {{ guidePrice.count }} reports.</p>
+        </div>
+        <h3 class="h4">What changes the price</h3>
+        <ul class="dotlist small">
+          <sc-for list="{{ sym.factors }}" as="f" hint-placeholder-count="3"><li>{{ f }}</li></sc-for>
+        </ul>
+        <p class="small" style="border-top: 1px solid #C9D7FB; padding-top: 12px;">{{ sym.note }}</p>
+      </section>
     </div>
+
+    <section class="stack" style="gap: 18px; padding-top: 12px;" id="pros">
+      <ol class="steps" aria-hidden="true">
+        <li class="step step-on"><span class="step-n">3</span>Who to call</li>
+      </ol>
+      <h2 class="h2">Checked pros who fix {{ guidePrice.label }}</h2>
+      <form class="searchbar" onSubmit="{{ onGuideSearch }}">
+        <label class="field" style="gap: 0;"><span class="sr-label tiny muted">Your city or ZIP</span><input class="input" value="{{ query }}" onChange="{{ onQuery }}" placeholder="City or ZIP, e.g. Tampa" autoComplete="postal-code"></label>
+        <button type="submit" class="btn btn-primary">Show pros near me</button>
+      </form>
+      <sc-for list="{{ guidePros }}" as="c" hint-placeholder-count="3">
+        <article class="pro">
+          <div class="pro-main">
+            <sc-if value="{{ c.isFeatured }}"><span class="tag tag-ad" style="align-self: flex-start;">Featured · Ad</span></sc-if>
+            <h3 class="pro-name"><a href="{{ c.href }}" onClick="{{ c.openNav }}">{{ c.name }}</a></h3>
+            <p class="small"><span class="rating"><span class="star" aria-hidden="true">★</span>{{ c.ratingText }}</span> <span class="muted">· {{ c.reviewsText }} · {{ c.location }}</span></p>
+            <p class="verified"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>Checked {{ c.lastCheck }} · {{ c.honestyText }} of jobs at the quoted price</p>
+            <p class="small"><strong>{{ c.priceLine }}</strong></p>
+            <sc-if value="{{ c.emergency }}"><span class="tag tag-warn" style="align-self: flex-start;">24/7 storm calls</span></sc-if>
+          </div>
+          <div class="pro-actions">
+            <a class="btn btn-primary btn-block" href="{{ c.callHref }}">Call {{ c.phone }}</a>
+            <a class="btn btn-secondary btn-block" href="{{ c.href }}" onClick="{{ c.openNav }}">See details &amp; prices</a>
+          </div>
+        </article>
+      </sc-for>
+      <sc-if value="{{ guideNone }}" hint-placeholder-val="{{ false }}">
+        <div class="card card-soft"><p>No listed pros match that area yet. <a href="/pros" onClick="{{ seeAllForSymptom }}">See all pros for this repair</a>.</p></div>
+      </sc-if>
+      <a class="btn btn-secondary btn-phone-block" href="/pros" onClick="{{ seeAllForSymptom }}" style="align-self: flex-start;">See all {{ guideCount }} pros for {{ guidePrice.label }} →</a>
+    </section>
+
+    <section class="card card-soft stack">
+      <h2 class="h3">Before you hire: 4 questions to ask</h2>
+      <ol class="numlist">
+        <li><strong>What's your price range for this repair?</strong> <span class="muted">Compare it to the fair price above.</span></li>
+        <li><strong>Is there a call-out fee, and is it waived if I hire you?</strong></li>
+        <li><strong>What warranty do you give on parts and labor?</strong> <span class="muted">90 days is common; a year is better.</span></li>
+        <li><strong>Are you insured?</strong> <span class="muted">Every pro on SlideRepairFL is, and we check with the insurer.</span></li>
+      </ol>
+    </section>
+
+    <section class="faq stack-sm">
+      <h2 class="h2" style="margin-bottom: 8px;">Common questions</h2>
+      <sc-for list="{{ sym.faq }}" as="q" hint-placeholder-count="3">
+        <details><summary>{{ q.q }}</summary><p>{{ q.a }}</p></details>
+      </sc-for>
+    </section>
+
+    <section class="stack-sm">
+      <h2 class="h3">Other sliding door problems</h2>
+      <div class="chips">
+        <sc-for list="{{ otherSymptoms }}" as="s" hint-placeholder-count="7">
+          <a class="chip" href="{{ s.href }}" onClick="{{ s.pick }}" style="display: inline-flex; align-items: center; text-decoration: none;">{{ s.title }}</a>
+        </sc-for>
+      </div>
+    </section>
   </div>
 </sc-if>
 
-<!-- PROFILE -->
-<sc-if value="{{ isProfile }}" hint-placeholder-val="{{ false }}">
-  <div style="max-width: 1200px; margin: 0 auto; padding: 32px clamp(20px, 5vw, 56px) 120px;">
-    <button type="button" class="btn btn-ghost" onClick="{{ goBack }}" style="margin-bottom: 28px;">← Back to results</button>
-    <sc-if value="{{ sel.isFeatured }}"><span class="tag tag-accent" style="display: inline-flex; margin-bottom: 16px;">Featured · Ad</span></sc-if>
-    <h1 style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(34px, 5vw, 64px); line-height: 1.04; letter-spacing: -0.02em; margin: 0 0 0 -0.05em; max-width: 18ch;">{{ sel.name }}</h1>
-    <div style="display: flex; gap: 6px 20px; flex-wrap: wrap; align-items: center; margin: 20px 0 32px; font-size: 15px; color: color-mix(in srgb, var(--color-text) 75%, transparent);">
-      <span style="display: flex; align-items: center; gap: 6px; color: var(--color-text);">
-        <svg width="18" height="18" viewBox="0 0 24 24" style="fill: var(--color-accent); stroke: none;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        <strong>{{ sel.ratingText }}</strong>
-      </span>
-      <span>{{ sel.reviewsText }}</span>
-      <span>{{ sel.location }}</span>
-      <sc-if value="{{ sel.comparing }}"><button type="button" class="btn btn-ghost" onClick="{{ sel.toggleCompare }}">✓ In comparison</button></sc-if>
-      <sc-if value="{{ sel.notComparing }}"><button type="button" class="btn btn-ghost" onClick="{{ sel.toggleCompare }}">+ Add to compare</button></sc-if>
+<!-- ================= PRICE GUIDE ================= -->
+<sc-if value="{{ isPrices }}" hint-placeholder-val="{{ false }}">
+  <div class="wrap page stack" style="gap: 32px;">
+    <div class="stack">
+      <p class="eyebrow">Florida price guide · 2026</p>
+      <h1 class="h1 h1-sm" style="max-width: 22ch;">Sliding glass door repair cost in Florida</h1>
+      <p class="lead">These are real prices Florida homeowners reported after their repair: {{ totalReports }} reports in all. Most repairs cost far less than a new door. Use the ranges below to judge a quote before you say yes.</p>
     </div>
-
-    <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; grid-template-rows: 200px 200px; gap: 2px; background: var(--color-divider); border: 2px solid var(--color-divider); margin-bottom: 40px;">
-      <div class="grayscale" style="grid-row: span 2; position: relative; background: var(--color-bg);"><image-slot id="photo-{{ sel.id }}-1" shape="rect" placeholder="Main job photo"></image-slot></div>
-      <div class="grayscale" style="position: relative; background: var(--color-bg);"><image-slot id="photo-{{ sel.id }}-2" shape="rect" placeholder="Before"></image-slot></div>
-      <div class="grayscale" style="position: relative; background: var(--color-bg);"><image-slot id="photo-{{ sel.id }}-3" shape="rect" placeholder="After"></image-slot></div>
-      <div class="grayscale" style="position: relative; background: var(--color-bg);"><image-slot id="photo-{{ sel.id }}-4" shape="rect" placeholder="Hardware"></image-slot></div>
-      <div class="grayscale" style="position: relative; background: var(--color-bg);"><image-slot id="photo-{{ sel.id }}-5" shape="rect" placeholder="Crew / van"></image-slot></div>
+    <div class="notice notice-ok" role="note">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 2px;"><path d="M20 6 9 17l-5-5"></path></svg>
+      <span><strong>Rule of thumb:</strong> a quote inside the range is normal. A quote well above it isn't always wrong (big or impact doors cost more), but ask the pro to explain why.</span>
     </div>
-
-    <div style="display: flex; flex-wrap: wrap; gap: 48px; align-items: flex-start;">
-      <div style="flex: 999 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 48px;">
-        <section style="border: 2px solid var(--color-text);">
-          <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; padding: 16px 20px; background: var(--color-text); color: var(--color-bg);">
-            <span style="display: flex; align-items: center; gap: 10px; font-family: var(--font-heading); font-weight: 800; font-size: 18px;"><span style="width: 12px; height: 12px; background: var(--color-accent);"></span>Verified by SlideRepairFL</span>
-            <span style="font-size: 13px;">Last checked {{ sel.lastCheck }} · next check {{ sel.nextCheck }}</span>
+    <div class="stack" style="gap: 16px;">
+      <sc-for list="{{ priceIndex }}" as="pi" hint-placeholder-count="7">
+        <section class="card stack" id="{{ pi.slug }}">
+          <div class="row" style="justify-content: space-between; align-items: baseline;">
+            <h2 class="h3">{{ pi.label }}</h2>
+            <p class="price-big tnum" style="font-size: 32px;">{{ pi.range }}</p>
           </div>
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); column-gap: 24px; padding: 4px 20px 12px;">
-            <sc-for list="{{ sel.checks }}" as="ck" hint-placeholder-count="7">
-              <div style="border-top: 2px solid var(--color-divider); margin-top: -2px; padding: 12px 0; display: flex; gap: 10px; align-items: flex-start;">
-                <svg width="18" height="18" viewBox="0 0 24 24" style="fill: none; stroke: var(--color-accent); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; flex: none; margin-top: 3px;"><path d="M20 6 9 17l-5-5"></path></svg>
-                <span style="display: flex; flex-direction: column;"><strong style="font-size: 15px;">{{ ck.label }}</strong><span style="font-size: 13px; color: color-mix(in srgb, var(--color-text) 75%, transparent);">{{ ck.detail }}</span></span>
+          <p class="muted small">Middle price <strong style="color: var(--color-text);">{{ pi.median }}</strong> · {{ pi.count }} reports · {{ pi.what }}</p>
+          <ul class="dotlist small">
+            <sc-for list="{{ pi.factors }}" as="f" hint-placeholder-count="3"><li>{{ f }}</li></sc-for>
+          </ul>
+          <div class="row">
+            <a class="btn btn-primary btn-sm btn-phone-block" href="/pros" onClick="{{ pi.onClick }}">Find pros for {{ pi.lower }}</a>
+            <a class="btn btn-ghost btn-sm" href="{{ pi.guideHref }}" onClick="{{ pi.openGuide }}">Is this my problem? →</a>
+          </div>
+        </section>
+      </sc-for>
+    </div>
+    <section class="faq stack-sm">
+      <h2 class="h2" style="margin-bottom: 8px;">Price questions</h2>
+      <sc-for list="{{ priceFaq }}" as="q" hint-placeholder-count="4">
+        <details><summary>{{ q.q }}</summary><p>{{ q.a }}</p></details>
+      </sc-for>
+    </section>
+  </div>
+</sc-if>
+
+<!-- ================= RESULTS (step 3) ================= -->
+<sc-if value="{{ isResults }}" hint-placeholder-val="{{ false }}">
+  <div class="wrap page stack" style="gap: 20px;">
+    <sc-if value="{{ hasSymptom }}">
+      <a class="btn btn-ghost" href="{{ sym.href }}" onClick="{{ backToGuide }}" style="align-self: flex-start; padding-left: 0;">← Back to “{{ sym.title }}”</a>
+    </sc-if>
+    <div class="stack-sm">
+      <p class="eyebrow">{{ countText }}</p>
+      <h1 class="h1 h1-sm">{{ resultsTitle }}</h1>
+      <p class="muted" style="max-width: 68ch;">{{ resultsIntro }}</p>
+    </div>
+
+    <form class="searchbar" onSubmit="{{ onSearch }}">
+      <label class="field" style="gap: 0;"><span class="tiny muted">City, county or ZIP</span><input class="input" value="{{ query }}" onChange="{{ onQuery }}" placeholder="Anywhere in Florida"></label>
+      <label class="field" style="gap: 0;"><span class="tiny muted">Repair</span>
+        <select class="input" value="{{ service }}" onChange="{{ onService }}">
+          <sc-for list="{{ serviceOptions }}" as="opt" hint-placeholder-count="8"><option value="{{ opt }}">{{ opt }}</option></sc-for>
+        </select>
+      </label>
+      <button type="submit" class="btn btn-primary" style="align-self: end;">Search</button>
+    </form>
+
+    <div class="row" style="justify-content: space-between;">
+      <div class="seg" role="radiogroup" aria-label="View">
+        <label class="seg-opt"><input type="radio" name="mode" checked="{{ modeList }}" onChange="{{ setList }}">List</label>
+        <label class="seg-opt"><input type="radio" name="mode" checked="{{ modeMap }}" onChange="{{ setMap }}">Map</label>
+      </div>
+      <label class="check"><input type="checkbox" checked="{{ emergency }}" onChange="{{ toggleEmergency }}">24/7 storm calls only</label>
+    </div>
+
+    <details class="card" style="padding: 0 20px;">
+      <summary style="cursor: pointer; min-height: 56px; display: flex; align-items: center; font-weight: 700;">Sort &amp; more filters</summary>
+      <div class="stack" style="padding-bottom: 20px;">
+        <div class="stack-sm">
+          <span class="tiny muted" style="font-weight: 700;">Sort by</span>
+          <div class="seg" style="align-self: flex-start; flex-wrap: wrap;">
+            <label class="seg-opt"><input type="radio" name="sort" checked="{{ sortRating }}" onChange="{{ sortByRating }}">Top rated</label>
+            <label class="seg-opt"><input type="radio" name="sort" checked="{{ sortPrice }}" onChange="{{ sortByPrice }}">Lowest price</label>
+            <label class="seg-opt"><input type="radio" name="sort" checked="{{ sortYears }}" onChange="{{ sortByYears }}">Most experience</label>
+          </div>
+        </div>
+        <div class="stack-sm">
+          <span class="tiny muted" style="font-weight: 700;">Price level</span>
+          <div class="chips">
+            <sc-for list="{{ priceChips }}" as="t" hint-placeholder-count="4">
+              <button type="button" class="{{ t.cls }}" onClick="{{ t.onClick }}">{{ t.label }}</button>
+            </sc-for>
+          </div>
+        </div>
+        <button type="button" class="btn btn-ghost" onClick="{{ clearFilters }}" style="align-self: flex-start; padding-left: 0;">Clear all filters</button>
+      </div>
+    </details>
+
+    <p class="muted tiny">Ranked by rating and price honesty. <strong style="color: var(--color-text);">Featured · Ad</strong> spots are paid and labeled. They never change ratings, reviews or price scores.</p>
+
+    <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
+      <div class="card card-soft stack" style="align-items: flex-start;">
+        <h2 class="h3">No checked pros match yet.</h2>
+        <p class="muted">Try a nearby city or county, or clear the filters.</p>
+        <button type="button" class="btn btn-secondary" onClick="{{ clearFilters }}">Clear filters</button>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ showMap }}" hint-placeholder-val="{{ false }}">
+      <iframe data-srfl-map="1" src="/map-view.html" title="Map of matching sliding door repair pros" style="width: 100%; height: min(70vh, 620px); border: 1px solid var(--color-divider); border-radius: 14px; display: block; background: var(--color-surface);"></iframe>
+    </sc-if>
+
+    <sc-if value="{{ modeList }}" hint-placeholder-val="{{ true }}">
+      <div class="stack" style="gap: 14px;">
+        <sc-for list="{{ results }}" as="c" hint-placeholder-count="5">
+          <article class="pro">
+            <div class="pro-main">
+              <sc-if value="{{ c.isFeatured }}"><span class="tag tag-ad" style="align-self: flex-start;">Featured · Ad</span></sc-if>
+              <h2 class="pro-name"><a href="{{ c.href }}" onClick="{{ c.openNav }}">{{ c.name }}</a></h2>
+              <p class="small"><span class="rating"><span class="star" aria-hidden="true">★</span>{{ c.ratingText }}</span> <span class="muted">· {{ c.reviewsText }} · {{ c.yearsText }} in business</span></p>
+              <p class="verified"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>Checked {{ c.lastCheck }} · {{ c.honestyText }} of jobs at the quoted price</p>
+              <p class="small"><strong>{{ c.priceLine }}</strong></p>
+              <p class="small muted">Serves {{ c.areasText }}</p>
+              <sc-if value="{{ c.emergency }}"><span class="tag tag-warn" style="align-self: flex-start;">24/7 storm calls</span></sc-if>
+            </div>
+            <div class="pro-actions">
+              <a class="btn btn-primary btn-block" href="{{ c.callHref }}">Call {{ c.phone }}</a>
+              <a class="btn btn-secondary btn-block" href="{{ c.href }}" onClick="{{ c.openNav }}">See details &amp; prices</a>
+              <button type="button" class="{{ c.compareCls }}" onClick="{{ c.toggleCompare }}">{{ c.compareLabel }}</button>
+            </div>
+          </article>
+        </sc-for>
+      </div>
+    </sc-if>
+  </div>
+</sc-if>
+
+<!-- ================= PROFILE ================= -->
+<sc-if value="{{ isProfile }}" hint-placeholder-val="{{ false }}">
+  <div class="wrap page stack" style="gap: 28px;">
+    <a class="btn btn-ghost" href="/pros" onClick="{{ goBack }}" style="align-self: flex-start; padding-left: 0;">← Back to pros</a>
+    <div class="stack-sm">
+      <sc-if value="{{ sel.isFeatured }}"><span class="tag tag-ad" style="align-self: flex-start;">Featured · Ad</span></sc-if>
+      <h1 class="h1 h1-sm">{{ sel.name }}</h1>
+      <p><span class="rating"><span class="star" aria-hidden="true">★</span>{{ sel.ratingText }}</span> <span class="muted">· {{ sel.reviewsText }} · {{ sel.location }}</span></p>
+      <div class="row" style="gap: 8px;">
+        <span class="tag tag-ok">✓ Checked {{ sel.lastCheck }}</span>
+        <sc-if value="{{ sel.emergency }}"><span class="tag tag-warn">24/7 storm calls</span></sc-if>
+        <button type="button" class="{{ sel.compareCls }}" onClick="{{ sel.toggleCompare }}">{{ sel.compareLabel }}</button>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start;">
+      <div class="stack" style="flex: 999 1 460px; min-width: 0; gap: 36px;">
+        <section class="stack-sm">
+          <h2 class="h3">About {{ sel.shortName }}</h2>
+          <p>{{ sel.blurb }}</p>
+        </section>
+
+        <section class="stats" style="grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));">
+          <div class="stat"><span class="stat-l">Call-out fee</span><strong>{{ sel.callout }}</strong></div>
+          <div class="stat"><span class="stat-l">Warranty</span><strong>{{ sel.warranty }}</strong></div>
+          <div class="stat"><span class="stat-l">In business</span><strong>{{ sel.yearsText }}</strong></div>
+          <div class="stat"><span class="stat-l">Hours</span><strong>{{ sel.hours }}</strong></div>
+        </section>
+
+        <section class="stack">
+          <div class="row" style="justify-content: space-between; align-items: flex-end;">
+            <div class="stack-sm" style="gap: 4px;">
+              <h2 class="h3">Prices: quoted vs. paid</h2>
+              <p class="muted small">Their posted range, and what {{ sel.reportCountText }} say customers actually paid.</p>
+            </div>
+            <div class="stack-sm" style="gap: 0; align-items: flex-end;">
+              <span class="price-big tnum" style="color: var(--color-ok);">{{ sel.honestyText }}</span>
+              <span class="tiny muted" style="font-weight: 700;">paid within posted price</span>
+            </div>
+          </div>
+          <div class="row tiny muted" style="gap: 6px 18px;">
+            <span class="row" style="gap: 6px;"><span style="width: 22px; height: 12px; border-radius: 4px; background: var(--color-surface-2); border: 1.5px solid var(--color-accent);"></span>Posted range</span>
+            <span class="row" style="gap: 6px;"><span style="width: 10px; height: 10px; border-radius: 50%; background: var(--color-accent-700);"></span>Paid within range</span>
+            <span class="row" style="gap: 6px;"><span style="width: 10px; height: 10px; border-radius: 50%; background: var(--color-warn);"></span>Paid above range</span>
+          </div>
+          <div>
+            <sc-for list="{{ sel.prices }}" as="p" hint-placeholder-count="4">
+              <div style="border-top: 1px solid var(--color-divider); padding: 14px 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 8px 24px; align-items: center;">
+                <div class="stack-sm" style="gap: 0;">
+                  <strong>{{ p.service }}</strong>
+                  <span class="tiny muted">Posted {{ p.range }} · middle paid {{ p.median }} · {{ p.countText }}</span>
+                </div>
+                <div style="position: relative; height: 28px;" aria-hidden="true">
+                  <div style="position: absolute; left: 0; right: 0; top: 13px; height: 2px; background: var(--color-divider);"></div>
+                  <div style="position: absolute; top: 5px; height: 18px; left: {{ p.bandLeft }}; width: {{ p.bandWidth }}; background: var(--color-surface-2); border: 1.5px solid var(--color-accent); border-radius: 5px;"></div>
+                  <sc-for list="{{ p.dots }}" as="d" hint-placeholder-count="5">
+                    <span style="position: absolute; top: 9px; left: {{ d.left }}; width: 10px; height: 10px; margin-left: -5px; border-radius: 50%; background: {{ d.color }};"></span>
+                  </sc-for>
+                </div>
               </div>
             </sc-for>
           </div>
-          <div style="padding: 0 20px 16px;"><button type="button" class="btn btn-ghost" onClick="{{ goVetting }}" style="font-size: 13px;">How we vet every company →</button></div>
-        </section>
-        <section>
-          <span style="display: block; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent-700); margin-bottom: 12px;">About</span>
-          <p style="margin: 0; font-size: 18px; line-height: 1.6; max-width: 60ch;">{{ sel.blurb }}</p>
-        </section>
 
-        <section style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 2px; background: var(--color-divider); border: 2px solid var(--color-divider);">
-          <div style="background: var(--color-bg); padding: 18px; display: flex; flex-direction: column; gap: 4px;">
-            <span style="font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Call-out fee</span>
-            <span style="font-weight: 700;">{{ sel.callout }}</span>
-          </div>
-          <div style="background: var(--color-bg); padding: 18px; display: flex; flex-direction: column; gap: 4px;">
-            <span style="font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Warranty</span>
-            <span style="font-weight: 700;">{{ sel.warranty }}</span>
-          </div>
-          <div style="background: var(--color-bg); padding: 18px; display: flex; flex-direction: column; gap: 4px;">
-            <span style="font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 70%, transparent);">In business</span>
-            <span style="font-weight: 700;">{{ sel.yearsText }}</span>
-          </div>
-          <div style="background: var(--color-bg); padding: 18px; display: flex; flex-direction: column; gap: 4px;">
-            <span style="font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Hours</span>
-            <span style="font-weight: 700;">{{ sel.hours }}</span>
-          </div>
-        </section>
-
-        <section>
-          <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 16px 32px; flex-wrap: wrap; margin-bottom: 20px;">
-            <div>
-              <h2 style="font-family: var(--font-heading); font-weight: 800; font-size: 26px; margin: 0 0 6px;">Prices: posted vs. paid</h2>
-              <span style="font-size: 14px; color: color-mix(in srgb, var(--color-text) 75%, transparent);">The pro's posted range, and what {{ sel.reportCountText }} say customers actually paid.</span>
-            </div>
-            <div style="display: flex; flex-direction: column;">
-              <span style="font-family: var(--font-heading); font-weight: 800; font-size: 44px; line-height: 1;">{{ sel.honestyText }}</span>
-              <span style="font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Price honesty</span>
-            </div>
-          </div>
-          <div style="display: flex; gap: 8px 20px; flex-wrap: wrap; font-size: 12px; margin-bottom: 8px; color: color-mix(in srgb, var(--color-text) 75%, transparent);">
-            <span style="display: flex; align-items: center; gap: 6px;"><span style="width: 22px; height: 10px; background: var(--color-neutral-200); border: 2px solid var(--color-text);"></span>Posted range</span>
-            <span style="display: flex; align-items: center; gap: 6px;"><span style="width: 8px; height: 8px; background: var(--color-text);"></span>Paid within range</span>
-            <span style="display: flex; align-items: center; gap: 6px;"><span style="width: 8px; height: 8px; background: var(--color-accent);"></span>Paid above range</span>
-          </div>
-          <sc-for list="{{ sel.prices }}" as="p" hint-placeholder-count="4">
-            <div style="border-top: 2px solid var(--color-divider); padding: 14px 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 8px 24px; align-items: center;">
-              <div style="display: flex; flex-direction: column;">
-                <strong>{{ p.service }}</strong>
-                <span style="font-size: 13px; color: color-mix(in srgb, var(--color-text) 75%, transparent);">Posted {{ p.range }} · paid median {{ p.median }} · {{ p.countText }}</span>
+          <h3 class="h4" style="margin-top: 12px;">Recent price reports</h3>
+          <div>
+            <sc-for list="{{ sel.reportsList }}" as="rp" hint-placeholder-count="5">
+              <div style="border-top: 1px solid var(--color-divider); padding: 12px 0; display: flex; flex-wrap: wrap; gap: 4px 18px; align-items: baseline;" class="small">
+                <strong style="flex: 1 1 220px;">{{ rp.service }} <span class="muted" style="font-weight: 400;">· {{ rp.door }}</span></strong>
+                <span class="muted" style="flex: 0 0 150px;">{{ rp.where }} · {{ rp.date }}</span>
+                <span style="flex: 0 0 170px;">Quoted {{ rp.quotedText }} → <strong>paid {{ rp.paidText }}</strong></span>
+                <span class="row" style="gap: 6px;">
+                  <sc-if value="{{ rp.receipt }}"><span class="tag tag-ok">Receipt checked</span></sc-if>
+                  <sc-if value="{{ rp.over }}"><span class="tag tag-warn">Over quote {{ rp.overText }}</span></sc-if>
+                </span>
               </div>
-              <div style="position: relative; height: 28px;">
-                <div style="position: absolute; left: 0; right: 0; top: 13px; height: 2px; background: var(--color-divider);"></div>
-                <div style="position: absolute; top: 5px; height: 18px; left: {{ p.bandLeft }}; width: {{ p.bandWidth }}; background: var(--color-neutral-200); border: 2px solid var(--color-text); box-sizing: border-box;"></div>
-                <sc-for list="{{ p.dots }}" as="d" hint-placeholder-count="5">
-                  <span style="position: absolute; top: 10px; left: {{ d.left }}; width: 8px; height: 8px; margin-left: -4px; background: {{ d.color }};"></span>
-                </sc-for>
-              </div>
-            </div>
-          </sc-for>
-
-          <h3 style="font-family: var(--font-heading); font-weight: 800; font-size: 20px; margin: 32px 0 8px;">Recent price reports</h3>
-          <sc-for list="{{ sel.reportsList }}" as="rp" hint-placeholder-count="5">
-            <div style="border-top: 2px solid var(--color-divider); padding: 12px 0; display: flex; flex-wrap: wrap; gap: 6px 20px; align-items: baseline; font-size: 14px;">
-              <strong style="flex: 1 1 220px;">{{ rp.service }} <span style="font-weight: 400; color: color-mix(in srgb, var(--color-text) 75%, transparent);">· {{ rp.door }}</span></strong>
-              <span style="flex: 0 0 150px; color: color-mix(in srgb, var(--color-text) 75%, transparent);">{{ rp.where }} · {{ rp.date }}</span>
-              <span style="flex: 0 0 170px;">Quoted {{ rp.quotedText }} → <strong>paid {{ rp.paidText }}</strong></span>
-              <span style="flex: 0 0 auto; display: flex; gap: 6px;">
-                <sc-if value="{{ rp.receipt }}"><span class="tag tag-neutral">Receipt verified</span></sc-if>
-                <sc-if value="{{ rp.over }}"><span class="tag tag-accent">Over quote {{ rp.overText }}</span></sc-if>
-              </span>
-            </div>
-          </sc-for>
-          <div style="border-top: 2px solid var(--color-divider); padding-top: 16px;">
+            </sc-for>
+          </div>
+          <div style="border-top: 1px solid var(--color-divider); padding-top: 16px;">
             <sc-if value="{{ reportClosed }}" hint-placeholder-val="{{ true }}">
-              <button type="button" class="btn btn-secondary" onClick="{{ openReport }}" style="min-height: 44px;">Hired them? Report what you paid</button>
+              <button type="button" class="btn btn-secondary btn-phone-block" onClick="{{ openReport }}">Hired them? Report what you paid</button>
             </sc-if>
             <sc-if value="{{ reportFormOpen }}" hint-placeholder-val="{{ false }}">
-              <form onSubmit="{{ sendReport }}" style="background: var(--color-surface); padding: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 14px;">
-                <h3 style="grid-column: 1 / -1; font-family: var(--font-heading); font-weight: 800; font-size: 20px; margin: 0;">Report what you paid {{ sel.shortName }}</h3>
-                <div class="field"><label>Service</label><select class="input" style="min-height: 44px;"><sc-for list="{{ sel.services }}" as="s" hint-placeholder-count="4"><option>{{ s }}</option></sc-for></select></div>
-                <div class="field"><label>Door</label><select class="input" style="min-height: 44px;"><sc-for list="{{ doorTypes }}" as="dt" hint-placeholder-count="5"><option>{{ dt }}</option></sc-for></select></div>
-                <div class="field"><label>Month of job</label><input class="input" type="month" style="min-height: 44px;"></div>
-                <div class="field"><label>Quoted ($)</label><input class="input" inputMode="numeric" style="min-height: 44px;"></div>
-                <div class="field"><label>Final paid ($)</label><input class="input" inputMode="numeric" required="" style="min-height: 44px;"></div>
-                <div class="field"><label>Receipt or invoice (optional)</label><input class="input" type="file" accept="image/*,.pdf" style="min-height: 44px;"></div>
-                <div class="field" style="grid-column: 1 / -1;"><label>Anything we should know?</label><textarea class="input" placeholder="e.g. They found a bent track and charged extra — explained it first."></textarea></div>
-                <div style="grid-column: 1 / -1; display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
-                  <button type="submit" class="btn btn-primary" style="min-height: 44px;">Submit price report</button>
-                  <span style="font-size: 12px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Receipts are checked by our team, never published. Your name stays private.</span>
+              <form class="card card-soft" onSubmit="{{ sendReport }}" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 14px;">
+                <h3 class="h4" style="grid-column: 1 / -1;">Report what you paid {{ sel.shortName }}</h3>
+                <label class="field">Repair<select class="input"><sc-for list="{{ sel.services }}" as="s" hint-placeholder-count="4"><option>{{ s }}</option></sc-for></select></label>
+                <label class="field">Door<select class="input"><sc-for list="{{ doorTypes }}" as="dt" hint-placeholder-count="5"><option>{{ dt }}</option></sc-for></select></label>
+                <label class="field">Month of the job<input class="input" type="month"></label>
+                <label class="field">Quoted ($)<input class="input" inputMode="numeric"></label>
+                <label class="field">Final price paid ($)<input class="input" inputMode="numeric" required=""></label>
+                <label class="field">Receipt (optional)<input class="input" type="file" accept="image/*,.pdf"></label>
+                <label class="field" style="grid-column: 1 / -1;">Anything we should know?<textarea class="input" placeholder="e.g. They found a bent track and explained the extra cost first."></textarea></label>
+                <div class="row" style="grid-column: 1 / -1;">
+                  <button type="submit" class="btn btn-primary">Send price report</button>
+                  <span class="tiny muted">Receipts are checked by our team and never published. Your name stays private.</span>
                 </div>
               </form>
             </sc-if>
             <sc-if value="{{ reportSent }}" hint-placeholder-val="{{ false }}">
-              <p style="margin: 0; font-weight: 700;">Thanks — your report goes live after we check it, usually within a day.</p>
+              <p class="notice notice-ok">Thanks. Your report goes live after we check it, usually within a day.</p>
             </sc-if>
           </div>
         </section>
 
-        <section>
-          <h2 style="font-family: var(--font-heading); font-weight: 800; font-size: 26px; margin: 0 0 16px;">Services</h2>
-          <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); column-gap: 32px;">
-            <sc-for list="{{ sel.services }}" as="s" hint-placeholder-count="4">
-              <div style="border-top: 2px solid var(--color-divider); padding: 12px 0; display: flex; align-items: center; gap: 10px; font-weight: 600;">
-                <svg width="18" height="18" viewBox="0 0 24 24" style="fill: none; stroke: var(--color-accent); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; flex: none;"><path d="M20 6 9 17l-5-5"></path></svg>{{ s }}
-              </div>
+        <section class="stack-sm">
+          <h2 class="h3">Repairs they do</h2>
+          <ul class="checklist" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px 24px;">
+            <sc-for list="{{ sel.services }}" as="s" hint-placeholder-count="4"><li>{{ s }}</li></sc-for>
+          </ul>
+        </section>
+
+        <section class="stack-sm">
+          <h2 class="h3">Where they work</h2>
+          <p>{{ sel.areasText }} · {{ sel.county }} County</p>
+        </section>
+
+        <section class="card stack">
+          <div class="row" style="justify-content: space-between;">
+            <h2 class="h3">How we checked {{ sel.shortName }}</h2>
+            <span class="tiny muted">Last {{ sel.lastCheck }} · next {{ sel.nextCheck }}</span>
+          </div>
+          <ul class="checklist">
+            <sc-for list="{{ sel.checks }}" as="ck" hint-placeholder-count="7">
+              <li><strong>{{ ck.label }}</strong><br><span class="muted small">{{ ck.detail }}</span></li>
             </sc-for>
-          </div>
+          </ul>
         </section>
 
-        <section>
-          <h2 style="font-family: var(--font-heading); font-weight: 800; font-size: 26px; margin: 0 0 12px;">Service area</h2>
-          <p style="margin: 0; display: flex; gap: 10px; align-items: flex-start;">
-            <svg width="20" height="20" viewBox="0 0 24 24" style="fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex: none; margin-top: 3px;"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-            <span>{{ sel.areasText }} · {{ sel.county }} County</span>
-          </p>
-        </section>
-
-        <section>
-          <div style="display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; margin-bottom: 16px;">
-            <h2 style="font-family: var(--font-heading); font-weight: 800; font-size: 26px; margin: 0;">Reviews</h2>
-            <span style="font-size: 15px;"><strong>★ {{ sel.ratingText }}</strong> from {{ sel.reviewsText }} · only from verified jobs · never removed for payment</span>
-          </div>
+        <section class="stack-sm">
+          <h2 class="h3">Reviews</h2>
+          <p class="small muted"><span class="rating"><span class="star" aria-hidden="true">★</span>{{ sel.ratingText }}</span> from {{ sel.reviewsText }} · only from checked jobs · never removed for payment</p>
           <sc-for list="{{ reviews }}" as="r" hint-placeholder-count="3">
-            <figure style="margin: 0; border-top: 2px solid var(--color-divider); padding: 20px 0; display: flex; flex-direction: column; gap: 8px;">
-              <span style="color: var(--color-accent); letter-spacing: 2px;">{{ r.stars }}</span>
-              <blockquote style="margin: 0; font-size: 16px; max-width: 62ch;">{{ r.text }}</blockquote>
-              <figcaption style="font-size: 13px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">{{ r.author }} · {{ r.where }}</figcaption>
+            <figure style="margin: 0; border-top: 1px solid var(--color-divider); padding: 18px 0;" class="stack-sm">
+              <span class="star" aria-label="{{ r.label }}" style="letter-spacing: 2px;">{{ r.stars }}</span>
+              <blockquote style="margin: 0;">{{ r.text }}</blockquote>
+              <figcaption class="tiny muted">{{ r.author }} · {{ r.where }}</figcaption>
             </figure>
           </sc-for>
         </section>
       </div>
 
-      <aside style="flex: 1 1 320px; max-width: 420px; position: sticky; top: 24px; background: var(--color-surface); border-top: 4px solid var(--color-accent); padding: 24px; display: flex; flex-direction: column; gap: 16px;">
-        <a class="btn btn-primary" href="{{ sel.callHref }}" style="justify-content: space-between; text-decoration: none; min-height: 52px; font-size: 18px;">Call {{ sel.phone }}
-          <svg width="18" height="18" viewBox="0 0 24 24" style="fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-        </a>
+      <aside class="card stack" style="flex: 1 1 320px; max-width: 440px; position: sticky; top: 84px;" id="quote">
+        <a class="btn btn-primary btn-block" href="{{ sel.callHref }}" style="min-height: 58px; font-size: 19px;">Call {{ sel.phone }}</a>
         <sc-if value="{{ quoteOpen }}" hint-placeholder-val="{{ true }}">
-          <form onSubmit="{{ sendQuote }}" style="display: flex; flex-direction: column; gap: 14px;">
-            <h2 style="font-family: var(--font-heading); font-weight: 800; font-size: 20px; margin: 4px 0 0;">Or request a free quote</h2>
-            <div class="field"><label>Your name</label><input class="input" required="" style="min-height: 44px;"></div>
-            <div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px;">
-              <div class="field"><label>Phone</label><input class="input" type="tel" required="" style="min-height: 44px;"></div>
-              <div class="field"><label>ZIP</label><input class="input" inputMode="numeric" maxLength="5" style="min-height: 44px;"></div>
-            </div>
-            <div class="field"><label>What's wrong?</label>
-              <select class="input" style="min-height: 44px;">
+          <form onSubmit="{{ sendQuote }}" class="stack" style="gap: 14px;">
+            <h2 class="h4">Or ask for a free quote</h2>
+            <label class="field">Your name<input class="input" required="" autoComplete="name"></label>
+            <label class="field">Phone<input class="input" type="tel" required="" autoComplete="tel"></label>
+            <label class="field">ZIP code<input class="input" inputMode="numeric" maxLength="5" autoComplete="postal-code"></label>
+            <label class="field">What's wrong?
+              <select class="input">
                 <sc-for list="{{ sel.services }}" as="s" hint-placeholder-count="4"><option>{{ s }}</option></sc-for>
                 <option>Not sure</option>
               </select>
-            </div>
-            <div class="field"><label>Details (door size, brand, how old)</label><textarea class="input"></textarea></div>
-            <button type="submit" class="btn btn-secondary btn-block" style="min-height: 44px; justify-content: space-between;">Send to {{ sel.shortName }} <span>→</span></button>
-            <span style="font-size: 12px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Free for homeowners. Your details go only to this company.</span>
+            </label>
+            <label class="field">Details (door size, how old, photos help)<textarea class="input"></textarea></label>
+            <button type="submit" class="btn btn-secondary btn-block">Send to {{ sel.shortName }}</button>
+            <span class="tiny muted">Free for homeowners. Your details go only to this company.</span>
           </form>
         </sc-if>
         <sc-if value="{{ quoteSent }}" hint-placeholder-val="{{ false }}">
-          <div style="display: flex; flex-direction: column; gap: 8px; padding-top: 8px;">
-            <h2 style="font-family: var(--font-heading); font-weight: 800; font-size: 22px; margin: 0;">Request sent.</h2>
-            <p style="margin: 0; font-size: 15px;">{{ sel.shortName }} usually replies within {{ sel.reply }}.</p>
-            <button type="button" class="btn btn-ghost" onClick="{{ goBack }}" style="align-self: flex-start;">Compare more companies</button>
+          <div class="notice notice-ok stack-sm" style="display: flex;">
+            <strong>Request sent.</strong>
+            <span>{{ sel.shortName }} usually replies within {{ sel.reply }}.</span>
           </div>
+          <a class="btn btn-ghost" href="/pros" onClick="{{ goBack }}" style="align-self: flex-start;">Compare more pros</a>
         </sc-if>
       </aside>
     </div>
   </div>
+  <div class="callbar only-phone">
+    <div class="row" style="flex-wrap: nowrap;">
+      <a class="btn btn-primary" href="{{ sel.callHref }}" style="flex: 1;">Call {{ sel.phone }}</a>
+      <a class="btn btn-secondary" href="#quote">Quote</a>
+    </div>
+  </div>
 </sc-if>
 
-<!-- COMPARE -->
+<!-- ================= COMPARE ================= -->
 <sc-if value="{{ isCompare }}" hint-placeholder-val="{{ false }}">
-  <div style="max-width: 1200px; margin: 0 auto; padding: 32px clamp(20px, 5vw, 56px) 96px;">
-    <button type="button" class="btn btn-ghost" onClick="{{ goBack }}" style="margin-bottom: 28px;">← Back to results</button>
-    <h1 style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(32px, 4.4vw, 56px); line-height: 1.06; letter-spacing: -0.02em; margin: 0 0 32px -0.05em;">Compare companies</h1>
-
+  <div class="wrap page stack" style="gap: 24px;">
+    <a class="btn btn-ghost" href="/pros" onClick="{{ goBack }}" style="align-self: flex-start; padding-left: 0;">← Back to pros</a>
+    <h1 class="h1 h1-sm">Compare pros side by side</h1>
     <sc-if value="{{ compareEmpty }}" hint-placeholder-val="{{ false }}">
-      <div style="border-top: 2px solid var(--color-text); padding: 32px 0; display: flex; flex-direction: column; gap: 12px; align-items: flex-start;">
-        <p style="margin: 0; font-size: 18px; max-width: 50ch;">Add up to three companies with “+ Compare” on any listing to see them side by side.</p>
-        <button type="button" class="btn btn-primary" onClick="{{ goAll }}">Browse companies</button>
+      <div class="card card-soft stack" style="align-items: flex-start;">
+        <p>Tap “+ Compare” on up to three pros to see their prices, warranty and ratings side by side.</p>
+        <a class="btn btn-primary" href="/pros" onClick="{{ goAll }}">Browse pros</a>
       </div>
     </sc-if>
-
     <sc-if value="{{ compareHas }}" hint-placeholder-val="{{ true }}">
-      <div style="overflow-x: auto;">
-        <div style="min-width: {{ compareMinWidth }}; border-top: 2px solid var(--color-text);">
-          <div style="display: grid; grid-template-columns: {{ compareCols }}; gap: 24px; padding: 24px 0; border-bottom: 2px solid var(--color-divider);">
+      <div style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
+        <div style="min-width: {{ compareMinWidth }};">
+          <div style="display: grid; grid-template-columns: {{ compareCols }}; gap: 20px; padding: 16px 0; border-bottom: 1px solid var(--color-divider);">
             <span></span>
             <sc-for list="{{ compareList }}" as="c" hint-placeholder-count="2">
-              <div style="display: flex; flex-direction: column; gap: 10px;">
-                <div class="grayscale" style="aspect-ratio: 4 / 3; position: relative;"><image-slot id="photo-{{ c.id }}-1" shape="rect" placeholder="Job photo"></image-slot></div>
-                <h2 onClick="{{ c.open }}" style="font-family: var(--font-heading); font-weight: 800; font-size: 20px; line-height: 1.2; margin: 0; cursor: pointer;" style-hover="color: var(--color-accent);">{{ c.name }}</h2>
-                <span style="font-size: 13px; color: color-mix(in srgb, var(--color-text) 75%, transparent);">{{ c.location }}</span>
-                <button type="button" class="btn btn-ghost" onClick="{{ c.toggleCompare }}" style="align-self: flex-start; font-size: 13px;">Remove</button>
+              <div class="stack-sm">
+                <h2 class="pro-name" style="font-size: 20px;"><a href="{{ c.href }}" onClick="{{ c.openNav }}">{{ c.name }}</a></h2>
+                <span class="tiny muted">{{ c.location }}</span>
+                <button type="button" class="btn btn-ghost btn-sm" onClick="{{ c.toggleCompare }}" style="align-self: flex-start; padding-left: 0;">Remove</button>
               </div>
             </sc-for>
           </div>
           <sc-for list="{{ compareRows }}" as="row" hint-placeholder-count="8">
-            <div style="display: grid; grid-template-columns: {{ compareCols }}; gap: 24px; padding: 14px 0; border-bottom: 2px solid var(--color-divider); align-items: baseline;">
-              <span style="font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 70%, transparent);">{{ row.label }}</span>
-              <sc-for list="{{ row.cells }}" as="cell" hint-placeholder-count="2">
-                <span style="font-size: 15px; font-weight: 600;">{{ cell }}</span>
-              </sc-for>
+            <div style="display: grid; grid-template-columns: {{ compareCols }}; gap: 20px; padding: 14px 0; border-bottom: 1px solid var(--color-divider); align-items: baseline;">
+              <span class="tiny muted" style="font-weight: 700;">{{ row.label }}</span>
+              <sc-for list="{{ row.cells }}" as="cell" hint-placeholder-count="2"><span class="small" style="font-weight: 600;">{{ cell }}</span></sc-for>
             </div>
           </sc-for>
-          <div style="display: grid; grid-template-columns: {{ compareCols }}; gap: 24px; padding: 20px 0;">
+          <div style="display: grid; grid-template-columns: {{ compareCols }}; gap: 20px; padding: 18px 0;">
             <span></span>
             <sc-for list="{{ compareList }}" as="c" hint-placeholder-count="2">
-              <div style="display: flex; flex-direction: column; gap: 8px;">
-                <a class="btn btn-primary" href="{{ c.callHref }}" style="justify-content: flex-start; text-decoration: none; min-height: 44px;">Call {{ c.phone }}</a>
-                <button type="button" class="btn btn-secondary" onClick="{{ c.open }}" style="justify-content: flex-start; min-height: 44px;">Get a quote</button>
+              <div class="stack-sm">
+                <a class="btn btn-primary btn-block" href="{{ c.callHref }}">Call {{ c.phone }}</a>
+                <a class="btn btn-secondary btn-block" href="{{ c.href }}" onClick="{{ c.openNav }}">Get a quote</a>
               </div>
             </sc-for>
           </div>
@@ -673,59 +652,59 @@ a:hover { color: var(--color-accent); }
   </div>
 </sc-if>
 
-<!-- LIST YOUR BUSINESS -->
+<!-- ================= LIST YOUR BUSINESS ================= -->
 <sc-if value="{{ isList }}" hint-placeholder-val="{{ false }}">
-  <div style="max-width: 1200px; margin: 0 auto; padding: 56px clamp(20px, 5vw, 56px) 96px; display: flex; flex-wrap: wrap; gap: 56px; align-items: flex-start;">
-    <div style="flex: 1 1 340px; display: flex; flex-direction: column; gap: 24px;">
-      <h1 style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(36px, 5vw, 64px); line-height: 1.04; letter-spacing: -0.02em; margin: 0 0 0 -0.05em;">Get found by Florida homeowners.</h1>
-      <p style="margin: 0; font-size: 18px; max-width: 46ch; color: color-mix(in srgb, var(--color-text) 80%, transparent);">Listing is free, but every company must pass our checks — insurance, business registration, Florida address, owner ID, a license where the work requires one — and post a price range for every service. Featured spots are labelled ads; they never change ratings, reviews or price scores.</p>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2px; background: var(--color-divider); border: 2px solid var(--color-divider);">
-        <div style="background: var(--color-bg); padding: 20px; display: flex; flex-direction: column; gap: 6px;">
-          <span style="font-family: var(--font-heading); font-weight: 800; font-size: 20px;">Basic</span>
-          <span style="font-family: var(--font-heading); font-weight: 800; font-size: 32px;">Free</span>
-          <span style="font-size: 14px;">Profile, phone, services, service area, 1 photo</span>
-        </div>
-        <div style="background: var(--color-bg); padding: 20px; display: flex; flex-direction: column; gap: 6px;">
-          <span style="font-family: var(--font-heading); font-weight: 800; font-size: 20px;">Featured</span>
-          <span style="font-family: var(--font-heading); font-weight: 800; font-size: 32px; color: var(--color-accent);">$49/mo</span>
-          <span style="font-size: 14px;">Top of your city, highlighted map pin, homepage spot, 5 photos</span>
-        </div>
+  <div class="wrap page grid-2" style="gap: 40px; align-items: start;">
+    <div class="stack">
+      <p class="eyebrow">For sliding door repair companies</p>
+      <h1 class="h1 h1-sm">Get found by Florida homeowners who need a repair.</h1>
+      <p class="lead">Homeowners arrive already knowing what's wrong and what it should cost, so your calls are ready to book. Listing is free, but every company must pass our checks and post a price range for every service.</p>
+      <div class="card stack-sm">
+        <h2 class="h4">To be listed you need</h2>
+        <ul class="checklist small">
+          <li>Valid insurance (we confirm it with the insurer)</li>
+          <li>Active Florida business registration (Sunbiz)</li>
+          <li>A Florida license where the work requires one</li>
+          <li>A real Florida address and owner ID check</li>
+          <li>Posted price ranges for every repair you list</li>
+        </ul>
+      </div>
+      <div class="grid-2" style="gap: 12px;">
+        <div class="card stack-sm"><span class="h4">Basic</span><span class="price-big" style="font-size: 32px;">Free</span><span class="small muted">Profile, phone, services, service area, 1 photo</span></div>
+        <div class="card card-accent stack-sm"><span class="h4">Featured</span><span class="price-big" style="font-size: 32px;">$49/mo</span><span class="small muted">Top of your city (labeled Ad), highlighted map pin, 5 photos</span></div>
       </div>
     </div>
-    <div style="flex: 1 1 380px; max-width: 520px; border-top: 2px solid var(--color-text); padding-top: 24px;">
+    <div class="card">
       <sc-if value="{{ listOpen }}" hint-placeholder-val="{{ true }}">
-        <form onSubmit="{{ sendListing }}" style="display: flex; flex-direction: column; gap: 16px;">
-          <div class="field"><label>Company name</label><input class="input" required="" style="min-height: 44px;"></div>
-          <div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px;">
-            <div class="field"><label>Phone</label><input class="input" type="tel" required="" style="min-height: 44px;"></div>
-            <div class="field"><label>Email</label><input class="input" type="email" required="" style="min-height: 44px;"></div>
-          </div>
-          <div class="field"><label>Main city</label>
-            <select class="input" style="min-height: 44px;">
+        <form onSubmit="{{ sendListing }}" class="stack" style="gap: 14px;">
+          <h2 class="h3">Apply to be listed</h2>
+          <label class="field">Company name<input class="input" required="" autoComplete="organization"></label>
+          <label class="field">Phone<input class="input" type="tel" required="" autoComplete="tel"></label>
+          <label class="field">Email<input class="input" type="email" required="" autoComplete="email"></label>
+          <label class="field">Main city
+            <select class="input">
               <sc-for list="{{ cities }}" as="city" hint-placeholder-count="12"><option>{{ city.name }}</option></sc-for>
               <option>Other Florida city</option>
             </select>
-          </div>
-          <div class="field"><label>Cities you serve</label><input class="input" placeholder="Tampa, Brandon, Riverview…" style="min-height: 44px;"></div>
-          <div class="field"><label>Services and price ranges (required)</label><textarea class="input" required="" placeholder="Roller replacement $150–$250; Track repair $120–$200…"></textarea></div>
-          <div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px;">
-            <div class="field"><label>Florida license # (if any)</label><input class="input" style="min-height: 44px;"></div>
-            <div class="field"><label>Insurance certificate</label><input class="input" type="file" accept=".pdf,image/*" required="" style="min-height: 44px;"></div>
-          </div>
-          <div style="display: flex; flex-direction: column; gap: 8px;">
-            <span style="font-size: 12px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Plan</span>
-            <div class="seg" style="align-self: flex-start;">
-              <label class="seg-opt"><input type="radio" name="plan" checked="{{ planFree }}" onChange="{{ pickFree }}">Basic — free</label>
-              <label class="seg-opt"><input type="radio" name="plan" checked="{{ planFeatured }}" onChange="{{ pickFeatured }}">Featured — $49/mo</label>
+          </label>
+          <label class="field">Cities you serve<input class="input" placeholder="Tampa, Brandon, Riverview…"></label>
+          <label class="field">Repairs and price ranges<textarea class="input" required="" placeholder="Roller replacement $150–$250; Track repair $120–$200…"></textarea></label>
+          <label class="field">Florida license # (if any)<input class="input"></label>
+          <label class="field">Insurance certificate<input class="input" type="file" accept=".pdf,image/*" required=""></label>
+          <div class="stack-sm">
+            <span class="tiny muted" style="font-weight: 700;">Plan</span>
+            <div class="seg" style="align-self: flex-start; flex-wrap: wrap;">
+              <label class="seg-opt"><input type="radio" name="plan" checked="{{ planFree }}" onChange="{{ pickFree }}">Basic · free</label>
+              <label class="seg-opt"><input type="radio" name="plan" checked="{{ planFeatured }}" onChange="{{ pickFeatured }}">Featured · $49/mo</label>
             </div>
           </div>
-          <button type="submit" class="btn btn-primary btn-block" style="min-height: 48px; justify-content: space-between;">Submit listing <span>→</span></button>
+          <button type="submit" class="btn btn-primary btn-block">Submit application</button>
         </form>
       </sc-if>
       <sc-if value="{{ listSent }}" hint-placeholder-val="{{ false }}">
-        <div style="display: flex; flex-direction: column; gap: 10px;">
-          <h2 style="font-family: var(--font-heading); font-weight: 800; font-size: 28px; margin: 0;">Thanks — we'll verify and publish within 2 business days.</h2>
-          <button type="button" class="btn btn-ghost" onClick="{{ goHome }}" style="align-self: flex-start;">Back to the directory</button>
+        <div class="stack">
+          <h2 class="h3">Thanks. We'll check your details and publish within 2 business days.</h2>
+          <a class="btn btn-ghost" href="/" onClick="{{ goHome }}" style="align-self: flex-start; padding-left: 0;">Back to SlideRepairFL</a>
         </div>
       </sc-if>
     </div>
@@ -735,123 +714,345 @@ a:hover { color: var(--color-accent); }
 </main>
 
 <sc-if value="{{ showTray }}" hint-placeholder-val="{{ false }}">
-  <div style="position: sticky; bottom: 0; z-index: 10; background: var(--color-text); color: var(--color-bg); border-top: 4px solid var(--color-accent);">
-    <div style="max-width: 1200px; margin: 0 auto; padding: 14px clamp(20px, 5vw, 56px); display: flex; gap: 12px 24px; align-items: center; flex-wrap: wrap;">
-      <span style="font-weight: 700;">{{ compareCountText }}</span>
-      <span style="flex: 1 1 240px; font-size: 14px;">{{ compareNames }}</span>
-      <button type="button" onClick="{{ clearCompare }}" style="background: none; border: 0; color: var(--color-bg); font: inherit; font-size: 14px; cursor: pointer; text-decoration: underline; text-underline-offset: 3px;">Clear</button>
-      <button type="button" class="btn btn-primary" onClick="{{ goCompare }}" style="min-height: 44px;">Compare now →</button>
+  <div class="tray">
+    <div class="wrap tray-in">
+      <strong>{{ compareCountText }}</strong>
+      <span class="small" style="flex: 1 1 200px; color: #C9D4EA;">{{ compareNames }}</span>
+      <button type="button" class="btn btn-ghost btn-sm" onClick="{{ clearCompare }}" style="color: #fff;">Clear</button>
+      <a class="btn btn-primary btn-sm" href="/compare" onClick="{{ goCompare }}">Compare now →</a>
     </div>
   </div>
 </sc-if>
 
-<footer style="border-top: 2px solid var(--color-divider);">
-  <div style="max-width: 1200px; margin: 0 auto; padding: 28px clamp(20px, 5vw, 56px); display: flex; gap: 12px 32px; flex-wrap: wrap; align-items: baseline; font-size: 13px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">
-    <span style="font-family: var(--font-heading); font-weight: 800; font-size: 15px; color: var(--color-text);">SlideRepairFL</span>
-    <span style="flex: 1 1 260px;">Sliding door repair companies serving Florida only. Listings are self-reported; verify licenses at myfloridalicense.com.</span>
-    <a href="#" onClick="{{ goList }}">List your business</a>
+<footer class="footer">
+  <div class="wrap stack" style="gap: 28px;">
+    <div class="footer-cols">
+      <div class="stack-sm">
+        <strong style="font-size: 19px;">SlideRepairFL</strong>
+        <p class="muted small">Plain-English help and checked local pros for sliding glass door repair in Florida.</p>
+      </div>
+      <nav class="stack-sm" aria-label="Problems">
+        <strong class="small">Door problems</strong>
+        <sc-for list="{{ symptoms }}" as="s" hint-placeholder-count="8"><a class="small" href="{{ s.href }}" onClick="{{ s.pick }}">{{ s.title }}</a></sc-for>
+      </nav>
+      <nav class="stack-sm" aria-label="Cities">
+        <strong class="small">Cities</strong>
+        <sc-for list="{{ cities }}" as="city" hint-placeholder-count="12"><a class="small" href="{{ city.href }}" onClick="{{ city.onClick }}">{{ city.name }}</a></sc-for>
+      </nav>
+      <nav class="stack-sm" aria-label="More">
+        <strong class="small">More</strong>
+        <a class="small" href="/cost" onClick="{{ goPrices }}">Repair price guide</a>
+        <a class="small" href="/pros" onClick="{{ goAll }}">Find a pro</a>
+        <a class="small" href="/compare" onClick="{{ goCompare }}">Compare pros</a>
+        <a class="small" href="/list-your-business" onClick="{{ goList }}">List your business</a>
+      </nav>
+    </div>
+    <p class="tiny muted">Serving Florida only. Prices are reports from homeowners, not quotes. Always confirm licenses at myfloridalicense.com.</p>
   </div>
 </footer>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;homeLayout&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;search&quot;,&quot;map&quot;,&quot;poster&quot;],&quot;default&quot;:&quot;search&quot;,&quot;tsType&quot;:&quot;'search' | 'map' | 'poster'&quot;,&quot;section&quot;:&quot;Homepage&quot;},&quot;listingStyle&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;rows&quot;,&quot;cards&quot;],&quot;default&quot;:&quot;rows&quot;,&quot;tsType&quot;:&quot;'rows' | 'cards'&quot;,&quot;section&quot;:&quot;Results&quot;},&quot;showFeatured&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Results&quot;},&quot;stormBanner&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Homepage&quot;}}">
-class Component extends DCLogic {
-  state = { view: 'home', query: '', service: 'All services', price: 'Any', emergency: false, sort: 'rating', mode: 'list', selectedId: null, compare: [], quoteSent: false, report: 'closed', listSent: false, plan: 'free' };
+<script type="text/x-dc" data-dc-script data-props='{"showFeatured":{"editor":"boolean","default":true},"initial":{"editor":null}}'>
+// ---------------------------------------------------------------------------
+// Data
+// ---------------------------------------------------------------------------
+const SERVICES = ['Rollers', 'Tracks', 'Glass replacement', 'Locks & handles', 'Screen doors', 'Impact doors', 'Weatherstripping'];
+const SERVICE_INFO = {
+  'Rollers': { label: 'Roller replacement', lower: 'roller replacement', slug: 'roller-replacement', symptom: 'hard-to-slide', what: 'new wheels under the door, plus a height adjustment', factors: ['Door size and weight. 8 ft and impact doors need heavy-duty rollers.', 'How many panels slide', 'Stainless rollers cost more but last longer near the coast'] },
+  'Tracks': { label: 'Track repair', lower: 'track repair', slug: 'track-repair', symptom: 'off-track', what: 'straightening the rail or adding a stainless track cover', factors: ['How long the damaged section is', 'Track cover vs. full track replacement', 'Rollers often need replacing at the same time'] },
+  'Glass replacement': { label: 'Glass replacement', lower: 'glass replacement', slug: 'glass-replacement', symptom: 'glass', what: 'new glass in your existing frame', factors: ['Glass size and thickness', 'Double-pane, low-E or impact glass costs more', 'Custom glass can take 1–2 weeks'] },
+  'Locks & handles': { label: 'Lock & handle repair', lower: 'lock and handle repair', slug: 'lock-repair', symptom: 'wont-lock', what: 'adjusting or replacing the latch, lock or handle set', factors: ['Adjustment only vs. a new lock', 'Lock style: standard, keyed or double-bolt', 'Matching parts for older doors'] },
+  'Screen doors': { label: 'Screen door repair', lower: 'screen door repair', slug: 'screen-door-repair', symptom: 'screen', what: 'new screen rollers, new mesh or a rebuilt frame', factors: ['New mesh vs. a new screen frame', 'Pet-proof or solar mesh costs more', 'Custom sizes'] },
+  'Impact doors': { label: 'Impact door repair', lower: 'impact door repair', slug: 'impact-door-repair', symptom: 'storm', what: 'heavy-duty parts for hurricane-rated doors', factors: ['Impact-rated parts and glass cost more', 'Whether the frame is bent', 'After-hours emergency visits'] },
+  'Weatherstripping': { label: 'Leak & seal repair', lower: 'leak and seal repair', slug: 'leak-repair', symptom: 'leaking', what: 'new seals and cleared drain (weep) holes', factors: ['How many seals need replacing', 'Whether the sill or frame needs resealing', 'Water damage inside is a separate repair'] }
+};
+const BASE = { 'Rollers': [150, 250], 'Tracks': [120, 220], 'Glass replacement': [350, 800], 'Locks & handles': [85, 180], 'Screen doors': [60, 150], 'Impact doors': [600, 1800], 'Weatherstripping': [90, 180] };
+const DOORS = ['2-panel, 6 ft', '2-panel, 8 ft', '3-panel', '4-panel / multi-slide', 'Pocket slider', 'Impact-rated slider'];
+const MONTHS = ['Oct 2026', 'Sep 2026', 'Sep 2026', 'Aug 2026', 'Jul 2026', 'Jun 2026', 'May 2026'];
+const CITIES = [['Miami', 'Miami-Dade'], ['Tampa', 'Hillsborough'], ['Orlando', 'Orange'], ['Jacksonville', 'Duval'], ['Fort Lauderdale', 'Broward'], ['West Palm Beach', 'Palm Beach'], ['St. Petersburg', 'Pinellas'], ['Sarasota', 'Sarasota'], ['Naples', 'Collier'], ['Fort Myers', 'Lee'], ['Tallahassee', 'Leon'], ['Pensacola', 'Escambia']];
+const VET = [
+  { label: 'Insurance', how: 'confirmed with the insurer, not just uploaded' },
+  { label: 'Florida license', how: 'looked up on DBPR wherever the work requires one' },
+  { label: 'Business registration', how: 'active and in good standing on Sunbiz' },
+  { label: 'Real Florida address', how: 'confirmed in person or by video' },
+  { label: 'Owner ID & background', how: 'government ID plus a background check' },
+  { label: 'Posted prices', how: 'a price range for every repair they list' },
+  { label: 'Review check', how: 'screened for fake or bought reviews' }
+];
 
-  SERVICES = ['Rollers', 'Tracks', 'Glass replacement', 'Locks & handles', 'Screen doors', 'Impact doors', 'Weatherstripping'];
-  BASE = { 'Rollers': [150, 250], 'Tracks': [120, 220], 'Glass replacement': [350, 800], 'Locks & handles': [85, 180], 'Screen doors': [60, 150], 'Impact doors': [600, 1800], 'Weatherstripping': [90, 180] };
-  DOORS = ['2-panel, 6 ft', '2-panel, 8 ft', '3-panel', '4-panel / multi-slide', 'Pocket slider', 'Impact-rated slider'];
-  MONTHS = ['Oct 2026', 'Sep 2026', 'Sep 2026', 'Aug 2026', 'Jul 2026', 'Jun 2026', 'May 2026'];
-  CITIES = [['Miami', 'Miami-Dade'], ['Tampa', 'Hillsborough'], ['Orlando', 'Orange'], ['Jacksonville', 'Duval'], ['Fort Lauderdale', 'Broward'], ['West Palm Beach', 'Palm Beach'], ['St. Petersburg', 'Pinellas'], ['Sarasota', 'Sarasota'], ['Naples', 'Collier'], ['Fort Myers', 'Lee'], ['Tallahassee', 'Leon'], ['Pensacola', 'Escambia']];
-  VET = [
-    { label: 'Insurance', how: 'certificate checked with the insurer, not just uploaded' },
-    { label: 'Florida license', how: 'looked up on DBPR wherever the work requires one' },
-    { label: 'Business registration', how: 'active and in good standing on Sunbiz' },
-    { label: 'Real Florida address', how: 'confirmed in person or by video walk-through' },
-    { label: 'Owner ID & background', how: 'government ID plus a background check' },
-    { label: 'Posted prices', how: 'a price range for every service they list' },
-    { label: 'Review audit', how: 'screened for fake or bought reviews' }
-  ];
-  REJECT = [
-    { label: 'No valid insurance', count: 17 },
-    { label: "Wouldn't post price ranges", count: 11 },
-    { label: 'Address could not be confirmed', count: 8 },
-    { label: 'Fake or bought reviews', count: 7 },
-    { label: 'Unlicensed for glass or impact work', count: 4 }
-  ];
-  COMPANIES = [
-    { id: 1, name: 'Gulf Glide Door Repair', city: 'Tampa', county: 'Hillsborough', zip: '33602', lat: 27.9506, lng: -82.4572, rating: 4.9, reviews: 212, featured: true, emergency: true, licensed: true, years: 14, price: '$$', phone: '(813) 555-0142', services: ['Rollers', 'Tracks', 'Glass replacement', 'Locks & handles', 'Weatherstripping'], areas: ['Tampa', 'Brandon', 'Riverview', 'Wesley Chapel', 'Lutz'], blurb: 'Family-run crew that rebuilds tracks and swaps rollers same day. Most jobs finish in under two hours, with a one-year parts warranty.' },
-    { id: 2, name: 'Biscayne Slider Co.', city: 'Miami', county: 'Miami-Dade', zip: '33131', lat: 25.7617, lng: -80.1918, rating: 4.8, reviews: 388, featured: true, emergency: true, licensed: true, years: 19, price: '$$$', phone: '(305) 555-0188', services: ['Rollers', 'Tracks', 'Impact doors', 'Glass replacement', 'Locks & handles'], areas: ['Miami', 'Coral Gables', 'Miami Beach', 'Hialeah', 'Doral'], blurb: 'High-rise and condo specialists. Impact-rated door repair and replacement to Miami-Dade code, with HOA paperwork handled.' },
-    { id: 3, name: 'Orange Blossom Door Works', city: 'Orlando', county: 'Orange', zip: '32801', lat: 28.5384, lng: -81.3789, rating: 4.7, reviews: 156, featured: false, emergency: false, licensed: true, years: 9, price: '$$', phone: '(407) 555-0117', services: ['Rollers', 'Tracks', 'Screen doors', 'Weatherstripping'], areas: ['Orlando', 'Winter Park', 'Kissimmee', 'Sanford', 'Lake Nona'], blurb: 'Sticky, grinding or off-track sliders fixed without replacing the door. Upfront flat-rate pricing quoted on the phone.' },
-    { id: 4, name: 'First Coast Track & Roller', city: 'Jacksonville', county: 'Duval', zip: '32202', lat: 30.3322, lng: -81.6557, rating: 4.8, reviews: 201, featured: true, emergency: true, licensed: true, years: 22, price: '$$', phone: '(904) 555-0163', services: ['Rollers', 'Tracks', 'Locks & handles', 'Screen doors'], areas: ['Jacksonville', 'Orange Park', 'Ponte Vedra', 'Fernandina Beach'], blurb: 'Two decades on Northeast Florida patio doors. Stainless rollers and track caps that stand up to salt air.' },
-    { id: 5, name: 'Las Olas Glass & Slider', city: 'Fort Lauderdale', county: 'Broward', zip: '33301', lat: 26.1224, lng: -80.1373, rating: 4.6, reviews: 97, featured: false, emergency: true, licensed: true, years: 7, price: '$$$', phone: '(954) 555-0129', services: ['Glass replacement', 'Impact doors', 'Locks & handles', 'Tracks'], areas: ['Fort Lauderdale', 'Hollywood', 'Pompano Beach', 'Plantation'], blurb: 'Fogged or cracked panels replaced with tempered or impact glass. Emergency board-up after storms.' },
-    { id: 6, name: 'Palm Coast Patio Doors', city: 'West Palm Beach', county: 'Palm Beach', zip: '33401', lat: 26.7153, lng: -80.0534, rating: 4.9, reviews: 143, featured: false, emergency: false, licensed: true, years: 11, price: '$$', phone: '(561) 555-0175', services: ['Rollers', 'Tracks', 'Screen doors', 'Weatherstripping', 'Glass replacement'], areas: ['West Palm Beach', 'Boca Raton', 'Jupiter', 'Wellington'], blurb: 'Quiet, careful work in occupied homes. Known for restoring older aluminum sliders to glide with one finger.' },
-    { id: 7, name: 'Suncoast Slide Fix', city: 'Sarasota', county: 'Sarasota', zip: '34236', lat: 27.3364, lng: -82.5307, rating: 4.7, reviews: 88, featured: false, emergency: false, licensed: true, years: 6, price: '$', phone: '(941) 555-0151', services: ['Rollers', 'Tracks', 'Screen doors'], areas: ['Sarasota', 'Bradenton', 'Venice', 'Lakewood Ranch'], blurb: 'Budget-friendly roller and track service. Screen doors rebuilt while you wait.' },
-    { id: 8, name: 'Naples Door Doctor', city: 'Naples', county: 'Collier', zip: '34102', lat: 26.142, lng: -81.7948, rating: 4.8, reviews: 119, featured: false, emergency: true, licensed: true, years: 15, price: '$$$', phone: '(239) 555-0194', services: ['Impact doors', 'Glass replacement', 'Rollers', 'Locks & handles'], areas: ['Naples', 'Marco Island', 'Bonita Springs', 'Estero'], blurb: 'Large multi-panel and pocket sliders on luxury homes. Experienced with the major Florida impact-door brands.' },
-    { id: 9, name: 'Caloosa Roller Repair', city: 'Fort Myers', county: 'Lee', zip: '33901', lat: 26.6406, lng: -81.8723, rating: 4.5, reviews: 64, featured: false, emergency: true, licensed: false, years: 4, price: '$', phone: '(239) 555-0108', services: ['Rollers', 'Tracks', 'Weatherstripping'], areas: ['Fort Myers', 'Cape Coral', 'Lehigh Acres'], blurb: 'Fast roller swaps and track cleaning. Evenings and weekends available.' },
-    { id: 10, name: 'Pinellas Pane & Track', city: 'St. Petersburg', county: 'Pinellas', zip: '33701', lat: 27.7676, lng: -82.6403, rating: 4.6, reviews: 132, featured: false, emergency: false, licensed: true, years: 12, price: '$$', phone: '(727) 555-0136', services: ['Glass replacement', 'Tracks', 'Rollers', 'Locks & handles'], areas: ['St. Petersburg', 'Clearwater', 'Largo', 'Dunedin'], blurb: 'Glass and hardware under one roof. Cracked panel replacement usually scheduled within 48 hours.' },
-    { id: 11, name: 'Capital City Sliders', city: 'Tallahassee', county: 'Leon', zip: '32301', lat: 30.4383, lng: -84.2807, rating: 4.7, reviews: 58, featured: false, emergency: false, licensed: true, years: 8, price: '$', phone: '(850) 555-0147', services: ['Rollers', 'Locks & handles', 'Screen doors'], areas: ['Tallahassee', 'Crawfordville', 'Quincy'], blurb: 'Student rentals, apartments and homes. Lock upgrades and security bars installed on request.' },
-    { id: 12, name: 'Emerald Coast Door Service', city: 'Pensacola', county: 'Escambia', zip: '32502', lat: 30.4213, lng: -87.2169, rating: 4.8, reviews: 77, featured: false, emergency: true, licensed: true, years: 17, price: '$$', phone: '(850) 555-0182', services: ['Impact doors', 'Rollers', 'Tracks', 'Weatherstripping'], areas: ['Pensacola', 'Navarre', 'Gulf Breeze', 'Destin'], blurb: 'Panhandle storm-prep specialists: impact door upgrades, re-sealing and post-hurricane repair.' },
-    { id: 13, name: 'Space Coast Glide', city: 'Melbourne', county: 'Brevard', zip: '32901', lat: 28.0836, lng: -80.6081, rating: 4.6, reviews: 71, featured: false, emergency: false, licensed: true, years: 5, price: '$$', phone: '(321) 555-0110', services: ['Rollers', 'Tracks', 'Screen doors', 'Glass replacement'], areas: ['Melbourne', 'Palm Bay', 'Cocoa Beach', 'Titusville'], blurb: 'Beachside homes and condos from Titusville to Palm Bay. Corrosion-resistant hardware standard.' },
-    { id: 14, name: 'Kendall Track Masters', city: 'Miami', county: 'Miami-Dade', zip: '33156', lat: 25.6793, lng: -80.3173, rating: 4.4, reviews: 45, featured: false, emergency: true, licensed: false, years: 3, price: '$', phone: '(786) 555-0121', services: ['Rollers', 'Tracks', 'Locks & handles'], areas: ['Kendall', 'Pinecrest', 'Homestead', 'Cutler Bay'], blurb: 'Affordable roller and track repair across South Dade. Same-day appointments most weekdays.' }
-  ];
-  REVIEWS = [
-    { stars: '★★★★★', text: 'Door had been grinding for a year. They replaced both rollers and straightened the track — it slides with one finger now. Final bill matched the quote.', author: 'Dana R.' },
-    { stars: '★★★★★', text: 'Called at 7am after the storm, tech was here by noon. Price was inside the range on their profile, and he explained everything before starting.', author: 'Marco P.' },
-    { stars: '★★★★☆', text: 'Good work on a cracked panel. Glass took a week to arrive but install was quick and clean.', author: 'Lisa T.' }
-  ];
+const SYMPTOMS = [
+  { id: 'hard-to-slide', slug: 'sliding-door-hard-to-slide', service: 'Rollers', title: 'Hard to slide', sub: 'Drags, sticks or needs two hands',
+    icon: 'M4 4h9v16H4z M16 9l3 3-3 3 M12 12h7',
+    linkText: 'Sliding door hard to open or slide',
+    headline: 'Why your sliding door is hard to slide',
+    seoTitle: 'Sliding Door Hard to Open or Slide? Causes, Fixes & Florida Cost',
+    explain: 'Almost every sliding glass door rides on two small wheels, called rollers, hidden in the bottom of the door. In Florida, sand, salt air and humidity wear them out. Once a roller goes flat, rusts or cracks, the door drags on the track instead of rolling. The good news: the door itself is usually fine, and new rollers cost far less than a new door.',
+    checks: ['Vacuum the bottom track and wipe it with a damp cloth. Sand and grit alone can make a door stick.', 'Look along the track for dents or a rough, raised spot.', 'Skip WD-40 and grease on the track; they trap sand. A dry silicone spray is fine.'],
+    factors: ['Door size and weight. 8 ft and impact doors need heavy-duty rollers.', 'How many panels slide', 'Stainless rollers cost more but last longer near the coast', 'A damaged track adds a track repair'],
+    note: 'Replacing rollers usually takes 1–2 hours. A good tech also adjusts the door height so it glides level.',
+    diy: 'Cleaning the track is safe to do yourself. Replacing rollers means lifting the glass panel out of the frame, and panels often weigh 80–150 lb, so most homeowners hire a pro for that part.',
+    replace: 'Rarely. A door that only drags is almost always fixed with new rollers and a track tune-up, for a fraction of the cost of a new door.' },
+  { id: 'noisy', slug: 'sliding-door-grinding-noise', service: 'Rollers', title: 'Grinding or squeaking', sub: 'Scrapes, squeals or rumbles',
+    icon: 'M4 9v6h4l5 4V5L8 9H4z M16 9a4 4 0 0 1 0 6 M19 6a8 8 0 0 1 0 12',
+    linkText: 'Sliding door grinding or squeaking',
+    headline: 'What a grinding or squeaking sliding door means',
+    seoTitle: 'Sliding Glass Door Grinding or Squeaking? What It Means & Cost',
+    explain: 'Grinding or scraping usually means the rollers’ bearings have worn out, or a roller has broken and metal is rubbing on the track. Squeaking is often dry or dirty rollers. Left alone, a broken roller can grind a groove into the track, and a small repair becomes a bigger one.',
+    checks: ['Clean the track and try again. Grit makes noise too.', 'Lift up gently on the handle while sliding. If the noise stops, the rollers are worn.', 'A little silicone spray on the rollers can quiet a squeak. Skip oil and grease.'],
+    factors: ['Whether the track is already damaged', 'Door size and weight', 'Roller type: nylon, steel or stainless'],
+    note: 'Fixing it early is cheaper. Once metal grinds into the track, you may also need a track repair.',
+    diy: 'Cleaning and a silicone spray are safe to try. If the noise is a grind, not a squeak, the rollers need replacing, which means lifting the heavy panel out. That is a job for a pro.',
+    replace: 'No. Noise is a parts problem, not a door problem. New rollers fix it.' },
+  { id: 'off-track', slug: 'sliding-door-off-track', service: 'Tracks', title: 'Bumps or comes off track', sub: 'Jumps, wobbles or derails',
+    icon: 'M3 20h18 M5 16a3 3 0 1 0 6 0a3 3 0 1 0-6 0 M13 16a3 3 0 1 0 6 0a3 3 0 1 0-6 0 M4 4h16v8',
+    linkText: 'Sliding door off track or bumpy',
+    headline: 'Why your sliding door bumps or comes off the track',
+    seoTitle: 'Sliding Door Off Track or Bumpy? Causes, Fixes & Track Repair Cost',
+    explain: 'The bottom track is the rail your door rolls on. When it gets bent, dented or worn down, the rollers bump over the damage or slip off completely. Worn rollers can also ride too low and wander. A pro can straighten the track, or screw a stainless track cover over the old one, so the door has a smooth path again.',
+    checks: ['Run your finger along the track and feel for dents, a flattened ridge or loose pieces.', 'Clear out anything stuck in the track.', 'If the door has come off, don’t force it back. It can fall out of the frame.'],
+    warning: 'A door that has jumped the track can tip over. Leave it closed and call a pro.',
+    factors: ['How long the damaged section is', 'Track cover vs. full track replacement', 'Rollers often need replacing at the same time'],
+    note: 'Track covers are a fast fix: no tearing out the frame, and usually done in one visit.',
+    diy: 'Cleaning the track is safe. Straightening metal or fitting a track cover needs the door removed, so it is best left to a pro.',
+    replace: 'Usually not. Even a badly worn track can be covered with a new stainless one for much less than a new door.' },
+  { id: 'wont-lock', slug: 'sliding-door-wont-lock', service: 'Locks & handles', title: 'Won’t lock or latch', sub: 'Lock is loose, stuck or broken',
+    icon: 'M6 11h12v10H6z M8 11V7a4 4 0 0 1 8 0v4 M12 15v2',
+    linkText: 'Sliding door won’t lock or latch',
+    headline: 'Why your sliding door won’t lock',
+    seoTitle: 'Sliding Glass Door Won’t Lock? Causes, Fixes & Lock Repair Cost',
+    explain: 'Often the lock is fine and the door has simply sagged. When rollers wear down, the door sits lower, and the latch no longer lines up with the catch on the frame. Other times the lock itself is worn or broken. A tech can raise the door back into line, adjust the catch, or fit a new lock. Many homeowners add a second lock at the same visit.',
+    checks: ['Lift the door slightly by the handle and try the lock. If it catches, the rollers need adjusting.', 'Check that the catch on the frame isn’t loose.', 'Until it’s fixed, a security bar or a cut broom handle in the track keeps the door shut.'],
+    factors: ['Adjustment only vs. a new lock', 'Lock style: standard, keyed or double-bolt', 'Matching parts for older doors'],
+    note: 'A height adjustment alone often fixes it, and that is the cheapest repair.',
+    diy: 'Tightening a loose catch is a simple screwdriver job. Raising the door means adjusting the rollers, which is easier for a pro with the right tools.',
+    replace: 'No. Locks and handles are replaceable parts.' },
+  { id: 'leaking', slug: 'sliding-door-leaking', service: 'Weatherstripping', title: 'Leaks or drafts', sub: 'Water or air gets in',
+    icon: 'M12 3s6 7 6 11a6 6 0 0 1-12 0c0-4 6-11 6-11z',
+    linkText: 'Sliding door leaking when it rains',
+    headline: 'Why your sliding door leaks when it rains',
+    seoTitle: 'Sliding Glass Door Leaking When It Rains? Causes, Fixes & Cost',
+    explain: 'Sliding doors keep water out with weatherstripping (the fuzzy or rubber seals) and small drain slots at the bottom of the frame, called weep holes. In Florida, sun dries out the seals, and sand and leaves clog the drains. Water then backs up and spills inside. Most leaks are fixed with new seals and cleared drains, not a new door.',
+    checks: ['Find the small slots on the outside bottom of the frame and clear them with a pipe cleaner.', 'Look at the seals along the door edges for gaps, flat spots or cracks.', 'Check the outside caulking around the frame for cracks.'],
+    factors: ['How many seals need replacing', 'Whether the sill or frame needs resealing', 'Water damage inside is a separate repair'],
+    note: 'Fix leaks before storm season. Water that keeps getting in can rot the subfloor and cause mold.',
+    diy: 'Clearing weep holes and re-caulking outside are safe weekend jobs. Replacing the seals in the door panel usually means taking the door out.',
+    replace: 'Rarely. Unless the frame itself is rotted or cracked, new seals and drains stop the leak.' },
+  { id: 'glass', slug: 'sliding-door-glass-repair', service: 'Glass replacement', title: 'Cracked or foggy glass', sub: 'Broken pane or fog between panes',
+    icon: 'M4 3h16v18H4z M11 3l2 6-3 3 3 4-1 5',
+    linkText: 'Cracked or foggy sliding door glass',
+    headline: 'Cracked or foggy sliding door glass',
+    seoTitle: 'Sliding Glass Door Glass Replacement Cost in Florida',
+    explain: 'A crack means the glass panel needs replacing. Fog or moisture between the two panes of a double-pane door means the seal around the glass has failed. In both cases a glass pro usually replaces only the glass and keeps your existing frame, which costs much less than a new door.',
+    checks: ['Don’t slide a door with cracked glass. Moving it can make the crack spread.', 'Cover the crack with clear packing tape on both sides.', 'Note the door size and the small label in the corner of the glass. It helps the pro quote faster.'],
+    warning: 'Keep kids and pets away from cracked glass until it is replaced.',
+    factors: ['Glass size and thickness', 'Double-pane, low-E or impact glass costs more', 'Custom glass can take 1–2 weeks to arrive'],
+    note: 'Replacing just the glass is usually far cheaper than replacing the whole door.',
+    diy: 'No. Door glass is large, heavy and must be tempered safety glass. Always use a pro.',
+    replace: 'Usually not the whole door. Only the glass is replaced unless the frame is damaged too.' },
+  { id: 'screen', slug: 'sliding-screen-door-repair', service: 'Screen doors', title: 'Screen door problems', sub: 'Torn, sticking or off track',
+    icon: 'M4 3h16v18H4z M4 9h16 M4 15h16 M9.3 3v18 M14.7 3v18',
+    linkText: 'Sliding screen door repair',
+    headline: 'Fixing a sliding screen door',
+    seoTitle: 'Sliding Screen Door Repair: Torn Screen, Sticking or Off Track',
+    explain: 'Sliding screen doors have their own small rollers and a lightweight frame. When the rollers wear out, the screen sticks or falls off its track. Torn mesh can be re-screened, and a bent frame can often be rebuilt. It is one of the cheapest sliding door repairs.',
+    checks: ['Look for adjustment screws on the bottom corners of the screen. Turning them raises the screen and often stops it dragging.', 'Clean the upper and lower screen tracks.', 'Small holes can be patched with a screen repair kit from the hardware store.'],
+    factors: ['New mesh vs. a new screen frame', 'Pet-proof or solar mesh costs more', 'Custom sizes'],
+    note: 'If the frame is badly bent, a new custom screen often costs about the same as a rebuild.',
+    diy: 'Often, yes. Adjusting the screws and patching small holes is easy. Re-screening a whole door takes a spline tool and some patience.',
+    replace: 'Only if the frame is badly bent. Otherwise new rollers or mesh do the job.' },
+  { id: 'storm', slug: 'hurricane-damaged-sliding-door', service: 'Impact doors', title: 'Storm or hurricane damage', sub: 'Broken, bent or won’t close', emergency: true,
+    icon: 'M19 15a4 4 0 0 0-2-7.5 6 6 0 0 0-11.5 2A4 4 0 0 0 6 17h2 M13 12l-3 5h4l-3 5',
+    linkText: 'Storm or hurricane damaged sliding door',
+    headline: 'Sliding door damaged in a storm: what to do first',
+    seoTitle: 'Hurricane Damaged Sliding Door? What to Do First & Emergency Repair',
+    explain: 'Storms can crack glass, bend tracks and push doors out of line so they won’t close or lock. Impact-rated doors are built to stay in place, but they are very heavy and need heavy-duty parts. Your first job is to make the opening safe and secure. Then a pro can tell you whether the door can be repaired or must be replaced, and give you paperwork for an insurance claim.',
+    checks: ['Keep everyone away from broken glass, and wear shoes.', 'Take photos of the damage before anything is moved. Your insurer will want them.', 'If the door won’t close, cover the opening with plywood or heavy plastic, then call a 24/7 pro.'],
+    warning: 'Broken glass or a door that won’t close is an emergency. Call a pro who answers 24/7.',
+    factors: ['Impact-rated glass and parts cost more than standard', 'Whether the frame itself is bent', 'After-hours emergency visits may cost extra'],
+    note: 'Ask for a written estimate with photos. It helps with your insurance claim.',
+    diy: 'Only make it safe: cover the opening and keep people away from glass. Leave repairs to a pro, especially on heavy impact doors.',
+    replace: 'Sometimes. If the frame is bent or the opening is out of square, replacement may be needed. A pro can tell you after an inspection.' }
+];
 
-  buildData() {
-    if (this.COMPANIES[0].prices) return;
-    const tier = { '$': 0.8, '$$': 1, '$$$': 1.3 };
-    const r5 = v => Math.round(v / 5) * 5;
-    this.COMPANIES.forEach(c => {
-      let seed = c.id * 9301 + 49297;
-      const rnd = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
-      const target = 0.72 + (c.rating - 4.4) * 0.45;
-      c.prices = c.services.map(s => {
-        const lo = r5(this.BASE[s][0] * tier[c.price]), hi = r5(this.BASE[s][1] * tier[c.price]);
-        const n = 3 + Math.floor(rnd() * 6);
-        const reports = [];
-        for (let i = 0; i < n; i++) {
-          const within = rnd() < target;
-          const paid = within ? r5(lo + rnd() * (hi - lo)) : r5(hi * (1.06 + rnd() * 0.3));
-          const quoted = within ? (rnd() < 0.8 ? paid : r5(paid * 0.92)) : r5(hi * (0.9 + rnd() * 0.1));
-          reports.push({ service: s, paid, quoted, within, receipt: rnd() < 0.6, door: this.DOORS[Math.floor(rnd() * this.DOORS.length)], where: c.areas[Math.floor(rnd() * c.areas.length)], date: this.MONTHS[Math.floor(rnd() * this.MONTHS.length)] });
-        }
-        return { service: s, lo, hi, reports };
-      });
-      c.reports = c.prices.flatMap(p => p.reports);
-      c.honesty = Math.round(100 * c.reports.filter(r => r.within).length / c.reports.length);
+const COMPANIES = [
+  { id: 1, name: 'Gulf Glide Door Repair', city: 'Tampa', county: 'Hillsborough', zip: '33602', lat: 27.9506, lng: -82.4572, rating: 4.9, reviews: 212, featured: true, emergency: true, licensed: true, years: 14, price: '$$', phone: '(813) 555-0142', services: ['Rollers', 'Tracks', 'Glass replacement', 'Locks & handles', 'Weatherstripping'], areas: ['Tampa', 'Brandon', 'Riverview', 'Wesley Chapel'], blurb: 'Family-run crew covering the Tampa Bay area. Known for same-week roller and track repairs and clear, upfront pricing.' },
+  { id: 2, name: 'Biscayne Slider Co.', city: 'Miami', county: 'Miami-Dade', zip: '33131', lat: 25.7617, lng: -80.1918, rating: 4.8, reviews: 388, featured: true, emergency: true, licensed: true, years: 19, price: '$$$', phone: '(305) 555-0188', services: ['Rollers', 'Tracks', 'Impact doors', 'Glass replacement', 'Locks & handles'], areas: ['Miami', 'Coral Gables', 'Miami Beach', 'Hialeah', 'Doral'], blurb: 'High-rise and impact door specialists. Condo board approved, with 24/7 storm response.' },
+  { id: 3, name: 'Orange Blossom Door Works', city: 'Orlando', county: 'Orange', zip: '32801', lat: 28.5384, lng: -81.3789, rating: 4.7, reviews: 156, featured: false, emergency: false, licensed: true, years: 9, price: '$$', phone: '(407) 555-0117', services: ['Rollers', 'Tracks', 'Screen doors', 'Weatherstripping'], areas: ['Orlando', 'Winter Park', 'Kissimmee', 'Sanford', 'Lake Nona'], blurb: 'Central Florida repair team focused on homes and rentals. Most jobs finished in one visit.' },
+  { id: 4, name: 'First Coast Track & Roller', city: 'Jacksonville', county: 'Duval', zip: '32202', lat: 30.3322, lng: -81.6557, rating: 4.8, reviews: 201, featured: true, emergency: true, licensed: true, years: 22, price: '$$', phone: '(904) 555-0163', services: ['Rollers', 'Tracks', 'Locks & handles', 'Screen doors'], areas: ['Jacksonville', 'Orange Park', 'Ponte Vedra', 'Fernandina Beach'], blurb: 'Over two decades fixing sliding doors across Northeast Florida. Stainless parts for coastal homes.' },
+  { id: 5, name: 'Las Olas Glass & Slider', city: 'Fort Lauderdale', county: 'Broward', zip: '33301', lat: 26.1224, lng: -80.1373, rating: 4.6, reviews: 97, featured: false, emergency: true, licensed: true, years: 7, price: '$$$', phone: '(954) 555-0129', services: ['Glass replacement', 'Impact doors', 'Locks & handles', 'Tracks'], areas: ['Fort Lauderdale', 'Hollywood', 'Pompano Beach', 'Plantation'], blurb: 'Glass and impact door repair for Broward homes and condos, including insurance paperwork.' },
+  { id: 6, name: 'Palm Coast Patio Doors', city: 'West Palm Beach', county: 'Palm Beach', zip: '33401', lat: 26.7153, lng: -80.0534, rating: 4.9, reviews: 143, featured: false, emergency: false, licensed: true, years: 11, price: '$$', phone: '(561) 555-0175', services: ['Rollers', 'Tracks', 'Screen doors', 'Weatherstripping', 'Glass replacement'], areas: ['West Palm Beach', 'Boca Raton', 'Jupiter', 'Wellington'], blurb: 'Patio door repair across Palm Beach County, from roller swaps to full seal replacements.' },
+  { id: 7, name: 'Suncoast Slide Fix', city: 'Sarasota', county: 'Sarasota', zip: '34236', lat: 27.3364, lng: -82.5307, rating: 4.7, reviews: 88, featured: false, emergency: false, licensed: true, years: 6, price: '$', phone: '(941) 555-0151', services: ['Rollers', 'Tracks', 'Screen doors'], areas: ['Sarasota', 'Bradenton', 'Venice', 'Lakewood Ranch'], blurb: 'Budget-friendly roller and track service with a free service call when you hire.' },
+  { id: 8, name: 'Naples Door Doctor', city: 'Naples', county: 'Collier', zip: '34102', lat: 26.142, lng: -81.7948, rating: 4.8, reviews: 119, featured: false, emergency: true, licensed: true, years: 15, price: '$$$', phone: '(239) 555-0194', services: ['Impact doors', 'Glass replacement', 'Rollers', 'Locks & handles'], areas: ['Naples', 'Marco Island', 'Bonita Springs', 'Estero'], blurb: 'Large and impact-rated doors for Southwest Florida homes, with storm-season emergency service.' },
+  { id: 9, name: 'Caloosa Roller Repair', city: 'Fort Myers', county: 'Lee', zip: '33901', lat: 26.6406, lng: -81.8723, rating: 4.5, reviews: 64, featured: false, emergency: true, licensed: false, years: 4, price: '$', phone: '(239) 555-0108', services: ['Rollers', 'Tracks', 'Weatherstripping'], areas: ['Fort Myers', 'Cape Coral', 'Lehigh Acres'], blurb: 'Fast roller swaps and track cleaning. Evening and weekend visits available.' },
+  { id: 10, name: 'Pinellas Pane & Track', city: 'St. Petersburg', county: 'Pinellas', zip: '33701', lat: 27.7676, lng: -82.6403, rating: 4.6, reviews: 132, featured: false, emergency: false, licensed: true, years: 12, price: '$$', phone: '(727) 555-0136', services: ['Glass replacement', 'Tracks', 'Rollers', 'Locks & handles'], areas: ['St. Petersburg', 'Clearwater', 'Largo', 'Dunedin'], blurb: 'Glass and track repair across Pinellas County. Known for careful work in older homes.' },
+  { id: 11, name: 'Capital City Sliders', city: 'Tallahassee', county: 'Leon', zip: '32301', lat: 30.4383, lng: -84.2807, rating: 4.7, reviews: 58, featured: false, emergency: false, licensed: true, years: 8, price: '$', phone: '(850) 555-0147', services: ['Rollers', 'Locks & handles', 'Screen doors'], areas: ['Tallahassee', 'Crawfordville', 'Quincy'], blurb: 'Student rentals, apartments and homes. Affordable roller, lock and screen repairs.' },
+  { id: 12, name: 'Emerald Coast Door Service', city: 'Pensacola', county: 'Escambia', zip: '32502', lat: 30.4213, lng: -87.2169, rating: 4.8, reviews: 77, featured: false, emergency: true, licensed: true, years: 17, price: '$$', phone: '(850) 555-0182', services: ['Impact doors', 'Rollers', 'Tracks', 'Weatherstripping'], areas: ['Pensacola', 'Navarre', 'Gulf Breeze', 'Destin'], blurb: 'Panhandle storm and impact door specialists with emergency board-up service.' },
+  { id: 13, name: 'Space Coast Glide', city: 'Melbourne', county: 'Brevard', zip: '32901', lat: 28.0836, lng: -80.6081, rating: 4.6, reviews: 71, featured: false, emergency: false, licensed: true, years: 5, price: '$$', phone: '(321) 555-0110', services: ['Rollers', 'Tracks', 'Screen doors', 'Glass replacement'], areas: ['Melbourne', 'Palm Bay', 'Cocoa Beach', 'Titusville'], blurb: 'Beachside homes and condos on the Space Coast. Stainless parts that stand up to salt air.' },
+  { id: 14, name: 'Kendall Track Masters', city: 'Miami', county: 'Miami-Dade', zip: '33156', lat: 25.6793, lng: -80.3173, rating: 4.4, reviews: 45, featured: false, emergency: true, licensed: false, years: 3, price: '$', phone: '(786) 555-0121', services: ['Rollers', 'Tracks', 'Locks & handles'], areas: ['Kendall', 'Pinecrest', 'Homestead', 'Cutler Bay'], blurb: 'Affordable roller and track repair in South Miami-Dade.' }
+];
+const REVIEWS = [
+  { stars: '★★★★★', label: '5 out of 5 stars', text: 'Door had been grinding for a year. They replaced both rollers and straightened the track. It slides with one finger now, and the final bill matched the quote.', author: 'Dana R.' },
+  { stars: '★★★★★', label: '5 out of 5 stars', text: 'Called at 7am after the storm, and the tech was here by noon. The price was inside the range on their profile, and he explained everything before starting.', author: 'Marco P.' },
+  { stars: '★★★★☆', label: '4 out of 5 stars', text: 'Good work on a cracked panel. The glass took a week to arrive, but the install was quick and clean.', author: 'Lisa T.' }
+];
+
+const slugify = (s) => s.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const money = (v) => (v == null ? '—' : '$' + v.toLocaleString('en-US'));
+const median = (arr) => { const a = [...arr].sort((x, y) => x - y); return a[Math.floor(a.length / 2)]; };
+COMPANIES.forEach((c) => { c.slug = slugify(c.name); });
+CITIES.forEach((c) => { c.push(slugify(c[0])); });
+
+// Sample price reports, generated deterministically per company.
+(function buildReports() {
+  const tier = { '$': 0.8, '$$': 1, '$$$': 1.3 };
+  const r5 = (v) => Math.round(v / 5) * 5;
+  COMPANIES.forEach((c) => {
+    let seed = c.id * 9301 + 49297;
+    const rnd = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
+    const target = 0.72 + (c.rating - 4.4) * 0.45;
+    c.prices = c.services.map((s) => {
+      const lo = r5(BASE[s][0] * tier[c.price]), hi = r5(BASE[s][1] * tier[c.price]);
+      const n = 3 + Math.floor(rnd() * 6);
+      const reports = [];
+      for (let i = 0; i < n; i++) {
+        const within = rnd() < target;
+        const paid = within ? r5(lo + rnd() * (hi - lo)) : r5(hi * (1.06 + rnd() * 0.3));
+        const quoted = within ? (rnd() < 0.8 ? paid : r5(paid * 0.92)) : r5(hi * (0.9 + rnd() * 0.1));
+        reports.push({ service: s, paid, quoted, within, receipt: rnd() < 0.6, door: DOORS[Math.floor(rnd() * DOORS.length)], where: c.areas[Math.floor(rnd() * c.areas.length)], date: MONTHS[Math.floor(rnd() * MONTHS.length)] });
+      }
+      return { service: s, lo, hi, reports };
     });
-  }
+    c.reports = c.prices.flatMap((p) => p.reports);
+    c.honesty = Math.round(100 * c.reports.filter((r) => r.within).length / c.reports.length);
+  });
+})();
+const ALL_REPORTS = COMPANIES.flatMap((c) => c.reports);
+const PRICE_STATS = {};
+SERVICES.forEach((name) => {
+  const v = ALL_REPORTS.filter((r) => r.service === name).map((r) => r.paid).sort((a, b) => a - b);
+  const at = (f) => v[Math.min(v.length - 1, Math.floor(v.length * f))];
+  PRICE_STATS[name] = { median: money(at(0.5)), range: `${money(at(0.1))}–${money(at(0.9))}`, count: v.length };
+});
+
+const symptomPath = (s) => '/problems/' + s.slug;
+const cityPath = (slug) => '/sliding-glass-door-repair/' + slug;
+const proPath = (c) => '/pros/' + c.slug;
+
+function symptomFaq(s) {
+  const st = PRICE_STATS[s.service], info = SERVICE_INFO[s.service];
+  return [
+    { q: `How much does ${info.lower} cost in Florida?`, a: `Most Florida homeowners paid ${st.range} for ${info.lower}, with a middle price of ${st.median}, based on ${st.count} price reports. ${s.note}` },
+    { q: 'Can I fix it myself?', a: s.diy },
+    { q: 'Do I need a whole new door?', a: s.replace }
+  ];
+}
+const PRICE_FAQ = [
+  { q: 'Is it cheaper to repair or replace a sliding glass door?', a: 'Repair is almost always cheaper. Most repairs (rollers, tracks, locks, seals) cost $100–$300, while a new sliding glass door installed in Florida usually costs several thousand dollars. Replacement makes sense mainly when the frame is bent, rotted or badly out of square.' },
+  { q: 'Why do Florida repairs sometimes cost more?', a: 'Salt air and sand wear parts faster, many homes have large or impact-rated doors that need heavy-duty parts, and after-storm demand can raise prices. Stainless parts cost more up front but last much longer near the coast.' },
+  { q: 'What is a call-out fee?', a: 'Some pros charge a small fee to come out and diagnose the door. Many waive it if you hire them for the repair. Ask before they come.' },
+  { q: 'How do I know a quote is fair?', a: 'Compare it to the ranges on this page. A quote inside the range is normal. If it is well above, ask what is driving the price. Door size, impact glass or extra damage are common reasons.' }
+];
+
+function homeJsonLd() {
+  return { '@context': 'https://schema.org', '@type': 'WebSite', name: 'SlideRepairFL', description: 'Plain-English help and checked local pros for sliding glass door repair in Florida.' };
+}
+function faqJsonLd(faq) {
+  return { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
+}
+
+// Every public URL of the directory, with the state it opens in and its SEO tags.
+function ROUTE_LIST() {
+  const r = [];
+  r.push({ path: '/', initial: { view: 'home' }, title: 'Sliding Glass Door Repair in Florida | Checked Pros & Fair Prices | SlideRepairFL', description: 'What’s wrong with your sliding door? Plain-English answers, fair Florida repair prices and checked local pros for rollers, tracks, locks, leaks, glass and storm damage.', jsonld: homeJsonLd() });
+  r.push({ path: '/cost', initial: { view: 'prices' }, title: 'Sliding Glass Door Repair Cost in Florida (2026 Prices) | SlideRepairFL', description: `What Florida homeowners actually paid for sliding door repairs: rollers ${PRICE_STATS['Rollers'].range}, tracks ${PRICE_STATS['Tracks'].range}, locks, glass, leaks and impact doors.`, jsonld: faqJsonLd(PRICE_FAQ) });
+  SYMPTOMS.forEach((s) => r.push({ path: symptomPath(s), initial: { view: 'guide', symptom: s.id }, title: s.seoTitle + ' | SlideRepairFL', description: `${s.explain.split('. ').slice(0, 2).join('. ')}. See fair Florida prices and checked pros.`, jsonld: faqJsonLd(symptomFaq(s)) }));
+  r.push({ path: '/pros', initial: { view: 'results' }, title: 'Find a Sliding Glass Door Repair Pro in Florida | SlideRepairFL', description: 'Checked sliding glass door repair companies across Florida. Compare ratings, posted prices and what homeowners actually paid, then call direct.' });
+  CITIES.forEach(([name, county, slug]) => {
+    const n = COMPANIES.filter((c) => c.city === name || c.areas.includes(name)).length;
+    r.push({ path: cityPath(slug), initial: { view: 'results', query: name }, title: `Sliding Glass Door Repair in ${name}, FL | Checked Local Pros | SlideRepairFL`, description: `${n} checked sliding glass door repair ${n === 1 ? 'pro serves' : 'pros serve'} ${name} and ${county} County. Compare ratings and fair prices for rollers, tracks, locks and glass, then call direct.` });
+  });
+  COMPANIES.forEach((c) => r.push({ path: proPath(c), initial: { view: 'profile', selectedId: c.id }, title: `${c.name} — Sliding Door Repair in ${c.city}, FL | SlideRepairFL`, description: `${c.name}: ★ ${c.rating.toFixed(1)} from ${c.reviews} reviews. ${c.services.join(', ')} in ${c.areas.join(', ')}. Checked by SlideRepairFL, with posted prices.` }));
+  r.push({ path: '/compare', initial: { view: 'compare' }, title: 'Compare Sliding Door Repair Pros | SlideRepairFL', description: 'Compare up to three Florida sliding door repair pros side by side.', noindex: true });
+  r.push({ path: '/list-your-business', initial: { view: 'list' }, title: 'List Your Sliding Door Repair Business in Florida | SlideRepairFL', description: 'Get found by Florida homeowners who need sliding door repair. Free listing for checked, insured companies that post their prices.' });
+  return r;
+}
+
+const DEFAULTS = { view: 'home', symptom: null, query: '', service: 'All services', price: 'Any', emergency: false, sort: 'rating', mode: 'list', selectedId: null, compare: [], quoteSent: false, report: 'closed', listSent: false, plan: 'free' };
+
+// ---------------------------------------------------------------------------
+// Component
+// ---------------------------------------------------------------------------
+class Component extends DCLogic {
+  static routes() { return ROUTE_LIST(); }
+
+  state = Object.assign({}, DEFAULTS, this.props.initial || {});
 
   componentDidMount() {
-    this._onMsg = e => {
+    this._onMsg = (e) => {
       const d = e.data || {};
       if (d.type === 'srfl-map-ready') this.sendMap();
       if (d.type === 'srfl-open') this.openProfile(d.id);
     };
+    // Back/forward restores the exact screen (filters included) when the
+    // browser remembers it, else the default state for that URL.
+    this._onPop = (e) => {
+      const route = ROUTE_LIST().find((r) => r.path === location.pathname);
+      const saved = e.state && e.state.dc;
+      if (saved || route) this.setState(Object.assign({}, DEFAULTS, saved || (route && route.initial), { compare: this.state.compare }));
+      if (route) document.title = route.title;
+    };
+    history.replaceState({ dc: this.state }, '');
     window.addEventListener('message', this._onMsg);
+    window.addEventListener('popstate', this._onPop);
   }
-  componentWillUnmount() { window.removeEventListener('message', this._onMsg); }
+  componentWillUnmount() {
+    window.removeEventListener('message', this._onMsg);
+    window.removeEventListener('popstate', this._onPop);
+  }
   componentDidUpdate() { this.sendMap(); }
   sendMap() {
-    const items = (this._mapItems || []).map(c => ({ id: c.id, name: c.name, lat: c.lat, lng: c.lng, ratingText: c.ratingText, reviewsText: c.reviewsText, price: c.honestyText + ' price honesty', location: c.location, phone: c.phone, callHref: c.callHref, isFeatured: c.isFeatured }));
-    document.querySelectorAll('iframe[data-srfl-map]').forEach(f => f.contentWindow && f.contentWindow.postMessage({ type: 'srfl-companies', items }, '*'));
+    const items = (this._mapItems || []).map((c) => ({ id: c.id, name: c.name, lat: c.lat, lng: c.lng, ratingText: c.ratingText, reviewsText: c.reviewsText, price: c.honestyText + ' at quoted price', location: c.location, phone: c.phone, callHref: c.callHref, isFeatured: c.isFeatured }));
+    document.querySelectorAll('iframe[data-srfl-map]').forEach((f) => f.contentWindow && f.contentWindow.postMessage({ type: 'srfl-companies', items }, '*'));
   }
 
-  go(view, extra = {}) { this.setState({ view, ...extra }); window.scrollTo(0, 0); }
+  // The URL that matches a view, so every screen can be shared and indexed.
+  pathFor(s) {
+    if (s.view === 'home') return '/';
+    if (s.view === 'prices') return '/cost';
+    if (s.view === 'guide') { const sym = SYMPTOMS.find((x) => x.id === s.symptom); return sym ? symptomPath(sym) : '/'; }
+    if (s.view === 'profile') { const c = COMPANIES.find((x) => x.id === s.selectedId); return c ? proPath(c) : '/pros'; }
+    if (s.view === 'compare') return '/compare';
+    if (s.view === 'list') return '/list-your-business';
+    const city = CITIES.find(([name]) => name.toLowerCase() === (s.query || '').trim().toLowerCase());
+    return city ? cityPath(city[2]) : '/pros';
+  }
+
+  go(view, extra = {}) {
+    const next = Object.assign({}, this.state, { view }, extra);
+    this.setState(Object.assign({ view }, extra));
+    document.querySelectorAll('details.menu[open]').forEach((d) => { d.open = false; });
+    const path = this.pathFor(next);
+    if (path !== location.pathname) history.pushState({ dc: next }, '', path);
+    else history.replaceState({ dc: next }, '');
+    const route = ROUTE_LIST().find((r) => r.path === path);
+    if (route) document.title = route.title;
+    window.scrollTo(0, 0);
+  }
+  scrollToId(id) {
+    if (this.state.view !== 'home') this.go('home');
+    setTimeout(() => { const el = document.getElementById(id); if (el) window.scrollTo(0, el.getBoundingClientRect().top + window.scrollY - 72); }, 60);
+  }
   openProfile(id) { this.go('profile', { selectedId: id, quoteSent: false, report: 'closed' }); }
+  pickSymptom(id) { this.go('guide', { symptom: id }); }
   toggleCompare(id) {
-    this.setState(s => ({ compare: s.compare.includes(id) ? s.compare.filter(x => x !== id) : (s.compare.length < 3 ? [...s.compare, id] : s.compare) }));
+    this.setState((s) => ({ compare: s.compare.includes(id) ? s.compare.filter((x) => x !== id) : (s.compare.length < 3 ? [...s.compare, id] : s.compare) }));
   }
 
   matches(c, s) {
     const q = s.query.trim().toLowerCase();
     if (q) {
       if (/^\d+$/.test(q)) { if (!c.zip.startsWith(q.slice(0, 3))) return false; }
-      else if (![c.city, c.county, c.county + ' county', ...c.areas].some(x => x.toLowerCase().includes(q))) return false;
+      else if (![c.city, c.county, c.county + ' county', ...c.areas].some((x) => x.toLowerCase().includes(q))) return false;
     }
     if (s.service !== 'All services' && !c.services.includes(s.service)) return false;
     if (s.price !== 'Any' && c.price !== s.price) return false;
@@ -859,37 +1060,35 @@ class Component extends DCLogic {
     return true;
   }
 
-  decorate(c, showFeatured, compare) {
-    const money = v => v == null ? '—' : '$' + v.toLocaleString('en-US');
-    const median = arr => { const a = [...arr].sort((x, y) => x - y); return a[Math.floor(a.length / 2)]; };
+  decorate(c, showFeatured, compare, service) {
     const checks = ['Oct 2026', 'Sep 2026', 'Aug 2026'][c.id % 3];
     const next = ['Jan 2027', 'Dec 2026', 'Nov 2026'][c.id % 3];
     const ins = ['Mar 2027', 'Jun 2027', 'Feb 2027', 'Nov 2027'][c.id % 4];
-    const head = c.prices[0];
-    const prices = c.prices.map(p => {
-      const all = [p.lo, p.hi, ...p.reports.map(r => r.paid)];
-      const min = Math.min(...all) * 0.85, max = Math.max(...all) * 1.08, pct = v => ((v - min) / (max - min) * 100).toFixed(1) + '%';
+    const shown = c.prices.find((p) => p.service === service) || c.prices[0];
+    const prices = c.prices.map((p) => {
+      const all = [p.lo, p.hi, ...p.reports.map((r) => r.paid)];
+      const min = Math.min(...all) * 0.85, max = Math.max(...all) * 1.08, pct = (v) => ((v - min) / (max - min) * 100).toFixed(1) + '%';
       return {
-        service: p.service, range: `${money(p.lo)}–${money(p.hi)}`, median: money(median(p.reports.map(r => r.paid))),
+        service: p.service, range: `${money(p.lo)}–${money(p.hi)}`, median: money(median(p.reports.map((r) => r.paid))),
         countText: p.reports.length + ' reports', bandLeft: pct(p.lo), bandWidth: ((p.hi - p.lo) / (max - min) * 100).toFixed(1) + '%',
-        dots: p.reports.map(r => ({ left: pct(r.paid), color: r.within ? 'var(--color-text)' : 'var(--color-accent)' }))
+        dots: p.reports.map((r) => ({ left: pct(r.paid), color: r.within ? 'var(--color-accent-700)' : 'var(--color-warn)' }))
       };
     });
     const order = { 'Oct 2026': 0, 'Sep 2026': 1, 'Aug 2026': 2, 'Jul 2026': 3, 'Jun 2026': 4, 'May 2026': 5 };
-    const reportsList = [...c.reports].sort((a, b) => order[a.date] - order[b.date]).slice(0, 5).map(r => ({
+    const reportsList = [...c.reports].sort((a, b) => order[a.date] - order[b.date]).slice(0, 5).map((r) => ({
       service: r.service, door: r.door, where: r.where, date: r.date, paidText: money(r.paid), quotedText: money(r.quoted),
       receipt: r.receipt, over: r.paid > r.quoted, overText: '+' + money(r.paid - r.quoted)
     }));
     const comparing = compare.includes(c.id);
-    return {
-      ...c,
+    return Object.assign({}, c, {
+      href: proPath(c),
       isFeatured: showFeatured && c.featured,
       location: `${c.city} · ${c.county} County`,
       ratingText: c.rating.toFixed(1),
       reviewsText: `${c.reviews} reviews`,
       yearsText: `${c.years} years`,
       areasText: c.areas.join(', '),
-      callHref: 'tel:' + c.phone.replace(/\D/g, ''),
+      callHref: 'tel:+1' + c.phone.replace(/\D/g, ''),
       hours: c.emergency ? 'Open 24/7, incl. storms' : 'Mon–Sat, 7am–6pm',
       callout: { '$': 'Free with repair', '$$': '$49, waived if hired', '$$$': '$89, waived if hired' }[c.price],
       warranty: c.years >= 10 ? '1 year, parts & labor' : '90 days, parts & labor',
@@ -898,124 +1097,147 @@ class Component extends DCLogic {
       lastCheck: checks, nextCheck: next,
       honestyText: c.honesty + '%',
       reportCountText: `${c.reports.length} price reports`,
-      headline: { service: head.service, range: `${money(head.lo)}–${money(head.hi)}`, median: money(median(head.reports.map(r => r.paid))) },
+      priceLine: `${SERVICE_INFO[shown.service].label}: ${money(shown.lo)}–${money(shown.hi)}`,
       prices, reportsList,
       checks: [
         { label: 'Insurance', detail: `$1M general liability · confirmed with insurer · expires ${ins}` },
-        { label: 'Florida license', detail: c.licensed ? `Active on DBPR · checked ${checks}` : 'Not required — repair-only hardware work' },
+        { label: 'Florida license', detail: c.licensed ? `Active on DBPR · checked ${checks}` : 'Not required for repair-only hardware work' },
         { label: 'Business registration', detail: 'Active on Sunbiz' },
         { label: 'Florida address', detail: `Confirmed in ${c.city}` },
         { label: 'Owner ID & background', detail: 'Passed' },
-        { label: 'Posted prices', detail: `${c.services.length} of ${c.services.length} services priced` },
-        { label: 'Review audit', detail: `No suspicious patterns · ${checks}` }
+        { label: 'Posted prices', detail: `${c.services.length} of ${c.services.length} repairs priced` },
+        { label: 'Review check', detail: `No suspicious patterns · ${checks}` }
       ],
-      comparing, notComparing: !comparing,
+      compareCls: comparing ? 'btn btn-sm btn-primary' : 'btn btn-sm btn-ghost',
+      compareLabel: comparing ? '✓ In comparison' : '+ Compare',
       toggleCompare: () => this.toggleCompare(c.id),
-      open: () => this.openProfile(c.id)
-    };
+      openNav: (e) => { if (e && e.preventDefault) e.preventDefault(); this.openProfile(c.id); }
+    });
   }
 
   renderVals() {
-    this.buildData();
     const s = this.state, p = this.props;
     const showFeatured = p.showFeatured ?? true;
-    const home = p.homeLayout ?? 'search';
-    const layout = p.listingStyle ?? 'rows';
-    const set = patch => this.setState(patch);
-    const nav = fn => e => { if (e && e.preventDefault) e.preventDefault(); fn(); };
-    const money = v => v == null ? '—' : '$' + v.toLocaleString('en-US');
-    const dec = c => this.decorate(c, showFeatured, s.compare);
+    const set = (patch) => this.setState(patch);
+    const nav = (fn) => (e) => { if (e && e.preventDefault) e.preventDefault(); fn(); };
+    const sym = SYMPTOMS.find((x) => x.id === s.symptom) || SYMPTOMS[0];
+    const symInfo = SERVICE_INFO[sym.service];
+    const activeService = s.view === 'guide' ? sym.service : s.service;
+    const dec = (c) => this.decorate(c, showFeatured, s.compare, activeService);
     const tierN = { '$': 1, '$$': 2, '$$$': 3 };
     const key = { rating: (a, b) => b.rating - a.rating || b.honesty - a.honesty, price: (a, b) => tierN[a.price] - tierN[b.price] || b.rating - a.rating, years: (a, b) => b.years - a.years }[s.sort];
-    const results = this.COMPANIES.filter(c => this.matches(c, s))
-      .sort((a, b) => (showFeatured ? (b.featured - a.featured) : 0) || key(a, b)).map(dec);
-    const all = this.COMPANIES.map(dec);
+    const rank = (list) => list.sort((a, b) => (showFeatured ? (b.featured - a.featured) : 0) || key(a, b));
+    const results = rank(COMPANIES.filter((c) => this.matches(c, s))).map(dec);
+    const all = COMPANIES.map(dec);
     this._mapItems = s.view === 'results' ? results : all;
 
+    // Step 2 → 3: pros for the chosen problem, narrowed by area if one was typed.
+    const forService = COMPANIES.filter((c) => c.services.includes(sym.service) && (!sym.emergency || c.emergency));
+    const nearby = rank(forService.filter((c) => this.matches(c, Object.assign({}, s, { service: 'All services', price: 'Any', emergency: false }))));
+    const guidePros = (s.query.trim() ? nearby : rank([...forService])).slice(0, 3).map(dec);
+
     const q = s.query.trim();
-    const svcPart = s.service === 'All services' ? 'Sliding door repair' : `${s.service} repair`;
-    const sel = dec(this.COMPANIES.find(c => c.id === s.selectedId) || this.COMPANIES[0]);
+    const place = q ? q.replace(/^./, (m) => m.toUpperCase()) : '';
+    const cityHit = CITIES.find(([name]) => name.toLowerCase() === q.toLowerCase());
+    const svcLabel = s.service === 'All services' ? 'Sliding glass door repair' : SERVICE_INFO[s.service].label;
+    const resultsTitle = s.emergency ? `24/7 sliding door help${place ? ' near ' + place : ' in Florida'}` : `${svcLabel} ${place ? 'in ' + place : 'in Florida'}`;
+    const resultsIntro = cityHit
+      ? `${results.length} checked ${results.length === 1 ? 'pro serves' : 'pros serve'} ${cityHit[0]} and ${cityHit[1]} County. In Florida, most homeowners paid ${PRICE_STATS['Rollers'].range} for roller replacement and ${PRICE_STATS['Tracks'].range} for track repair. Compare ratings and prices, then call direct.`
+      : 'Every company here passed our insurance, license, address and price checks. Compare ratings and what customers actually paid, then call direct. It’s free for homeowners.';
 
-    const allReports = this.COMPANIES.flatMap(c => c.reports);
-    const priceIndex = this.SERVICES.map(name => {
-      const v = allReports.filter(r => r.service === name).map(r => r.paid).sort((a, b) => a - b);
-      const at = f => v[Math.min(v.length - 1, Math.floor(v.length * f))];
-      return { service: name, median: money(at(0.5)), range: `${money(at(0.1))}–${money(at(0.9))}`, count: `${v.length}`, onClick: () => this.go('results', { query: '', service: name }) };
-    });
-
-    const cmp = s.compare.map(id => all.find(c => c.id === id));
+    const sel = dec(COMPANIES.find((c) => c.id === s.selectedId) || COMPANIES[0]);
+    const cmp = s.compare.map((id) => all.find((c) => c.id === id));
     const n = cmp.length;
     const compareRows = [
-      { label: 'Rating', cells: cmp.map(c => `★ ${c.ratingText} · ${c.reviewsText}`) },
-      { label: 'Price honesty', cells: cmp.map(c => `${c.honestyText} within posted price`) },
-      { label: 'Price reports', cells: cmp.map(c => c.reportCountText) },
-      { label: 'Last verified', cells: cmp.map(c => c.lastCheck) },
-      { label: 'Call-out fee', cells: cmp.map(c => c.callout) },
-      { label: 'Warranty', cells: cmp.map(c => c.warranty) },
-      { label: 'In business', cells: cmp.map(c => c.yearsText) },
-      { label: 'Service area', cells: cmp.map(c => c.areasText) },
-      ...this.SERVICES.filter(sv => cmp.some(c => c.services.includes(sv))).map(sv => ({
-        label: sv, cells: cmp.map(c => { const pr = c.prices.find(x => x.service === sv); return pr ? `${money(pr.lo)}–${money(pr.hi)}` : '—'; })
+      { label: 'Rating', cells: cmp.map((c) => `★ ${c.ratingText} · ${c.reviewsText}`) },
+      { label: 'At quoted price', cells: cmp.map((c) => `${c.honestyText} of jobs`) },
+      { label: 'Last checked', cells: cmp.map((c) => c.lastCheck) },
+      { label: 'Call-out fee', cells: cmp.map((c) => c.callout) },
+      { label: 'Warranty', cells: cmp.map((c) => c.warranty) },
+      { label: 'In business', cells: cmp.map((c) => c.yearsText) },
+      { label: '24/7 storm calls', cells: cmp.map((c) => (c.emergency ? 'Yes' : 'No')) },
+      { label: 'Service area', cells: cmp.map((c) => c.areasText) },
+      ...SERVICES.filter((sv) => cmp.some((c) => c.services.includes(sv))).map((sv) => ({
+        label: SERVICE_INFO[sv].label, cells: cmp.map((c) => { const pr = c.prices.find((x) => x.service === sv); return pr ? `${money(pr.lo)}–${money(pr.hi)}` : '—'; })
       }))
     ];
+    const symVals = (x) => ({ ...x, href: symptomPath(x), cls: x.emergency ? 'symptom symptom-warn' : 'symptom', pick: nav(() => this.pickSymptom(x.id)) });
 
     return {
-      showStorm: p.stormBanner ?? false,
       showFeatured,
-      isHome: s.view === 'home', isResults: s.view === 'results', isProfile: s.view === 'profile', isList: s.view === 'list', isCompare: s.view === 'compare',
-      heroSearch: home === 'search', heroMap: home === 'map', heroPoster: home === 'poster', heroNotPoster: home !== 'poster',
+      isHome: s.view === 'home', isGuide: s.view === 'guide', isPrices: s.view === 'prices', isResults: s.view === 'results', isProfile: s.view === 'profile', isList: s.view === 'list', isCompare: s.view === 'compare',
       goHome: nav(() => this.go('home')),
-      goAll: nav(() => this.go('results', { query: '', service: 'All services', price: 'Any', emergency: false, mode: 'list' })),
-      goMap: nav(() => this.go('results', { mode: 'map' })),
+      goAll: nav(() => this.go('results', { query: '', service: 'All services', price: 'Any', emergency: false, mode: 'list', symptom: null })),
+      goPrices: nav(() => this.go('prices')),
+      goStorm: nav(() => this.pickSymptom('storm')),
       goCompare: nav(() => this.go('compare')),
       goList: nav(() => this.go('list', { listSent: false })),
-      goVetting: nav(() => { this.setState({ view: 'home' }); setTimeout(() => { const el = document.getElementById('vetting'); window.scrollTo(0, el ? el.getBoundingClientRect().top + window.scrollY - 16 : 0); }, 60); }),
-      goBack: () => this.go('results'),
-      showEmergency: () => this.go('results', { emergency: true }),
-      query: s.query, service: s.service,
-      onQuery: e => set({ query: e.target.value }),
-      onService: e => set({ service: e.target.value }),
-      onSearch: e => { e.preventDefault(); this.go('results'); },
-      serviceOptions: ['All services', ...this.SERVICES],
-      totalCount: this.COMPANIES.length,
-      cities: this.CITIES.map(([name, county]) => {
-        const k = this.COMPANIES.filter(c => c.city === name || c.areas.includes(name)).length;
-        return { name, county, countText: k === 1 ? '1 company' : `${k} companies`, onClick: () => this.go('results', { query: name, service: 'All services' }) };
+      goBack: nav(() => this.go('results')),
+      backToGuide: nav(() => this.go('guide')),
+      showEmergency: () => this.go('results', { emergency: true, service: 'All services', symptom: null }),
+      seeAllForSymptom: nav(() => this.go('results', { service: sym.service, emergency: !!sym.emergency })),
+
+      symptoms: SYMPTOMS.map(symVals),
+      otherSymptoms: SYMPTOMS.filter((x) => x.id !== sym.id).map(symVals),
+      hasSymptom: !!s.symptom,
+      sym: Object.assign(symVals(sym), { faq: symptomFaq(sym) }),
+      guidePrice: { range: PRICE_STATS[sym.service].range, median: PRICE_STATS[sym.service].median, count: PRICE_STATS[sym.service].count, label: symInfo.lower },
+      guidePros, guideNone: guidePros.length === 0,
+      guideCount: forService.length,
+      onGuideSearch: (e) => { e.preventDefault(); const el = document.getElementById('pros'); if (el) window.scrollTo(0, el.getBoundingClientRect().top + window.scrollY - 72); },
+
+      emergencyCount: COMPANIES.filter((c) => c.emergency).length,
+      query: s.query, service: s.service, emergency: s.emergency,
+      onQuery: (e) => set({ query: e.target.value }),
+      onService: (e) => set({ service: e.target.value }),
+      onSearch: (e) => { e.preventDefault(); this.go('results'); },
+      toggleEmergency: () => set({ emergency: !s.emergency }),
+      serviceOptions: ['All services', ...SERVICES],
+      totalCount: COMPANIES.length,
+      totalReports: ALL_REPORTS.length,
+      priceIndex: SERVICES.map((name) => {
+        const info = SERVICE_INFO[name], st = PRICE_STATS[name], g = SYMPTOMS.find((x) => x.id === info.symptom);
+        return { label: info.label, lower: info.lower, slug: info.slug, what: info.what, factors: info.factors, median: st.median, range: st.range, count: st.count, guideHref: symptomPath(g), openGuide: nav(() => this.pickSymptom(g.id)), onClick: nav(() => this.go('results', { query: '', service: name, symptom: null })) };
       }),
-      featured: all.filter(c => c.featured),
-      serviceLinks: this.SERVICES.map(name => ({ name, countText: `${this.COMPANIES.filter(c => c.services.includes(name)).length} companies`, onClick: () => this.go('results', { query: '', service: name }) })),
-      vetChecks: this.VET, rejectReasons: this.REJECT,
-      totalReports: allReports.length, priceIndex,
-      doorTypes: this.DOORS,
+      priceFaq: PRICE_FAQ,
+      cities: CITIES.map(([name, county, slug]) => {
+        const k = COMPANIES.filter((c) => c.city === name || c.areas.includes(name)).length;
+        return { name, county, href: cityPath(slug), countText: k === 1 ? '1 pro' : `${k} pros`, onClick: nav(() => this.go('results', { query: name, service: 'All services', emergency: false, symptom: null })) };
+      }),
+      featured: all.filter((c) => c.featured),
+      vetChecks: VET,
+      doorTypes: DOORS,
+
       results, noResults: results.length === 0,
       modeList: s.mode === 'list', modeMap: s.mode === 'map',
       setList: () => set({ mode: 'list' }), setMap: () => set({ mode: 'map' }),
       showMap: s.mode === 'map' && results.length > 0,
-      listRows: s.mode === 'list' && layout === 'rows', listCards: s.mode === 'list' && layout === 'cards',
-      countText: results.length === 1 ? '1 verified company' : `${results.length} verified companies`,
-      resultsTitle: q ? `${svcPart} near ${q.replace(/^./, m => m.toUpperCase())}` : `${svcPart} in Florida`,
+      countText: results.length === 1 ? '1 checked pro' : `${results.length} checked pros`,
+      resultsTitle, resultsIntro,
       sortRating: s.sort === 'rating', sortPrice: s.sort === 'price', sortYears: s.sort === 'years',
       sortByRating: () => set({ sort: 'rating' }), sortByPrice: () => set({ sort: 'price' }), sortByYears: () => set({ sort: 'years' }),
-      priceChips: ['Any', '$', '$$', '$$$'].map(t => ({ label: t, active: s.price === t, inactive: s.price !== t, onClick: () => set({ price: t }) })),
-      serviceChips: ['All services', ...this.SERVICES].map(name => ({ name, active: s.service === name, inactive: s.service !== name, onClick: () => set({ service: name }) })),
+      priceChips: ['Any', '$', '$$', '$$$'].map((t) => ({ label: t === 'Any' ? 'Any price' : t, cls: s.price === t ? 'chip chip-on' : 'chip', onClick: () => set({ price: t }) })),
       clearFilters: () => set({ query: '', service: 'All services', price: 'Any', emergency: false }),
+
       sel,
-      reviews: this.REVIEWS.map(r => ({ ...r, where: sel.areas[0] })),
+      reviews: REVIEWS.map((r) => ({ ...r, where: sel.areas[0] })),
       quoteOpen: !s.quoteSent, quoteSent: s.quoteSent,
-      sendQuote: e => { e.preventDefault(); set({ quoteSent: true }); },
+      sendQuote: (e) => { e.preventDefault(); set({ quoteSent: true }); },
       reportClosed: s.report === 'closed', reportFormOpen: s.report === 'open', reportSent: s.report === 'sent',
       openReport: () => set({ report: 'open' }),
-      sendReport: e => { e.preventDefault(); set({ report: 'sent' }); },
+      sendReport: (e) => { e.preventDefault(); set({ report: 'sent' }); },
+
       compareEmpty: n === 0, compareHas: n > 0,
       compareList: cmp, compareRows,
-      compareCols: `minmax(140px, 180px) repeat(${Math.max(n, 1)}, minmax(200px, 1fr))`,
-      compareMinWidth: `${180 + Math.max(n, 1) * 224}px`,
+      compareCols: `minmax(130px, 170px) repeat(${Math.max(n, 1)}, minmax(190px, 1fr))`,
+      compareMinWidth: `${170 + Math.max(n, 1) * 210}px`,
       showTray: n > 0 && s.view !== 'compare',
       compareCountText: `${n} of 3 selected`,
-      compareNames: cmp.map(c => c.name).join(' · '),
+      compareNames: cmp.map((c) => c.name).join(' · '),
       clearCompare: () => set({ compare: [] }),
+
       listOpen: !s.listSent, listSent: s.listSent,
-      sendListing: e => { e.preventDefault(); set({ listSent: true }); window.scrollTo(0, 0); },
+      sendListing: (e) => { e.preventDefault(); set({ listSent: true }); window.scrollTo(0, 0); },
       planFree: s.plan === 'free', planFeatured: s.plan === 'featured',
       pickFree: () => set({ plan: 'free' }), pickFeatured: () => set({ plan: 'featured' })
     };

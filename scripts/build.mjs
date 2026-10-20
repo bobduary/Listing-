@@ -98,19 +98,25 @@ function outPath(route) {
   return route === '/' ? path.join(DIST, 'index.html') : path.join(DIST, route.slice(1), 'index.html');
 }
 
-function page({ c, html, helmet, route, description }) {
-  const url = SITE.url ? SITE.url + (route === '/' ? '/' : route) : '';
+// JSON for an inline <script>: escape "<" so content can't close the tag.
+const inlineJson = (v) => JSON.stringify(v).replace(/</g, '\\u003c');
+
+function page({ c, html, helmet, route, title, description, jsonld, noindex, props }) {
+  const url = SITE.url ? SITE.url + route : '';
   const meta = [
-    `<title>${esc(c.title)}</title>`,
+    `<title>${esc(title)}</title>`,
     description && `<meta name="description" content="${esc(description)}">`,
+    noindex && `<meta name="robots" content="noindex, follow">`,
     url && `<link rel="canonical" href="${url}">`,
     `<meta property="og:type" content="website">`,
     `<meta property="og:site_name" content="${esc(SITE.name)}">`,
-    `<meta property="og:title" content="${esc(c.title)}">`,
+    `<meta property="og:title" content="${esc(title)}">`,
     description && `<meta property="og:description" content="${esc(description)}">`,
     url && `<meta property="og:url" content="${url}">`,
     SITE.url && SITE.ogImage && `<meta property="og:image" content="${SITE.url}${SITE.ogImage}">`,
     SITE.favicon && `<link rel="icon" href="${SITE.favicon}">`,
+    `<meta name="theme-color" content="#1E3A8A">`,
+    jsonld && `<script type="application/ld+json">${inlineJson(jsonld)}</script>`,
   ].filter(Boolean);
   return `<!doctype html>
 <html lang="en">
@@ -122,7 +128,7 @@ ${helmet.join('\n')}
 </head>
 <body>
 <div id="dc-root">${html}</div>
-<script type="module" src="/js/${c.name}.js"></script>
+${props ? `<script>window.__DC_PROPS__=${inlineJson(props)}</script>\n` : ''}<script type="module" src="/js/${c.name}.js"></script>
 </body>
 </html>
 `;
@@ -145,20 +151,32 @@ async function main() {
   const mods = {};
   for (const f of files) mods[f] = await import(pathToFileURL(path.join(GEN, 'components', f + '.js')).href);
   const entries = [];
-  const pages = Object.keys(ROUTES);
-  for (const name of pages) {
+  const sitemap = [];
+  for (const name of Object.keys(ROUTES)) {
     const c = compiled[name];
     if (!c) throw new Error(`route ${name} has no src/pages/${name}.dc.html`);
     const ctx = { components: {} };
     for (const n of c.imports) ctx.components[n] = makeComponent(mods[n], ctx);
     const Page = makeComponent(mods[name], ctx);
-    const html = renderToString(React.createElement(Page));
-    const helmet = [...new Set([...c.helmet, ...c.imports.flatMap((n) => compiled[n].helmet)])];
-    if (pseudoRules.size) helmet.push(`<style id="dc-pseudo">\n${[...pseudoRules.values()].join('\n')}\n</style>`);
-    const route = ROUTES[name];
-    const out = outPath(route);
-    fs.mkdirSync(path.dirname(out), { recursive: true });
-    fs.writeFileSync(out, page({ c, html, helmet, route, description: describe(html) }));
+    // A page component may publish several URLs (static routes()), each
+    // opening it in a different initial state; otherwise it has one URL.
+    const routes = typeof Page.routes === 'function'
+      ? Page.routes()
+      : [{ path: ROUTES[name], title: c.title }];
+    for (const r of routes) {
+      const props = r.initial ? { initial: r.initial } : null;
+      const html = renderToString(React.createElement(Page, props));
+      const helmet = [...new Set([...c.helmet, ...c.imports.flatMap((n) => compiled[n].helmet)])];
+      if (pseudoRules.size) helmet.push(`<style id="dc-pseudo">\n${[...pseudoRules.values()].join('\n')}\n</style>`);
+      const out = outPath(r.path);
+      fs.mkdirSync(path.dirname(out), { recursive: true });
+      fs.writeFileSync(out, page({
+        c, html, helmet, route: r.path, props,
+        title: r.title || c.title, description: r.description || describe(html),
+        jsonld: r.jsonld, noindex: r.noindex,
+      }));
+      if (!r.noindex) sitemap.push(r.path);
+    }
     entries.push(writeEntry(c));
   }
 
@@ -175,15 +193,14 @@ async function main() {
 
   if (SITE.url) {
     const today = new Date().toISOString().slice(0, 10);
-    const urls = pages.map((n) =>
-      `  <url><loc>${SITE.url}${ROUTES[n] === '/' ? '/' : ROUTES[n]}</loc><lastmod>${today}</lastmod></url>`);
+    const urls = sitemap.map((p) => `  <url><loc>${SITE.url}${p}</loc><lastmod>${today}</lastmod></url>`);
     fs.writeFileSync(path.join(DIST, 'sitemap.xml'),
       `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`);
   }
   fs.writeFileSync(path.join(DIST, 'robots.txt'),
     `User-agent: *\nAllow: /\n${SITE.url ? `Sitemap: ${SITE.url}/sitemap.xml\n` : ''}`);
 
-  console.log(`Built ${pages.length} pages into dist/`);
+  console.log(`Built ${sitemap.length} indexable pages into dist/`);
 }
 
 main().catch((e) => { console.error(e); process.exit(1); });

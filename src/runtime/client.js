@@ -11,5 +11,5 @@ export function mount(pageDef, importDefs) {
   const root = document.getElementById('dc-root');
   // Pages that read browser-only state (e.g. the saved cart) can differ from
   // the static HTML; React then re-renders on the client, which is fine.
-  hydrateRoot(root, React.createElement(Page), { onRecoverableError() {} });
+  hydrateRoot(root, React.createElement(Page, window.__DC_PROPS__ || null), { onRecoverableError() {} });
 }

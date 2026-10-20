@@ -4,12 +4,18 @@ The directory designed in the "Florida Sliding Door Directory" canvas, built as 
 
 ## How it works
 
-- `src/pages/Directory.dc.html`: the directory, exported from the canvas (home, search results with list and map, company profiles, compare, "How we vet", "List your business").
-- `src/runtime/`: renders canvas templates with React, including `{{holes}}`, `sc-for`, `sc-if` and `style-hover`.
-- `scripts/build.mjs`: server-renders each page to static HTML (crawlable, with title and description tags), then bundles the JavaScript that makes it interactive. Output goes to `dist/`.
-- `public/map-view.html`: the Leaflet map shown in the map views. It talks to the page with `postMessage`. Leaflet is in `public/vendor/`.
-- `public/image-slot.js`: the canvas's photo placeholder element.
-- `public/_ds/modernist/styles.css`: a stand-in for the canvas's "Modernist" design system stylesheet, which wasn't included in the export. To get the exact original look, replace this file with the real `styles.css` from the canvas's `_ds/` folder.
+- `src/pages/Directory.dc.html`: the whole directory (template + logic), exported from the canvas and redesigned. It walks homeowners through ① what's wrong (8 problems) → ② fair Florida price → ③ checked pros who fix it.
+- **Pages (SEO):** the component's `static routes()` lists every public URL with its starting screen, title, description and JSON-LD. The build renders each one to its own static HTML file, and in the browser the app switches screens without reloading while keeping the address bar in sync.
+  - `/`: home
+  - `/problems/<slug>`: 8 problem guides with FAQ markup (e.g. `/problems/sliding-door-leaking`)
+  - `/cost`: Florida repair price guide with FAQ markup
+  - `/pros` and `/sliding-glass-door-repair/<city>`: 12 city pages
+  - `/pros/<company>`: company pages
+  - `/compare` (noindex) and `/list-your-business`
+- `src/runtime/`: renders canvas templates with React (`{{holes}}`, `sc-for`, `sc-if`, `style-hover`).
+- `scripts/build.mjs`: server-renders every route, bundles the JavaScript, and writes `robots.txt` (plus `sitemap.xml` once `src/site.js` has a domain).
+- `public/css/site.css`: the design (deep blue on white, Public Sans, phone-first, 18px base text).
+- `public/map-view.html`: the Leaflet map for the map view. Leaflet is in `public/vendor/`.
 
 ## Commands
 
@@ -21,8 +27,8 @@ npm run preview   # serves dist/ locally
 
 ## Deploying
 
-`vercel.json` is set up for Vercel: import the repo and it runs `npm run build` and serves `dist/`. Set `url` in `src/site.js` once there's a domain, so canonical links and `sitemap.xml` are written.
+`vercel.json` is set up for Vercel: import the repo and it runs `npm run build` and serves `dist/`. Set `url` in `src/site.js` to the live domain (e.g. the `….vercel.app` address) so canonical links and `sitemap.xml` are written, then submit the sitemap in Google Search Console.
 
 ## Status
 
-The 14 companies, reviews and price reports in the page script are sample data from the design. The forms (quote request, price report, list your business) only show a confirmation and don't send anything yet.
+The 14 companies, reviews and price reports in the page script are sample data. Replace them with real, checked companies before launch. The forms (quote request, price report, list your business) only show a confirmation and don't send anything yet.
