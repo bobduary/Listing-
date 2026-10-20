@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Site navigation</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Schibsted+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+.navlink{color:#14201B;text-decoration:none;padding:10px 14px;border-radius:999px;font-size:15px;font-weight:500}
+.navlink:hover{background:#E4E9E6;color:#14201B}
+.gnav-host{flex:1;display:flex;justify-content:center;min-width:0}
+.gnav-mob{display:none}
+.mrow{transition:background-color .15s ease}
+.mrow:hover,.mrow:active{background:#EEF2EF !important}
+@media (max-width:900px){.gnav-host{flex:0 0 auto;order:3}.gnav-desk{display:none !important}.gnav-mob{display:block}}
+@media (max-width:1240px){.nav-about{display:none !important}}
+</style>
+</helmet>
+<div style="display: contents">
+<nav aria-label="Main" class="gnav-desk" onMouseLeave="{{closeAll}}" style="position: relative; display: flex; gap: 2px; justify-content: center; align-items: center; flex-wrap: wrap; font-family: 'Schibsted Grotesk', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif; color: #14201B">
+
+<!-- Services -->
+<div onMouseEnter="{{hoverServices}}" style="position: relative">
+<button type="button" aria-expanded="{{svcExpanded}}" aria-haspopup="true" onClick="{{toggleServices}}" class="navlink" style="display: inline-flex; align-items: center; gap: 6px; min-height: 44px; border: 0; cursor: pointer; font-family: inherit; background: {{svcBtnBg}}; color: #14201B">Services<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="transition: transform .25s ease; transform: rotate({{svcRot}})"><path d="m6 9 6 6 6-6"></path></svg></button>
+</div>
+
+<a class="navlink" href="Install.dc.html" style="background: {{bgInstall}}">Installation</a>
+<a class="navlink" href="Shop.dc.html" style="background: {{bgShop}}">Shop parts</a>
+<a class="navlink" href="Commercial.dc.html" style="background: {{bgCommercial}}">HOAs &amp; hotels</a>
+<a class="navlink" href="Blog.dc.html" style="background: {{bgBlog}}">Blog</a>
+<a class="navlink nav-about" href="About.dc.html" style="background: {{bgAbout}}">About</a>
+
+<!-- Locations -->
+<div onMouseEnter="{{hoverLocations}}" style="position: relative">
+<button type="button" aria-expanded="{{locExpanded}}" aria-haspopup="true" onClick="{{toggleLocations}}" class="navlink" style="display: inline-flex; align-items: center; gap: 6px; min-height: 44px; border: 0; cursor: pointer; font-family: inherit; background: {{locBtnBg}}; color: #14201B">Locations<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="transition: transform .25s ease; transform: rotate({{locRot}})"><path d="m6 9 6 6 6-6"></path></svg></button>
+</div>
+
+<!-- Services panel -->
+<div onMouseEnter="{{hoverServices}}" style="position: absolute; left: 50%; top: 100%; padding-top: 14px; width: min(780px, calc(100vw - 32px)); z-index: 80; opacity: {{svcOp}}; visibility: {{svcVis}}; transform: translate(-50%, {{svcY}}); transition: opacity .22s ease, transform .28s cubic-bezier(.2,.8,.2,1), visibility .22s">
+<div role="menu" aria-label="Services" style="background: rgba(250,251,250,0.86); backdrop-filter: blur(28px) saturate(180%); -webkit-backdrop-filter: blur(28px) saturate(180%); border: 1px solid rgba(20,32,27,0.08); border-radius: 24px; box-shadow: 0 34px 70px -24px rgba(20,32,27,0.42), 0 2px 8px rgba(20,32,27,0.06); padding: 14px; display: flex; flex-wrap: wrap; gap: 14px">
+<div style="flex: 2 1 420px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 8px 0">
+<span style="font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #4A5953; font-weight: 700">Repairs</span>
+<a href="Services.dc.html" style="font-size: 13px; font-weight: 600; color: #1B5E44; text-decoration: none">All services →</a>
+</div>
+<div style="background: #FFFFFF; border-radius: 16px; box-shadow: 0 0 0 1px rgba(20,32,27,0.06); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 6px">
+<sc-for list="{{repairs}}" as="r" hint-placeholder-count="9">
+<a role="menuitem" href="{{r.href}}" class="navlink" style="display: flex; align-items: center; gap: 12px; min-height: 52px; padding: 8px 10px; border-radius: 12px; font-size: 15px; font-weight: 500">
+<span style="width: 32px; height: 32px; flex: none; border-radius: 9px; background: {{r.tint}}; color: #FFFFFF; display: grid; place-items: center; font-size: 15px; font-weight: 700">{{r.glyph}}</span>
+<span style="display: flex; flex-direction: column; line-height: 1.2"><span>{{r.label}}</span><span style="font-size: 12px; color: #4A5953">{{r.sub}}</span></span>
+</a>
+</sc-for>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px">
+<div style="background: #FFFFFF; border-radius: 16px; box-shadow: 0 0 0 1px rgba(20,32,27,0.06); padding: 6px; display: flex; flex-direction: column">
+<span style="padding: 8px 10px 4px; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #4A5953; font-weight: 700">New doors</span>
+<a role="menuitem" href="Install.dc.html" class="navlink" style="display: flex; justify-content: space-between; align-items: center; min-height: 46px; padding: 0 10px; border-radius: 12px; font-size: 15px">Installation<span style="color: #9AA6A1">›</span></a>
+<a role="menuitem" href="Visualizer.dc.html" class="navlink" style="display: flex; justify-content: space-between; align-items: center; min-height: 46px; padding: 0 10px; border-radius: 12px; font-size: 15px">Design your door<span style="padding: 2px 8px; border-radius: 999px; background: #E5EFEB; color: #1B5E44; font-size: 11px; font-weight: 700">New</span></a>
+</div>
+<div style="background: #FFFFFF; border-radius: 16px; box-shadow: 0 0 0 1px rgba(20,32,27,0.06); padding: 6px; display: flex; flex-direction: column">
+<span style="padding: 8px 10px 4px; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #4A5953; font-weight: 700">For properties</span>
+<a role="menuitem" href="Commercial.dc.html" class="navlink" style="display: flex; justify-content: space-between; align-items: center; min-height: 46px; padding: 0 10px; border-radius: 12px; font-size: 15px">HOAs, condos &amp; hotels<span style="color: #9AA6A1">›</span></a>
+<a role="menuitem" href="Partners.dc.html" class="navlink" style="display: flex; justify-content: space-between; align-items: center; min-height: 46px; padding: 0 10px; border-radius: 12px; font-size: 15px">Refer a job · $50<span style="color: #9AA6A1">›</span></a>
+</div>
+</div>
+</div>
+<a href="Diagnose.dc.html" style="flex: 1 1 220px; background: #14201B; color: #F4F5F3; border-radius: 18px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; gap: 16px; text-decoration: none; min-height: 220px">
+<span style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #A9C6BD; font-weight: 700">Not sure?</span>
+<span style="font-size: 24px; font-weight: 800; line-height: 1.05; letter-spacing: -0.02em">What's wrong<br><span style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-weight: 400; color: #A9C6BD">with my door?</span></span>
+<span style="font-size: 14px; line-height: 1.45; color: #C9D4CF">3 questions. Likely cause, a free fix, and the real price.</span>
+</span>
+<span style="align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 16px; border-radius: 999px; background: #F4F5F3; color: #14201B; font-size: 14px; font-weight: 700">Start the finder →</span>
+</a>
+</div>
+</div>
+
+<!-- Locations panel -->
+<div onMouseEnter="{{hoverLocations}}" style="position: absolute; left: 50%; top: 100%; padding-top: 14px; width: min(820px, calc(100vw - 32px)); z-index: 80; opacity: {{locOp}}; visibility: {{locVis}}; transform: translate(-50%, {{locY}}); transition: opacity .22s ease, transform .28s cubic-bezier(.2,.8,.2,1), visibility .22s">
+<div role="menu" aria-label="Locations" style="background: rgba(250,251,250,0.86); backdrop-filter: blur(28px) saturate(180%); -webkit-backdrop-filter: blur(28px) saturate(180%); border: 1px solid rgba(20,32,27,0.08); border-radius: 24px; box-shadow: 0 34px 70px -24px rgba(20,32,27,0.42), 0 2px 8px rgba(20,32,27,0.06); padding: 14px; display: flex; flex-wrap: wrap; gap: 14px">
+<div style="flex: 1 1 250px; display: flex; flex-direction: column; gap: 10px">
+<span style="padding: 6px 8px 0; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #4A5953; font-weight: 700">Counties</span>
+<div style="background: #FFFFFF; border-radius: 16px; box-shadow: 0 0 0 1px rgba(20,32,27,0.06); padding: 6px; display: flex; flex-direction: column">
+<sc-for list="{{counties}}" as="c" hint-placeholder-count="5">
+<button type="button" role="menuitem" onMouseEnter="{{c.pick}}" onFocus="{{c.pick}}" onClick="{{c.pick}}" aria-current="{{c.current}}" style="display: flex; align-items: center; gap: 12px; min-height: 54px; padding: 0 12px; border: 0; border-radius: 12px; background: {{c.bg}}; color: {{c.fg}}; font-family: inherit; text-align: left; cursor: pointer; transition: background-color .18s ease, color .18s ease">
+<span style="width: 10px; height: 10px; border-radius: 50%; background: {{c.dot}}; flex: none"></span>
+<span style="flex: 1; display: flex; flex-direction: column; line-height: 1.2"><span style="font-size: 15px; font-weight: 600">{{c.name}}</span><span style="font-size: 12px; opacity: 0.75">{{c.count}} cities</span></span>
+<span style="font-size: 18px; opacity: 0.6">›</span>
+</button>
+</sc-for>
+</div>
+<a href="Main.dc.html#areas" style="padding: 4px 10px; font-size: 13px; font-weight: 600; color: #1B5E44; text-decoration: none">Full service-area map →</a>
+</div>
+<div style="flex: 2 1 420px; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 8px 0">
+<span style="font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #4A5953; font-weight: 700">{{countyName}}</span>
+<a href="{{countyHref}}" target="_top" style="font-size: 13px; font-weight: 600; color: #1B5E44; text-decoration: none">County page →</a>
+</div>
+<div style="background: #FFFFFF; border-radius: 16px; box-shadow: 0 0 0 1px rgba(20,32,27,0.06); padding: 6px; display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); align-content: start; min-height: 290px">
+<sc-for list="{{cities}}" as="t" hint-placeholder-count="8">
+<a role="menuitem" href="{{t.href}}" target="{{t.target}}" class="navlink" style="display: flex; justify-content: space-between; align-items: center; gap: 8px; min-height: 46px; padding: 0 12px; border-radius: 12px; font-size: 15px; font-weight: {{t.weight}}">{{t.name}}<sc-if value="{{t.top}}" hint-placeholder-val="{{ false }}"><span style="padding: 2px 8px; border-radius: 999px; background: #E5EFEB; color: #1B5E44; font-size: 11px; font-weight: 700">Top area</span></sc-if></a>
+</sc-for>
+</div>
+<a href="sms:+13868887434?&amp;body=Hi%2C%20do%20you%20service%20my%20area%3F" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 14px; border-radius: 14px; background: #14201B; color: #F4F5F3; text-decoration: none; font-size: 14px"><span>Don't see your city? <strong>Text us</strong> — if we can reach you, we will.</span><span style="font-weight: 700">(386) 888-7434</span></a>
+</div>
+</div>
+</div>
+</nav>
+
+<!-- ===== Phone menu ===== -->
+<div class="gnav-mob" style="font-family: 'Schibsted Grotesk', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif; color: #14201B">
+<button type="button" aria-label="Open menu" aria-expanded="{{mobExpanded}}" onClick="{{openMob}}" style="width: 46px; height: 46px; border-radius: 50%; border: 1px solid #CBD3CF; background: #FFFFFF; display: grid; place-items: center; cursor: pointer; color: #14201B">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h10"></path></svg>
+</button>
+
+<div role="dialog" aria-modal="true" aria-label="Menu" style="position: fixed; inset: 0; z-index: 300; display: flex; flex-direction: column; background: #F2F4F2; transform: translateY({{mobY}}); opacity: {{mobOp}}; visibility: {{mobVis}}; transition: transform .42s cubic-bezier(.2,.85,.2,1), opacity .3s ease, visibility .42s">
+
+<!-- Sheet header -->
+<div style="flex: none; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 8px; padding: 10px 14px; min-height: 62px; border-bottom: 1px solid rgba(20,32,27,0.08)">
+<div style="justify-self: start">
+<sc-if value="{{mobCanBack}}" hint-placeholder-val="{{ false }}">
+<button type="button" onClick="{{mobBack}}" style="display: inline-flex; align-items: center; gap: 2px; min-height: 44px; padding: 0 8px 0 2px; border: 0; background: transparent; color: #1B5E44; font-family: inherit; font-size: 17px; font-weight: 600; cursor: pointer"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg>{{mobBackLabel}}</button>
+</sc-if>
+<sc-if value="{{mobAtRoot}}" hint-placeholder-val="{{ true }}">
+<span style="font-weight: 800; font-size: 18px; letter-spacing: -0.02em">Gator's <span style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-weight: 400; color: #1B5E44">Sliding Doors</span></span>
+</sc-if>
+</div>
+<strong style="font-size: 17px; justify-self: center">{{mobTitle}}</strong>
+<button type="button" aria-label="Close menu" onClick="{{closeMob}}" style="justify-self: end; width: 36px; height: 36px; border-radius: 50%; border: 0; background: rgba(20,32,27,0.08); color: #14201B; display: grid; place-items: center; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"></path></svg></button>
+</div>
+
+<!-- Screens -->
+<div style="position: relative; flex: 1; overflow: hidden">
+
+<!-- Screen 0: root -->
+<div style="position: absolute; inset: 0; overflow-y: auto; background: #F2F4F2; padding: 16px 16px 40px; display: flex; flex-direction: column; gap: 18px; transform: translateX({{p0x}}); transition: transform .38s cubic-bezier(.2,.85,.2,1)">
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px">
+<a href="Book.dc.html" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; min-height: 76px; border-radius: 16px; background: #1B5E44; color: #FFFFFF; text-decoration: none; font-size: 13px; font-weight: 700"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="15" rx="2"></rect><path d="M8 3v4M16 3v4M4 10h16"></path></svg>Free estimate</a>
+<a href="sms:+13868887434?&amp;body=Hi%2C%20I%20need%20help%20with%20my%20sliding%20door" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; min-height: 76px; border-radius: 16px; background: #FFFFFF; color: #14201B; text-decoration: none; font-size: 13px; font-weight: 700; box-shadow: 0 0 0 1px rgba(20,32,27,0.06)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B5E44" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H8l-4 4z"></path></svg>Text us</a>
+<a href="tel:+13868887434" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; min-height: 76px; border-radius: 16px; background: #FFFFFF; color: #14201B; text-decoration: none; font-size: 13px; font-weight: 700; box-shadow: 0 0 0 1px rgba(20,32,27,0.06)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B5E44" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"></path></svg>Call</a>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="padding: 0 16px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em; color: #4A5953">Browse</span>
+<div style="background: #FFFFFF; border-radius: 14px; overflow: hidden; box-shadow: 0 0 0 1px rgba(20,32,27,0.05)">
+<button type="button" class="mrow" onClick="{{goServices}}" style="width: 100%; display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 0 16px; border: 0; border-bottom: 1px solid #EEF1EF; background: #FFFFFF; font-family: inherit; font-size: 17px; color: #14201B; text-align: left; cursor: pointer"><span style="width: 30px; height: 30px; border-radius: 8px; background: #1B5E44; display: grid; place-items: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4 2.5-2.5Z"></path></svg></span><span style="flex: 1">Services</span><span style="color: #B5BFBA; font-size: 22px">›</span></button>
+<button type="button" class="mrow" onClick="{{goCounties}}" style="width: 100%; display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 0 16px; border: 0; border-bottom: 1px solid #EEF1EF; background: #FFFFFF; font-family: inherit; font-size: 17px; color: #14201B; text-align: left; cursor: pointer"><span style="width: 30px; height: 30px; border-radius: 8px; background: #3B6E8F; display: grid; place-items: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21Z"></path><circle cx="12" cy="9.5" r="2.5"></circle></svg></span><span style="flex: 1">Locations</span><span style="color: #B5BFBA; font-size: 22px">›</span></button>
+<a href="Install.dc.html" class="mrow" style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 0 16px; border-bottom: 1px solid #EEF1EF; background: #FFFFFF; font-size: 17px; color: #14201B; text-decoration: none"><span style="width: 30px; height: 30px; border-radius: 8px; background: #6B5A45; display: grid; place-items: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="11" height="18" rx="1"></rect><rect x="10" y="3" width="11" height="18" rx="1"></rect></svg></span><span style="flex: 1">Installation</span><span style="color: #B5BFBA; font-size: 22px">›</span></a>
+<a href="Visualizer.dc.html" class="mrow" style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 0 16px; border-bottom: 1px solid #EEF1EF; background: #FFFFFF; font-size: 17px; color: #14201B; text-decoration: none"><span style="width: 30px; height: 30px; border-radius: 8px; background: #7FA79B; display: grid; place-items: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.5 5.5L20 9l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5z"></path></svg></span><span style="flex: 1">Design your door</span><span style="padding: 2px 8px; border-radius: 999px; background: #E5EFEB; color: #1B5E44; font-size: 12px; font-weight: 700">New</span></a>
+<a href="Shop.dc.html" class="mrow" style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 0 16px; border-bottom: 1px solid #EEF1EF; background: #FFFFFF; font-size: 17px; color: #14201B; text-decoration: none"><span style="width: 30px; height: 30px; border-radius: 8px; background: #14201B; display: grid; place-items: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 7h14l-1.2 12.1a1 1 0 0 1-1 .9H7.2a1 1 0 0 1-1-.9L5 7Z"></path><path d="M9 7V6a3 3 0 0 1 6 0v1"></path></svg></span><span style="flex: 1">Shop parts</span><span style="color: #B5BFBA; font-size: 22px">›</span></a>
+<a href="Commercial.dc.html" class="mrow" style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 0 16px; border-bottom: 1px solid #EEF1EF; background: #FFFFFF; font-size: 17px; color: #14201B; text-decoration: none"><span style="width: 30px; height: 30px; border-radius: 8px; background: #2E6B50; display: grid; place-items: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"><rect x="4" y="3" width="16" height="18" rx="1"></rect><path d="M8 7h2M14 7h2M8 11h2M14 11h2M8 15h2M14 15h2"></path></svg></span><span style="flex: 1">HOAs, condos &amp; hotels</span><span style="color: #B5BFBA; font-size: 22px">›</span></a>
+<a href="Blog.dc.html" class="mrow" style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 0 16px; border-bottom: 1px solid #EEF1EF; background: #FFFFFF; font-size: 17px; color: #14201B; text-decoration: none"><span style="width: 30px; height: 30px; border-radius: 8px; background: #5C7A6E; display: grid; place-items: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"><path d="M5 4h14v16H5zM8 8h8M8 12h8M8 16h5"></path></svg></span><span style="flex: 1">Blog &amp; DIY guides</span><span style="color: #B5BFBA; font-size: 22px">›</span></a>
+<a href="Reviews.dc.html" class="mrow" style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 0 16px; background: #FFFFFF; font-size: 17px; color: #14201B; text-decoration: none"><span style="width: 30px; height: 30px; border-radius: 8px; background: #D99A1E; display: grid; place-items: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6L2.5 9.4l6.6-.8z"></path></svg></span><span style="flex: 1">Reviews</span><span style="color: #4A5953; font-size: 15px">5.0 ★</span></a>
+<a href="About.dc.html" class="mrow" style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 0 16px; border-top: 1px solid #EEF1EF; background: #FFFFFF; font-size: 17px; color: #14201B; text-decoration: none"><span style="width: 30px; height: 30px; border-radius: 8px; background: #14201B; display: grid; place-items: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"></circle><path d="M5 20a7 7 0 0 1 14 0"></path></svg></span><span style="flex: 1">About us</span><span style="color: #B5BFBA; font-size: 22px">›</span></a>
+</div>
+</div>
+
+<a href="Diagnose.dc.html" style="display: flex; align-items: center; gap: 14px; padding: 18px; border-radius: 18px; background: #14201B; color: #F4F5F3; text-decoration: none">
+<span style="flex: 1; display: flex; flex-direction: column; gap: 4px"><strong style="font-size: 18px">What's wrong with my door?</strong><span style="font-size: 14px; color: #C9D4CF">3 questions · likely cause, free fix, real price</span></span>
+<span style="width: 40px; height: 40px; border-radius: 50%; background: #F4F5F3; color: #14201B; display: grid; place-items: center; font-size: 20px">›</span>
+</a>
+
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="padding: 0 16px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em; color: #4A5953">More</span>
+<div style="background: #FFFFFF; border-radius: 14px; overflow: hidden; box-shadow: 0 0 0 1px rgba(20,32,27,0.05)">
+<a href="Partners.dc.html" class="mrow" style="display: flex; align-items: center; justify-content: space-between; min-height: 52px; padding: 0 16px; border-bottom: 1px solid #EEF1EF; background: #FFFFFF; font-size: 17px; color: #14201B; text-decoration: none">Refer a job · get $50<span style="color: #B5BFBA; font-size: 22px">›</span></a>
+<a href="tel:+16892206966" class="mrow" style="display: flex; align-items: center; justify-content: space-between; min-height: 52px; padding: 0 16px; border-bottom: 1px solid #EEF1EF; background: #FFFFFF; font-size: 17px; color: #14201B; text-decoration: none">Orlando line<span style="color: #1B5E44; font-weight: 600">(689) 220-6966</span></a>
+<a href="https://wa.me/message/RDP7434HWIVVN1" target="_top" class="mrow" style="display: flex; align-items: center; justify-content: space-between; min-height: 52px; padding: 0 16px; background: #FFFFFF; font-size: 17px; color: #14201B; text-decoration: none">WhatsApp · send a photo<span style="color: #B5BFBA; font-size: 22px">›</span></a>
+</div>
+</div>
+<span style="text-align: center; font-size: 13px; color: #4A5953">Same-day repairs 5 AM – 6 PM · 1648 Woodcrest Dr, Daytona Beach</span>
+</div>
+
+<!-- Screen 1: services or counties -->
+<div style="position: absolute; inset: 0; overflow-y: auto; background: #F2F4F2; padding: 16px 16px 40px; display: flex; flex-direction: column; gap: 18px; transform: translateX({{p1x}}); transition: transform .38s cubic-bezier(.2,.85,.2,1)">
+<sc-if value="{{mobIsServices}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="padding: 0 16px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em; color: #4A5953">Repairs</span>
+<div style="background: #FFFFFF; border-radius: 14px; overflow: hidden; box-shadow: 0 0 0 1px rgba(20,32,27,0.05)">
+<sc-for list="{{repairs}}" as="r" hint-placeholder-count="9">
+<a href="{{r.href}}" class="mrow" style="display: flex; align-items: center; gap: 12px; min-height: 58px; padding: 0 16px; border-bottom: 1px solid #EEF1EF; background: #FFFFFF; color: #14201B; text-decoration: none">
+<span style="width: 30px; height: 30px; flex: none; border-radius: 8px; background: {{r.tint}}; color: #FFFFFF; display: grid; place-items: center; font-size: 14px; font-weight: 700">{{r.glyph}}</span>
+<span style="flex: 1; display: flex; flex-direction: column; line-height: 1.25"><span style="font-size: 17px">{{r.label}}</span><span style="font-size: 13px; color: #4A5953">{{r.sub}}</span></span>
+<span style="color: #B5BFBA; font-size: 22px">›</span>
+</a>
+</sc-for>
+</div>
+</div>
+<div style="background: #FFFFFF; border-radius: 14px; overflow: hidden; box-shadow: 0 0 0 1px rgba(20,32,27,0.05)">
+<a href="Services.dc.html" class="mrow" style="display: flex; align-items: center; justify-content: space-between; min-height: 52px; padding: 0 16px; border-bottom: 1px solid #EEF1EF; background: #FFFFFF; font-size: 17px; color: #1B5E44; font-weight: 600; text-decoration: none">All services<span style="font-size: 22px">›</span></a>
+<a href="Diagnose.dc.html" class="mrow" style="display: flex; align-items: center; justify-content: space-between; min-height: 52px; padding: 0 16px; background: #FFFFFF; font-size: 17px; color: #14201B; text-decoration: none">Not sure? Door problem finder<span style="color: #B5BFBA; font-size: 22px">›</span></a>
+</div>
+</sc-if>
+<sc-if value="{{mobIsCounties}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="padding: 0 16px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em; color: #4A5953">Choose your county</span>
+<div style="background: #FFFFFF; border-radius: 14px; overflow: hidden; box-shadow: 0 0 0 1px rgba(20,32,27,0.05)">
+<sc-for list="{{mobCounties}}" as="c" hint-placeholder-count="5">
+<button type="button" class="mrow" onClick="{{c.open}}" style="width: 100%; display: flex; align-items: center; gap: 12px; min-height: 60px; padding: 0 16px; border: 0; border-bottom: 1px solid #EEF1EF; background: #FFFFFF; font-family: inherit; color: #14201B; text-align: left; cursor: pointer">
+<span style="width: 10px; height: 10px; border-radius: 50%; background: #1B5E44; flex: none"></span>
+<span style="flex: 1; display: flex; flex-direction: column; line-height: 1.25"><span style="font-size: 17px">{{c.name}}</span><span style="font-size: 13px; color: #4A5953">{{c.preview}}</span></span>
+<span style="color: #4A5953; font-size: 15px">{{c.count}}</span><span style="color: #B5BFBA; font-size: 22px">›</span>
+</button>
+</sc-for>
+</div>
+</div>
+<a href="sms:+13868887434?&amp;body=Hi%2C%20do%20you%20service%20my%20area%3F" style="display: flex; flex-direction: column; gap: 4px; padding: 16px; border-radius: 16px; background: #14201B; color: #F4F5F3; text-decoration: none"><strong style="font-size: 16px">Don't see your city?</strong><span style="font-size: 14px; color: #C9D4CF">Text us — if we can reach you, we will.</span></a>
+</sc-if>
+</div>
+
+<!-- Screen 2: cities -->
+<div style="position: absolute; inset: 0; overflow-y: auto; background: #F2F4F2; padding: 16px 16px 40px; display: flex; flex-direction: column; gap: 18px; transform: translateX({{p2x}}); transition: transform .38s cubic-bezier(.2,.85,.2,1)">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="padding: 0 16px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em; color: #4A5953">Cities we serve</span>
+<div style="background: #FFFFFF; border-radius: 14px; overflow: hidden; box-shadow: 0 0 0 1px rgba(20,32,27,0.05)">
+<sc-for list="{{cities}}" as="t" hint-placeholder-count="6">
+<a href="{{t.href}}" target="{{t.target}}" class="mrow" style="display: flex; align-items: center; gap: 10px; min-height: 54px; padding: 0 16px; border-bottom: 1px solid #EEF1EF; background: #FFFFFF; font-size: 17px; color: #14201B; text-decoration: none; font-weight: {{t.weight}}"><span style="flex: 1">{{t.name}}</span><sc-if value="{{t.top}}" hint-placeholder-val="{{ false }}"><span style="padding: 2px 8px; border-radius: 999px; background: #E5EFEB; color: #1B5E44; font-size: 12px; font-weight: 700">Top area</span></sc-if><span style="color: #B5BFBA; font-size: 22px">›</span></a>
+</sc-for>
+</div>
+</div>
+<a href="{{countyHref}}" target="_top" style="display: flex; align-items: center; justify-content: space-between; min-height: 52px; padding: 0 16px; border-radius: 14px; background: #FFFFFF; box-shadow: 0 0 0 1px rgba(20,32,27,0.05); font-size: 17px; color: #1B5E44; font-weight: 600; text-decoration: none">{{countyName}} page<span style="font-size: 22px">›</span></a>
+<a href="Book.dc.html" style="display: flex; align-items: center; justify-content: center; min-height: 54px; border-radius: 16px; background: #1B5E44; color: #FFFFFF; text-decoration: none; font-size: 17px; font-weight: 700">Book a free estimate</a>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"active":{"editor":"enum","options":["home","services","install","shop","commercial","blog","locations","about","other"],"default":"other"},"county":{"editor":"enum","options":["volusia","orange","seminole","flagler","lake"],"default":"volusia"},"$preview":{"width":900,"height":560}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { open: null, county: props.county || 'volusia', mob: false, depth: 0, pane1: 'services' };
+  }
+  renderVals() {
+    const s = this.state;
+    const active = this.props.active ?? 'other';
+    const W = (p) => 'https://www.gatorsslidingdoors.com/' + p;
+    const C = [
+      { id: 'volusia', name: 'Volusia County', href: W('volusia-county'), cities: [['Daytona Beach', 'Daytona.dc.html', true], ['Port Orange', 'PortOrange.dc.html', true], ['Deltona', 'Deltona.dc.html', true], ['Ormond Beach', 'OrmondBeach.dc.html', true], ['New Smyrna Beach', 'NewSmyrna.dc.html', true], ['DeLand', 'DeLand.dc.html', true]] },
+      { id: 'orange', name: 'Orange County', href: W('orange-county'), cities: [['Orlando', 'Orlando.dc.html', true], ['Winter Park', 'WinterPark.dc.html', true], ['Winter Garden', 'WinterGarden.dc.html', true], ['Apopka', 'Apopka.dc.html', true], ['Ocoee', 'Ocoee.dc.html', true], ['Windermere', 'Windermere.dc.html', true], ['Alafaya', 'Alafaya.dc.html', true], ['Horizon West', 'HorizonWest.dc.html', true], ['Pine Hills', 'PineHills.dc.html', true], ['University', 'University.dc.html', true], ['Meadow Woods', 'MeadowWoods.dc.html', true]] },
+      { id: 'seminole', name: 'Seminole County', href: W('seminole-county'), cities: [['Sanford', 'Sanford.dc.html', true], ['Lake Mary', 'LakeMary.dc.html', true], ['Altamonte Springs', 'Altamonte.dc.html', true], ['Casselberry', 'Casselberry.dc.html', true], ['Longwood', 'Longwood.dc.html', true], ['Oviedo', 'Oviedo.dc.html', true]] },
+      { id: 'flagler', name: 'Flagler & St. Johns', href: W('flagler-county'), cities: [['Palm Coast', 'PalmCoast.dc.html', true], ['Flagler Beach', 'FlaglerBeach.dc.html', true], ['Bunnell', 'Bunnell.dc.html', true], ['St. Augustine', 'StAugustine.dc.html', true]] },
+      { id: 'lake', name: 'Lake County', href: W('lake-county'), cities: [['Clermont', 'Clermont.dc.html', true], ['Leesburg', 'Leesburg.dc.html', true], ['Tavares', 'Tavares.dc.html', true], ['Eustis', 'Eustis.dc.html', true], ['Mount Dora', 'MountDora.dc.html', true], ['Lady Lake', 'LadyLake.dc.html', true], ['Groveland', 'Groveland.dc.html', true], ['Minneola', 'Minneola.dc.html', true], ['Mascotte', 'Mascotte.dc.html', true], ['Fruitland Park', 'FruitlandPark.dc.html', true]] }
+    ];
+    const cur = C.find((c) => c.id === s.county) || C[0];
+    const svc = s.open === 'services';
+    const loc = s.open === 'locations';
+    const REP = [
+      ['Rollers', 'Drags or grinds', 'R', '#1B5E44', 'rollers'], ['Tracks', 'Jumps or bumps', 'T', '#2E6B50', 'tracks'],
+      ['Locks & security', 'Won’t latch', 'L', '#3E4A47', 'locks'], ['Screen doors', 'Torn or dragging', 'S', '#5C7A6E', 'screens'],
+      ['Handles', 'Loose or broken', 'H', '#6B5A45', 'handles'], ['Impact doors', 'Hurricane-rated', 'I', '#14201B', 'impact'],
+      ['Glass & windows', 'Cracked, foggy', 'G', '#4F7F8C', 'glass'], ['Water leaks', 'Puddles after rain', 'W', '#3B6E8F', 'leaks'],
+      ['Maintenance', 'Homes & HOAs', 'M', '#7FA79B', 'maintenance']
+    ];
+    const SVC = {"rollers": "SvcRollers.dc.html", "tracks": "SvcTracks.dc.html", "locks": "SvcLocks.dc.html", "screens": "SvcScreens.dc.html", "handles": "SvcHandles.dc.html", "impact": "SvcImpact.dc.html", "glass": "SvcGlass.dc.html", "leaks": "SvcLeaks.dc.html", "maintenance": "SvcMaintenance.dc.html"};
+    const bg = (k) => (active === k ? '#E4E9E6' : 'transparent');
+    return {
+      closeAll: () => this.setState({ open: null }),
+      hoverServices: () => { if (this.state.open !== 'services') this.setState({ open: 'services' }); },
+      hoverLocations: () => { if (this.state.open !== 'locations') this.setState({ open: 'locations' }); },
+      toggleServices: () => this.setState({ open: this.state.open === 'services' ? null : 'services' }),
+      toggleLocations: () => this.setState({ open: this.state.open === 'locations' ? null : 'locations' }),
+      svcExpanded: svc ? 'true' : 'false', locExpanded: loc ? 'true' : 'false',
+      svcOp: svc ? 1 : 0, svcVis: svc ? 'visible' : 'hidden', svcY: svc ? '0px' : '-8px', svcRot: svc ? '180deg' : '0deg',
+      locOp: loc ? 1 : 0, locVis: loc ? 'visible' : 'hidden', locY: loc ? '0px' : '-8px', locRot: loc ? '180deg' : '0deg',
+      svcBtnBg: svc || active === 'services' ? '#E4E9E6' : 'transparent',
+      locBtnBg: loc || active === 'locations' ? '#E4E9E6' : 'transparent',
+      bgInstall: bg('install'), bgShop: bg('shop'), bgCommercial: bg('commercial'), bgBlog: bg('blog'), bgAbout: bg('about'),
+      repairs: REP.map((r) => ({ label: r[0], sub: r[1], glyph: r[2], tint: r[3], href: SVC[r[4]] })),
+      counties: C.map((c) => { const on = c.id === cur.id; return { name: c.name, count: c.cities.length, bg: on ? '#1B5E44' : 'transparent', fg: on ? '#FFFFFF' : '#14201B', dot: on ? '#A9C6BD' : '#1B5E44', current: on ? 'true' : 'false', pick: () => { if (this.state.county !== c.id) this.setState({ county: c.id }); } }; }),
+      countyName: cur.name, countyHref: cur.href,
+      cities: cur.cities.map((t) => ({ name: t[0], href: t[1], top: !!t[2], target: t[2] ? '_self' : '_top', weight: t[2] ? 700 : 500 })),
+      // phone sheet
+      openMob: () => this.setState({ mob: true, depth: 0 }),
+      closeMob: () => this.setState({ mob: false, depth: 0 }),
+      goServices: () => this.setState({ depth: 1, pane1: 'services' }),
+      goCounties: () => this.setState({ depth: 1, pane1: 'counties' }),
+      mobBack: () => this.setState({ depth: Math.max(0, this.state.depth - 1) }),
+      mobExpanded: s.mob ? 'true' : 'false',
+      mobY: s.mob ? '0%' : '100%', mobOp: s.mob ? 1 : 0, mobVis: s.mob ? 'visible' : 'hidden',
+      mobAtRoot: s.depth === 0, mobCanBack: s.depth > 0,
+      mobBackLabel: s.depth === 2 ? 'Counties' : 'Menu',
+      mobTitle: s.depth === 0 ? '' : s.depth === 2 ? cur.name : (s.pane1 === 'services' ? 'Services' : 'Locations'),
+      mobIsServices: s.pane1 === 'services', mobIsCounties: s.pane1 === 'counties',
+      p0x: s.depth === 0 ? '0%' : '-30%',
+      p1x: s.depth === 1 ? '0%' : s.depth === 0 ? '104%' : '-30%',
+      p2x: s.depth === 2 ? '0%' : '104%',
+      mobCounties: C.map((c) => ({ name: c.name, count: c.cities.length, preview: c.cities.slice(0, 3).map((t) => t[0]).join(' · ') + (c.cities.length > 3 ? '…' : ''), open: () => this.setState({ county: c.id, depth: 2, pane1: 'counties' }) }))
+    };
+  }
+}
+</script>
+</body>
+</html>

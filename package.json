@@ -1,0 +1,30 @@
+{
+  "name": "gators-sliding-doors",
+  "version": "1.0.0",
+  "description": "Gator's Sliding Doors website",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "preview": "npx --yes serve@14.2.4 dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bobduary/Listing-.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bobduary/Listing-/issues"
+  },
+  "homepage": "https://github.com/bobduary/Listing-#readme",
+  "dependencies": {
+    "htmlparser2": "^9.1.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "esbuild": "^0.24.0"
+  },
+  "type": "module",
+  "private": true
+}

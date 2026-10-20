@@ -1,0 +1,75 @@
+// Page file (src/pages/<Name>.dc.html) -> public URL path.
+// Links between pages are written as "<Name>.dc.html" in the templates and
+// rewritten to these paths at render time.
+export const ROUTES = {
+  Main: '/',
+  Services: '/services',
+  SvcRollers: '/services/roller-repair',
+  SvcTracks: '/services/track-repair',
+  SvcLocks: '/services/lock-repair',
+  SvcScreens: '/services/screen-door-repair',
+  SvcHandles: '/services/handle-replacement',
+  SvcImpact: '/services/impact-door-repair',
+  SvcGlass: '/services/glass-replacement',
+  SvcLeaks: '/services/water-leak-repair',
+  SvcMaintenance: '/services/maintenance',
+  Install: '/installation',
+  Commercial: '/commercial',
+  Shop: '/shop',
+  Product: '/shop/roller-553',
+  Checkout: '/checkout',
+  Book: '/book',
+  Blog: '/blog',
+  Post: '/post/sliding-glass-door-leaking-water-when-it-rains-causes-fixes',
+  Diagnose: '/door-problem-finder',
+  Reviews: '/reviews',
+  Partners: '/partners',
+  Visualizer: '/door-designer',
+  About: '/about',
+
+  // Volusia
+  Daytona: '/locations/daytona-beach',
+  PortOrange: '/locations/port-orange',
+  Deltona: '/locations/deltona',
+  OrmondBeach: '/locations/ormond-beach',
+  NewSmyrna: '/locations/new-smyrna-beach',
+  DeLand: '/locations/deland',
+  // Orange
+  Orlando: '/locations/orlando',
+  WinterPark: '/locations/winter-park',
+  WinterGarden: '/locations/winter-garden',
+  Apopka: '/locations/apopka',
+  Ocoee: '/locations/ocoee',
+  Windermere: '/locations/windermere',
+  Alafaya: '/locations/alafaya',
+  HorizonWest: '/locations/horizon-west',
+  PineHills: '/locations/pine-hills',
+  University: '/locations/university',
+  MeadowWoods: '/locations/meadow-woods',
+  // Seminole
+  Sanford: '/locations/sanford',
+  LakeMary: '/locations/lake-mary',
+  Altamonte: '/locations/altamonte-springs',
+  Casselberry: '/locations/casselberry',
+  Longwood: '/locations/longwood',
+  Oviedo: '/locations/oviedo',
+  // Flagler & St. Johns
+  PalmCoast: '/locations/palm-coast',
+  FlaglerBeach: '/locations/flagler-beach',
+  Bunnell: '/locations/bunnell',
+  StAugustine: '/locations/st-augustine',
+  // Lake
+  Clermont: '/locations/clermont',
+  Leesburg: '/locations/leesburg',
+  Tavares: '/locations/tavares',
+  Eustis: '/locations/eustis',
+  MountDora: '/locations/mount-dora',
+  LadyLake: '/locations/lady-lake',
+  Groveland: '/locations/groveland',
+  Minneola: '/locations/minneola',
+  Mascotte: '/locations/mascotte',
+  FruitlandPark: '/locations/fruitland-park',
+};
+
+// Shared components: compiled and bundled, but not published as pages.
+export const COMPONENTS = ['Nav'];
