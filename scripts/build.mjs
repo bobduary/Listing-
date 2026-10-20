@@ -19,6 +19,42 @@ const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..')
 const PAGES_DIR = path.join(ROOT, 'src/pages');
 const GEN = path.join(ROOT, '.build');
 const DIST = path.join(ROOT, 'dist');
+const DATA_DIR = path.join(ROOT, 'data');
+
+// Minimal RFC 4180 CSV parser (quoted fields, "" escapes, CRLF/LF).
+function parseCsv(text) {
+  const rows = [];
+  let row = [], field = '', i = 0, quoted = false;
+  text = text.replace(/^\uFEFF/, '');
+  while (i < text.length) {
+    const ch = text[i];
+    if (quoted) {
+      if (ch === '"' && text[i + 1] === '"') { field += '"'; i += 2; continue; }
+      if (ch === '"') { quoted = false; i++; continue; }
+      field += ch; i++; continue;
+    }
+    if (ch === '"') { quoted = true; i++; continue; }
+    if (ch === ',') { row.push(field); field = ''; i++; continue; }
+    if (ch === '\r') { i++; continue; }
+    if (ch === '\n') { row.push(field); rows.push(row); row = []; field = ''; i++; continue; }
+    field += ch; i++;
+  }
+  if (field !== '' || row.length) { row.push(field); rows.push(row); }
+  const [head, ...body] = rows.filter((r) => r.some((c) => c.trim() !== ''));
+  return body.map((r) => Object.fromEntries(head.map((h, k) => [h.trim(), (r[k] ?? '').trim()])));
+}
+
+// Every data/<name>.csv becomes SITE_DATA.<name> (an array of row objects),
+// available to page logic as a global.
+function loadSiteData() {
+  const data = {};
+  if (!fs.existsSync(DATA_DIR)) return data;
+  for (const f of fs.readdirSync(DATA_DIR)) {
+    if (f.endsWith('.csv')) data[f.slice(0, -4)] = parseCsv(fs.readFileSync(path.join(DATA_DIR, f), 'utf8'));
+  }
+  return data;
+}
+const SITE_DATA = loadSiteData();
 
 const DROP_WS_IN = new Set(['table', 'thead', 'tbody', 'tfoot', 'tr', 'colgroup', 'select', 'optgroup']);
 
@@ -67,7 +103,7 @@ function compile(name) {
 
 function writeModule(c) {
   const src = `export const tpl = ${JSON.stringify(c.tpl)};\n` +
-    `export function logic(DCLogic, React) {\n${c.logic}\n;return typeof Component !== 'undefined' ? Component : null;\n}\n`;
+    `export function logic(DCLogic, React) {\nconst SITE_DATA = ${JSON.stringify(SITE_DATA)};\n${c.logic}\n;return typeof Component !== 'undefined' ? Component : null;\n}\n`;
   fs.writeFileSync(path.join(GEN, 'components', c.name + '.js'), src);
 }
 

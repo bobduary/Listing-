@@ -38,6 +38,7 @@
         <a href="/cost" onClick="{{ goPrices }}">Repair prices in Florida</a>
         <a href="/pros" onClick="{{ goAll }}">Find a checked pro</a>
         <a href="/problems/hurricane-damaged-sliding-door" onClick="{{ goStorm }}">Storm &amp; hurricane help</a>
+        <a href="/repair-or-replace" onClick="{{ goDecide }}">Repair or replace?</a>
         <a href="/compare" onClick="{{ goCompare }}">Compare pros</a>
         <a href="/list-your-business" onClick="{{ goList }}">For repair businesses</a>
       </div>
@@ -115,7 +116,7 @@
           <span class="tiny muted">What most Florida homeowners paid</span>
         </a>
         <a class="tile card-lift" href="{{ topPro.href }}" onClick="{{ topPro.openNav }}" style="text-decoration: none; color: var(--color-text);">
-          <span class="tag tag-ok" style="align-self: flex-start;">Checked {{ topPro.lastCheck }}</span>
+          <span class="{{ topPro.badgeCls }}" style="align-self: flex-start;">{{ topPro.badgeLabel }}</span>
           <strong style="font-size: 16px; line-height: 1.3;">{{ topPro.name }}</strong>
           <span class="tiny"><span class="rating"><span class="star" aria-hidden="true">★</span>{{ topPro.ratingText }}</span> <span class="muted">· {{ topPro.reviewsText }}</span></span>
         </a>
@@ -191,7 +192,8 @@
                 <h3 class="pro-name"><a href="{{ c.href }}" onClick="{{ c.openNav }}">{{ c.name }}</a></h3>
                 <p class="small"><span class="rating"><span class="star" aria-hidden="true">★</span>{{ c.ratingText }}</span> <span class="muted">· {{ c.reviewsText }}</span></p>
                 <p class="pin"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>{{ c.location }}</p>
-                <p class="verified"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>Checked {{ c.lastCheck }}</p>
+                <p class="small muted">{{ c.responseText }}</p>
+                <span class="{{ c.badgeCls }}" style="align-self: flex-start;">{{ c.badgeLabel }}</span>
                 <div class="pcard-actions">
                   <a class="btn btn-dark btn-sm" href="{{ c.callHref }}">Call now</a>
                   <a class="btn btn-secondary btn-sm" href="{{ c.href }}" onClick="{{ c.openNav }}">Details</a>
@@ -343,6 +345,16 @@
         </ul>
         <p class="muted">{{ sym.note }}</p>
 
+        <sc-if value="{{ sym.hasVideos }}" hint-placeholder-val="{{ false }}">
+          <h2 class="h3">Watch: how to check it yourself</h2>
+          <div class="stack-sm">
+            <sc-for list="{{ sym.videos }}" as="v" hint-placeholder-count="2">
+              <a class="btn btn-secondary" href="{{ v.url }}" target="_blank" rel="noopener" style="justify-content: flex-start; align-self: flex-start;"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>{{ v.title }}</a>
+            </sc-for>
+          </div>
+        </sc-if>
+        <p class="small">Repair or a new door? <a href="/repair-or-replace" onClick="{{ goDecide }}">Take the 1-minute check</a>. Got a quote already? <a href="/cost#checker" onClick="{{ goPrices }}">See if it's fair</a>.</p>
+
         <h2 class="h3">Before you hire, ask</h2>
         <ol class="numlist">
           <li>What's your price range for this repair? <span class="muted">Compare it to the fair price.</span></li>
@@ -372,7 +384,7 @@
             <div class="pro-main">
               <h3 class="pro-name"><a href="{{ c.href }}" onClick="{{ c.openNav }}">{{ c.name }}</a></h3>
               <p class="small"><span class="rating"><span class="star" aria-hidden="true">★</span>{{ c.ratingText }}</span> <span class="muted">· {{ c.reviewsText }} · {{ c.location }}</span></p>
-              <p class="small"><span class="verified">Checked {{ c.lastCheck }}</span> <span class="muted">· {{ c.honestyText }} of jobs at the quoted price</span></p>
+              <p class="small"><span class="{{ c.badgeCls }}">{{ c.badgeLabel }}</span> <span class="muted">· {{ c.honestyLine }}</span></p>
               <p class="small"><strong style="font-weight: 600;">{{ c.priceLine }}</strong></p>
               <div class="row" style="gap: 6px;">
                 <sc-if value="{{ c.emergency }}"><span class="tag tag-warn">24/7 storm calls</span></sc-if>
@@ -403,6 +415,38 @@
   </div>
 </sc-if>
 
+<!-- ================= REPAIR OR REPLACE ================= -->
+<sc-if value="{{ isDecide }}" hint-placeholder-val="{{ false }}">
+  <div class="wrap page stack" style="gap: 28px; max-width: 860px;">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/" onClick="{{ goHome }}">Home</a><span aria-hidden="true">/</span><span aria-current="page">Repair or replace?</span></nav>
+    <div class="stack">
+      <h1 class="h1 h1-sm">Should you repair or replace your sliding glass door?</h1>
+      <p class="lead">Most sliding doors can be repaired for a few hundred dollars. Answer four quick questions for a straight answer.</p>
+    </div>
+    <sc-for list="{{ decideQs }}" as="dq" hint-placeholder-count="4">
+      <fieldset class="card stack-sm" style="margin: 0;">
+        <legend class="h4" style="padding: 0; margin-bottom: 8px; float: left; width: 100%;">{{ dq.label }}</legend>
+        <div class="chips" style="clear: both;">
+          <sc-for list="{{ dq.chips }}" as="ch" hint-placeholder-count="3"><button type="button" class="{{ ch.cls }}" onClick="{{ ch.onClick }}">{{ ch.label }}</button></sc-for>
+        </div>
+      </fieldset>
+    </sc-for>
+    <div aria-live="polite">
+      <sc-if value="{{ hasDecision }}" hint-placeholder-val="{{ false }}">
+        <div class="{{ decision.cls }}" style="flex-direction: column; gap: 6px; padding: 22px;">
+          <strong class="h3">{{ decision.title }}</strong>
+          <span>{{ decision.text }}</span>
+          <div class="row" style="margin-top: 8px;">
+            <a class="btn btn-primary" href="/pros" onClick="{{ goAll }}">Find a checked pro</a>
+            <a class="btn btn-secondary" href="/cost" onClick="{{ goPrices }}">See repair prices</a>
+            <button type="button" class="btn btn-ghost" onClick="{{ resetDecide }}">Start over</button>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+  </div>
+</sc-if>
+
 <!-- ================= PRICE GUIDE ================= -->
 <sc-if value="{{ isPrices }}" hint-placeholder-val="{{ false }}">
   <div class="wrap page stack" style="gap: 32px;">
@@ -415,6 +459,33 @@
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 2px;"><path d="M20 6 9 17l-5-5"></path></svg>
       <span><strong>Rule of thumb:</strong> a quote inside the range is normal. A quote well above it isn't always wrong (big or impact doors cost more), but ask the pro to explain why.</span>
     </div>
+    <div class="grid-2" style="align-items: start;">
+      <section class="card stack" id="calculator">
+        <h2 class="h3">Price calculator</h2>
+        <p class="small muted">Get a rough estimate for your door before you call.</p>
+        <label class="field">Repair<select class="input" value="{{ calcService }}" onChange="{{ onCalcService }}"><sc-for list="{{ calcServiceOpts }}" as="o" hint-placeholder-count="7"><option value="{{ o.value }}">{{ o.label }}</option></sc-for></select></label>
+        <label class="field">Door size<select class="input" value="{{ calcSize }}" onChange="{{ onCalcSize }}"><sc-for list="{{ calcSizeOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.value }}">{{ o.label }}</option></sc-for></select></label>
+        <label class="field">Door type<select class="input" value="{{ calcType }}" onChange="{{ onCalcType }}"><sc-for list="{{ calcTypeOpts }}" as="o" hint-placeholder-count="2"><option value="{{ o.value }}">{{ o.label }}</option></sc-for></select></label>
+        <div class="price-inline" style="display: flex;">
+          <span class="label">Estimated cost</span>
+          <p class="price-big" aria-live="polite">{{ calcRange }}</p>
+          <p class="tiny muted">{{ calcNote }}</p>
+        </div>
+      </section>
+      <section class="card stack" id="checker">
+        <h2 class="h3">Is my quote fair?</h2>
+        <p class="small muted">Enter the price you were quoted and we'll compare it with what Florida homeowners paid.</p>
+        <label class="field">Repair<select class="input" value="{{ checkService }}" onChange="{{ onCheckService }}"><sc-for list="{{ checkServiceOpts }}" as="o" hint-placeholder-count="7"><option value="{{ o.value }}">{{ o.label }}</option></sc-for></select></label>
+        <label class="field">Quoted price ($)<input class="input" inputMode="numeric" value="{{ checkAmount }}" onChange="{{ onCheckAmount }}" placeholder="e.g. 275"></label>
+        <div aria-live="polite">
+          <sc-if value="{{ hasVerdict }}" hint-placeholder-val="{{ false }}">
+            <div class="{{ verdict.cls }}" style="flex-direction: column; gap: 4px;"><strong>{{ verdict.title }}</strong><span>{{ verdict.text }}</span></div>
+          </sc-if>
+        </div>
+        <p class="small">Not sure whether to fix it at all? <a href="/repair-or-replace" onClick="{{ goDecide }}">Repair or replace? Take the 1-minute check</a></p>
+      </section>
+    </div>
+    <h2 class="h2" style="margin-top: 16px;">Prices by repair</h2>
     <div class="stack" style="gap: 16px;">
       <sc-for list="{{ priceIndex }}" as="pi" hint-placeholder-count="7">
         <section class="card stack" id="{{ pi.slug }}">
@@ -469,7 +540,7 @@
         <label class="seg-opt"><input type="radio" name="mode" checked="{{ modeList }}" onChange="{{ setList }}">List</label>
         <label class="seg-opt"><input type="radio" name="mode" checked="{{ modeMap }}" onChange="{{ setMap }}">Map</label>
       </div>
-      <label class="check"><input type="checkbox" checked="{{ emergency }}" onChange="{{ toggleEmergency }}">24/7 storm calls only</label>
+      <div class="row" style="gap: 4px 18px;"><label class="check"><input type="checkbox" checked="{{ verifiedOnly }}" onChange="{{ toggleVerified }}">Verified only</label><label class="check"><input type="checkbox" checked="{{ emergency }}" onChange="{{ toggleEmergency }}">24/7 storm calls</label></div>
     </div>
 
     <details class="card" style="padding: 0 20px;">
@@ -477,10 +548,10 @@
       <div class="stack" style="padding-bottom: 20px;">
         <div class="stack-sm">
           <span class="tiny muted" style="font-weight: 700;">Sort by</span>
-          <div class="seg" style="align-self: flex-start; flex-wrap: wrap;">
-            <label class="seg-opt"><input type="radio" name="sort" checked="{{ sortRating }}" onChange="{{ sortByRating }}">Top rated</label>
-            <label class="seg-opt"><input type="radio" name="sort" checked="{{ sortPrice }}" onChange="{{ sortByPrice }}">Lowest price</label>
-            <label class="seg-opt"><input type="radio" name="sort" checked="{{ sortYears }}" onChange="{{ sortByYears }}">Most experience</label>
+          <div class="chips">
+            <sc-for list="{{ sortChips }}" as="t" hint-placeholder-count="4">
+              <button type="button" class="{{ t.cls }}" onClick="{{ t.onClick }}">{{ t.label }}</button>
+            </sc-for>
           </div>
         </div>
         <div class="stack-sm">
@@ -495,7 +566,7 @@
       </div>
     </details>
 
-    <p class="muted tiny">Ranked by rating and price honesty. <strong style="color: var(--color-text);">Featured · Ad</strong> spots are paid and labeled. They never change ratings, reviews or price scores.</p>
+    <p class="muted tiny">“Best match” weighs reviews, price honesty, verification, response time, distance and specialty. Featured listings are paid and labeled “Ad”. They never change ratings or reviews.</p>
 
     <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
       <div class="card card-soft stack" style="align-items: flex-start;">
@@ -514,13 +585,15 @@
         <sc-for list="{{ results }}" as="c" hint-placeholder-count="5">
           <article class="pro">
             <div class="pro-main">
-              <sc-if value="{{ c.isFeatured }}"><span class="tag tag-ad" style="align-self: flex-start;">Featured · Ad</span></sc-if>
+              <sc-if value="{{ c.isFeatured }}"><span class="tag tag-ad" style="align-self: flex-start;">Ad</span></sc-if>
               <h2 class="pro-name"><a href="{{ c.href }}" onClick="{{ c.openNav }}">{{ c.name }}</a></h2>
-              <p class="small"><span class="rating"><span class="star" aria-hidden="true">★</span>{{ c.ratingText }}</span> <span class="muted">· {{ c.reviewsText }} · {{ c.yearsText }} in business</span></p>
-              <p class="verified"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>Checked {{ c.lastCheck }} · {{ c.honestyText }} of jobs at the quoted price</p>
-              <p class="small"><strong>{{ c.priceLine }}</strong></p>
-              <p class="small muted">Serves {{ c.areasText }}</p>
-              <sc-if value="{{ c.emergency }}"><span class="tag tag-warn" style="align-self: flex-start;">24/7 storm calls</span></sc-if>
+              <p class="small"><span class="rating"><span class="star" aria-hidden="true">★</span>{{ c.ratingText }}</span> <span class="muted">· {{ c.reviewsText }} · {{ c.location }}</span> <sc-if value="{{ c.distanceText }}"><span class="muted">· {{ c.distanceText }}</span></sc-if></p>
+              <div class="row" style="gap: 6px;">
+                <span class="{{ c.badgeCls }}">{{ c.badgeLabel }}</span>
+                <sc-if value="{{ c.emergency }}"><span class="tag tag-warn">24/7 storm calls</span></sc-if>
+              </div>
+              <p class="small"><strong style="font-weight: 600;">{{ c.priceLine }}</strong> <span class="muted">· {{ c.honestyLine }}</span></p>
+              <p class="small muted">{{ c.responseText }} · Warranty: {{ c.warranty }}</p>
             </div>
             <div class="pro-actions">
               <a class="btn btn-primary btn-block" href="{{ c.callHref }}">Call {{ c.phone }}</a>
@@ -537,177 +610,176 @@
 <!-- ================= PROFILE ================= -->
 <sc-if value="{{ isProfile }}" hint-placeholder-val="{{ false }}">
   <div class="wrap page stack" style="gap: 28px;">
-    <a class="btn btn-ghost" href="/pros" onClick="{{ goBack }}" style="align-self: flex-start; padding-left: 0;">← Back to pros</a>
-    <div class="stack-sm">
-      <sc-if value="{{ sel.isFeatured }}"><span class="tag tag-ad" style="align-self: flex-start;">Featured · Ad</span></sc-if>
-      <h1 class="h1 h1-sm">{{ sel.name }}</h1>
-      <p><span class="rating"><span class="star" aria-hidden="true">★</span>{{ sel.ratingText }}</span> <span class="muted">· {{ sel.reviewsText }} · {{ sel.location }}</span></p>
-      <div class="row" style="gap: 8px;">
-        <span class="tag tag-ok">✓ Checked {{ sel.lastCheck }}</span>
-        <sc-if value="{{ sel.emergency }}"><span class="tag tag-warn">24/7 storm calls</span></sc-if>
-        <button type="button" class="{{ sel.compareCls }}" onClick="{{ sel.toggleCompare }}">{{ sel.compareLabel }}</button>
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="/" onClick="{{ goHome }}">Home</a><span aria-hidden="true">/</span>
+      <a href="/pros" onClick="{{ goBack }}">Pros</a><span aria-hidden="true">/</span>
+      <span aria-current="page">{{ sel.name }}</span>
+    </nav>
+
+    <div class="row" style="gap: 20px; align-items: center; flex-wrap: nowrap;">
+      <sc-if value="{{ sel.hasLogo }}"><img src="{{ sel.logo }}" alt="{{ sel.name }} logo" width="72" height="72" style="width: 72px; height: 72px; border-radius: 16px; object-fit: contain; background: #fff; border: 1px solid var(--color-divider); flex: none;"></sc-if>
+      <sc-if value="{{ sel.noLogo }}"><span aria-hidden="true" style="width: 72px; height: 72px; border-radius: 16px; background: var(--color-accent-50); color: var(--color-accent); font-weight: 800; font-size: 24px; display: grid; place-items: center; flex: none;">{{ sel.initials }}</span></sc-if>
+      <div class="stack-sm" style="gap: 6px; min-width: 0;">
+        <div class="row" style="gap: 8px;">
+          <span class="{{ sel.badgeCls }}">{{ sel.badgeLabel }}</span>
+          <sc-if value="{{ sel.emergency }}"><span class="tag tag-warn">24/7 storm calls</span></sc-if>
+          <sc-if value="{{ sel.isFeatured }}"><span class="tag tag-ad">Ad</span></sc-if>
+        </div>
+        <h1 class="h1 h1-sm">{{ sel.name }}</h1>
+        <p class="small"><span class="rating"><span class="star" aria-hidden="true">★</span>{{ sel.ratingText }}</span> <span class="muted">· {{ sel.reviewsText }} · {{ sel.location }}</span></p>
       </div>
     </div>
 
     <div style="display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start;">
-      <div class="stack" style="flex: 999 1 460px; min-width: 0; gap: 36px;">
+      <div class="stack" style="flex: 999 1 460px; min-width: 0; gap: 40px;">
+
+        <section class="stats" style="grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));">
+          <div class="stat" style="align-items: flex-start; text-align: left;"><span class="stat-l">Response</span><strong class="small">{{ sel.responseText }}</strong></div>
+          <div class="stat" style="align-items: flex-start; text-align: left;"><span class="stat-l">Hours</span><strong class="small">{{ sel.hours }}</strong></div>
+          <div class="stat" style="align-items: flex-start; text-align: left;"><span class="stat-l">Warranty</span><strong class="small">{{ sel.warranty }}</strong></div>
+          <div class="stat" style="align-items: flex-start; text-align: left;"><span class="stat-l">Call-out fee</span><strong class="small">{{ sel.callout }}</strong></div>
+        </section>
+
         <section class="stack-sm">
           <h2 class="h3">About {{ sel.shortName }}</h2>
           <p>{{ sel.blurb }}</p>
+          <p class="small muted">{{ sel.yearsText }} in business · Serves {{ sel.areasText }}</p>
+          <sc-if value="{{ sel.hasSpecialties }}"><p class="small"><strong>Specializes in:</strong> {{ sel.specialtiesText }}</p></sc-if>
         </section>
 
-        <section class="stats" style="grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));">
-          <div class="stat"><span class="stat-l">Call-out fee</span><strong>{{ sel.callout }}</strong></div>
-          <div class="stat"><span class="stat-l">Warranty</span><strong>{{ sel.warranty }}</strong></div>
-          <div class="stat"><span class="stat-l">In business</span><strong>{{ sel.yearsText }}</strong></div>
-          <div class="stat"><span class="stat-l">Hours</span><strong>{{ sel.hours }}</strong></div>
+        <sc-if value="{{ sel.showMedia }}" hint-placeholder-val="{{ false }}">
+          <section class="stack">
+            <h2 class="h3">Their work</h2>
+            <div class="grid-3" style="grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr)); gap: 12px;">
+              <sc-for list="{{ sel.photoList }}" as="ph" hint-placeholder-count="4">
+                <img src="{{ ph.src }}" alt="{{ ph.alt }}" loading="lazy" style="width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 12px; display: block;">
+              </sc-for>
+            </div>
+            <div class="row">
+              <sc-for list="{{ sel.videoList }}" as="v" hint-placeholder-count="2">
+                <a class="btn btn-secondary btn-sm" href="{{ v.url }}" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>{{ v.label }}</a>
+              </sc-for>
+            </div>
+          </section>
+        </sc-if>
+
+        <section class="stack">
+          <div class="row" style="justify-content: space-between; align-items: flex-end;">
+            <div class="stack-sm" style="gap: 4px;">
+              <h2 class="h3">Prices</h2>
+              <p class="muted small">Their posted range for each repair, and what customers report paying.</p>
+            </div>
+            <div class="stack-sm" style="gap: 0; align-items: flex-end;">
+              <span class="price-big" style="font-size: 30px; color: var(--color-ok);">{{ sel.honestyText }}</span>
+              <span class="tiny muted">paid within posted price</span>
+            </div>
+          </div>
+          <div class="table">
+            <sc-for list="{{ sel.prices }}" as="p" hint-placeholder-count="4">
+              <div class="price-row" style="grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) minmax(0, 1fr);">
+                <strong style="font-weight: 600;">{{ p.service }}</strong>
+                <span class="tnum" style="font-weight: 700;">{{ p.range }}</span>
+                <span class="tiny muted">{{ p.countText }} · middle paid {{ p.median }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <sc-if value="{{ reportClosed }}" hint-placeholder-val="{{ true }}">
+            <button type="button" class="btn btn-ghost" onClick="{{ openReport }}" style="align-self: flex-start;">Hired them? Report what you paid →</button>
+          </sc-if>
+          <sc-if value="{{ reportFormOpen }}" hint-placeholder-val="{{ false }}">
+            <form class="card card-soft" onSubmit="{{ sendReport }}" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 14px;">
+              <h3 class="h4" style="grid-column: 1 / -1;">Report what you paid {{ sel.shortName }}</h3>
+              <label class="field">Repair<select class="input"><sc-for list="{{ sel.services }}" as="s" hint-placeholder-count="4"><option>{{ s }}</option></sc-for></select></label>
+              <label class="field">Quoted ($)<input class="input" inputMode="numeric"></label>
+              <label class="field">Final price paid ($)<input class="input" inputMode="numeric" required=""></label>
+              <label class="field">Month of the job<input class="input" type="month"></label>
+              <div class="row" style="grid-column: 1 / -1;"><button type="submit" class="btn btn-primary">Send price report</button><span class="tiny muted">Your name stays private.</span></div>
+            </form>
+          </sc-if>
+          <sc-if value="{{ reportSent }}" hint-placeholder-val="{{ false }}"><p class="notice notice-ok">Thanks. Your report goes live after we check it.</p></sc-if>
         </section>
 
         <section class="stack">
           <div class="row" style="justify-content: space-between; align-items: flex-end;">
             <div class="stack-sm" style="gap: 4px;">
-              <h2 class="h3">Prices: quoted vs. paid</h2>
-              <p class="muted small">Their posted range, and what {{ sel.reportCountText }} say customers actually paid.</p>
+              <h2 class="h3">Reviews</h2>
+              <p class="small muted"><span class="rating"><span class="star" aria-hidden="true">★</span>{{ sel.ratingText }}</span> from {{ sel.reviewsText }} · reviews from SlideRepairFL customers, checked by our team</p>
             </div>
-            <div class="stack-sm" style="gap: 0; align-items: flex-end;">
-              <span class="price-big tnum" style="color: var(--color-ok);">{{ sel.honestyText }}</span>
-              <span class="tiny muted" style="font-weight: 700;">paid within posted price</span>
-            </div>
+            <sc-if value="{{ reviewClosed }}" hint-placeholder-val="{{ true }}"><button type="button" class="btn btn-secondary btn-sm" onClick="{{ openReview }}">Write a review</button></sc-if>
           </div>
-          <div class="row tiny muted" style="gap: 6px 18px;">
-            <span class="row" style="gap: 6px;"><span style="width: 22px; height: 12px; border-radius: 4px; background: var(--color-surface-2); border: 1.5px solid var(--color-accent);"></span>Posted range</span>
-            <span class="row" style="gap: 6px;"><span style="width: 10px; height: 10px; border-radius: 50%; background: var(--color-accent-700);"></span>Paid within range</span>
-            <span class="row" style="gap: 6px;"><span style="width: 10px; height: 10px; border-radius: 50%; background: var(--color-warn);"></span>Paid above range</span>
-          </div>
+          <sc-if value="{{ reviewOpen }}" hint-placeholder-val="{{ false }}">
+            <form class="card card-soft stack" onSubmit="{{ sendReview }}" style="gap: 14px;">
+              <h3 class="h4">Review {{ sel.shortName }}</h3>
+              <label class="field">Rating
+                <select class="input" required=""><option value="5">★★★★★ Excellent</option><option value="4">★★★★ Good</option><option value="3">★★★ Okay</option><option value="2">★★ Poor</option><option value="1">★ Bad</option></select>
+              </label>
+              <label class="field">What did they fix, and how did it go?<textarea class="input" required=""></textarea></label>
+              <label class="field">Your first name and city<input class="input" required="" placeholder="e.g. Maria, Tampa"></label>
+              <div class="row"><button type="submit" class="btn btn-primary">Submit review</button><span class="tiny muted">We check every review before it's published.</span></div>
+            </form>
+          </sc-if>
+          <sc-if value="{{ reviewSent }}" hint-placeholder-val="{{ false }}"><p class="notice notice-ok">Thanks! Your review will appear once we've checked it.</p></sc-if>
           <div>
-            <sc-for list="{{ sel.prices }}" as="p" hint-placeholder-count="4">
-              <div style="border-top: 1px solid var(--color-divider); padding: 14px 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 8px 24px; align-items: center;">
-                <div class="stack-sm" style="gap: 0;">
-                  <strong>{{ p.service }}</strong>
-                  <span class="tiny muted">Posted {{ p.range }} · middle paid {{ p.median }} · {{ p.countText }}</span>
-                </div>
-                <div style="position: relative; height: 28px;" aria-hidden="true">
-                  <div style="position: absolute; left: 0; right: 0; top: 13px; height: 2px; background: var(--color-divider);"></div>
-                  <div style="position: absolute; top: 5px; height: 18px; left: {{ p.bandLeft }}; width: {{ p.bandWidth }}; background: var(--color-surface-2); border: 1.5px solid var(--color-accent); border-radius: 5px;"></div>
-                  <sc-for list="{{ p.dots }}" as="d" hint-placeholder-count="5">
-                    <span style="position: absolute; top: 9px; left: {{ d.left }}; width: 10px; height: 10px; margin-left: -5px; border-radius: 50%; background: {{ d.color }};"></span>
-                  </sc-for>
-                </div>
-              </div>
+            <sc-for list="{{ reviews }}" as="r" hint-placeholder-count="3">
+              <figure class="stack-sm" style="margin: 0; border-top: 1px solid var(--color-divider); padding: 18px 0;">
+                <span class="star" aria-label="{{ r.label }}" style="letter-spacing: 2px;">{{ r.stars }}</span>
+                <blockquote style="margin: 0;">{{ r.text }}</blockquote>
+                <figcaption class="tiny muted">{{ r.author }} · {{ r.where }}</figcaption>
+              </figure>
             </sc-for>
           </div>
-
-          <h3 class="h4" style="margin-top: 12px;">Recent price reports</h3>
-          <div>
-            <sc-for list="{{ sel.reportsList }}" as="rp" hint-placeholder-count="5">
-              <div style="border-top: 1px solid var(--color-divider); padding: 12px 0; display: flex; flex-wrap: wrap; gap: 4px 18px; align-items: baseline;" class="small">
-                <strong style="flex: 1 1 220px;">{{ rp.service }} <span class="muted" style="font-weight: 400;">· {{ rp.door }}</span></strong>
-                <span class="muted" style="flex: 0 0 150px;">{{ rp.where }} · {{ rp.date }}</span>
-                <span style="flex: 0 0 170px;">Quoted {{ rp.quotedText }} → <strong>paid {{ rp.paidText }}</strong></span>
-                <span class="row" style="gap: 6px;">
-                  <sc-if value="{{ rp.receipt }}"><span class="tag tag-ok">Receipt checked</span></sc-if>
-                  <sc-if value="{{ rp.over }}"><span class="tag tag-warn">Over quote {{ rp.overText }}</span></sc-if>
-                </span>
-              </div>
-            </sc-for>
-          </div>
-          <div style="border-top: 1px solid var(--color-divider); padding-top: 16px;">
-            <sc-if value="{{ reportClosed }}" hint-placeholder-val="{{ true }}">
-              <button type="button" class="btn btn-secondary btn-phone-block" onClick="{{ openReport }}">Hired them? Report what you paid</button>
-            </sc-if>
-            <sc-if value="{{ reportFormOpen }}" hint-placeholder-val="{{ false }}">
-              <form class="card card-soft" onSubmit="{{ sendReport }}" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 14px;">
-                <h3 class="h4" style="grid-column: 1 / -1;">Report what you paid {{ sel.shortName }}</h3>
-                <label class="field">Repair<select class="input"><sc-for list="{{ sel.services }}" as="s" hint-placeholder-count="4"><option>{{ s }}</option></sc-for></select></label>
-                <label class="field">Door<select class="input"><sc-for list="{{ doorTypes }}" as="dt" hint-placeholder-count="5"><option>{{ dt }}</option></sc-for></select></label>
-                <label class="field">Month of the job<input class="input" type="month"></label>
-                <label class="field">Quoted ($)<input class="input" inputMode="numeric"></label>
-                <label class="field">Final price paid ($)<input class="input" inputMode="numeric" required=""></label>
-                <label class="field">Receipt (optional)<input class="input" type="file" accept="image/*,.pdf"></label>
-                <label class="field" style="grid-column: 1 / -1;">Anything we should know?<textarea class="input" placeholder="e.g. They found a bent track and explained the extra cost first."></textarea></label>
-                <div class="row" style="grid-column: 1 / -1;">
-                  <button type="submit" class="btn btn-primary">Send price report</button>
-                  <span class="tiny muted">Receipts are checked by our team and never published. Your name stays private.</span>
-                </div>
-              </form>
-            </sc-if>
-            <sc-if value="{{ reportSent }}" hint-placeholder-val="{{ false }}">
-              <p class="notice notice-ok">Thanks. Your report goes live after we check it, usually within a day.</p>
-            </sc-if>
-          </div>
-        </section>
-
-        <section class="stack-sm">
-          <h2 class="h3">Repairs they do</h2>
-          <ul class="checklist" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px 24px;">
-            <sc-for list="{{ sel.services }}" as="s" hint-placeholder-count="4"><li>{{ s }}</li></sc-for>
-          </ul>
-        </section>
-
-        <section class="stack-sm">
-          <h2 class="h3">Where they work</h2>
-          <p>{{ sel.areasText }} · {{ sel.county }} County</p>
         </section>
 
         <section class="card stack">
           <div class="row" style="justify-content: space-between;">
-            <h2 class="h3">How we checked {{ sel.shortName }}</h2>
-            <span class="tiny muted">Last {{ sel.lastCheck }} · next {{ sel.nextCheck }}</span>
+            <h2 class="h3">What we checked</h2>
+            <span class="{{ sel.badgeCls }}">{{ sel.badgeLabel }}</span>
           </div>
-          <ul class="checklist">
-            <sc-for list="{{ sel.checks }}" as="ck" hint-placeholder-count="7">
-              <li><strong>{{ ck.label }}</strong><br><span class="muted small">{{ ck.detail }}</span></li>
-            </sc-for>
-          </ul>
+          <sc-if value="{{ sel.verified }}">
+            <ul class="checklist">
+              <sc-for list="{{ sel.checks }}" as="ck" hint-placeholder-count="7">
+                <li><strong>{{ ck.label }}</strong><br><span class="muted small">{{ ck.detail }}</span></li>
+              </sc-for>
+            </ul>
+          </sc-if>
+          <sc-if value="{{ sel.notVerified }}">
+            <p class="muted">This is a basic listing: we confirmed it's a real Florida business with a working phone number. It hasn't completed our full checks (insurance, license and posted prices) yet.</p>
+          </sc-if>
         </section>
 
         <section class="stack-sm">
-          <h2 class="h3">Reviews</h2>
-          <p class="small muted"><span class="rating"><span class="star" aria-hidden="true">★</span>{{ sel.ratingText }}</span> from {{ sel.reviewsText }} · only from checked jobs · never removed for payment</p>
-          <sc-for list="{{ reviews }}" as="r" hint-placeholder-count="3">
-            <figure style="margin: 0; border-top: 1px solid var(--color-divider); padding: 18px 0;" class="stack-sm">
-              <span class="star" aria-label="{{ r.label }}" style="letter-spacing: 2px;">{{ r.stars }}</span>
-              <blockquote style="margin: 0;">{{ r.text }}</blockquote>
-              <figcaption class="tiny muted">{{ r.author }} · {{ r.where }}</figcaption>
-            </figure>
-          </sc-for>
+          <sc-if value="{{ problemClosed }}" hint-placeholder-val="{{ true }}">
+            <p class="small muted">Had a problem with this company? <button type="button" class="btn btn-ghost btn-sm" onClick="{{ openProblem }}" style="display: inline-flex; min-height: 0; padding: 0; color: var(--color-accent);">Report a problem</button></p>
+          </sc-if>
+          <sc-if value="{{ problemOpen }}" hint-placeholder-val="{{ false }}">
+            <form class="card stack" onSubmit="{{ sendProblem }}" style="gap: 14px;">
+              <h3 class="h4">Report a problem with {{ sel.shortName }}</h3>
+              <label class="field">What happened?
+                <select class="input"><option>Final bill much higher than quoted</option><option>Didn't show up</option><option>Poor or unfinished work</option><option>Rude or unsafe behavior</option><option>Other</option></select>
+              </label>
+              <label class="field">Details<textarea class="input" required=""></textarea></label>
+              <label class="field">Your phone or email (so we can follow up)<input class="input" required=""></label>
+              <div class="row"><button type="submit" class="btn btn-dark">Send report</button><span class="tiny muted">We follow up with the company. Repeated problems get a company removed.</span></div>
+            </form>
+          </sc-if>
+          <sc-if value="{{ problemSent }}" hint-placeholder-val="{{ false }}"><p class="notice notice-ok">Thanks for telling us. We'll look into it and follow up with you.</p></sc-if>
         </section>
       </div>
 
-      <aside class="card stack" style="flex: 1 1 320px; max-width: 440px; position: sticky; top: 84px;" id="quote">
-        <a class="btn btn-primary btn-block" href="{{ sel.callHref }}" style="min-height: 58px; font-size: 19px;">Call {{ sel.phone }}</a>
-        <sc-if value="{{ quoteOpen }}" hint-placeholder-val="{{ true }}">
-          <form onSubmit="{{ sendQuote }}" class="stack" style="gap: 14px;">
-            <h2 class="h4">Or ask for a free quote</h2>
-            <label class="field">Your name<input class="input" required="" autoComplete="name"></label>
-            <label class="field">Phone<input class="input" type="tel" required="" autoComplete="tel"></label>
-            <label class="field">ZIP code<input class="input" inputMode="numeric" maxLength="5" autoComplete="postal-code"></label>
-            <label class="field">What's wrong?
-              <select class="input">
-                <sc-for list="{{ sel.services }}" as="s" hint-placeholder-count="4"><option>{{ s }}</option></sc-for>
-                <option>Not sure</option>
-              </select>
-            </label>
-            <label class="field">Details (door size, how old, photos help)<textarea class="input"></textarea></label>
-            <button type="submit" class="btn btn-secondary btn-block">Send to {{ sel.shortName }}</button>
-            <span class="tiny muted">Free for homeowners. Your details go only to this company.</span>
-          </form>
-        </sc-if>
-        <sc-if value="{{ quoteSent }}" hint-placeholder-val="{{ false }}">
-          <div class="notice notice-ok stack-sm" style="display: flex;">
-            <strong>Request sent.</strong>
-            <span>{{ sel.shortName }} usually replies within {{ sel.reply }}.</span>
-          </div>
-          <a class="btn btn-ghost" href="/pros" onClick="{{ goBack }}" style="align-self: flex-start;">Compare more pros</a>
-        </sc-if>
+      <aside class="price-panel only-desk" style="flex: 1 1 300px; max-width: 380px; position: sticky; top: 92px;">
+        <span class="label">Call {{ sel.shortName }} directly</span>
+        <a class="btn btn-primary btn-block" href="{{ sel.callHref }}" style="min-height: 56px; font-size: 18px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>{{ sel.phone }}
+        </a>
+        <p class="small muted">{{ sel.responseText }} · {{ sel.hours }}</p>
+        <hr style="border: 0; border-top: 1px solid var(--color-divider); margin: 4px 0;">
+        <p class="small"><strong>Tip:</strong> mention what's wrong and your door size. Ask for their price range before they come out.</p>
+        <button type="button" class="{{ sel.compareCls }}" onClick="{{ sel.toggleCompare }}" style="align-self: flex-start;">{{ sel.compareLabel }}</button>
       </aside>
     </div>
   </div>
   <div class="callbar only-phone">
-    <div class="row" style="flex-wrap: nowrap;">
-      <a class="btn btn-primary" href="{{ sel.callHref }}" style="flex: 1;">Call {{ sel.phone }}</a>
-      <a class="btn btn-secondary" href="#quote">Quote</a>
-    </div>
+    <a class="btn btn-primary btn-block" href="{{ sel.callHref }}">Call {{ sel.phone }}</a>
   </div>
 </sc-if>
 
@@ -761,20 +833,32 @@
   <div class="wrap page grid-2" style="gap: 40px; align-items: start;">
     <div class="stack">
             <h1 class="h1 h1-sm">Get found by Florida homeowners who need a repair.</h1>
-      <p class="lead">Homeowners arrive already knowing what's wrong and what it should cost, so your calls are ready to book. Listing is free, but every company must pass our checks and post a price range for every service.</p>
+      <p class="lead">Homeowners arrive already knowing what's wrong and what it should cost, so your calls are ready to book. They call you directly; we don't sell leads.</p>
+      <div class="grid-2" style="gap: 12px;">
+        <div class="card stack-sm">
+          <span class="h4">Basic listing</span>
+          <span class="price-big" style="font-size: 28px;">Free</span>
+          <span class="small muted">Any real Florida business with a working phone. Your company page, repairs, prices and service area.</span>
+        </div>
+        <div class="card card-accent stack-sm">
+          <span class="h4">Verified badge</span>
+          <span class="price-big" style="font-size: 28px;">Free</span>
+          <span class="small muted">Pass our full checks to get the badge and rank higher in “Best match”.</span>
+        </div>
+      </div>
       <div class="card stack-sm">
-        <h2 class="h4">To be listed you need</h2>
+        <h2 class="h4">To get Verified</h2>
         <ul class="checklist small">
           <li>Valid insurance (we confirm it with the insurer)</li>
           <li>Active Florida business registration (Sunbiz)</li>
           <li>A Florida license where the work requires one</li>
-          <li>A real Florida address and owner ID check</li>
           <li>Posted price ranges for every repair you list</li>
+          <li>Re-checked every 90 days</li>
         </ul>
       </div>
-      <div class="grid-2" style="gap: 12px;">
-        <div class="card stack-sm"><span class="h4">Basic</span><span class="price-big" style="font-size: 32px;">Free</span><span class="small muted">Profile, phone, services, service area, 1 photo</span></div>
-        <div class="card card-accent stack-sm"><span class="h4">Featured</span><span class="price-big" style="font-size: 32px;">$49/mo</span><span class="small muted">Top of your city (labeled Ad), highlighted map pin, 5 photos</span></div>
+      <div class="card card-soft stack-sm">
+        <h2 class="h4">Optional upgrades, free during launch</h2>
+        <p class="small muted"><strong style="color: var(--color-text);">Featured:</strong> top of your city, always labeled “Ad”. <strong style="color: var(--color-text);">Premium profile:</strong> before-and-after photos, repair videos and a “why choose us” section.</p>
       </div>
     </div>
     <div class="card">
@@ -793,12 +877,12 @@
           <label class="field">Cities you serve<input class="input" placeholder="Tampa, Brandon, Riverview…"></label>
           <label class="field">Repairs and price ranges<textarea class="input" required="" placeholder="Roller replacement $150–$250; Track repair $120–$200…"></textarea></label>
           <label class="field">Florida license # (if any)<input class="input"></label>
-          <label class="field">Insurance certificate<input class="input" type="file" accept=".pdf,image/*" required=""></label>
+          <label class="field">Insurance certificate (for Verified)<input class="input" type="file" accept=".pdf,image/*"></label>
           <div class="stack-sm">
             <span class="tiny muted" style="font-weight: 700;">Plan</span>
             <div class="seg" style="align-self: flex-start; flex-wrap: wrap;">
-              <label class="seg-opt"><input type="radio" name="plan" checked="{{ planFree }}" onChange="{{ pickFree }}">Basic · free</label>
-              <label class="seg-opt"><input type="radio" name="plan" checked="{{ planFeatured }}" onChange="{{ pickFeatured }}">Featured · $49/mo</label>
+              <label class="seg-opt"><input type="radio" name="plan" checked="{{ planFree }}" onChange="{{ pickFree }}">Basic listing</label>
+              <label class="seg-opt"><input type="radio" name="plan" checked="{{ planFeatured }}" onChange="{{ pickFeatured }}">Interested in Featured / Premium</label>
             </div>
           </div>
           <button type="submit" class="btn btn-primary btn-block">Submit application</button>
@@ -844,7 +928,9 @@
       </nav>
       <nav class="stack-sm" aria-label="More">
         <strong class="small">More</strong>
-        <a class="small" href="/cost" onClick="{{ goPrices }}">Repair price guide</a>
+        <a class="small" href="/cost" onClick="{{ goPrices }}">Price guide &amp; calculator</a>
+        <a class="small" href="/cost#checker" onClick="{{ goPrices }}">Is my quote fair?</a>
+        <a class="small" href="/repair-or-replace" onClick="{{ goDecide }}">Repair or replace?</a>
         <a class="small" href="/pros" onClick="{{ goAll }}">Find a pro</a>
         <a class="small" href="/compare" onClick="{{ goCompare }}">Compare pros</a>
         <a class="small" href="/list-your-business" onClick="{{ goList }}">List your business</a>
@@ -872,7 +958,6 @@ const SERVICE_INFO = {
 const BASE = { 'Rollers': [150, 250], 'Tracks': [120, 220], 'Glass replacement': [350, 800], 'Locks & handles': [85, 180], 'Screen doors': [60, 150], 'Impact doors': [600, 1800], 'Weatherstripping': [90, 180] };
 const DOORS = ['2-panel, 6 ft', '2-panel, 8 ft', '3-panel', '4-panel / multi-slide', 'Pocket slider', 'Impact-rated slider'];
 const MONTHS = ['Oct 2026', 'Sep 2026', 'Sep 2026', 'Aug 2026', 'Jul 2026', 'Jun 2026', 'May 2026'];
-const CITIES = [['Miami', 'Miami-Dade'], ['Tampa', 'Hillsborough'], ['Orlando', 'Orange'], ['Jacksonville', 'Duval'], ['Fort Lauderdale', 'Broward'], ['West Palm Beach', 'Palm Beach'], ['St. Petersburg', 'Pinellas'], ['Sarasota', 'Sarasota'], ['Naples', 'Collier'], ['Fort Myers', 'Lee'], ['Tallahassee', 'Leon'], ['Pensacola', 'Escambia']];
 const VET = [
   { label: 'Insurance', how: 'confirmed with the insurer, not just uploaded' },
   { label: 'Florida license', how: 'looked up on DBPR wherever the work requires one' },
@@ -977,22 +1062,40 @@ const SYMPTOMS = [
     replace: 'Sometimes. If the frame is bent or the opening is out of square, replacement may be needed. A pro can tell you after an inspection.' }
 ];
 
-const COMPANIES = [
-  { id: 1, name: 'Gulf Glide Door Repair', city: 'Tampa', county: 'Hillsborough', zip: '33602', lat: 27.9506, lng: -82.4572, rating: 4.9, reviews: 212, featured: true, emergency: true, licensed: true, years: 14, price: '$$', phone: '(813) 555-0142', services: ['Rollers', 'Tracks', 'Glass replacement', 'Locks & handles', 'Weatherstripping'], areas: ['Tampa', 'Brandon', 'Riverview', 'Wesley Chapel'], blurb: 'Family-run crew covering the Tampa Bay area. Known for same-week roller and track repairs and clear, upfront pricing.' },
-  { id: 2, name: 'Biscayne Slider Co.', city: 'Miami', county: 'Miami-Dade', zip: '33131', lat: 25.7617, lng: -80.1918, rating: 4.8, reviews: 388, featured: true, emergency: true, licensed: true, years: 19, price: '$$$', phone: '(305) 555-0188', services: ['Rollers', 'Tracks', 'Impact doors', 'Glass replacement', 'Locks & handles'], areas: ['Miami', 'Coral Gables', 'Miami Beach', 'Hialeah', 'Doral'], blurb: 'High-rise and impact door specialists. Condo board approved, with 24/7 storm response.' },
-  { id: 3, name: 'Orange Blossom Door Works', city: 'Orlando', county: 'Orange', zip: '32801', lat: 28.5384, lng: -81.3789, rating: 4.7, reviews: 156, featured: false, emergency: false, licensed: true, years: 9, price: '$$', phone: '(407) 555-0117', services: ['Rollers', 'Tracks', 'Screen doors', 'Weatherstripping'], areas: ['Orlando', 'Winter Park', 'Kissimmee', 'Sanford', 'Lake Nona'], blurb: 'Central Florida repair team focused on homes and rentals. Most jobs finished in one visit.' },
-  { id: 4, name: 'First Coast Track & Roller', city: 'Jacksonville', county: 'Duval', zip: '32202', lat: 30.3322, lng: -81.6557, rating: 4.8, reviews: 201, featured: true, emergency: true, licensed: true, years: 22, price: '$$', phone: '(904) 555-0163', services: ['Rollers', 'Tracks', 'Locks & handles', 'Screen doors'], areas: ['Jacksonville', 'Orange Park', 'Ponte Vedra', 'Fernandina Beach'], blurb: 'Over two decades fixing sliding doors across Northeast Florida. Stainless parts for coastal homes.' },
-  { id: 5, name: 'Las Olas Glass & Slider', city: 'Fort Lauderdale', county: 'Broward', zip: '33301', lat: 26.1224, lng: -80.1373, rating: 4.6, reviews: 97, featured: false, emergency: true, licensed: true, years: 7, price: '$$$', phone: '(954) 555-0129', services: ['Glass replacement', 'Impact doors', 'Locks & handles', 'Tracks'], areas: ['Fort Lauderdale', 'Hollywood', 'Pompano Beach', 'Plantation'], blurb: 'Glass and impact door repair for Broward homes and condos, including insurance paperwork.' },
-  { id: 6, name: 'Palm Coast Patio Doors', city: 'West Palm Beach', county: 'Palm Beach', zip: '33401', lat: 26.7153, lng: -80.0534, rating: 4.9, reviews: 143, featured: false, emergency: false, licensed: true, years: 11, price: '$$', phone: '(561) 555-0175', services: ['Rollers', 'Tracks', 'Screen doors', 'Weatherstripping', 'Glass replacement'], areas: ['West Palm Beach', 'Boca Raton', 'Jupiter', 'Wellington'], blurb: 'Patio door repair across Palm Beach County, from roller swaps to full seal replacements.' },
-  { id: 7, name: 'Suncoast Slide Fix', city: 'Sarasota', county: 'Sarasota', zip: '34236', lat: 27.3364, lng: -82.5307, rating: 4.7, reviews: 88, featured: false, emergency: false, licensed: true, years: 6, price: '$', phone: '(941) 555-0151', services: ['Rollers', 'Tracks', 'Screen doors'], areas: ['Sarasota', 'Bradenton', 'Venice', 'Lakewood Ranch'], blurb: 'Budget-friendly roller and track service with a free service call when you hire.' },
-  { id: 8, name: 'Naples Door Doctor', city: 'Naples', county: 'Collier', zip: '34102', lat: 26.142, lng: -81.7948, rating: 4.8, reviews: 119, featured: false, emergency: true, licensed: true, years: 15, price: '$$$', phone: '(239) 555-0194', services: ['Impact doors', 'Glass replacement', 'Rollers', 'Locks & handles'], areas: ['Naples', 'Marco Island', 'Bonita Springs', 'Estero'], blurb: 'Large and impact-rated doors for Southwest Florida homes, with storm-season emergency service.' },
-  { id: 9, name: 'Caloosa Roller Repair', city: 'Fort Myers', county: 'Lee', zip: '33901', lat: 26.6406, lng: -81.8723, rating: 4.5, reviews: 64, featured: false, emergency: true, licensed: false, years: 4, price: '$', phone: '(239) 555-0108', services: ['Rollers', 'Tracks', 'Weatherstripping'], areas: ['Fort Myers', 'Cape Coral', 'Lehigh Acres'], blurb: 'Fast roller swaps and track cleaning. Evening and weekend visits available.' },
-  { id: 10, name: 'Pinellas Pane & Track', city: 'St. Petersburg', county: 'Pinellas', zip: '33701', lat: 27.7676, lng: -82.6403, rating: 4.6, reviews: 132, featured: false, emergency: false, licensed: true, years: 12, price: '$$', phone: '(727) 555-0136', services: ['Glass replacement', 'Tracks', 'Rollers', 'Locks & handles'], areas: ['St. Petersburg', 'Clearwater', 'Largo', 'Dunedin'], blurb: 'Glass and track repair across Pinellas County. Known for careful work in older homes.' },
-  { id: 11, name: 'Capital City Sliders', city: 'Tallahassee', county: 'Leon', zip: '32301', lat: 30.4383, lng: -84.2807, rating: 4.7, reviews: 58, featured: false, emergency: false, licensed: true, years: 8, price: '$', phone: '(850) 555-0147', services: ['Rollers', 'Locks & handles', 'Screen doors'], areas: ['Tallahassee', 'Crawfordville', 'Quincy'], blurb: 'Student rentals, apartments and homes. Affordable roller, lock and screen repairs.' },
-  { id: 12, name: 'Emerald Coast Door Service', city: 'Pensacola', county: 'Escambia', zip: '32502', lat: 30.4213, lng: -87.2169, rating: 4.8, reviews: 77, featured: false, emergency: true, licensed: true, years: 17, price: '$$', phone: '(850) 555-0182', services: ['Impact doors', 'Rollers', 'Tracks', 'Weatherstripping'], areas: ['Pensacola', 'Navarre', 'Gulf Breeze', 'Destin'], blurb: 'Panhandle storm and impact door specialists with emergency board-up service.' },
-  { id: 13, name: 'Space Coast Glide', city: 'Melbourne', county: 'Brevard', zip: '32901', lat: 28.0836, lng: -80.6081, rating: 4.6, reviews: 71, featured: false, emergency: false, licensed: true, years: 5, price: '$$', phone: '(321) 555-0110', services: ['Rollers', 'Tracks', 'Screen doors', 'Glass replacement'], areas: ['Melbourne', 'Palm Bay', 'Cocoa Beach', 'Titusville'], blurb: 'Beachside homes and condos on the Space Coast. Stainless parts that stand up to salt air.' },
-  { id: 14, name: 'Kendall Track Masters', city: 'Miami', county: 'Miami-Dade', zip: '33156', lat: 25.6793, lng: -80.3173, rating: 4.4, reviews: 45, featured: false, emergency: true, licensed: false, years: 3, price: '$', phone: '(786) 555-0121', services: ['Rollers', 'Tracks', 'Locks & handles'], areas: ['Kendall', 'Pinecrest', 'Homestead', 'Cutler Bay'], blurb: 'Affordable roller and track repair in South Miami-Dade.' }
-];
+// Companies come from data/companies.csv (one row per company). Price columns
+// hold "low-high" for each repair the company does; leave blank if they don't.
+const KEYS = { rollers: 'Rollers', tracks: 'Tracks', glass: 'Glass replacement', locks: 'Locks & handles', screens: 'Screen doors', impact: 'Impact doors', leaks: 'Weatherstripping' };
+const yes = (v) => /^(y|yes|true|1)$/i.test(String(v || '').trim());
+const list = (v) => String(v || '').split(/[;\n]/).map((x) => x.trim()).filter(Boolean);
+const num = (v, d) => { const n = parseFloat(String(v || '').replace(/[^0-9.\-]/g, '')); return Number.isFinite(n) ? n : d; };
+// Approximate centers of Florida cities, for distance when a row has no lat/lng.
+const FL_COORDS = { 'miami': [25.76, -80.19], 'tampa': [27.95, -82.46], 'orlando': [28.54, -81.38], 'jacksonville': [30.33, -81.66], 'fort lauderdale': [26.12, -80.14], 'west palm beach': [26.72, -80.05], 'st. petersburg': [27.77, -82.64], 'sarasota': [27.34, -82.53], 'naples': [26.14, -81.79], 'fort myers': [26.64, -81.87], 'tallahassee': [30.44, -84.28], 'pensacola': [30.42, -87.22], 'melbourne': [28.08, -80.61], 'daytona beach': [29.21, -81.02], 'gainesville': [29.65, -82.32], 'ocala': [29.19, -82.14], 'lakeland': [28.04, -81.95], 'port st. lucie': [27.27, -80.35], 'cape coral': [26.56, -81.95], 'clearwater': [27.97, -82.8], 'boca raton': [26.37, -80.1], 'hollywood': [26.01, -80.15], 'kissimmee': [28.29, -81.41], 'palm bay': [28.03, -80.59], 'bradenton': [27.5, -82.57], 'panama city': [30.16, -85.66], 'st. augustine': [29.89, -81.31], 'palm coast': [29.58, -81.21], 'sanford': [28.8, -81.27], 'deltona': [28.9, -81.26], 'port orange': [29.14, -80.99], 'winter park': [28.6, -81.34], 'brandon': [27.94, -82.29], 'hialeah': [25.86, -80.28], 'coral gables': [25.72, -80.27], 'miami beach': [25.79, -80.13], 'kendall': [25.68, -80.32], 'homestead': [25.47, -80.48], 'destin': [30.39, -86.5], 'key west': [24.56, -81.78] };
+
+function normalizeCompany(r, i) {
+  const prices = [];
+  for (const k in KEYS) {
+    const m = String(r[k] || '').match(/(\d[\d,]*)\s*[-–]\s*(\d[\d,]*)/);
+    if (m) prices.push({ service: KEYS[k], lo: num(m[1]), hi: num(m[2]), reports: [] });
+  }
+  const services = prices.map((p) => p.service);
+  const ratio = prices.length ? prices.reduce((t, p) => t + (p.lo + p.hi) / (BASE[p.service][0] + BASE[p.service][1]), 0) / prices.length : 1;
+  const coords = FL_COORDS[String(r.city || '').toLowerCase()] || [null, null];
+  return {
+    id: i + 1, name: r.name, phone: r.phone, city: r.city, county: r.county || '', zip: r.zip || '',
+    lat: num(r.lat, coords[0]), lng: num(r.lng, coords[1]),
+    areas: list(r.service_area).length ? list(r.service_area) : [r.city],
+    prices, services, specialties: list(r.specialties).map((k) => KEYS[k.toLowerCase()] || k),
+    emergency: yes(r.emergency_24_7), hours: r.hours || '', responseHours: num(r.response_hours, null),
+    warranty: r.warranty || '', callout: r.callout_fee || '', years: num(r.years_in_business, null),
+    verified: yes(r.verified), license: r.license_number || '', licensed: !!r.license_number,
+    featured: yes(r.featured), premium: yes(r.premium),
+    rating: num(r.rating, null), reviews: num(r.review_count, 0), blurb: r.about || '',
+    logo: r.logo_url || '', photos: list(r.photo_urls), videos: list(r.video_urls),
+    price: ratio < 0.9 ? '$' : ratio > 1.15 ? '$$$' : '$$', sample: yes(r.sample)
+  };
+}
+const COMPANIES = (SITE_DATA.companies || []).map(normalizeCompany).filter((c) => c.name && c.phone);
+const VIDEOS = (SITE_DATA.videos || []).filter((v) => v.url);
 const REVIEWS = [
   { stars: '★★★★★', label: '5 out of 5 stars', text: 'Door had been grinding for a year. They replaced both rollers and straightened the track. It slides with one finger now, and the final bill matched the quote.', author: 'Dana R.' },
   { stars: '★★★★★', label: '5 out of 5 stars', text: 'Called at 7am after the storm, and the tech was here by noon. The price was inside the range on their profile, and he explained everything before starting.', author: 'Marco P.' },
@@ -1003,40 +1106,53 @@ const slugify = (s) => s.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/
 const money = (v) => (v == null ? '—' : '$' + v.toLocaleString('en-US'));
 const median = (arr) => { const a = [...arr].sort((x, y) => x - y); return a[Math.floor(a.length / 2)]; };
 COMPANIES.forEach((c) => { c.slug = slugify(c.name); });
-CITIES.forEach((c) => { c.push(slugify(c[0])); });
+// One city page per city a listed company is based in, busiest first.
+const CITIES = [...new Map(COMPANIES.map((c) => [c.city, c.county])).entries()]
+  .map(([name, county]) => [name, county, slugify(name), COMPANIES.filter((c) => c.city === name || c.areas.includes(name)).length])
+  .sort((a, b) => b[3] - a[3] || a[0].localeCompare(b[0]));
 
 // Sample price reports, generated deterministically per company.
+// Price reports. Sample rows get generated example reports; real companies
+// start with none until homeowners send reports in.
 (function buildReports() {
-  const tier = { '$': 0.8, '$$': 1, '$$$': 1.3 };
   const r5 = (v) => Math.round(v / 5) * 5;
   COMPANIES.forEach((c) => {
-    let seed = c.id * 9301 + 49297;
-    const rnd = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
-    const target = 0.72 + (c.rating - 4.4) * 0.45;
-    c.prices = c.services.map((s) => {
-      const lo = r5(BASE[s][0] * tier[c.price]), hi = r5(BASE[s][1] * tier[c.price]);
-      const n = 3 + Math.floor(rnd() * 6);
-      const reports = [];
-      for (let i = 0; i < n; i++) {
-        const within = rnd() < target;
-        const paid = within ? r5(lo + rnd() * (hi - lo)) : r5(hi * (1.06 + rnd() * 0.3));
-        const quoted = within ? (rnd() < 0.8 ? paid : r5(paid * 0.92)) : r5(hi * (0.9 + rnd() * 0.1));
-        reports.push({ service: s, paid, quoted, within, receipt: rnd() < 0.6, door: DOORS[Math.floor(rnd() * DOORS.length)], where: c.areas[Math.floor(rnd() * c.areas.length)], date: MONTHS[Math.floor(rnd() * MONTHS.length)] });
-      }
-      return { service: s, lo, hi, reports };
-    });
+    if (c.sample) {
+      let seed = c.id * 9301 + 49297;
+      const rnd = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
+      const target = 0.72 + ((c.rating || 4.5) - 4.4) * 0.45;
+      c.prices.forEach((p) => {
+        const n = 3 + Math.floor(rnd() * 6);
+        for (let i = 0; i < n; i++) {
+          const within = rnd() < target;
+          const paid = within ? r5(p.lo + rnd() * (p.hi - p.lo)) : r5(p.hi * (1.06 + rnd() * 0.3));
+          const quoted = within ? (rnd() < 0.8 ? paid : r5(paid * 0.92)) : r5(p.hi * (0.9 + rnd() * 0.1));
+          p.reports.push({ service: p.service, paid, quoted, within, receipt: rnd() < 0.6, door: DOORS[Math.floor(rnd() * DOORS.length)], where: c.areas[Math.floor(rnd() * c.areas.length)], date: MONTHS[Math.floor(rnd() * MONTHS.length)] });
+        }
+      });
+    }
     c.reports = c.prices.flatMap((p) => p.reports);
-    c.honesty = Math.round(100 * c.reports.filter((r) => r.within).length / c.reports.length);
+    c.honesty = c.reports.length ? Math.round(100 * c.reports.filter((r) => r.within).length / c.reports.length) : null;
   });
 })();
 const ALL_REPORTS = COMPANIES.flatMap((c) => c.reports);
 const PRICE_STATS = {};
+const PRICE_NUM = {};
 SERVICES.forEach((name) => {
-  const v = ALL_REPORTS.filter((r) => r.service === name).map((r) => r.paid).sort((a, b) => a - b);
+  let v = ALL_REPORTS.filter((r) => r.service === name).map((r) => r.paid).sort((a, b) => a - b);
+  if (v.length < 5) v = [BASE[name][0], (BASE[name][0] + BASE[name][1]) / 2, BASE[name][1]];
   const at = (f) => v[Math.min(v.length - 1, Math.floor(v.length * f))];
-  PRICE_STATS[name] = { median: money(at(0.5)), range: `${money(at(0.1))}–${money(at(0.9))}`, count: v.length };
+  PRICE_NUM[name] = { p10: at(0.1), p50: at(0.5), p90: at(0.9) };
+  PRICE_STATS[name] = { median: money(at(0.5)), range: `${money(at(0.1))}–${money(at(0.9))}`, count: ALL_REPORTS.filter((r) => r.service === name).length };
 });
-
+const miles = (a, b) => {
+  if (a[0] == null || b[0] == null) return null;
+  const R = 3959, rad = (d) => d * Math.PI / 180;
+  const dLat = rad(b[0] - a[0]), dLng = rad(b[1] - a[1]);
+  const h = Math.sin(dLat / 2) ** 2 + Math.cos(rad(a[0])) * Math.cos(rad(b[0])) * Math.sin(dLng / 2) ** 2;
+  return 2 * R * Math.asin(Math.sqrt(h));
+};
+const responseText = (h) => (h == null ? '' : h <= 1 ? 'Usually answers within 1 hour' : h <= 4 ? `Usually answers within ${h} hours` : h <= 24 ? 'Usually answers the same day' : 'Usually answers within a few days');
 const CAUSES = { 'hard-to-slide': 'Usually worn rollers', 'noisy': 'Worn or broken rollers', 'off-track': 'Bent or worn track', 'wont-lock': 'Sagging door or a worn lock', 'leaking': 'Dried-out seals or clogged drains', 'glass': 'The glass unit needs replacing', 'screen': 'Worn screen rollers or torn mesh', 'storm': 'Make it safe, then call a 24/7 pro' };
 SYMPTOMS.forEach((s) => { s.cause = CAUSES[s.id]; });
 const PARTS = [['Rollers', 'hard-to-slide'], ['Track', 'off-track'], ['Lock & handle', 'wont-lock'], ['Seals & drains', 'leaking'], ['Glass', 'glass']];
@@ -1080,6 +1196,7 @@ function ROUTE_LIST() {
   r.push({ path: '/', initial: { view: 'home' }, title: 'Sliding Glass Door Repair in Florida | Checked Pros & Fair Prices | SlideRepairFL', description: 'What’s wrong with your sliding door? Plain-English answers, fair Florida repair prices and checked local pros for rollers, tracks, locks, leaks, glass and storm damage.', jsonld: homeJsonLd() });
   r.push({ path: '/cost', initial: { view: 'prices' }, title: 'Sliding Glass Door Repair Cost in Florida (2026 Prices) | SlideRepairFL', description: `What Florida homeowners actually paid for sliding door repairs: rollers ${PRICE_STATS['Rollers'].range}, tracks ${PRICE_STATS['Tracks'].range}, locks, glass, leaks and impact doors.`, jsonld: faqJsonLd(PRICE_FAQ) });
   SYMPTOMS.forEach((s) => r.push({ path: symptomPath(s), initial: { view: 'guide', symptom: s.id }, title: s.seoTitle + ' | SlideRepairFL', description: `${s.explain.split('. ').slice(0, 2).join('. ')}. See fair Florida prices and checked pros.`, jsonld: faqJsonLd(symptomFaq(s)) }));
+  r.push({ path: '/repair-or-replace', initial: { view: 'decide' }, title: 'Repair or Replace a Sliding Glass Door? Quick Florida Guide | SlideRepairFL', description: 'Answer four quick questions to see whether repairing or replacing your sliding glass door makes more sense, with Florida repair prices.' });
   r.push({ path: '/pros', initial: { view: 'results' }, title: 'Find a Sliding Glass Door Repair Pro in Florida | SlideRepairFL', description: 'Checked sliding glass door repair companies across Florida. Compare ratings, posted prices and what homeowners actually paid, then call direct.' });
   CITIES.forEach(([name, county, slug]) => {
     const n = COMPANIES.filter((c) => c.city === name || c.areas.includes(name)).length;
@@ -1087,11 +1204,11 @@ function ROUTE_LIST() {
   });
   COMPANIES.forEach((c) => r.push({ path: proPath(c), initial: { view: 'profile', selectedId: c.id }, title: `${c.name} — Sliding Door Repair in ${c.city}, FL | SlideRepairFL`, description: `${c.name}: ★ ${c.rating.toFixed(1)} from ${c.reviews} reviews. ${c.services.join(', ')} in ${c.areas.join(', ')}. Checked by SlideRepairFL, with posted prices.` }));
   r.push({ path: '/compare', initial: { view: 'compare' }, title: 'Compare Sliding Door Repair Pros | SlideRepairFL', description: 'Compare up to three Florida sliding door repair pros side by side.', noindex: true });
-  r.push({ path: '/list-your-business', initial: { view: 'list' }, title: 'List Your Sliding Door Repair Business in Florida | SlideRepairFL', description: 'Get found by Florida homeowners who need sliding door repair. Free listing for checked, insured companies that post their prices.' });
+  r.push({ path: '/list-your-business', initial: { view: 'list' }, title: 'List Your Sliding Door Repair Business in Florida | SlideRepairFL', description: 'List your sliding door repair business free. Get a Verified badge, rank higher and get direct calls from Florida homeowners.' });
   return r;
 }
 
-const DEFAULTS = { view: 'home', symptom: null, heroSymptom: '', query: '', service: 'All services', price: 'Any', emergency: false, sort: 'rating', mode: 'list', selectedId: null, compare: [], quoteSent: false, report: 'closed', listSent: false, plan: 'free' };
+const DEFAULTS = { view: 'home', symptom: null, heroSymptom: '', query: '', service: 'All services', price: 'Any', emergency: false, verifiedOnly: false, sort: 'best', mode: 'list', selectedId: null, compare: [], report: 'closed', problem: 'closed', review: 'closed', listSent: false, plan: 'free', calcService: 'Rollers', calcSize: 'standard', calcType: 'standard', checkService: 'Rollers', checkAmount: '', dAge: '', dFrame: '', dGlass: '', dGoal: '' };
 
 // ---------------------------------------------------------------------------
 // Component
@@ -1125,7 +1242,7 @@ class Component extends DCLogic {
   }
   componentDidUpdate() { this.sendMap(); }
   sendMap() {
-    const items = (this._mapItems || []).map((c) => ({ id: c.id, name: c.name, lat: c.lat, lng: c.lng, ratingText: c.ratingText, reviewsText: c.reviewsText, price: c.honestyText + ' at quoted price', location: c.location, phone: c.phone, callHref: c.callHref, isFeatured: c.isFeatured }));
+    const items = (this._mapItems || []).map((c) => ({ id: c.id, name: c.name, lat: c.lat, lng: c.lng, ratingText: c.ratingText, reviewsText: c.reviewsText, price: c.honestyLine, location: c.location, phone: c.phone, callHref: c.callHref, isFeatured: c.isFeatured }));
     document.querySelectorAll('iframe[data-srfl-map]').forEach((f) => f.contentWindow && f.contentWindow.postMessage({ type: 'srfl-companies', items }, '*'));
   }
 
@@ -1137,6 +1254,7 @@ class Component extends DCLogic {
     if (s.view === 'profile') { const c = COMPANIES.find((x) => x.id === s.selectedId); return c ? proPath(c) : '/pros'; }
     if (s.view === 'compare') return '/compare';
     if (s.view === 'list') return '/list-your-business';
+    if (s.view === 'decide') return '/repair-or-replace';
     const city = CITIES.find(([name]) => name.toLowerCase() === (s.query || '').trim().toLowerCase());
     return city ? cityPath(city[2]) : '/pros';
   }
@@ -1156,7 +1274,7 @@ class Component extends DCLogic {
     if (this.state.view !== 'home') this.go('home');
     setTimeout(() => { const el = document.getElementById(id); if (el) window.scrollTo(0, el.getBoundingClientRect().top + window.scrollY - 72); }, 60);
   }
-  openProfile(id) { this.go('profile', { selectedId: id, quoteSent: false, report: 'closed' }); }
+  openProfile(id) { this.go('profile', { selectedId: id, report: 'closed', problem: 'closed', review: 'closed' }); }
   pickSymptom(id) { this.go('guide', { symptom: id }); }
   toggleCompare(id) {
     this.setState((s) => ({ compare: s.compare.includes(id) ? s.compare.filter((x) => x !== id) : (s.compare.length < 3 ? [...s.compare, id] : s.compare) }));
@@ -1171,19 +1289,20 @@ class Component extends DCLogic {
     if (s.service !== 'All services' && !c.services.includes(s.service)) return false;
     if (s.price !== 'Any' && c.price !== s.price) return false;
     if (s.emergency && !c.emergency) return false;
+    if (s.verifiedOnly && !c.verified) return false;
     return true;
   }
 
   decorate(c, showFeatured, compare, service) {
-    const checks = ['Oct 2026', 'Sep 2026', 'Aug 2026'][c.id % 3];
+    const checks = c.verified ? ['Oct 2026', 'Sep 2026', 'Aug 2026'][c.id % 3] : '';
     const next = ['Jan 2027', 'Dec 2026', 'Nov 2026'][c.id % 3];
     const ins = ['Mar 2027', 'Jun 2027', 'Feb 2027', 'Nov 2027'][c.id % 4];
-    const shown = c.prices.find((p) => p.service === service) || c.prices[0];
+    const shown = c.prices.find((p) => p.service === service) || c.prices[0] || { service: 'Rollers', lo: 0, hi: 0, reports: [] };
     const prices = c.prices.map((p) => {
       const all = [p.lo, p.hi, ...p.reports.map((r) => r.paid)];
       const min = Math.min(...all) * 0.85, max = Math.max(...all) * 1.08, pct = (v) => ((v - min) / (max - min) * 100).toFixed(1) + '%';
       return {
-        service: p.service, range: `${money(p.lo)}–${money(p.hi)}`, median: money(median(p.reports.map((r) => r.paid))),
+        service: p.service, range: `${money(p.lo)}–${money(p.hi)}`, median: p.reports.length ? money(median(p.reports.map((r) => r.paid))) : '—',
         countText: p.reports.length + ' reports', bandLeft: pct(p.lo), bandWidth: ((p.hi - p.lo) / (max - min) * 100).toFixed(1) + '%',
         dots: p.reports.map((r) => ({ left: pct(r.paid), color: r.within ? 'var(--color-accent-700)' : 'var(--color-warn)' }))
       };
@@ -1198,24 +1317,37 @@ class Component extends DCLogic {
       href: proPath(c),
       isFeatured: showFeatured && c.featured,
       location: `${c.city} · ${c.county} County`,
-      ratingText: c.rating.toFixed(1),
+      ratingText: c.rating != null ? c.rating.toFixed(1) : 'New',
       reviewsText: `${c.reviews} reviews`,
-      yearsText: `${c.years} years`,
+      yearsText: c.years != null ? `${c.years} years` : '—',
       areasText: c.areas.join(', '),
       callHref: 'tel:+1' + c.phone.replace(/\D/g, ''),
-      hours: c.emergency ? 'Open 24/7, incl. storms' : 'Mon–Sat, 7am–6pm',
-      callout: { '$': 'Free with repair', '$$': '$49, waived if hired', '$$$': '$89, waived if hired' }[c.price],
-      warranty: c.years >= 10 ? '1 year, parts & labor' : '90 days, parts & labor',
+      hours: c.hours || '—',
+      callout: c.callout || '—',
+      warranty: c.warranty || '—',
+      responseText: responseText(c.responseHours),
+      badgeLabel: c.verified ? 'Verified' : 'Basic listing',
+      badgeCls: c.verified ? 'tag tag-ok' : 'tag tag-ad',
+      licenseText: c.license ? `License ${c.license}` : '',
+      specialtiesText: c.specialties.join(', '),
+      hasSpecialties: c.specialties.length > 0,
+      showMedia: c.premium && (c.photos.length + c.videos.length) > 0,
+      photoList: c.premium ? c.photos.map((u, k) => ({ src: u, alt: `${c.name} sliding door repair job photo ${k + 1}` })) : [],
+      videoList: c.premium ? c.videos.map((u, k) => ({ url: u, label: `Watch repair video ${k + 1}` })) : [],
+      hasLogo: !!c.logo, noLogo: !c.logo, notVerified: !c.verified,
+      initials: c.name.split(' ').slice(0, 2).map((w) => w[0]).join(''),
+      distanceText: c.distance != null ? `${Math.round(c.distance)} mi away` : '',
       shortName: c.name.split(' ').slice(0, 2).join(' '),
       reply: c.emergency ? '1 hour' : '1 business day',
       lastCheck: checks, nextCheck: next,
-      honestyText: c.honesty + '%',
+      honestyText: c.honesty != null ? c.honesty + '%' : '—',
+      honestyLine: c.honesty != null ? `${c.honesty}% of jobs at the quoted price` : 'No price reports yet',
       reportCountText: `${c.reports.length} price reports`,
       priceLine: `${SERVICE_INFO[shown.service].label}: ${money(shown.lo)}–${money(shown.hi)}`,
       prices, reportsList,
       checks: [
         { label: 'Insurance', detail: `$1M general liability · confirmed with insurer · expires ${ins}` },
-        { label: 'Florida license', detail: c.licensed ? `Active on DBPR · checked ${checks}` : 'Not required for repair-only hardware work' },
+        { label: 'Florida license', detail: c.licensed ? `${c.license} · active on DBPR` : 'Not required for repair-only hardware work' },
         { label: 'Business registration', detail: 'Active on Sunbiz' },
         { label: 'Florida address', detail: `Confirmed in ${c.city}` },
         { label: 'Owner ID & background', detail: 'Passed' },
@@ -1229,6 +1361,60 @@ class Component extends DCLogic {
     });
   }
 
+  // Price calculator, fair-price checker and the repair-or-replace helper.
+  toolVals(s, set, nav) {
+    const r5 = (v) => Math.round(v / 5) * 5;
+    const size = { standard: 1, large: 1.2, multi: 1.45 }[s.calcSize] || 1;
+    const type = s.calcType === 'impact' && s.calcService !== 'Impact doors' ? 1.6 : 1;
+    const pn = PRICE_NUM[s.calcService];
+    const opts = (cur, pairs) => pairs.map(([value, label]) => ({ value, label, selected: cur === value }));
+
+    const ck = PRICE_NUM[s.checkService];
+    const amt = num(s.checkAmount, null);
+    let verdict = null;
+    if (amt != null && amt > 0) {
+      if (amt < ck.p10 * 0.85) verdict = { cls: 'notice notice-warn', title: 'Lower than usual', text: `Most Florida homeowners paid ${money(ck.p10)}–${money(ck.p90)}. A low quote can be fine, but ask exactly what's included and whether parts are stainless.` };
+      else if (amt <= ck.p90) verdict = { cls: 'notice notice-ok', title: 'A normal price', text: `That's within what most Florida homeowners paid (${money(ck.p10)}–${money(ck.p90)}). Middle price: ${money(ck.p50)}.` };
+      else if (amt <= ck.p90 * 1.3) verdict = { cls: 'notice notice-warn', title: 'A bit high', text: `Most paid ${money(ck.p10)}–${money(ck.p90)}. Large or impact doors cost more. Ask the pro what's driving the price.` };
+      else verdict = { cls: 'notice notice-warn', title: 'Much higher than usual', text: `Most paid ${money(ck.p10)}–${money(ck.p90)}. Get a second quote from a checked pro before you agree.` };
+    }
+
+    // Repair-or-replace: each answer adds points toward replacing.
+    const pts = { dAge: { new: 0, mid: 1, old: 2 }, dFrame: { good: 0, worn: 1, bad: 3 }, dGlass: { fine: 0, cracked: 1, fog: 1 }, dGoal: { fix: 0, upgrade: 3 } };
+    const answered = ['dAge', 'dFrame', 'dGlass', 'dGoal'].every((k) => s[k]);
+    const score = ['dAge', 'dFrame', 'dGlass', 'dGoal'].reduce((t, k) => t + (pts[k][s[k]] || 0), 0);
+    const result = !answered ? null
+      : score <= 2 ? { title: 'Repair it', cls: 'notice notice-ok', text: 'Your door sounds like a good candidate for repair. New rollers, a track cover, seals or a lock usually cost a few hundred dollars, far less than a new door.' }
+      : score <= 4 ? { title: 'Repair is likely enough', cls: 'notice notice-ok', text: 'Most of the door sounds sound. Start with a repair estimate; a good pro will tell you honestly if anything is beyond repair.' }
+      : { title: 'Replacement may make sense', cls: 'notice notice-warn', text: 'A bent or rotted frame, an old door, or wanting impact glass usually points to replacement. Ask a pro to inspect it and quote both options.' };
+    const q = (key, label, pairs) => ({ label, chips: pairs.map(([v, l]) => ({ label: l, cls: s[key] === v ? 'chip chip-on' : 'chip', onClick: () => set({ [key]: v }) })) });
+
+    return {
+      calcServiceOpts: opts(s.calcService, SERVICES.map((n) => [n, SERVICE_INFO[n].label])),
+      calcSizeOpts: opts(s.calcSize, [['standard', '2-panel, 6 ft (standard)'], ['large', '2-panel, 8 ft or tall'], ['multi', '3–4 panel / multi-slide']]),
+      calcTypeOpts: opts(s.calcType, [['standard', 'Standard glass'], ['impact', 'Impact-rated (hurricane)']]),
+      calcService: s.calcService, calcSize: s.calcSize, calcType: s.calcType,
+      onCalcService: (e) => set({ calcService: e.target.value }),
+      onCalcSize: (e) => set({ calcSize: e.target.value }),
+      onCalcType: (e) => set({ calcType: e.target.value }),
+      calcRange: `${money(r5(pn.p10 * size * type))}–${money(r5(pn.p90 * size * type))}`,
+      calcNote: `Typical middle price: ${money(r5(pn.p50 * size * type))}. Estimate only; your pro confirms the price after seeing the door.`,
+      checkServiceOpts: opts(s.checkService, SERVICES.map((n) => [n, SERVICE_INFO[n].label])),
+      checkService: s.checkService, checkAmount: s.checkAmount,
+      onCheckService: (e) => set({ checkService: e.target.value }),
+      onCheckAmount: (e) => set({ checkAmount: e.target.value }),
+      hasVerdict: !!verdict, verdict: verdict || {},
+      decideQs: [
+        q('dAge', 'How old is the door?', [['new', 'Under 10 years'], ['mid', '10–20 years'], ['old', 'Over 20 years / not sure']]),
+        q('dFrame', 'How does the frame look?', [['good', 'Solid, no damage'], ['worn', 'Some rust or wear'], ['bad', 'Bent, rotted or cracked']]),
+        q('dGlass', 'And the glass?', [['fine', 'Clear and intact'], ['fog', 'Foggy between panes'], ['cracked', 'Cracked or broken']]),
+        q('dGoal', 'What do you want?', [['fix', 'Just make it work well'], ['upgrade', 'Upgrade (impact glass, efficiency, new look)']])
+      ],
+      hasDecision: !!result, decision: result || {},
+      resetDecide: () => set({ dAge: '', dFrame: '', dGlass: '', dGoal: '' })
+    };
+  }
+
   renderVals() {
     const s = this.state, p = this.props;
     const showFeatured = p.showFeatured ?? true;
@@ -1239,7 +1425,25 @@ class Component extends DCLogic {
     const activeService = s.view === 'guide' ? sym.service : s.service;
     const dec = (c) => this.decorate(c, showFeatured, s.compare, activeService);
     const tierN = { '$': 1, '$$': 2, '$$$': 3 };
-    const key = { rating: (a, b) => b.rating - a.rating || b.honesty - a.honesty, price: (a, b) => tierN[a.price] - tierN[b.price] || b.rating - a.rating, years: (a, b) => b.years - a.years }[s.sort];
+    // Distance from the searched city (if we know where it is).
+    const qLower = s.query.trim().toLowerCase();
+    const sameCity = COMPANIES.filter((c) => c.city.toLowerCase() === qLower && c.lat != null);
+    const origin = FL_COORDS[qLower] || (sameCity.length ? [sameCity[0].lat, sameCity[0].lng] : null);
+    COMPANIES.forEach((c) => { c.distance = origin ? miles(origin, [c.lat, c.lng]) : null; });
+    // Best match: reviews, price honesty, verification, response time,
+    // specialty for the chosen repair, and distance.
+    const svcFocus = s.view === 'guide' ? sym.service : s.service;
+    const best = (c) => (c.rating || 4) * 20 + Math.log10(c.reviews + 1) * 6 + (c.honesty != null ? c.honesty : 70) * 0.25
+      + (c.verified ? 12 : 0) + (c.specialties.includes(svcFocus) ? 10 : 0)
+      + (c.responseHours == null ? 0 : c.responseHours <= 1 ? 8 : c.responseHours <= 4 ? 5 : c.responseHours <= 24 ? 2 : 0)
+      - (c.distance != null ? Math.min(c.distance / 5, 25) : 0);
+    const key = {
+      best: (a, b) => best(b) - best(a),
+      rating: (a, b) => (b.rating || 0) - (a.rating || 0) || b.reviews - a.reviews,
+      price: (a, b) => tierN[a.price] - tierN[b.price] || (b.rating || 0) - (a.rating || 0),
+      near: (a, b) => (a.distance ?? 1e9) - (b.distance ?? 1e9),
+      fast: (a, b) => (a.responseHours ?? 1e9) - (b.responseHours ?? 1e9) || best(b) - best(a)
+    }[s.sort] || ((a, b) => best(b) - best(a));
     const rank = (list) => list.sort((a, b) => (showFeatured ? (b.featured - a.featured) : 0) || key(a, b));
     const results = rank(COMPANIES.filter((c) => this.matches(c, s))).map(dec);
     const all = COMPANIES.map(dec);
@@ -1264,8 +1468,10 @@ class Component extends DCLogic {
     const n = cmp.length;
     const compareRows = [
       { label: 'Rating', cells: cmp.map((c) => `★ ${c.ratingText} · ${c.reviewsText}`) },
-      { label: 'At quoted price', cells: cmp.map((c) => `${c.honestyText} of jobs`) },
-      { label: 'Last checked', cells: cmp.map((c) => c.lastCheck) },
+      { label: 'Listing', cells: cmp.map((c) => c.badgeLabel) },
+      { label: 'Price honesty', cells: cmp.map((c) => c.honestyLine) },
+      { label: 'Response', cells: cmp.map((c) => c.responseText || '—') },
+      { label: 'Hours', cells: cmp.map((c) => c.hours) },
       { label: 'Call-out fee', cells: cmp.map((c) => c.callout) },
       { label: 'Warranty', cells: cmp.map((c) => c.warranty) },
       { label: 'In business', cells: cmp.map((c) => c.yearsText) },
@@ -1280,6 +1486,8 @@ class Component extends DCLogic {
 
     return {
       showFeatured,
+      isDecide: s.view === 'decide',
+      goDecide: nav(() => this.go('decide')),
       isHome: s.view === 'home', isGuide: s.view === 'guide', isPrices: s.view === 'prices', isResults: s.view === 'results', isProfile: s.view === 'profile', isList: s.view === 'list', isCompare: s.view === 'compare',
       goHome: nav(() => this.go('home')),
       goAll: nav(() => this.go('results', { query: '', service: 'All services', price: 'Any', emergency: false, mode: 'list', symptom: null })),
@@ -1299,7 +1507,7 @@ class Component extends DCLogic {
       onHeroSymptom: (e) => set({ heroSymptom: e.target.value }),
       onHeroSearch: (e) => { e.preventDefault(); if (s.heroSymptom) this.pickSymptom(s.heroSymptom); else this.go('results', { service: 'All services', emergency: false, symptom: null }); },
       rollerPrice: PRICE_STATS['Rollers'].range,
-      topPro: all.slice().sort((a, b) => b.rating - a.rating || b.reviews - a.reviews)[0],
+      topPro: all.slice().sort((a, b) => (b.rating || 0) - (a.rating || 0) || b.reviews - a.reviews)[0] || {},
       cityCount: CITIES.length,
       cityPrev: scrollCities(-1), cityNext: scrollCities(1),
       guides: [
@@ -1311,7 +1519,7 @@ class Component extends DCLogic {
       goProblems: nav(() => this.scrollToId('problems')),
       otherSymptoms: SYMPTOMS.filter((x) => x.id !== sym.id).map(symVals),
       hasSymptom: !!s.symptom,
-      sym: Object.assign(symVals(sym), { faq: symptomFaq(sym) }),
+      sym: Object.assign(symVals(sym), { faq: symptomFaq(sym), videos: VIDEOS.filter((v) => v.problem === sym.id || v.problem === sym.slug), hasVideos: VIDEOS.some((v) => v.problem === sym.id || v.problem === sym.slug) }),
       guidePrice: { range: PRICE_STATS[sym.service].range, median: PRICE_STATS[sym.service].median, count: PRICE_STATS[sym.service].count, label: symInfo.lower },
       guidePros, guideNone: guidePros.length === 0,
       guideCount: forService.length,
@@ -1331,6 +1539,7 @@ class Component extends DCLogic {
         return { label: info.label, lower: info.lower, slug: info.slug, what: info.what, factors: info.factors, median: st.median, range: st.range, count: st.count, guideHref: symptomPath(g), openGuide: nav(() => this.pickSymptom(g.id)), onClick: nav(() => this.go('results', { query: '', service: name, symptom: null })) };
       }),
       priceFaq: PRICE_FAQ,
+      ...this.toolVals(s, set, nav),
       cities: CITIES.map(([name, county, slug], i) => {
         const k = COMPANIES.filter((c) => c.city === name || c.areas.includes(name)).length;
         return { name, county, bg: tone(i), href: cityPath(slug), countText: k === 1 ? '1 pro' : `${k} pros`, onClick: nav(() => this.go('results', { query: name, service: 'All services', emergency: false, symptom: null })) };
@@ -1345,15 +1554,21 @@ class Component extends DCLogic {
       showMap: s.mode === 'map' && results.length > 0,
       countText: results.length === 1 ? '1 checked pro' : `${results.length} checked pros`,
       resultsTitle, resultsIntro, showCount: !cityHit,
-      sortRating: s.sort === 'rating', sortPrice: s.sort === 'price', sortYears: s.sort === 'years',
-      sortByRating: () => set({ sort: 'rating' }), sortByPrice: () => set({ sort: 'price' }), sortByYears: () => set({ sort: 'years' }),
+      sortChips: [['best', 'Best match'], ['rating', 'Top rated'], ...(origin ? [['near', 'Nearest']] : []), ['fast', 'Fastest response'], ['price', 'Lowest price']]
+        .map(([k, label]) => ({ label, cls: s.sort === k ? 'chip chip-on' : 'chip', onClick: () => set({ sort: k }) })),
+      verifiedOnly: s.verifiedOnly,
+      toggleVerified: () => set({ verifiedOnly: !s.verifiedOnly }),
       priceChips: ['Any', '$', '$$', '$$$'].map((t) => ({ label: t === 'Any' ? 'Any price' : t, cls: s.price === t ? 'chip chip-on' : 'chip', onClick: () => set({ price: t }) })),
-      clearFilters: () => set({ query: '', service: 'All services', price: 'Any', emergency: false }),
+      clearFilters: () => set({ query: '', service: 'All services', price: 'Any', emergency: false, verifiedOnly: false }),
 
       sel,
       reviews: REVIEWS.map((r) => ({ ...r, where: sel.areas[0] })),
-      quoteOpen: !s.quoteSent, quoteSent: s.quoteSent,
-      sendQuote: (e) => { e.preventDefault(); set({ quoteSent: true }); },
+      problemClosed: s.problem === 'closed', problemOpen: s.problem === 'open', problemSent: s.problem === 'sent',
+      openProblem: () => set({ problem: 'open' }),
+      sendProblem: (e) => { e.preventDefault(); set({ problem: 'sent' }); },
+      reviewClosed: s.review === 'closed', reviewOpen: s.review === 'open', reviewSent: s.review === 'sent',
+      openReview: () => set({ review: 'open' }),
+      sendReview: (e) => { e.preventDefault(); set({ review: 'sent' }); },
       reportClosed: s.report === 'closed', reportFormOpen: s.report === 'open', reportSent: s.report === 'sent',
       openReport: () => set({ report: 'open' }),
       sendReport: (e) => { e.preventDefault(); set({ report: 'sent' }); },
