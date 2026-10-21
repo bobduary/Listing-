@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&icon_names=add,analytics,arrow_back,arrow_forward,back_hand,balance,bar_chart,build,call,check,check_circle,chevron_left,chevron_right,door_sliding,edit,edit_document,edit_note,expand_more,format_quote,gpp_good,grid_on,help,info,lightbulb,linear_scale,location_on,lock_open,menu,payments,request_quote,search,shield,shield_with_heart,star,storefront,swap_horiz,thunderstorm,verified,verified_user,volume_up,water_drop,window&display=block">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&icon_names=add,analytics,arrow_back,arrow_forward,back_hand,balance,bar_chart,build,call,check,check_circle,chevron_left,chevron_right,door_sliding,edit,edit_document,edit_note,expand_more,format_quote,gpp_good,grid_on,help,info,lightbulb,linear_scale,location_on,lock_open,menu,payments,request_quote,search,shield,shield_with_heart,star,storefront,swap_horiz,thunderstorm,verified,verified_user,volume_up,warning,water_drop,window&display=block">
 <link rel="stylesheet" href="/css/site.css">
 </helmet>
 
@@ -132,30 +132,48 @@
     </div>
   </section>
 
-  <section class="section">
-    <div class="wrap">
-      <div class="tc">
-        <div class="tc-left">
-          <h2 class="h2">Know the fair price before you call.</h2>
-          <p class="lead">Based on {{ totalReports }} price reports from Florida homeowners, so you never pay a "tourist tax" on a door repair.</p>
-          <div class="stack" style="gap: 22px;">
-            <sc-for list="{{ priceBars }}" as="b" hint-placeholder-count="4">
-              <a class="bar-row" href="/cost" onClick="{{ goPrices }}">
-                <span class="bar-top"><span>{{ b.label }}</span><strong class="tnum">{{ b.range }}</strong></span>
-                <span class="{{ b.cls }}"><span style="width: {{ b.width }};"></span></span>
-              </a>
-            </sc-for>
-          </div>
-          <a class="btn btn-secondary" href="/cost" onClick="{{ goPrices }}" style="align-self: flex-start;">See all repair prices</a>
-        </div>
-        <div class="tc-right">
-          <span class="ms" style="font-size: 88px;" aria-hidden="true">request_quote</span>
-          <h3>Already have a quote?</h3>
-          <p style="max-width: 34ch; opacity: 0.9;">Check it in 10 seconds. We'll tell you if it's low, normal or high for Florida.</p>
-          <a class="btn btn-white" href="/cost#checker" onClick="{{ goPrices }}">Is my quote fair?</a>
-          <a href="/cost#calculator" onClick="{{ goPrices }}" style="color: #fff; font-weight: 600;">Or estimate your repair cost →</a>
-        </div>
+  <section class="section" id="fair-price">
+    <div class="wrap qc">
+      <div class="stack qc-intro">
+        <span class="eyebrow">Fair price check</span>
+        <h2 class="h2">Got a quote? See if it’s fair.</h2>
+        <p class="lead">Pick the repair and type the price you were quoted. We compare it with what Florida homeowners actually paid for the same repair.</p>
+        <p class="small muted">No quote yet? Just pick the repair to see the normal price.</p>
       </div>
+      <form class="qc-card" onSubmit="{{ qcSubmit }}">
+        <div class="qc-fields">
+          <label class="field">What repair?
+            <select class="input big-input" value="{{ checkService }}" onChange="{{ onCheckService }}">
+              <sc-for list="{{ qcServiceOpts }}" as="o" hint-placeholder-count="7"><option value="{{ o.value }}">{{ o.label }}</option></sc-for>
+            </select>
+          </label>
+          <label class="field">Your quote
+            <span class="money-input"><span aria-hidden="true">$</span><input class="input big-input" inputMode="numeric" value="{{ checkAmount }}" onChange="{{ onCheckAmount }}" placeholder="e.g. 350" aria-label="Quoted price in dollars"></span>
+          </label>
+        </div>
+
+        <sc-if value="{{ qcNoAmount }}" hint-placeholder-val="{{ true }}">
+          <div class="qc-result">
+            <span class="label">Normal price in Florida</span>
+            <p class="price-big">{{ qcRange }}</p>
+            <p class="small muted">Most homeowners pay {{ qcRange }} for {{ qcLower }}. Middle price: {{ qcMedian }}.</p>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ hasVerdict }}" hint-placeholder-val="{{ false }}">
+          <div class="{{ qcResultCls }}" role="status">
+            <div class="row" style="gap: 10px;"><span class="ms ms-fill" aria-hidden="true">{{ verdict.icon }}</span><strong class="h3">{{ verdict.title }}</strong></div>
+            <div class="qc-scale" aria-hidden="true">
+              <span class="qc-band" style="left: {{ qcBandLeft }}; width: {{ qcBandWidth }};"></span>
+              <span class="qc-mark" style="left: {{ qcMark }};"></span>
+            </div>
+            <div class="qc-scale-labels small muted" aria-hidden="true"><span>Low</span><span>Fair {{ qcRange }}</span><span>High</span></div>
+            <p class="small">{{ verdict.text }}</p>
+          </div>
+        </sc-if>
+
+        <a class="btn btn-primary btn-block" href="/pros" onClick="{{ qcFindPros }}">{{ qcCta }}<span class="ms" aria-hidden="true">arrow_forward</span></a>
+      </form>
     </div>
   </section>
 
@@ -1347,12 +1365,18 @@ const CITIES = [...new Map(COMPANIES.map((c) => [c.city, c.county])).entries()]
 const ALL_REPORTS = COMPANIES.flatMap((c) => c.reports);
 const PRICE_STATS = {};
 const PRICE_NUM = {};
+// What homeowners really paid (data/price_reports.csv: repair, paid, city,
+// date). When a repair has real reports, its fair price comes only from them.
+const REAL_REPORTS = (SITE_DATA.price_reports || [])
+  .map((r) => ({ service: KEYS[String(r.repair || '').trim().toLowerCase()], paid: num(r.paid, null) }))
+  .filter((r) => r.service && r.paid > 0);
 SERVICES.forEach((name) => {
-  let v = ALL_REPORTS.filter((r) => r.service === name).map((r) => r.paid).sort((a, b) => a - b);
+  const real = REAL_REPORTS.filter((r) => r.service === name);
+  let v = (real.length ? real : ALL_REPORTS.filter((r) => r.service === name)).map((r) => r.paid).sort((a, b) => a - b);
   if (v.length < 5) v = [BASE[name][0], (BASE[name][0] + BASE[name][1]) / 2, BASE[name][1]];
   const at = (f) => v[Math.min(v.length - 1, Math.floor(v.length * f))];
   PRICE_NUM[name] = { p10: at(0.1), p50: at(0.5), p90: at(0.9) };
-  PRICE_STATS[name] = { median: money(at(0.5)), range: `${money(at(0.1))}–${money(at(0.9))}`, count: ALL_REPORTS.filter((r) => r.service === name).length };
+  PRICE_STATS[name] = { median: money(at(0.5)), range: `${money(at(0.1))}–${money(at(0.9))}`, count: real.length || ALL_REPORTS.filter((r) => r.service === name).length };
 });
 const miles = (a, b) => {
   if (a[0] == null || b[0] == null) return null;
@@ -1613,10 +1637,10 @@ class Component extends DCLogic {
     const amt = num(s.checkAmount, null);
     let verdict = null;
     if (amt != null && amt > 0) {
-      if (amt < ck.p10 * 0.85) verdict = { cls: 'notice notice-warn', title: 'Lower than usual', text: `Most Florida homeowners paid ${money(ck.p10)}–${money(ck.p90)}. A low quote can be fine, but ask exactly what's included and whether parts are stainless.` };
-      else if (amt <= ck.p90) verdict = { cls: 'notice notice-ok', title: 'A normal price', text: `That's within what most Florida homeowners paid (${money(ck.p10)}–${money(ck.p90)}). Middle price: ${money(ck.p50)}.` };
-      else if (amt <= ck.p90 * 1.3) verdict = { cls: 'notice notice-warn', title: 'A bit high', text: `Most paid ${money(ck.p10)}–${money(ck.p90)}. Large or impact doors cost more. Ask the pro what's driving the price.` };
-      else verdict = { cls: 'notice notice-warn', title: 'Much higher than usual', text: `Most paid ${money(ck.p10)}–${money(ck.p90)}. Get a second quote from a checked pro before you agree.` };
+      if (amt < ck.p10 * 0.85) verdict = { level: 'low', icon: 'info', cls: 'notice notice-warn', title: 'Lower than usual', text: `Most Florida homeowners paid ${money(ck.p10)}–${money(ck.p90)}. A low quote can be fine, but ask exactly what's included and whether parts are stainless.` };
+      else if (amt <= ck.p90) verdict = { level: 'ok', icon: 'check_circle', cls: 'notice notice-ok', title: 'A fair price', text: `That's within what most Florida homeowners paid (${money(ck.p10)}–${money(ck.p90)}). Middle price: ${money(ck.p50)}.` };
+      else if (amt <= ck.p90 * 1.3) verdict = { level: 'high', icon: 'warning', cls: 'notice notice-warn', title: 'A bit high', text: `Most paid ${money(ck.p10)}–${money(ck.p90)}. Large or impact doors cost more. Ask the pro what's driving the price.` };
+      else verdict = { level: 'high', icon: 'warning', cls: 'notice notice-warn', title: 'Much higher than usual', text: `Most paid ${money(ck.p10)}–${money(ck.p90)}. Get a second quote from a checked pro before you agree.` };
     }
 
     // Repair-or-replace: each answer adds points toward replacing.
@@ -1644,6 +1668,22 @@ class Component extends DCLogic {
       onCheckService: (e) => set({ checkService: e.target.value }),
       onCheckAmount: (e) => set({ checkAmount: e.target.value }),
       hasVerdict: !!verdict, verdict: verdict || {},
+      // Home "Got a quote?" checker: a low–fair–high scale for the chosen repair.
+      ...(() => {
+        const lo = ck.p10 * 0.5, hi = ck.p90 * 1.6, pct = (v) => (Math.max(0, Math.min(1, (v - lo) / (hi - lo))) * 100).toFixed(1) + '%';
+        const info = SERVICE_INFO[s.checkService];
+        return {
+          qcServiceOpts: SERVICES.map((n) => { const g = SYMPTOMS.find((x) => x.id === SERVICE_INFO[n].symptom); return { value: n, label: `${SERVICE_INFO[n].label} (${g.title.toLowerCase()})` }; }),
+          qcNoAmount: !verdict,
+          qcRange: `${money(ck.p10)}–${money(ck.p90)}`, qcMedian: money(ck.p50), qcLower: info.lower,
+          qcBandLeft: pct(ck.p10), qcBandWidth: ((ck.p90 - ck.p10) / (hi - lo) * 100).toFixed(1) + '%',
+          qcMark: amt != null ? pct(amt) : '0%',
+          qcResultCls: 'qc-result qc-' + (verdict ? verdict.level : 'none'),
+          qcCta: !verdict ? `Find checked pros for ${info.lower}` : { ok: 'Find checked pros at this price', low: 'Compare with checked pros' }[verdict.level] || 'Get a second quote from a checked pro',
+          qcSubmit: (e) => { e.preventDefault(); },
+          qcFindPros: nav(() => this.go('results', { query: '', service: s.checkService, emergency: false, symptom: null }))
+        };
+      })(),
       decideQs: [
         q('dAge', 'How old is the door?', [['new', 'Under 10 years'], ['mid', '10–20 years'], ['old', 'Over 20 years / not sure']]),
         q('dFrame', 'How does the frame look?', [['good', 'Solid, no damage'], ['worn', 'Some rust or wear'], ['bad', 'Bent, rotted or cracked']]),

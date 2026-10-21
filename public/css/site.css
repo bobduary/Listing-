@@ -465,3 +465,26 @@ textarea.input { min-height: 120px; resize: vertical; }
 .review-card { margin: 0; background: #fff; border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 12px; box-shadow: var(--shadow-sm); }
 .review-card .stars { color: #F5A524; letter-spacing: 2px; }
 .review-card blockquote { margin: 0; font-size: 16px; line-height: 1.6; }
+
+/* Home: "Got a quote? See if it's fair." */
+.qc { display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; align-items: center; }
+@media (min-width: 960px) { .qc { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 64px; } }
+.qc-card { background: #fff; border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow-md); display: flex; flex-direction: column; gap: 18px; }
+@media (min-width: 760px) { .qc-card { padding: 32px; } }
+.qc-fields { display: grid; gap: 14px; }
+.qc-fields .input { width: 100%; min-width: 0; }
+.money-input { position: relative; display: block; }
+.money-input > span { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); font-size: 20px; font-weight: 700; color: var(--color-muted); pointer-events: none; }
+.money-input .input { padding-left: 38px; width: 100%; font-weight: 700; }
+.qc-result { border-radius: 18px; padding: 20px; background: var(--color-surface); display: flex; flex-direction: column; gap: 10px; }
+.qc-ok { background: rgba(108, 248, 187, 0.3); }
+.qc-ok .ms, .qc-ok .h3 { color: var(--color-ok); }
+.qc-high { background: var(--color-warn-50); }
+.qc-high .ms, .qc-high .h3 { color: var(--color-warn); }
+.qc-low { background: var(--color-accent-50); }
+.qc-low .ms, .qc-low .h3 { color: var(--color-accent); }
+.qc-scale { position: relative; height: 12px; border-radius: 999px; background: rgba(25, 28, 29, 0.1); margin-top: 6px; }
+.qc-band { position: absolute; top: 0; bottom: 0; border-radius: 999px; background: var(--color-ok); opacity: 0.7; }
+.qc-mark { position: absolute; top: 50%; width: 22px; height: 22px; margin-left: -11px; transform: translateY(-50%); border-radius: 50%; background: var(--color-text); box-shadow: 0 0 0 4px #fff; }
+.qc-scale-labels { display: flex; justify-content: space-between; gap: 8px; }
+.qc-card .btn { white-space: normal; text-align: center; padding-block: 12px; }
