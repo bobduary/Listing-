@@ -177,17 +177,28 @@
     </div>
   </section>
 
-  <section class="section section-alt">
+  <section class="section section-alt" id="pros-near">
     <div class="wrap">
-      <div class="section-head">
+      <div class="section-head" style="margin-bottom: 28px;">
         <div class="stack-sm">
-          <h2 class="h2">Top-rated pros in Florida</h2>
-          <p class="muted">Checked by our team and rated by homeowners.</p>
+          <span class="eyebrow">Checked pros</span>
+          <h2 class="h2">{{ nearTitle }}</h2>
+          <p class="muted">{{ nearNote }}</p>
         </div>
-        <a class="btn btn-ghost" href="/pros" onClick="{{ goAll }}">See all {{ totalCount }} pros<span class="ms" aria-hidden="true">arrow_forward</span></a>
+      </div>
+      <form class="near-form" onSubmit="{{ nearSubmit }}" role="search">
+        <label class="field" style="flex: 1 1 260px;"><span class="sr-only">Your city or ZIP code</span>
+          <span class="money-input"><span class="ms" aria-hidden="true" style="font-size: 22px;">location_on</span><input class="input big-input" value="{{ query }}" onChange="{{ onQuery }}" placeholder="Your city or ZIP code" autoComplete="postal-code" aria-label="Your city or ZIP code"></span>
+        </label>
+      </form>
+      <div class="row near-chips">
+        <span class="small muted" style="font-weight: 600;">Or tap:</span>
+        <sc-for list="{{ nearCities }}" as="city" hint-placeholder-count="8">
+          <button type="button" class="{{ city.cls }}" onClick="{{ city.pick }}">{{ city.name }}</button>
+        </sc-for>
       </div>
       <div class="grid-3">
-        <sc-for list="{{ featured }}" as="c" hint-placeholder-count="3">
+        <sc-for list="{{ nearPros }}" as="c" hint-placeholder-count="3">
           <article class="pcard">
             <div class="pcard-head">
               <span class="avatar" aria-hidden="true">{{ c.initials }}</span>
@@ -196,25 +207,19 @@
                 <span class="small"><span class="ms ms-fill star" style="font-size: 18px; vertical-align: -3px;" aria-hidden="true">star</span> <strong>{{ c.ratingText }}</strong> <span class="muted">({{ c.reviews }} reviews)</span></span>
               </div>
             </div>
-            <div class="row" style="gap: 8px;">
-              <span class="{{ c.badgeCls }}">{{ c.badgeLabel }}</span>
-              <span class="tag">{{ c.mainService }}</span>
-              <span class="tag tag-ad">Ad</span>
+            <div class="stack-sm" style="gap: 6px;">
+              <span class="{{ c.badgeCls }}" style="align-self: flex-start;">{{ c.badgeLabel }}</span>
+              <p class="small"><span class="ms" style="font-size: 18px; vertical-align: -4px; color: var(--color-ok);" aria-hidden="true">payments</span> {{ c.honestyLine }}</p>
+              <p class="small muted"><span class="ms" style="font-size: 18px; vertical-align: -4px; color: var(--color-accent);" aria-hidden="true">location_on</span> {{ c.nearWhere }}</p>
             </div>
-            <p class="pin"><span class="ms" style="font-size: 18px; color: var(--color-accent);" aria-hidden="true">location_on</span>{{ c.location }}</p>
             <div class="pcard-actions">
-              <a class="btn btn-primary btn-block" href="{{ c.callHref }}"><span class="ms" aria-hidden="true">call</span>Call now</a>
+              <a class="btn btn-primary btn-block" href="{{ c.callHref }}"><span class="ms" aria-hidden="true">call</span>Call {{ c.phone }}</a>
               <a class="btn btn-secondary btn-block" href="{{ c.href }}" onClick="{{ c.openNav }}">View profile</a>
             </div>
           </article>
         </sc-for>
       </div>
-      <div class="row" style="gap: 8px; margin-top: 40px;">
-        <span class="small muted" style="font-weight: 600;">Browse by city:</span>
-        <sc-for list="{{ cities }}" as="city" hint-placeholder-count="12">
-          <a class="chip" href="{{ city.href }}" onClick="{{ city.onClick }}">{{ city.name }}</a>
-        </sc-for>
-      </div>
+      <a class="btn btn-ghost" href="/pros" onClick="{{ nearSeeAll }}" style="margin-top: 24px; padding-left: 0;">{{ nearSeeAllText }}<span class="ms" aria-hidden="true">arrow_forward</span></a>
     </div>
   </section>
 
@@ -776,7 +781,7 @@
       </div>
     </details>
 
-    <p class="muted tiny">“Best match” weighs reviews, price honesty, verification, response time, distance and specialty. Featured listings are paid and labeled “Ad”. They never change ratings or reviews.</p>
+    <p class="muted tiny">“Best match” weighs reviews, price honesty, verification, response time, distance and specialty. No one can pay to rank higher.</p>
 
     <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
       <div class="card card-soft stack" style="align-items: flex-start;">
@@ -1153,7 +1158,7 @@
 </footer>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"showFeatured":{"editor":"boolean","default":true},"initial":{"editor":null}}'>
+<script type="text/x-dc" data-dc-script data-props='{"showFeatured":{"editor":"boolean","default":false},"initial":{"editor":null}}'>
 // ---------------------------------------------------------------------------
 // Data
 // ---------------------------------------------------------------------------
@@ -1319,7 +1324,7 @@ const TRUST_POINTS = [
   { ms: 'verified_user', title: 'We check every pro ourselves', text: 'Before a pro gets our Verified badge, our team calls them, researches their business and reviews, and confirms their insurance. Then we re-check every 90 days.' },
   { ms: 'payments', title: 'Prices from real jobs', text: 'Our fair prices come from what Florida homeowners actually paid, not from what pros say they charge.' },
   { ms: 'star', title: 'Reviews from real homeowners', text: 'Every review comes from a homeowner and is screened for fake or bought reviews.' },
-  { ms: 'balance', title: 'Independent and neutral', text: 'We don’t do repairs, and ratings come only from homeowners. Any paid spot is clearly labeled “Ad”. You call pros directly, with no middleman.' }
+  { ms: 'balance', title: 'Independent and neutral', text: 'We don’t do repairs, and no one can pay to rank higher. Ratings come only from homeowners, and you call pros directly, with no middleman.' }
 ];
 // Photos (data/images.csv): key → url.
 const IMG = Object.fromEntries((SITE_DATA.images || []).map((r) => [r.key, r.url]));
@@ -1697,7 +1702,7 @@ class Component extends DCLogic {
 
   renderVals() {
     const s = this.state, p = this.props;
-    const showFeatured = p.showFeatured ?? true;
+    const showFeatured = p.showFeatured ?? false; // paid placement is off for now
     const set = (patch) => this.setState(patch);
     const nav = (fn) => (e) => { if (e && e.preventDefault) e.preventDefault(); fn(); };
     const sym = SYMPTOMS.find((x) => x.id === s.symptom) || SYMPTOMS[0];
@@ -1803,6 +1808,24 @@ class Component extends DCLogic {
       miniPrices: ['Rollers', 'Tracks', 'Glass replacement'].map((n) => ({ label: SERVICE_INFO[n].label, range: PRICE_STATS[n].range })),
       verifiedCount: COMPANIES.filter((c) => c.verified).length,
       trustPoints: TRUST_POINTS,
+      // Home "Checked pros near you": best matches for the typed city/ZIP,
+      // or the best-rated statewide until a place is entered.
+      ...(() => {
+        const local = q ? rank(COMPANIES.filter((c) => this.matches(c, Object.assign({}, s, { service: 'All services', price: 'Any', emergency: false, verifiedOnly: false })))) : [];
+        const none = !!q && local.length === 0;
+        // Fewer than 3 local pros: fill up with the next best (closest first when we know where they are).
+        const list = [...local, ...COMPANIES.filter((c) => !local.includes(c)).sort((a, b) => best(b) - best(a))];
+        const pros = list.slice(0, 3).map((c) => Object.assign(dec(c), { nearWhere: c.distance != null && c.distance >= 1 ? `${c.city} · ${Math.round(c.distance)} mi away` : `${c.city} · ${c.county} County` }));
+        return {
+          nearTitle: q && !none ? `Checked pros near ${/^\d+$/.test(q) ? 'ZIP ' + q : place}` : 'Checked pros near you',
+          nearNote: !q ? 'Top-rated in Florida. Type your city or ZIP to see pros who come to you.' : none ? `No listed pros serve ${place} yet. Here are the best-rated in Florida.` : 'Ranked by reviews, honest pricing and distance. No one can pay to rank higher.',
+          nearPros: pros,
+          nearCities: CITIES.map(([name]) => ({ name, cls: q.toLowerCase() === name.toLowerCase() ? 'chip chip-on' : 'chip', pick: () => set({ query: name }) })),
+          nearSubmit: (e) => { e.preventDefault(); if (e.target.querySelector('input')) e.target.querySelector('input').blur(); },
+          nearSeeAll: nav(() => this.go('results', { service: 'All services', price: 'Any', emergency: false, symptom: null, query: none ? '' : s.query })),
+          nearSeeAllText: local.length > 3 ? `See all ${local.length} pros near ${place}` : `See all ${COMPANIES.length} pros in Florida`
+        };
+      })(),
       homeReviews: HOME_REVIEWS.slice(0, 3), hasHomeReviews: HOME_REVIEWS.length > 0,
       goDecide: nav(() => this.go('decide')),
       isHome: s.view === 'home', isGuide: s.view === 'guide', isPrices: s.view === 'prices', isResults: s.view === 'results', isProfile: s.view === 'profile', isList: s.view === 'list', isCompare: s.view === 'compare',
@@ -1895,7 +1918,6 @@ class Component extends DCLogic {
         const k = COMPANIES.filter((c) => c.city === name || c.areas.includes(name)).length;
         return { name, county, bg: tone(i), href: cityPath(slug), countText: k === 1 ? '1 pro' : `${k} pros`, onClick: nav(() => this.go('results', { query: name, service: 'All services', emergency: false, symptom: null })) };
       }),
-      featured: all.filter((c) => c.featured).map((c, i) => ({ ...c, bg: tone(i + 1), initials: c.name.split(' ').slice(0, 2).map((w) => w[0]).join(''), mainService: c.emergency ? '24/7 storm calls' : SERVICE_INFO[c.services[0]].label })),
       vetChecks: VET,
       doorTypes: DOORS,
 

@@ -488,3 +488,9 @@ textarea.input { min-height: 120px; resize: vertical; }
 .qc-mark { position: absolute; top: 50%; width: 22px; height: 22px; margin-left: -11px; transform: translateY(-50%); border-radius: 50%; background: var(--color-text); box-shadow: 0 0 0 4px #fff; }
 .qc-scale-labels { display: flex; justify-content: space-between; gap: 8px; }
 .qc-card .btn { white-space: normal; text-align: center; padding-block: 12px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.near-form { display: flex; flex-wrap: wrap; gap: 12px; max-width: 560px; }
+.near-form .money-input > .ms { left: 16px; color: var(--color-accent); }
+.near-form .input { padding-left: 46px; width: 100%; font-weight: 600; background: #fff; }
+.near-chips { gap: 8px; margin: 14px 0 32px; }
+@media (max-width: 759px) { .near-chips { flex-wrap: nowrap; overflow-x: auto; margin-inline: -20px; padding-inline: 20px; scrollbar-width: none; } .near-chips::-webkit-scrollbar { display: none; } .near-chips > * { flex: none; } }
