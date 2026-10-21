@@ -53,8 +53,8 @@
     <div class="tint" aria-hidden="true"></div>
     <div class="wrap hero-pick-in">
       <div class="stack" style="gap: 24px;">
-        <h1 class="h1"><span class="h1-kicker">Sliding door broken?</span> Know the fair price. Call the right pro.</h1>
-        <p class="lead">FixMySlide is a free, independent guide that helps Florida homeowners fix their sliding door without overpaying. Tell us what’s wrong, and we’ll show the fair price from real local jobs and the checked pros who fix it.</p>
+        <h1 class="h1"><span class="h1-kicker">Sliding Glass Door Repair in Florida</span> Know the fair price. Call the right pro.</h1>
+        <p class="lead">FixMySlide is a free, independent guide to sliding glass door repair in Florida. See the fair repair cost from real local jobs so you never overpay, then call checked pros near you for rollers, tracks, locks, glass and screens.</p>
         <ul class="hero-ticks">
           <li><span class="ms" aria-hidden="true">check_circle</span>Prices from real Florida jobs</li>
           <li><span class="ms" aria-hidden="true">check_circle</span>Verified pros checked for insurance &amp; license</li>
@@ -1398,7 +1398,7 @@ function faqJsonLd(faq) {
 // Every public URL of the directory, with the state it opens in and its SEO tags.
 function ROUTE_LIST() {
   const r = [];
-  r.push({ path: '/', initial: { view: 'home' }, title: 'Sliding Glass Door Repair in Florida | Checked Pros & Fair Prices | FixMySlide', description: 'What’s wrong with your sliding door? Plain-English answers, fair Florida repair prices and checked local pros for rollers, tracks, locks, leaks, glass and storm damage.', jsonld: homeJsonLd() });
+  r.push({ path: '/', initial: { view: 'home' }, title: 'Sliding Glass Door Repair in Florida | Checked Pros & Fair Prices | FixMySlide', description: 'Sliding glass door repair in Florida: see the fair repair cost from real local jobs, then call checked, insured pros near you for rollers, tracks, locks and glass. Free.', jsonld: homeJsonLd() });
   r.push({ path: '/cost', initial: { view: 'prices' }, title: 'Sliding Glass Door Repair Cost in Florida (2026 Prices) | FixMySlide', description: `What Florida homeowners actually paid for sliding door repairs: rollers ${PRICE_STATS['Rollers'].range}, tracks ${PRICE_STATS['Tracks'].range}, locks, glass, leaks and impact doors.`, jsonld: faqJsonLd(PRICE_FAQ) });
   SYMPTOMS.forEach((s) => r.push({ path: symptomPath(s), initial: { view: 'guide', symptom: s.id }, title: s.seoTitle + ' | FixMySlide', description: `${s.explain.split('. ').slice(0, 2).join('. ')}. See fair Florida prices and checked pros.`, jsonld: faqJsonLd(symptomFaq(s)) }));
   r.push({ path: '/start', initial: { view: 'start', wizStep: 1 }, title: 'What’s Wrong With Your Sliding Door? Get a Fair Price | FixMySlide', description: 'Tap what your sliding door is doing and see the fair Florida repair price and checked pros who fix it, in under a minute.', noindex: true });
