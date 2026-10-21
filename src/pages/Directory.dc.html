@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&icon_names=add,analytics,arrow_back,arrow_forward,back_hand,balance,bar_chart,build,call,check,check_circle,chevron_left,chevron_right,door_sliding,edit,edit_document,edit_note,expand_more,format_quote,gpp_good,grid_on,help,info,lightbulb,linear_scale,location_on,lock_open,menu,payments,request_quote,search,shield,shield_with_heart,star,storefront,swap_horiz,thunderstorm,verified,verified_user,volume_up,warning,water_drop,window&display=block">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&icon_names=add,analytics,arrow_back,arrow_forward,back_hand,balance,bar_chart,build,call,check,check_circle,chevron_left,chevron_right,door_sliding,edit,edit_document,edit_note,expand_more,format_quote,gpp_good,grid_on,help,info,lightbulb,linear_scale,location_on,lock_open,menu,payments,request_quote,search,sell,shield,shield_with_heart,star,storefront,swap_horiz,thunderstorm,verified,verified_user,volume_up,warning,water_drop,window&display=block">
 <link rel="stylesheet" href="/css/site.css">
 </helmet>
 
@@ -728,97 +728,127 @@
   </div>
 </sc-if>
 
-<!-- ================= RESULTS (step 3) ================= -->
+<!-- ================= FIND A PRO ================= -->
 <sc-if value="{{ isResults }}" hint-placeholder-val="{{ false }}">
-  <div class="wrap page stack" style="gap: 20px;">
-    <sc-if value="{{ hasSymptom }}">
-      <a class="btn btn-ghost" href="{{ sym.href }}" onClick="{{ backToGuide }}" style="align-self: flex-start; padding-left: 0;">← Back to “{{ sym.title }}”</a>
-    </sc-if>
-    <div class="stack-sm">
-      <h1 class="h1 h1-sm">{{ resultsTitle }}</h1>
-      <sc-if value="{{ showCount }}"><p class="label">{{ countText }}</p></sc-if>
-      <p class="muted" style="max-width: 68ch;">{{ resultsIntro }}</p>
-    </div>
-
-    <form class="searchbar" onSubmit="{{ onSearch }}">
-      <label class="field" style="gap: 0;"><span class="tiny muted">City, county or ZIP</span><input class="input" value="{{ query }}" onChange="{{ onQuery }}" placeholder="Anywhere in Florida"></label>
-      <label class="field" style="gap: 0;"><span class="tiny muted">Repair</span>
-        <select class="input" value="{{ service }}" onChange="{{ onService }}">
-          <sc-for list="{{ serviceOptions }}" as="opt" hint-placeholder-count="8"><option value="{{ opt }}">{{ opt }}</option></sc-for>
-        </select>
-      </label>
-      <button type="submit" class="btn btn-primary" style="align-self: end;">Search</button>
-    </form>
-
-    <div class="row" style="justify-content: space-between;">
-      <div class="seg" role="radiogroup" aria-label="View">
-        <label class="seg-opt"><input type="radio" name="mode" checked="{{ modeList }}" onChange="{{ setList }}">List</label>
-        <label class="seg-opt"><input type="radio" name="mode" checked="{{ modeMap }}" onChange="{{ setMap }}">Map</label>
+  <div class="find">
+    <div class="wrap page stack" style="gap: 28px;">
+      <sc-if value="{{ hasSymptom }}">
+        <a class="btn btn-ghost" href="{{ sym.href }}" onClick="{{ backToGuide }}" style="align-self: flex-start; padding-left: 0;"><span class="ms" aria-hidden="true">arrow_back</span>Back to “{{ sym.title }}”</a>
+      </sc-if>
+      <div class="stack-sm">
+        <h1 class="h1 h1-sm">{{ resultsTitle }}</h1>
+        <p class="muted" style="max-width: 68ch;">{{ resultsIntro }}</p>
       </div>
-      <div class="row" style="gap: 4px 18px;"><label class="check"><input type="checkbox" checked="{{ verifiedOnly }}" onChange="{{ toggleVerified }}">Verified only</label><label class="check"><input type="checkbox" checked="{{ emergency }}" onChange="{{ toggleEmergency }}">24/7 storm calls</label></div>
-    </div>
 
-    <details class="card" style="padding: 0 20px;">
-      <summary style="cursor: pointer; min-height: 56px; display: flex; align-items: center; font-weight: 700;">Sort &amp; more filters</summary>
-      <div class="stack" style="padding-bottom: 20px;">
+      <div class="find-ask">
+        <label class="field find-where">Where are you?
+          <span class="money-input"><span class="ms" aria-hidden="true" style="font-size: 22px;">location_on</span><input class="input big-input" value="{{ query }}" onChange="{{ onQuery }}" placeholder="City or ZIP code" autoComplete="postal-code"></span>
+        </label>
         <div class="stack-sm">
-          <span class="tiny muted" style="font-weight: 700;">Sort by</span>
-          <div class="chips">
-            <sc-for list="{{ sortChips }}" as="t" hint-placeholder-count="4">
-              <button type="button" class="{{ t.cls }}" onClick="{{ t.onClick }}">{{ t.label }}</button>
+          <span class="field" style="display: block;">What’s wrong? <span class="muted" style="font-weight: 500;">(optional)</span></span>
+          <div class="find-chips">
+            <sc-for list="{{ findChips }}" as="f" hint-placeholder-count="8">
+              <button type="button" class="{{ f.cls }}" aria-pressed="{{ f.on }}" onClick="{{ f.toggle }}"><span class="ms" style="font-size: 18px;" aria-hidden="true">{{ f.ms }}</span>{{ f.title }}</button>
             </sc-for>
           </div>
         </div>
-        <div class="stack-sm">
-          <span class="tiny muted" style="font-weight: 700;">Price level</span>
-          <div class="chips">
-            <sc-for list="{{ priceChips }}" as="t" hint-placeholder-count="4">
-              <button type="button" class="{{ t.cls }}" onClick="{{ t.onClick }}">{{ t.label }}</button>
-            </sc-for>
-          </div>
+      </div>
+
+      <div class="find-bar">
+        <p class="h4" role="status">{{ findCount }}</p>
+        <div class="row" style="gap: 10px 18px;">
+          <label class="switch"><input type="checkbox" checked="{{ verifiedOnly }}" onChange="{{ toggleVerified }}"><span aria-hidden="true"></span>Verified only</label>
+          <label class="sort">Sort
+            <select value="{{ sort }}" onChange="{{ onSort }}">
+              <sc-for list="{{ sortOpts }}" as="o" hint-placeholder-count="4"><option value="{{ o.value }}">{{ o.label }}</option></sc-for>
+            </select>
+          </label>
         </div>
-        <button type="button" class="btn btn-ghost" onClick="{{ clearFilters }}" style="align-self: flex-start; padding-left: 0;">Clear all filters</button>
       </div>
-    </details>
 
-    <p class="muted tiny">“Best match” weighs reviews, price honesty, verification, response time, distance and specialty. No one can pay to rank higher.</p>
+      <sc-if value="{{ noResultsAtAll }}" hint-placeholder-val="{{ false }}">
+        <div class="card card-soft stack" style="align-items: flex-start;">
+          <h2 class="h3">No checked pros match yet.</h2>
+          <p class="muted">Try a nearby city, or clear your choices to see every pro in Florida.</p>
+          <button type="button" class="btn btn-secondary" onClick="{{ clearFilters }}">Clear and show all</button>
+        </div>
+      </sc-if>
 
-    <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
-      <div class="card card-soft stack" style="align-items: flex-start;">
-        <h2 class="h3">No checked pros match yet.</h2>
-        <p class="muted">Try a nearby city or county, or clear the filters.</p>
-        <button type="button" class="btn btn-secondary" onClick="{{ clearFilters }}">Clear filters</button>
-      </div>
-    </sc-if>
+      <sc-if value="{{ hasTopPick }}" hint-placeholder-val="{{ true }}">
+        <article class="top-pick">
+          <span class="top-pick-tag"><span class="ms ms-fill" aria-hidden="true">star</span>{{ topPickLabel }}</span>
+          <div class="top-pick-body">
+            <div class="stack-sm" style="gap: 8px; min-width: 0;">
+              <h2 class="pro-name" style="font-size: 24px;"><a href="{{ topPick.href }}" onClick="{{ topPick.openNav }}">{{ topPick.name }}</a></h2>
+              <p class="small"><span class="rating"><span class="star" aria-hidden="true">★</span>{{ topPick.ratingText }}</span> <span class="muted">({{ topPick.reviews }} reviews) · {{ topPick.where }}</span></p>
+              <span class="{{ topPick.badgeCls }}" style="align-self: flex-start;">{{ topPick.badgeLabel }}</span>
+              <p class="small" style="font-weight: 700; margin-top: 6px;">Why we picked them</p>
+              <ul class="checklist small" style="gap: 8px;">
+                <sc-for list="{{ topPick.whys }}" as="w" hint-placeholder-count="3"><li>{{ w }}</li></sc-for>
+              </ul>
+            </div>
+            <div class="plan-pro-actions">
+              <a class="btn btn-primary btn-block" href="{{ topPick.callHref }}"><span class="ms" aria-hidden="true">call</span>Call {{ topPick.phone }}</a>
+              <a class="btn btn-secondary btn-block" href="{{ topPick.href }}" onClick="{{ topPick.openNav }}">View profile</a>
+            </div>
+          </div>
+        </article>
+      </sc-if>
 
-    <sc-if value="{{ showMap }}" hint-placeholder-val="{{ false }}">
-      <iframe data-srfl-map="1" src="/map-view.html" title="Map of matching sliding door repair pros" style="width: 100%; height: min(70vh, 620px); border: 1px solid var(--color-divider); border-radius: 14px; display: block; background: var(--color-surface);"></iframe>
-    </sc-if>
-
-    <sc-if value="{{ modeList }}" hint-placeholder-val="{{ true }}">
-      <div class="stack" style="gap: 14px;">
-        <sc-for list="{{ results }}" as="c" hint-placeholder-count="5">
-          <article class="pro">
-            <div class="pro-main">
-              <sc-if value="{{ c.isFeatured }}"><span class="tag tag-ad" style="align-self: flex-start;">Ad</span></sc-if>
-              <h2 class="pro-name"><a href="{{ c.href }}" onClick="{{ c.openNav }}">{{ c.name }}</a></h2>
-              <p class="small"><span class="rating"><span class="star" aria-hidden="true">★</span>{{ c.ratingText }}</span> <span class="muted">· {{ c.reviewsText }} · {{ c.location }}</span> <sc-if value="{{ c.distanceText }}"><span class="muted">· {{ c.distanceText }}</span></sc-if></p>
-              <div class="row" style="gap: 6px;">
-                <span class="{{ c.badgeCls }}">{{ c.badgeLabel }}</span>
-                <sc-if value="{{ c.emergency }}"><span class="tag tag-warn">24/7 storm calls</span></sc-if>
+      <sc-if value="{{ hasMore }}" hint-placeholder-val="{{ true }}">
+        <h2 class="h3" style="margin-top: 8px;">More checked pros</h2>
+        <div class="grid-3">
+          <sc-for list="{{ morePros }}" as="c" hint-placeholder-count="4">
+            <article class="pcard find-card">
+              <div class="stack-sm" style="gap: 4px; min-width: 0;">
+                <h3 class="pro-name" style="font-size: 19px;"><a href="{{ c.href }}" onClick="{{ c.openNav }}">{{ c.name }}</a></h3>
+                <span class="small"><span class="ms ms-fill star" style="font-size: 18px; vertical-align: -3px;" aria-hidden="true">star</span> <strong>{{ c.ratingText }}</strong> <span class="muted">({{ c.reviews }} reviews)</span></span>
               </div>
-              <p class="small"><strong style="font-weight: 600;">{{ c.priceLine }}</strong> <span class="muted">· {{ c.honestyLine }}</span></p>
-              <p class="small muted">{{ c.responseText }} · Warranty: {{ c.warranty }}</p>
-            </div>
-            <div class="pro-actions">
-              <a class="btn btn-primary btn-block" href="{{ c.callHref }}">Call {{ c.phone }}</a>
-              <a class="btn btn-secondary btn-block" href="{{ c.href }}" onClick="{{ c.openNav }}">See details &amp; prices</a>
-              <button type="button" class="{{ c.compareCls }}" onClick="{{ c.toggleCompare }}">{{ c.compareLabel }}</button>
-            </div>
-          </article>
-        </sc-for>
-      </div>
-    </sc-if>
+              <span class="{{ c.badgeCls }}" style="align-self: flex-start;">{{ c.badgeLabel }}</span>
+              <ul class="find-facts small">
+                <li><span class="ms" aria-hidden="true">sell</span>{{ c.priceLine }}</li>
+                <li><span class="ms" aria-hidden="true">payments</span>{{ c.honestyLine }}</li>
+                <li><span class="ms" aria-hidden="true">location_on</span>{{ c.where }}</li>
+              </ul>
+              <div class="pcard-actions">
+                <a class="btn btn-primary btn-block" href="{{ c.callHref }}"><span class="ms" aria-hidden="true">call</span>Call {{ c.phone }}</a>
+                <a class="btn btn-secondary btn-block" href="{{ c.href }}" onClick="{{ c.openNav }}">View profile</a>
+              </div>
+            </article>
+          </sc-for>
+        </div>
+        <sc-if value="{{ hasShowAll }}"><button type="button" class="btn btn-secondary" onClick="{{ showAll }}" style="align-self: center;">{{ showAllText }}<span class="ms" aria-hidden="true">expand_more</span></button></sc-if>
+      </sc-if>
+
+      <sc-if value="{{ hasAlso }}" hint-placeholder-val="{{ false }}">
+        <div class="stack-sm" style="margin-top: 8px;">
+          <h2 class="h3">{{ alsoTitle }}</h2>
+          <p class="small muted">{{ alsoNote }}</p>
+        </div>
+        <div class="grid-3">
+          <sc-for list="{{ alsoPros }}" as="c" hint-placeholder-count="3">
+            <article class="pcard find-card">
+              <div class="stack-sm" style="gap: 4px; min-width: 0;">
+                <h3 class="pro-name" style="font-size: 19px;"><a href="{{ c.href }}" onClick="{{ c.openNav }}">{{ c.name }}</a></h3>
+                <span class="small"><span class="ms ms-fill star" style="font-size: 18px; vertical-align: -3px;" aria-hidden="true">star</span> <strong>{{ c.ratingText }}</strong> <span class="muted">({{ c.reviews }} reviews)</span></span>
+              </div>
+              <span class="{{ c.badgeCls }}" style="align-self: flex-start;">{{ c.badgeLabel }}</span>
+              <ul class="find-facts small">
+                <li><span class="ms" aria-hidden="true">sell</span>{{ c.priceLine }}</li>
+                <li><span class="ms" aria-hidden="true">payments</span>{{ c.honestyLine }}</li>
+                <li><span class="ms" aria-hidden="true">location_on</span>{{ c.where }}</li>
+              </ul>
+              <div class="pcard-actions">
+                <a class="btn btn-primary btn-block" href="{{ c.callHref }}"><span class="ms" aria-hidden="true">call</span>Call {{ c.phone }}</a>
+                <a class="btn btn-secondary btn-block" href="{{ c.href }}" onClick="{{ c.openNav }}">View profile</a>
+              </div>
+            </article>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <p class="tiny muted">Ranked by reviews, honest pricing, verification, response time and distance. No one can pay to rank higher.</p>
+    </div>
   </div>
 </sc-if>
 
@@ -989,7 +1019,6 @@
         <p class="small muted">{{ sel.responseText }} · {{ sel.hours }}</p>
         <hr style="border: 0; border-top: 1px solid var(--color-divider); margin: 4px 0;">
         <p class="small"><strong>Tip:</strong> mention what's wrong and your door size. Ask for their price range before they come out.</p>
-        <button type="button" class="{{ sel.compareCls }}" onClick="{{ sel.toggleCompare }}" style="align-self: flex-start;">{{ sel.compareLabel }}</button>
       </aside>
     </div>
   </div>
@@ -1115,16 +1144,6 @@
 
 </main>
 
-<sc-if value="{{ showTray }}" hint-placeholder-val="{{ false }}">
-  <div class="tray">
-    <div class="wrap tray-in">
-      <strong>{{ compareCountText }}</strong>
-      <span class="small" style="flex: 1 1 200px; color: #C9D4EA;">{{ compareNames }}</span>
-      <button type="button" class="btn btn-ghost btn-sm" onClick="{{ clearCompare }}" style="color: #fff;">Clear</button>
-      <a class="btn btn-primary btn-sm" href="/compare" onClick="{{ goCompare }}">Compare now →</a>
-    </div>
-  </div>
-</sc-if>
 
 <footer class="footer">
   <div class="wrap stack" style="gap: 40px;">
@@ -1462,7 +1481,7 @@ function ROUTE_LIST() {
   return r;
 }
 
-const DEFAULTS = { view: 'home', symptom: null, picked: [], wizStep: 1, describe: '', query: '', service: 'All services', price: 'Any', emergency: false, verifiedOnly: false, sort: 'best', mode: 'list', selectedId: null, compare: [], report: 'closed', problem: 'closed', review: 'closed', listSent: false, plan: 'free', calcService: 'Rollers', calcSize: 'standard', calcType: 'standard', checkService: 'Rollers', checkAmount: '', dAge: '', dFrame: '', dGlass: '', dGoal: '' };
+const DEFAULTS = { view: 'home', symptom: null, findSym: null, showAll: false, picked: [], wizStep: 1, describe: '', query: '', service: 'All services', price: 'Any', emergency: false, verifiedOnly: false, sort: 'best', mode: 'list', selectedId: null, compare: [], report: 'closed', problem: 'closed', review: 'closed', listSent: false, plan: 'free', calcService: 'Rollers', calcSize: 'standard', calcType: 'standard', checkService: 'Rollers', checkAmount: '', dAge: '', dFrame: '', dGlass: '', dGoal: '' };
 
 // ---------------------------------------------------------------------------
 // Component
@@ -1516,6 +1535,8 @@ class Component extends DCLogic {
   }
 
   go(view, extra = {}) {
+    // Opening the pro list from elsewhere starts without a stale "What's wrong?" chip.
+    if (view === 'results' && !('findSym' in extra)) extra = Object.assign({ findSym: null }, extra);
     const next = Object.assign({}, this.state, { view }, extra);
     this.setState(Object.assign({ view }, extra));
     document.querySelectorAll('details.menu[open]').forEach((d) => { d.open = false; });
@@ -1745,8 +1766,8 @@ class Component extends DCLogic {
     const svcLabel = s.service === 'All services' ? 'Sliding glass door repair' : SERVICE_INFO[s.service].label;
     const resultsTitle = s.emergency ? `24/7 sliding door help${place ? ' near ' + place : ' in Florida'}` : `${svcLabel} ${place ? 'in ' + place : 'in Florida'}`;
     const resultsIntro = cityHit
-      ? `${results.length} checked ${results.length === 1 ? 'pro serves' : 'pros serve'} ${cityHit[0]} and ${cityHit[1]} County. In Florida, most homeowners paid ${PRICE_STATS['Rollers'].range} for roller replacement and ${PRICE_STATS['Tracks'].range} for track repair. Compare ratings and prices, then call direct.`
-      : 'Verified pros passed our insurance, license and price checks. Basic listings are real local businesses that haven’t finished verification yet. Compare ratings and what customers paid, then call direct. Free for homeowners.';
+      ? `Checked sliding door repair pros who serve ${cityHit[0]} and ${cityHit[1]} County. Tell us what’s wrong to see who fixes it, then call them directly. It’s free.`
+      : 'Real local businesses, ranked by homeowner reviews and honest pricing. Tell us where you are and what’s wrong, then call a pro directly. It’s free.';
 
     const sel = dec(COMPANIES.find((c) => c.id === s.selectedId) || COMPANIES[0]);
     const cmp = s.compare.map((id) => all.find((c) => c.id === id));
@@ -1922,17 +1943,59 @@ class Component extends DCLogic {
       doorTypes: DOORS,
 
       results, noResults: results.length === 0,
-      modeList: s.mode === 'list', modeMap: s.mode === 'map',
-      setList: () => set({ mode: 'list' }), setMap: () => set({ mode: 'map' }),
-      showMap: s.mode === 'map' && results.length > 0,
+      noResultsAtAll: results.length === 0 && !q,
+      // Find a pro: "What's wrong?" chips, a top pick with reasons, then the rest.
+      ...(() => {
+        const activeChip = s.findSym || (s.emergency ? 'storm' : s.service !== 'All services' ? SERVICE_INFO[s.service].symptom : null);
+        const chipSym = SYMPTOMS.find((x) => x.id === activeChip);
+        const near = q ? ` near ${/^\d+$/.test(q) ? 'ZIP ' + q : place}` : ' in Florida';
+        const where = (c) => (c.distance != null && c.distance >= 1 ? `${c.city} · ${Math.round(c.distance)} mi away` : `${c.city}, FL`);
+        const whys = (c) => {
+          const top = results.every((x) => (x.rating || 0) <= (c.rating || 0));
+          const w = [`${top && results.length > 1 ? 'Highest rated' + near + ': ' : 'Rated '}${c.ratingText} out of 5 from ${c.reviews} reviews`];
+          if (c.honesty != null) w.push(`${c.honesty}% of jobs done at the quoted price`);
+          else if (c.verified) w.push('Checked by our team');
+          w.push(c.priceLine);
+          return w;
+        };
+        const withWhere = (c) => Object.assign({}, c, { where: where(c) });
+        return {
+          findChips: SYMPTOMS.map((x) => {
+            const on = activeChip === x.id;
+            return { title: x.title, ms: PICK[x.id].ms, on, cls: 'chip' + (on ? ' chip-on' : '') + (x.emergency ? ' chip-warn' : ''),
+              toggle: () => set(on ? { findSym: null, service: 'All services', emergency: false } : { findSym: x.id, service: x.service, emergency: !!x.emergency }) };
+          }),
+          findCount: results.length === 0 ? `No checked pros${near}${chipSym ? ' for “' + chipSym.title.toLowerCase() + '”' : ''} yet` : `${results.length} checked ${results.length === 1 ? 'pro' : 'pros'}${near}${chipSym ? ' for “' + chipSym.title.toLowerCase() + '”' : ''}`,
+          sort: s.sort,
+          sortOpts: [['best', 'Best match'], ['rating', 'Top rated'], ...(origin ? [['near', 'Nearest']] : []), ['fast', 'Fastest reply']].map(([value, label]) => ({ value, label })),
+          onSort: (e) => set({ sort: e.target.value }),
+          hasTopPick: results.length > 0,
+          topPickLabel: `Our top pick${near}`,
+          topPick: results[0] ? Object.assign(withWhere(results[0]), { whys: whys(results[0]) }) : {},
+          morePros: results.slice(1, s.showAll ? undefined : 7).map(withWhere),
+          hasMore: results.length > 1,
+          hasShowAll: !s.showAll && results.length > 7,
+          showAllText: `Show all ${results.length} pros`,
+          showAll: () => set({ showAll: true }),
+          // Few or no pros in the typed place: suggest the closest ones outside it.
+          ...(() => {
+            if (!q || results.length >= 4) return { hasAlso: false, alsoPros: [] };
+            const ids = new Set(results.map((c) => c.id));
+            const pool = COMPANIES.filter((c) => !ids.has(c.id) && this.matches(c, Object.assign({}, s, { query: '' })));
+            const also = (origin ? pool.sort((a, b) => (a.distance ?? 1e9) - (b.distance ?? 1e9)) : pool.sort((a, b) => best(b) - best(a))).slice(0, 3).map(dec).map(withWhere);
+            return {
+              hasAlso: also.length > 0, alsoPros: also,
+              alsoTitle: origin ? `Also close to ${place}` : `Top-rated pros elsewhere in Florida`,
+              alsoNote: results.length ? 'These pros are based nearby. Call to ask if they come to you.' : `We don’t have pros listed in ${place} yet. ${origin ? 'These are the closest.' : 'These are the best-rated in Florida. Call to ask if they come to you.'}`
+            };
+          })()
+        };
+      })(),
       countText: results.length === 1 ? '1 checked pro' : `${results.length} checked pros`,
       resultsTitle, resultsIntro, showCount: !cityHit,
-      sortChips: [['best', 'Best match'], ['rating', 'Top rated'], ...(origin ? [['near', 'Nearest']] : []), ['fast', 'Fastest response'], ['price', 'Lowest price']]
-        .map(([k, label]) => ({ label, cls: s.sort === k ? 'chip chip-on' : 'chip', onClick: () => set({ sort: k }) })),
       verifiedOnly: s.verifiedOnly,
       toggleVerified: () => set({ verifiedOnly: !s.verifiedOnly }),
-      priceChips: ['Any', '$', '$$', '$$$'].map((t) => ({ label: t === 'Any' ? 'Any price' : t, cls: s.price === t ? 'chip chip-on' : 'chip', onClick: () => set({ price: t }) })),
-      clearFilters: () => set({ query: '', service: 'All services', price: 'Any', emergency: false, verifiedOnly: false }),
+      clearFilters: () => set({ query: '', findSym: null, service: 'All services', price: 'Any', emergency: false, verifiedOnly: false }),
 
       sel,
       reviews: REVIEWS.map((r) => ({ ...r, where: sel.areas[0] })),
@@ -1950,7 +2013,6 @@ class Component extends DCLogic {
       compareList: cmp, compareRows,
       compareCols: `minmax(130px, 170px) repeat(${Math.max(n, 1)}, minmax(190px, 1fr))`,
       compareMinWidth: `${170 + Math.max(n, 1) * 210}px`,
-      showTray: n > 0 && s.view !== 'compare',
       compareCountText: `${n} of 3 selected`,
       compareNames: cmp.map((c) => c.name).join(' · '),
       clearCompare: () => set({ compare: [] }),
