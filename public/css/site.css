@@ -456,3 +456,12 @@ textarea.input { min-height: 120px; resize: vertical; }
 .tip[open] summary .ms:last-child { transform: rotate(180deg); }
 .h1-kicker { display: block; margin-bottom: 10px; font-size: max(19px, 0.42em); font-weight: 700; letter-spacing: -0.01em; color: var(--color-ok-50); }
 .hero-pick .h1 { max-width: 16ch; }
+
+/* Home: why trust us + reviews */
+.trust-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); }
+.trust-card { background: var(--color-surface); border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 10px; }
+.trust-ic { width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center; background: var(--color-accent-50); color: var(--color-accent); margin-bottom: 4px; }
+.trust-ic .ms { font-size: 26px; }
+.review-card { margin: 0; background: #fff; border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 12px; box-shadow: var(--shadow-sm); }
+.review-card .stars { color: #F5A524; letter-spacing: 2px; }
+.review-card blockquote { margin: 0; font-size: 16px; line-height: 1.6; }
