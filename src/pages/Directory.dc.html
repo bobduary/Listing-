@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&icon_names=analytics,arrow_forward,bar_chart,build,call,check_circle,chevron_left,chevron_right,door_sliding,edit_document,edit_note,expand_more,format_quote,gpp_good,help,info,location_on,menu,payments,request_quote,search,shield,shield_with_heart,star,storefront,swap_horiz,thunderstorm,verified,verified_user,volume_up,water_drop&display=block">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&icon_names=add,analytics,arrow_back,arrow_forward,back_hand,bar_chart,build,call,check,check_circle,chevron_left,chevron_right,door_sliding,edit,edit_document,edit_note,expand_more,format_quote,gpp_good,grid_on,help,info,lightbulb,linear_scale,location_on,lock_open,menu,payments,request_quote,search,shield,shield_with_heart,star,storefront,swap_horiz,thunderstorm,verified,verified_user,volume_up,water_drop,window&display=block">
 <link rel="stylesheet" href="/css/site.css">
 </helmet>
 
@@ -32,7 +32,7 @@
       <summary aria-label="Open menu"><span class="ms" aria-hidden="true">menu</span></summary>
       <div class="menu-panel">
         <a href="/pros" onClick="{{ goAll }}"><span class="ms" aria-hidden="true">search</span>Find a Pro</a>
-        <a href="/#problems" onClick="{{ goProblems }}"><span class="ms" aria-hidden="true">door_sliding</span>What's wrong with my door?</a>
+        <a href="/start" onClick="{{ goStart }}"><span class="ms" aria-hidden="true">door_sliding</span>What's wrong with my door?</a>
         <a href="/cost" onClick="{{ goPrices }}"><span class="ms" aria-hidden="true">payments</span>Pricing &amp; quote check</a>
         <a href="/repair-or-replace" onClick="{{ goDecide }}"><span class="ms" aria-hidden="true">help</span>Repair or replace?</a>
         <a href="/problems/hurricane-damaged-sliding-door" onClick="{{ goStorm }}"><span class="ms" aria-hidden="true">thunderstorm</span>Storm help</a>
@@ -48,55 +48,40 @@
 <!-- ================= HOME ================= -->
 <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
 
-  <header class="hero-photo">
+  <header class="hero-photo hero-pick">
     <div class="bg" style="background-image: url({{ img.hero }});" aria-hidden="true"></div>
     <div class="tint" aria-hidden="true"></div>
-    <div class="wrap stack" style="gap: 28px;">
-      <h1 class="h1">Florida’s Most Trusted Sliding Door Experts.</h1>
-      <p class="lead">Stop overpaying for repairs. See the fair price first, then call a checked, insured sliding door pro near you.</p>
-      <form class="searchbox" onSubmit="{{ onHeroSearch }}" role="search">
-        <label><span class="ms" aria-hidden="true">location_on</span><span class="sr-only" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0);">City or ZIP code</span><input value="{{ query }}" onChange="{{ onQuery }}" placeholder="City or ZIP code" autoComplete="postal-code"></label>
-        <label><span class="ms" aria-hidden="true">build</span><span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0);">What's the problem?</span>
-          <select value="{{ heroSymptom }}" onChange="{{ onHeroSymptom }}">
-            <sc-for list="{{ heroOptions }}" as="o" hint-placeholder-count="9"><option value="{{ o.value }}">{{ o.label }}</option></sc-for>
-          </select>
-        </label>
-        <button type="submit" class="btn btn-primary">Search Pros<span class="ms" aria-hidden="true">arrow_forward</span></button>
-      </form>
-      <div class="hero-chips">
-        <span>Popular:</span>
-        <sc-for list="{{ popular }}" as="s" hint-placeholder-count="4"><a href="{{ s.href }}" onClick="{{ s.pick }}">{{ s.title }}</a></sc-for>
+    <div class="wrap hero-pick-in">
+      <div class="stack" style="gap: 24px;">
+        <h1 class="h1">Florida’s Most Trusted Sliding Door Experts.</h1>
+        <p class="lead">Tell us what’s wrong. In under a minute you’ll see the fair Florida price and checked pros who fix it.</p>
+        <ul class="hero-ticks">
+          <li><span class="ms" aria-hidden="true">check_circle</span>Free for homeowners</li>
+          <li><span class="ms" aria-hidden="true">check_circle</span>No sign-up</li>
+          <li><span class="ms" aria-hidden="true">check_circle</span>Call pros directly</li>
+        </ul>
+      </div>
+      <div class="pick-panel" id="problems">
+        <div class="stack-sm" style="gap: 4px;">
+          <span class="eyebrow">Step 1 of 3</span>
+          <h2 class="h3">What’s your door doing?</h2>
+          <p class="small muted">Tap all that apply.</p>
+        </div>
+        <div class="pick-grid">
+          <sc-for list="{{ pickCards }}" as="p" hint-placeholder-count="8">
+            <button type="button" class="{{ p.cls }}" aria-pressed="{{ p.on }}" onClick="{{ p.toggle }}">
+              <span class="ms pick-ic" aria-hidden="true">{{ p.ms }}</span>
+              <span class="pick-t">{{ p.title }}</span>
+              <span class="pick-s">{{ p.sub }}</span>
+              <span class="ms pick-check" aria-hidden="true">check</span>
+            </button>
+          </sc-for>
+        </div>
+        <button type="button" class="btn btn-primary btn-block" disabled="{{ noPicks }}" onClick="{{ homeNext }}">{{ pickCta }}<span class="ms" aria-hidden="true">arrow_forward</span></button>
+        <a class="small" href="/start" onClick="{{ goDescribe }}" style="text-align: center; font-weight: 600;">Not sure? Describe it in your own words</a>
       </div>
     </div>
   </header>
-
-  <section class="section" id="problems">
-    <div class="wrap">
-      <div class="section-head">
-        <div class="stack-sm">
-          <span class="eyebrow">Common issues</span>
-          <h2 class="h2">What can we help with?</h2>
-        </div>
-        <p class="muted" style="max-width: 440px;">Pick your problem for a plain-English explanation, the fair Florida price, and checked pros who fix it.</p>
-      </div>
-      <div class="tiles">
-        <sc-for list="{{ photoProblems }}" as="s" hint-placeholder-count="4">
-          <a class="ptile" href="{{ s.href }}" onClick="{{ s.pick }}">
-            <span class="ptile-img" style="background-image: url({{ s.img }});" aria-hidden="true"></span>
-            <span class="ptile-title">{{ s.title }}</span>
-            <span class="ptile-sub">{{ s.cause }}</span>
-            <span class="ptile-price tnum">{{ s.priceRange }}</span>
-          </a>
-        </sc-for>
-      </div>
-      <div class="issue-chip-row">
-        <span class="small muted" style="font-weight: 600;">Something else?</span>
-        <sc-for list="{{ otherProblems }}" as="s" hint-placeholder-count="4">
-          <a class="chip" href="{{ s.href }}" onClick="{{ s.pick }}"><span class="ms" style="font-size: 18px;" aria-hidden="true">{{ s.ms }}</span>{{ s.title }}</a>
-        </sc-for>
-      </div>
-    </div>
-  </section>
 
   <section class="section section-alt">
     <div class="wrap">
@@ -256,6 +241,166 @@
       <a class="btn" href="/list-your-business" onClick="{{ goList }}">Claim your profile</a>
     </div>
   </section>
+</sc-if>
+
+<!-- ================= GET HELP (guided steps) ================= -->
+<sc-if value="{{ isStart }}" hint-placeholder-val="{{ false }}">
+  <div class="wiz">
+    <div class="wrap wiz-in">
+      <div class="wiz-top">
+        <button type="button" class="btn btn-ghost" onClick="{{ wizBack }}" style="padding-left: 0;"><span class="ms" aria-hidden="true">arrow_back</span>Back</button>
+        <div class="wiz-dots" role="img" aria-label="Step {{ wizStep }} of 3">
+          <span class="{{ wizDot1 }}"></span><span class="{{ wizDot2 }}"></span><span class="{{ wizDot3 }}"></span>
+        </div>
+        <span class="small muted">Step {{ wizStep }} of 3</span>
+      </div>
+
+      <sc-if value="{{ wizStep1 }}" hint-placeholder-val="{{ true }}">
+        <div class="wiz-q">
+          <h1 class="h2">What’s your door doing?</h1>
+          <p class="muted">Tap everything that applies. Most doors have more than one issue.</p>
+        </div>
+        <div class="pick-grid pick-grid-wide">
+          <sc-for list="{{ pickCards }}" as="p" hint-placeholder-count="8">
+            <button type="button" class="{{ p.cls }}" aria-pressed="{{ p.on }}" onClick="{{ p.toggle }}">
+              <span class="ms pick-ic" aria-hidden="true">{{ p.ms }}</span>
+              <span class="pick-t">{{ p.title }}</span>
+              <span class="pick-s">{{ p.sub }}</span>
+              <span class="ms pick-check" aria-hidden="true">check</span>
+            </button>
+          </sc-for>
+        </div>
+        <sc-if value="{{ stormPicked }}" hint-placeholder-val="{{ false }}">
+          <div class="notice notice-warn" role="note" style="align-items: center; flex-wrap: wrap;">
+            <span class="ms" aria-hidden="true">thunderstorm</span>
+            <span style="flex: 1 1 260px;"><strong>Glass broken or door won’t close?</strong> That’s urgent. Keep people away from the glass and call a pro who answers 24/7.</span>
+            <button type="button" class="btn btn-warn btn-sm" onClick="{{ showEmergency }}">See 24/7 pros now</button>
+          </div>
+        </sc-if>
+        <div class="describe">
+          <label class="field" for="describe-box"><span class="row" style="gap: 8px;"><span class="ms" aria-hidden="true" style="color: var(--color-accent);">edit</span>Not sure? Describe it in your own words</span></label>
+          <textarea id="describe-box" class="input" rows="2" value="{{ describe }}" onChange="{{ onDescribe }}" placeholder="e.g. It’s really hard to open and makes a grinding noise"></textarea>
+          <sc-if value="{{ hasGuess }}" hint-placeholder-val="{{ false }}">
+            <div class="row" style="gap: 8px;">
+              <span class="small muted" style="font-weight: 600;">Sounds like:</span>
+              <sc-for list="{{ guesses }}" as="g" hint-placeholder-count="2">
+                <button type="button" class="{{ g.cls }}" aria-pressed="{{ g.on }}" onClick="{{ g.toggle }}"><span class="ms" style="font-size: 18px;" aria-hidden="true">{{ g.mark }}</span>{{ g.title }}</button>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ noGuess }}" hint-placeholder-val="{{ false }}">
+            <p class="small muted">We couldn’t tell from that yet. Try a few more words, or pick the closest card above. A pro will check the whole door anyway.</p>
+          </sc-if>
+        </div>
+        <div class="wiz-bar">
+          <span class="small" style="font-weight: 600;">{{ pickedText }}</span>
+          <button type="button" class="btn btn-primary" disabled="{{ noPicks }}" onClick="{{ wizNext }}">Continue<span class="ms" aria-hidden="true">arrow_forward</span></button>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ wizStep2 }}" hint-placeholder-val="{{ false }}">
+        <div class="wiz-q">
+          <h1 class="h2">Where’s the door?</h1>
+          <p class="muted">So we only show pros who come to you.</p>
+        </div>
+        <form class="stack" onSubmit="{{ wizNext }}" style="max-width: 560px;">
+          <label class="field">City or ZIP code
+            <input class="input big-input" value="{{ query }}" onChange="{{ onQuery }}" placeholder="e.g. Tampa or 33602" autoComplete="postal-code" autoFocus="">
+          </label>
+          <div class="row" style="gap: 8px;">
+            <sc-for list="{{ quickCities }}" as="c" hint-placeholder-count="6">
+              <button type="button" class="chip" onClick="{{ c.pick }}"><span class="ms" style="font-size: 18px;" aria-hidden="true">location_on</span>{{ c.name }}</button>
+            </sc-for>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Show my price &amp; pros<span class="ms" aria-hidden="true">arrow_forward</span></button>
+          <button type="button" class="btn btn-ghost" onClick="{{ wizSkipArea }}">Skip, show all of Florida</button>
+        </form>
+      </sc-if>
+
+      <sc-if value="{{ wizStep3 }}" hint-placeholder-val="{{ false }}">
+        <div class="stack-sm">
+          <span class="eyebrow">Your repair plan</span>
+          <h1 class="h2">{{ planTitle }}</h1>
+          <div class="row" style="gap: 8px; margin-top: 8px;">
+            <sc-for list="{{ pickedList }}" as="p" hint-placeholder-count="2">
+              <span class="chip chip-on" style="cursor: default;"><span class="ms" style="font-size: 18px;" aria-hidden="true">{{ p.ms }}</span>{{ p.title }}</span>
+            </sc-for>
+            <button type="button" class="btn btn-ghost btn-sm" onClick="{{ wizEdit }}"><span class="ms" aria-hidden="true">edit</span>Change</button>
+          </div>
+        </div>
+
+        <sc-for list="{{ planWarnings }}" as="w" hint-placeholder-count="0">
+          <div class="notice notice-warn" role="note"><span><strong>Safety first.</strong> {{ w }}</span></div>
+        </sc-for>
+
+        <div class="plan-grid">
+          <section class="card stack plan-price" aria-label="Fair price">
+            <span class="label">Fair price in Florida</span>
+            <p class="price-big">{{ planRange }}</p>
+            <p class="small muted">{{ planPriceNote }}</p>
+            <ul class="fix-list">
+              <sc-for list="{{ planGroups }}" as="g" hint-placeholder-count="2">
+                <li>
+                  <span class="ms" aria-hidden="true">build</span>
+                  <span class="stack-sm" style="gap: 2px;"><strong class="small">{{ g.titles }}</strong><span class="small muted">Likely fix: {{ g.what }}</span></span>
+                  <span class="small tnum" style="font-weight: 700; white-space: nowrap;">{{ g.range }}</span>
+                </li>
+              </sc-for>
+            </ul>
+            <p class="tiny muted">Estimate only. Your pro confirms the price after seeing the door. <a href="/cost#checker" onClick="{{ goPrices }}">Got a quote already? Check it</a>.</p>
+          </section>
+
+          <section class="stack" aria-label="Pros">
+            <div class="stack-sm" style="gap: 4px;">
+              <h2 class="h3">{{ planProsTitle }}</h2>
+              <p class="small muted">{{ planProsNote }}</p>
+            </div>
+            <sc-for list="{{ planPros }}" as="c" hint-placeholder-count="3">
+              <article class="plan-pro">
+                <div class="stack-sm" style="gap: 6px; min-width: 0;">
+                  <div class="row" style="gap: 6px;">
+                    <span class="{{ c.badgeCls }}">{{ c.badgeLabel }}</span>
+                    <span class="{{ c.coverCls }}">{{ c.coverText }}</span>
+                    <sc-if value="{{ c.isFeatured }}"><span class="tag tag-ad">Ad</span></sc-if>
+                  </div>
+                  <h3 class="pro-name" style="font-size: 19px;"><a href="{{ c.href }}" onClick="{{ c.openNav }}">{{ c.name }}</a></h3>
+                  <p class="small"><span class="rating"><span class="star" aria-hidden="true">★</span>{{ c.ratingText }}</span> <span class="muted">· {{ c.reviewsText }} · {{ c.city }}</span> <sc-if value="{{ c.distanceText }}"><span class="muted">· {{ c.distanceText }}</span></sc-if></p>
+                  <p class="small"><strong style="font-weight: 600;">{{ c.planPrice }}</strong> <span class="muted">· {{ c.responseText }}</span></p>
+                </div>
+                <div class="plan-pro-actions">
+                  <a class="btn btn-primary btn-block" href="{{ c.callHref }}"><span class="ms" aria-hidden="true">call</span>Call {{ c.phone }}</a>
+                  <a class="btn btn-secondary btn-block btn-sm" href="{{ c.href }}" onClick="{{ c.openNav }}">See details</a>
+                </div>
+              </article>
+            </sc-for>
+            <sc-if value="{{ planNoPros }}" hint-placeholder-val="{{ false }}">
+              <div class="card card-soft stack-sm">
+                <h3 class="h4">No listed pros for this yet.</h3>
+                <p class="small muted">We’re adding checked pros every week. Try a nearby city, or see every pro in Florida.</p>
+              </div>
+            </sc-if>
+            <sc-if value="{{ planMore }}"><a class="btn btn-ghost" href="/pros" onClick="{{ planSeeAll }}" style="align-self: flex-start; padding-left: 0;">See all {{ planCount }} matching pros<span class="ms" aria-hidden="true">arrow_forward</span></a></sc-if>
+          </section>
+        </div>
+
+        <section class="stack-sm" style="margin-top: 16px;">
+          <h2 class="h3">Want to check it yourself first?</h2>
+          <p class="small muted">Quick, safe things to look at before a pro comes out.</p>
+          <div class="stack-sm" style="margin-top: 8px;">
+            <sc-for list="{{ pickedList }}" as="p" hint-placeholder-count="2">
+              <details class="tip">
+                <summary><span class="ms" aria-hidden="true">lightbulb</span><span style="flex: 1;">{{ p.title }}: what you can try</span><span class="ms" aria-hidden="true">expand_more</span></summary>
+                <ul class="checklist small">
+                  <sc-for list="{{ p.checks }}" as="t" hint-placeholder-count="3"><li>{{ t }}</li></sc-for>
+                </ul>
+                <a class="small" href="{{ p.href }}" onClick="{{ p.pick }}" style="display: inline-block; margin-top: 14px; font-weight: 600;">Read the full guide →</a>
+              </details>
+            </sc-for>
+          </div>
+        </section>
+      </sc-if>
+    </div>
+  </div>
 </sc-if>
 
 <!-- ================= HOW IT WORKS ================= -->
@@ -1201,6 +1346,20 @@ const miles = (a, b) => {
 const responseText = (h) => (h == null ? '' : h <= 1 ? 'Usually answers within 1 hour' : h <= 4 ? `Usually answers within ${h} hours` : h <= 24 ? 'Usually answers the same day' : 'Usually answers within a few days');
 const CAUSES = { 'hard-to-slide': 'Usually worn rollers', 'noisy': 'Worn or broken rollers', 'off-track': 'Bent or worn track', 'wont-lock': 'Sagging door or a worn lock', 'leaking': 'Dried-out seals or clogged drains', 'glass': 'The glass unit needs replacing', 'screen': 'Worn screen rollers or torn mesh', 'storm': 'Make it safe, then call a 24/7 pro' };
 SYMPTOMS.forEach((s) => { s.cause = CAUSES[s.id]; });
+// Icon on the problem cards, and words homeowners use for each problem so
+// "describe it in your own words" can suggest the right cards.
+const PICK = {
+  'hard-to-slide': { ms: 'back_hand', words: ['hard', 'stuck', 'stick', 'drag', 'heavy', 'jam', 'tough', 'push', 'pull', 'two hands', 'wont open', "won't open", 'slow'] },
+  'noisy': { ms: 'volume_up', words: ['nois', 'grind', 'squeak', 'squeal', 'scrap', 'loud', 'rumbl', 'sound', 'creak', 'rattl'] },
+  'off-track': { ms: 'linear_scale', words: ['track', 'jump', 'wobbl', 'derail', 'fall', 'falls out', 'comes off', 'came off', 'pops out', 'bump', 'rail'] },
+  'wont-lock': { ms: 'lock_open', words: ['lock', 'latch', 'handle', 'key', 'secure', 'wont close', "won't close", 'shut'] },
+  'leaking': { ms: 'water_drop', words: ['leak', 'water', 'rain', 'draft', 'wind', 'air', 'wet', 'flood', 'seal', 'puddle', 'cold', 'hot air', 'bugs get in'] },
+  'glass': { ms: 'window', words: ['glass', 'crack', 'fog', 'cloud', 'condensation', 'shatter', 'pane', 'chip', 'broken window'] },
+  'screen': { ms: 'grid_on', words: ['screen', 'mesh', 'bug', 'pet', 'torn', 'rip', 'hole'] },
+  'storm': { ms: 'thunderstorm', words: ['storm', 'hurricane', 'tree', 'emergency', 'bent', 'smash', 'break-in', 'broke in', 'urgent'] }
+};
+const PICK_RE = Object.fromEntries(Object.entries(PICK).map(([id, p]) => [id, p.words.map((w) => new RegExp('\\b' + w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i'))]));
+const guessProblems = (text) => (String(text || '').trim().length < 3 ? [] : SYMPTOMS.filter((x) => PICK_RE[x.id].some((re) => re.test(text))));
 const PARTS = [['Rollers', 'hard-to-slide'], ['Track', 'off-track'], ['Lock & handle', 'wont-lock'], ['Seals & drains', 'leaking'], ['Glass', 'glass']];
 const symptomPath = (s) => '/problems/' + s.slug;
 // Florida sunset / gulf / citrus / lagoon tones for city and pro cards until real photos are added.
@@ -1242,6 +1401,7 @@ function ROUTE_LIST() {
   r.push({ path: '/', initial: { view: 'home' }, title: 'Sliding Glass Door Repair in Florida | Checked Pros & Fair Prices | FixMySlide', description: 'What’s wrong with your sliding door? Plain-English answers, fair Florida repair prices and checked local pros for rollers, tracks, locks, leaks, glass and storm damage.', jsonld: homeJsonLd() });
   r.push({ path: '/cost', initial: { view: 'prices' }, title: 'Sliding Glass Door Repair Cost in Florida (2026 Prices) | FixMySlide', description: `What Florida homeowners actually paid for sliding door repairs: rollers ${PRICE_STATS['Rollers'].range}, tracks ${PRICE_STATS['Tracks'].range}, locks, glass, leaks and impact doors.`, jsonld: faqJsonLd(PRICE_FAQ) });
   SYMPTOMS.forEach((s) => r.push({ path: symptomPath(s), initial: { view: 'guide', symptom: s.id }, title: s.seoTitle + ' | FixMySlide', description: `${s.explain.split('. ').slice(0, 2).join('. ')}. See fair Florida prices and checked pros.`, jsonld: faqJsonLd(symptomFaq(s)) }));
+  r.push({ path: '/start', initial: { view: 'start', wizStep: 1 }, title: 'What’s Wrong With Your Sliding Door? Get a Fair Price | FixMySlide', description: 'Tap what your sliding door is doing and see the fair Florida repair price and checked pros who fix it, in under a minute.', noindex: true });
   r.push({ path: '/how-it-works', initial: { view: 'how' }, title: 'How FixMySlide Works | Fair Prices & Verified Sliding Door Pros in Florida', description: 'Describe your sliding door problem, see the fair Florida price, then call a verified, insured local pro. Free for homeowners, no lead fees for pros.' });
   r.push({ path: '/repair-or-replace', initial: { view: 'decide' }, title: 'Repair or Replace a Sliding Glass Door? Quick Florida Guide | FixMySlide', description: 'Answer four quick questions to see whether repairing or replacing your sliding glass door makes more sense, with Florida repair prices.' });
   r.push({ path: '/pros', initial: { view: 'results' }, title: 'Find a Sliding Glass Door Repair Pro in Florida | FixMySlide', description: 'Checked sliding glass door repair companies across Florida. Compare ratings, posted prices and what homeowners actually paid, then call direct.' });
@@ -1255,7 +1415,7 @@ function ROUTE_LIST() {
   return r;
 }
 
-const DEFAULTS = { view: 'home', symptom: null, heroSymptom: '', query: '', service: 'All services', price: 'Any', emergency: false, verifiedOnly: false, sort: 'best', mode: 'list', selectedId: null, compare: [], report: 'closed', problem: 'closed', review: 'closed', listSent: false, plan: 'free', calcService: 'Rollers', calcSize: 'standard', calcType: 'standard', checkService: 'Rollers', checkAmount: '', dAge: '', dFrame: '', dGlass: '', dGoal: '' };
+const DEFAULTS = { view: 'home', symptom: null, picked: [], wizStep: 1, describe: '', query: '', service: 'All services', price: 'Any', emergency: false, verifiedOnly: false, sort: 'best', mode: 'list', selectedId: null, compare: [], report: 'closed', problem: 'closed', review: 'closed', listSent: false, plan: 'free', calcService: 'Rollers', calcSize: 'standard', calcType: 'standard', checkService: 'Rollers', checkAmount: '', dAge: '', dFrame: '', dGlass: '', dGoal: '' };
 
 // ---------------------------------------------------------------------------
 // Component
@@ -1303,6 +1463,7 @@ class Component extends DCLogic {
     if (s.view === 'list') return '/list-your-business';
     if (s.view === 'decide') return '/repair-or-replace';
     if (s.view === 'how') return '/how-it-works';
+    if (s.view === 'start') return '/start';
     const city = CITIES.find(([name]) => name.toLowerCase() === (s.query || '').trim().toLowerCase());
     return city ? cityPath(city[2]) : '/pros';
   }
@@ -1316,11 +1477,24 @@ class Component extends DCLogic {
     else history.replaceState({ dc: next }, '');
     const route = ROUTE_LIST().find((r) => r.path === path);
     if (route) document.title = route.title;
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, behavior: 'instant' });
   }
   scrollToId(id) {
     if (this.state.view !== 'home') this.go('home');
     setTimeout(() => { const el = document.getElementById(id); if (el) window.scrollTo(0, el.getBoundingClientRect().top + window.scrollY - 72); }, 60);
+  }
+  // Guided steps live on /start; each step gets its own history entry so
+  // the browser back button walks back through the steps.
+  wizGo(step, extra = {}) {
+    const next = Object.assign({}, this.state, { view: 'start', wizStep: step }, extra);
+    this.setState(Object.assign({ view: 'start', wizStep: step }, extra));
+    history.pushState({ dc: next }, '', '/start');
+    const route = ROUTE_LIST().find((r) => r.path === '/start');
+    if (route) document.title = route.title;
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
+  togglePick(id) {
+    this.setState((s) => ({ picked: s.picked.includes(id) ? s.picked.filter((x) => x !== id) : [...s.picked, id] }));
   }
   openProfile(id) { this.go('profile', { selectedId: id, report: 'closed', problem: 'closed', review: 'closed' }); }
   pickSymptom(id) { this.go('guide', { symptom: id }); }
@@ -1384,7 +1558,7 @@ class Component extends DCLogic {
       videoList: c.premium ? c.videos.map((u, k) => ({ url: u, label: `Watch repair video ${k + 1}` })) : [],
       hasLogo: !!c.logo, noLogo: !c.logo, notVerified: !c.verified,
       initials: c.name.split(' ').slice(0, 2).map((w) => w[0]).join(''),
-      distanceText: c.distance != null ? `${Math.round(c.distance)} mi away` : '',
+      distanceText: c.distance != null && c.distance >= 1 ? `${Math.round(c.distance)} mi away` : '',
       shortName: c.name.split(' ').slice(0, 2).join(' '),
       reply: c.emergency ? '1 hour' : '1 business day',
       lastCheck: checks, nextCheck: next,
@@ -1530,6 +1704,34 @@ class Component extends DCLogic {
       }))
     ];
     const symVals = (x) => ({ ...x, href: symptomPath(x), priceRange: PRICE_STATS[x.service].range, rowCls: x.emergency ? 'issue issue-warn' : 'issue', tileCls: x.emergency ? 'ptile ptile-warn' : 'ptile', pick: nav(() => this.pickSymptom(x.id)) });
+    // Guided steps: the problems picked, their fixes, a combined fair price
+    // and the pros who cover the most of them near the homeowner.
+    const r5 = (v) => Math.round(v / 5) * 5;
+    const picked = s.picked.map((id) => SYMPTOMS.find((x) => x.id === id)).filter(Boolean);
+    const needs = [...new Set(picked.map((x) => x.service))];
+    const urgent = picked.some((x) => x.emergency);
+    const cover = (c) => needs.filter((n) => c.services.includes(n)).length;
+    const pool = COMPANIES.filter((c) => cover(c) > 0 && (!urgent || c.emergency));
+    const inArea = (c) => this.matches(c, Object.assign({}, s, { service: 'All services', price: 'Any', emergency: false, verifiedOnly: false }));
+    let planPool = q ? pool.filter(inArea) : pool;
+    const widened = !!q && planPool.length === 0;
+    if (widened) planPool = pool;
+    const planPros = planPool.slice()
+      .sort((a, b) => cover(b) - cover(a) || (showFeatured ? b.featured - a.featured : 0) || best(b) - best(a))
+      .slice(0, 3)
+      .map((c) => {
+        const k = cover(c), own = c.prices.filter((pr) => needs.includes(pr.service));
+        const lo = own.reduce((t, pr) => t + pr.lo, 0), hi = own.reduce((t, pr) => t + pr.hi, 0);
+        return Object.assign(dec(c), {
+          coverText: k === needs.length ? (needs.length > 1 ? `Fixes all ${needs.length}` : 'Does this repair') : `Fixes ${k} of ${needs.length}`,
+          coverCls: k === needs.length ? 'tag' : 'tag tag-ad',
+          planPrice: `Their price: ${money(lo)}–${money(hi)}`
+        });
+      });
+    const guesses = guessProblems(s.describe);
+    const wizStep = s.wizStep || 1;
+    const pickedWord = picked.length === 1 ? '1 problem' : `${picked.length} problems`;
+
     const scrollCities = (dir) => () => { const el = document.getElementById('city-scroll'); if (el) el.scrollBy({ left: dir * el.clientWidth * 0.8, behavior: 'smooth' }); };
 
     return {
@@ -1540,8 +1742,6 @@ class Component extends DCLogic {
       navPrices: s.view === 'prices' ? 'page' : null,
       navHow: s.view === 'how' ? 'page' : null,
       img: { hero: IMG.hero || '', howHero: IMG['how-hero'] || '', proAtWork: IMG['pro-at-work'] || '' },
-      photoProblems: ['hard-to-slide', 'glass', 'wont-lock', 'screen'].map((id) => { const x = SYMPTOMS.find((y) => y.id === id); return { ...symVals(x), img: IMG[id] || '' }; }),
-      otherProblems: [['noisy', 'volume_up'], ['off-track', 'swap_horiz'], ['leaking', 'water_drop'], ['storm', 'thunderstorm']].map(([id, ms]) => ({ ...symVals(SYMPTOMS.find((y) => y.id === id)), ms })),
       priceBars: (() => { const list = ['Rollers', 'Tracks', 'Locks & handles', 'Glass replacement']; const max = Math.max(...list.map((n) => PRICE_NUM[n].p90)); return list.map((n, k) => ({ label: SERVICE_INFO[n].label, range: PRICE_STATS[n].range, width: Math.max(12, Math.round(PRICE_NUM[n].p50 / max * 100)) + '%', cls: k % 2 ? 'bar bar-alt' : 'bar' })); })(),
       miniPrices: ['Rollers', 'Tracks', 'Glass replacement'].map((n) => ({ label: SERVICE_INFO[n].label, range: PRICE_STATS[n].range })),
       verifiedCount: COMPANIES.filter((c) => c.verified).length,
@@ -1560,11 +1760,46 @@ class Component extends DCLogic {
       seeAllForSymptom: nav(() => this.go('results', { service: sym.service, emergency: !!sym.emergency })),
 
       symptoms: SYMPTOMS.map(symVals),
-      popular: ['hard-to-slide', 'leaking', 'wont-lock', 'storm'].map((id) => symVals(SYMPTOMS.find((x) => x.id === id))),
-      heroSymptom: s.heroSymptom,
-      heroOptions: [{ value: '', label: "What's the problem?" }, ...SYMPTOMS.map((x) => ({ value: x.id, label: x.title }))],
-      onHeroSymptom: (e) => set({ heroSymptom: e.target.value }),
-      onHeroSearch: (e) => { e.preventDefault(); if (s.heroSymptom) this.pickSymptom(s.heroSymptom); else this.go('results', { service: 'All services', emergency: false, symptom: null }); },
+      isStart: s.view === 'start',
+      goStart: nav(() => this.go('start', { wizStep: 1 })),
+      goDescribe: nav(() => { this.go('start', { wizStep: 1 }); setTimeout(() => { const el = document.getElementById('describe-box'); if (el) el.focus(); }, 80); }),
+      pickCards: SYMPTOMS.map((x) => {
+        const on = s.picked.includes(x.id);
+        return { id: x.id, title: x.title, sub: x.sub, ms: PICK[x.id].ms, on, cls: 'pick' + (x.emergency ? ' pick-warn' : '') + (on ? ' pick-on' : ''), toggle: () => this.togglePick(x.id) };
+      }),
+      noPicks: picked.length === 0,
+      pickCta: picked.length === 0 ? 'Pick at least one' : `Continue with ${pickedWord}`,
+      pickedText: picked.length === 0 ? 'Nothing picked yet' : `${pickedWord} picked`,
+      homeNext: () => this.go('start', { wizStep: 2 }),
+      stormPicked: urgent,
+      describe: s.describe,
+      onDescribe: (e) => set({ describe: e.target.value }),
+      guesses: guesses.map((x) => { const on = s.picked.includes(x.id); return { title: x.title, on, mark: on ? 'check' : 'add', cls: on ? 'chip chip-on' : 'chip', toggle: () => this.togglePick(x.id) }; }),
+      hasGuess: guesses.length > 0,
+      noGuess: s.describe.trim().length >= 12 && guesses.length === 0,
+      wizStep, wizStep1: wizStep === 1, wizStep2: wizStep === 2, wizStep3: wizStep === 3,
+      wizDot1: 'on', wizDot2: wizStep >= 2 ? 'on' : '', wizDot3: wizStep >= 3 ? 'on' : '',
+      wizBack: () => (wizStep > 1 ? this.wizGo(wizStep - 1) : this.go('home')),
+      wizNext: (e) => { if (e && e.preventDefault) e.preventDefault(); if (!picked.length) return this.wizGo(1); this.wizGo(Math.min(wizStep + 1, 3)); },
+      wizSkipArea: () => this.wizGo(3, { query: '' }),
+      wizEdit: () => this.wizGo(1),
+      quickCities: CITIES.slice(0, 6).map(([name]) => ({ name, pick: () => this.wizGo(3, { query: name }) })),
+      planTitle: q ? `Here’s what to expect${widened ? '' : ' in ' + place}` : 'Here’s what to expect',
+      pickedList: picked.map((x) => ({ ...symVals(x), ms: PICK[x.id].ms })),
+      planWarnings: picked.filter((x) => x.warning).map((x) => x.warning),
+      planGroups: needs.map((sv) => ({
+        titles: picked.filter((x) => x.service === sv).map((x) => x.title).join(' + '),
+        what: SERVICE_INFO[sv].what,
+        range: PRICE_STATS[sv].range
+      })),
+      planRange: needs.length ? `${money(r5(needs.reduce((t, n) => t + PRICE_NUM[n].p10, 0)))}–${money(r5(needs.reduce((t, n) => t + PRICE_NUM[n].p90, 0)))}` : '—',
+      planPriceNote: needs.length > 1
+        ? `What Florida homeowners usually pay for these ${needs.length} repairs. One visit often fixes them together, so your total can be lower.`
+        : picked.length > 1 ? 'These usually have the same cause, so one repair should fix both.' : 'What most Florida homeowners paid for this repair.',
+      planProsTitle: urgent ? 'Pros who answer 24/7' : needs.length > 1 ? 'Checked pros who fix all of this' : 'Checked pros who fix this',
+      planProsNote: widened ? `No listed pros serve ${place} yet, so here are the best matches in Florida.` : 'Ranked by reviews, honest pricing, response time and distance. Call them directly. It’s free.',
+      planPros, planNoPros: planPros.length === 0, planCount: planPool.length, planMore: planPool.length > planPros.length,
+      planSeeAll: nav(() => this.go('results', { service: needs.length === 1 ? needs[0] : 'All services', emergency: urgent, query: widened ? '' : s.query, symptom: null })),
       rollerPrice: PRICE_STATS['Rollers'].range,
       topPro: all.slice().sort((a, b) => (b.rating || 0) - (a.rating || 0) || b.reviews - a.reviews)[0] || {},
       cityCount: CITIES.length,
