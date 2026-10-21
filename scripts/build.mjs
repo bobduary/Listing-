@@ -216,14 +216,31 @@ async function main() {
     entries.push(writeEntry(c));
   }
 
-  await esbuild.build({
+  // Bundles get a content hash in their name: /js/ is cached as immutable
+  // (vercel.json), so a fixed name would keep returning visitors on old code.
+  const bundle = await esbuild.build({
     entryPoints: entries,
     outdir: path.join(DIST, 'js'),
     bundle: true, splitting: true, format: 'esm', minify: true,
-    target: ['es2019'], chunkNames: 'chunks/[name]-[hash]',
+    target: ['es2019'], entryNames: '[name]-[hash]', chunkNames: 'chunks/[name]-[hash]',
     define: { 'process.env.NODE_ENV': '"production"' },
-    logLevel: 'warning',
+    logLevel: 'warning', metafile: true,
   });
+  const hashed = {};
+  for (const [file, meta] of Object.entries(bundle.metafile.outputs)) {
+    if (meta.entryPoint) hashed[path.basename(meta.entryPoint, '.js')] = '/' + path.relative(DIST, path.resolve(ROOT, file)).split(path.sep).join('/');
+  }
+  const pointAtBundles = (dir) => {
+    for (const f of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = path.join(dir, f.name);
+      if (f.isDirectory()) { if (f.name !== 'js') pointAtBundles(full); continue; }
+      if (!f.name.endsWith('.html')) continue;
+      const html = fs.readFileSync(full, 'utf8');
+      const next = html.replace(/src="\/js\/([A-Za-z0-9_]+)\.js"/g, (m, n) => (hashed[n] ? `src="${hashed[n]}"` : m));
+      if (next !== html) fs.writeFileSync(full, next);
+    }
+  };
+  pointAtBundles(DIST);
 
   fs.cpSync(path.join(ROOT, 'public'), DIST, { recursive: true });
 
