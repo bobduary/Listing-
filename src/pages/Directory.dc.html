@@ -22,7 +22,7 @@
   <div class="wrap topbar-in">
     <a class="brand" href="/" onClick="{{ goHome }}"><span class="ms" aria-hidden="true">door_sliding</span>FixMySlide</a>
     <nav class="nav-links" aria-label="Main">
-      <a href="/pros" onClick="{{ goAll }}" aria-current="{{ navPros }}">Find a Pro</a>
+      <a href="/start" onClick="{{ goStart }}" aria-current="{{ navPros }}">Find a Pro</a>
       <a href="/cost" onClick="{{ goPrices }}" aria-current="{{ navPrices }}">Pricing</a>
       <a href="/how-it-works" onClick="{{ goHow }}" aria-current="{{ navHow }}">How it Works</a>
       <a href="/problems/hurricane-damaged-sliding-door" onClick="{{ goStorm }}">Storm Help</a>
@@ -31,9 +31,8 @@
     <details class="menu">
       <summary aria-label="Open menu"><span class="ms" aria-hidden="true">menu</span></summary>
       <div class="menu-panel">
-        <a href="/pros" onClick="{{ goAll }}"><span class="ms" aria-hidden="true">search</span>Find a Pro</a>
-        <a href="/start" onClick="{{ goStart }}"><span class="ms" aria-hidden="true">door_sliding</span>What's wrong with my door?</a>
-        <a href="/cost" onClick="{{ goPrices }}"><span class="ms" aria-hidden="true">payments</span>Pricing &amp; quote check</a>
+        <a href="/start" onClick="{{ goStart }}"><span class="ms" aria-hidden="true">search</span>Find a Pro</a>
+        <a href="/cost" onClick="{{ goPrices }}"><span class="ms" aria-hidden="true">payments</span>Prices &amp; quote check</a>
         <a href="/repair-or-replace" onClick="{{ goDecide }}"><span class="ms" aria-hidden="true">help</span>Repair or replace?</a>
         <a href="/problems/hurricane-damaged-sliding-door" onClick="{{ goStorm }}"><span class="ms" aria-hidden="true">thunderstorm</span>Storm help</a>
         <a href="/how-it-works" onClick="{{ goHow }}"><span class="ms" aria-hidden="true">info</span>How it Works</a>
@@ -112,99 +111,6 @@
     </div>
   </section>
 
-  <section class="section" id="fair-price">
-    <div class="wrap qc">
-      <div class="stack qc-intro">
-        <span class="eyebrow">Fair price check</span>
-        <h2 class="h2">Got a quote? See if it’s fair.</h2>
-        <p class="lead">Pick the repair and type the price you were quoted. We compare it with what Florida homeowners actually paid for the same repair.</p>
-        <p class="small muted">No quote yet? Just pick the repair to see the normal price.</p>
-      </div>
-      <form class="qc-card" onSubmit="{{ qcSubmit }}">
-        <div class="qc-fields">
-          <label class="field">What repair?
-            <select class="input big-input" value="{{ checkService }}" onChange="{{ onCheckService }}">
-              <sc-for list="{{ qcServiceOpts }}" as="o" hint-placeholder-count="7"><option value="{{ o.value }}">{{ o.label }}</option></sc-for>
-            </select>
-          </label>
-          <label class="field">Your quote
-            <span class="money-input"><span aria-hidden="true">$</span><input class="input big-input" inputMode="numeric" value="{{ checkAmount }}" onChange="{{ onCheckAmount }}" placeholder="e.g. 350" aria-label="Quoted price in dollars"></span>
-          </label>
-        </div>
-
-        <sc-if value="{{ qcNoAmount }}" hint-placeholder-val="{{ true }}">
-          <div class="qc-result">
-            <span class="label">Normal price in Florida</span>
-            <p class="price-big">{{ qcRange }}</p>
-            <p class="small muted">Most homeowners pay {{ qcRange }} for {{ qcLower }}. Middle price: {{ qcMedian }}.</p>
-          </div>
-        </sc-if>
-
-        <sc-if value="{{ hasVerdict }}" hint-placeholder-val="{{ false }}">
-          <div class="{{ qcResultCls }}" role="status">
-            <div class="row" style="gap: 10px;"><span class="ms ms-fill" aria-hidden="true">{{ verdict.icon }}</span><strong class="h3">{{ verdict.title }}</strong></div>
-            <div class="qc-scale" aria-hidden="true">
-              <span class="qc-band" style="left: {{ qcBandLeft }}; width: {{ qcBandWidth }};"></span>
-              <span class="qc-mark" style="left: {{ qcMark }};"></span>
-            </div>
-            <div class="qc-scale-labels small muted" aria-hidden="true"><span>Low</span><span>Fair {{ qcRange }}</span><span>High</span></div>
-            <p class="small">{{ verdict.text }}</p>
-          </div>
-        </sc-if>
-
-        <a class="btn btn-primary btn-block" href="/pros" onClick="{{ qcFindPros }}">{{ qcCta }}<span class="ms" aria-hidden="true">arrow_forward</span></a>
-      </form>
-    </div>
-  </section>
-
-  <section class="section section-alt" id="pros-near">
-    <div class="wrap">
-      <div class="section-head" style="margin-bottom: 28px;">
-        <div class="stack-sm">
-          <span class="eyebrow">Checked pros</span>
-          <h2 class="h2">{{ nearTitle }}</h2>
-          <p class="muted">{{ nearNote }}</p>
-        </div>
-      </div>
-      <form class="near-form" onSubmit="{{ nearSubmit }}" role="search">
-        <label class="field" style="flex: 1 1 260px;"><span class="sr-only">Your city or ZIP code</span>
-          <span class="money-input"><span class="ms" aria-hidden="true" style="font-size: 22px;">location_on</span><input class="input big-input" value="{{ query }}" onChange="{{ onQuery }}" placeholder="Your city or ZIP code" autoComplete="postal-code" aria-label="Your city or ZIP code"></span>
-        </label>
-      </form>
-      <div class="row near-chips">
-        <span class="small muted" style="font-weight: 600;">Or tap:</span>
-        <sc-for list="{{ nearCities }}" as="city" hint-placeholder-count="8">
-          <button type="button" class="{{ city.cls }}" onClick="{{ city.pick }}">{{ city.name }}</button>
-        </sc-for>
-      </div>
-      <div class="grid-3">
-        <sc-for list="{{ nearPros }}" as="c" hint-placeholder-count="3">
-          <article class="pcard">
-            <div class="pcard-head">
-              <sc-if value="{{ c.hasLogo }}"><img class="avatar" src="{{ c.avatarImg }}" alt="" width="64" height="64" loading="lazy"></sc-if>
-              <sc-if value="{{ c.noLogo }}"><span class="avatar avatar-tone" style="background: {{ c.avatarBg }};" aria-hidden="true">{{ c.initials }}</span></sc-if>
-              <div class="stack-sm" style="gap: 2px; min-width: 0;">
-                <h3 class="pro-name" style="font-size: 19px;"><a href="{{ c.href }}" onClick="{{ c.openNav }}">{{ c.name }}</a></h3>
-                <span class="small"><span class="ms ms-fill star" style="font-size: 18px; vertical-align: -3px;" aria-hidden="true">star</span> <strong>{{ c.ratingText }}</strong> <span class="muted">({{ c.reviews }} reviews)</span></span>
-              </div>
-            </div>
-            <div class="stack-sm" style="gap: 6px;">
-              <span class="{{ c.badgeCls }}" style="align-self: flex-start;">{{ c.badgeLabel }}</span>
-              <p class="small"><span class="ms" style="font-size: 18px; vertical-align: -4px; color: var(--color-ok);" aria-hidden="true">payments</span> {{ c.honestyLine }}</p>
-              <p class="small muted"><span class="ms" style="font-size: 18px; vertical-align: -4px; color: var(--color-accent);" aria-hidden="true">location_on</span> {{ c.nearWhere }}</p>
-            </div>
-            <div class="pcard-actions">
-              <a class="btn btn-primary btn-block" href="{{ c.callHref }}"><span class="ms" aria-hidden="true">call</span>Call {{ c.phone }}</a>
-              <a class="btn btn-secondary text-btn" href="{{ c.textHref }}"><span class="ms" aria-hidden="true">chat</span>Text</a>
-              <a class="btn btn-secondary btn-block only-desk" href="{{ c.href }}" onClick="{{ c.openNav }}">View profile</a>
-            </div>
-          </article>
-        </sc-for>
-      </div>
-      <a class="btn btn-ghost" href="/pros" onClick="{{ nearSeeAll }}" style="margin-top: 24px; padding-left: 0;">{{ nearSeeAllText }}<span class="ms" aria-hidden="true">arrow_forward</span></a>
-    </div>
-  </section>
-
   <sc-if value="{{ hasHomeReviews }}" hint-placeholder-val="{{ false }}">
     <section class="section">
       <div class="wrap">
@@ -228,7 +134,7 @@
     </section>
   </sc-if>
 
-  <section class="wrap" id="storm" style="padding-block: 64px 72px;">
+  <section class="wrap" id="storm" style="padding-block: 0 64px;">
     <div class="storm grid-2" style="align-items: center; padding: 32px;">
       <div class="stack-sm">
         <span class="eyebrow eyebrow-warn">Hurricane season</span>
@@ -314,7 +220,7 @@
           <p class="muted">So we only show pros who come to you.</p>
         </div>
         <form class="stack" onSubmit="{{ wizNext }}" style="max-width: 560px;">
-          <label class="field">City or ZIP code
+          <label class="field">Type your city or ZIP code
             <input class="input big-input" value="{{ query }}" onChange="{{ onQuery }}" placeholder="e.g. Tampa or 33602" autoComplete="postal-code" autoFocus="">
           </label>
           <div class="row" style="gap: 8px;">
@@ -322,6 +228,8 @@
               <button type="button" class="chip" onClick="{{ c.pick }}"><span class="ms" style="font-size: 18px;" aria-hidden="true">location_on</span>{{ c.name }}</button>
             </sc-for>
           </div>
+          <button type="button" class="btn btn-secondary btn-block" onClick="{{ useLocation }}"><span class="ms" aria-hidden="true">near_me</span>{{ geoText }}</button>
+          <sc-if value="{{ geoMsg }}"><p class="small notice notice-warn" role="status">{{ geoMsg }}</p></sc-if>
           <button type="submit" class="btn btn-primary btn-block">Show my price &amp; pros<span class="ms" aria-hidden="true">arrow_forward</span></button>
           <button type="button" class="btn btn-ghost" onClick="{{ wizSkipArea }}">Skip, show all of Florida</button>
         </form>
@@ -336,6 +244,7 @@
               <span class="chip chip-on" style="cursor: default;"><span class="ms" style="font-size: 18px;" aria-hidden="true">{{ p.ms }}</span>{{ p.title }}</span>
             </sc-for>
             <button type="button" class="btn btn-ghost btn-sm" onClick="{{ wizEdit }}"><span class="ms" aria-hidden="true">edit</span>Change</button>
+            <button type="button" class="btn btn-ghost btn-sm" onClick="{{ changeArea }}"><span class="ms" aria-hidden="true">location_on</span>{{ areaText }}</button>
             <button type="button" class="btn btn-ghost btn-sm" onClick="{{ sharePlan }}"><span class="ms" aria-hidden="true">{{ shareIcon }}</span>{{ shareText }}</button>
           </div>
         </div>
@@ -358,7 +267,13 @@
                 </li>
               </sc-for>
             </ul>
-            <p class="tiny muted">Estimate only. Your pro confirms the price after seeing the door. <a href="/cost#checker" onClick="{{ goPrices }}">Got a quote already? Check it</a>.</p>
+            <p class="tiny muted">Estimate only. Your pro confirms the price after seeing the door.</p>
+            <label class="field plan-quote">Got a quote? Type it to check it
+              <span class="money-input"><span aria-hidden="true">$</span><input class="input" inputMode="numeric" value="{{ planQuote }}" onChange="{{ onPlanQuote }}" placeholder="e.g. 250" aria-label="Quoted price in dollars"></span>
+            </label>
+            <sc-if value="{{ hasPlanVerdict }}" hint-placeholder-val="{{ false }}">
+              <div class="{{ planVerdict.cls }}" role="status" style="flex-direction: column; gap: 2px;"><strong>{{ planVerdict.title }}</strong><span class="small">{{ planVerdict.text }}</span></div>
+            </sc-if>
           </section>
 
           <section class="stack" aria-label="Pros">
@@ -369,27 +284,26 @@
             <sc-for list="{{ planPros }}" as="c" hint-placeholder-count="3">
               <article class="plan-pro">
                 <div class="stack-sm" style="gap: 6px; min-width: 0;">
-                  <div class="row" style="gap: 6px;">
-                    <span class="{{ c.badgeCls }}">{{ c.badgeLabel }}</span>
-                    <span class="{{ c.coverCls }}">{{ c.coverText }}</span>
-                    <sc-if value="{{ c.isFeatured }}"><span class="tag tag-ad">Ad</span></sc-if>
-                  </div>
                   <div class="pro-head">
                     <sc-if value="{{ c.hasLogo }}"><img class="avatar avatar-sm" src="{{ c.avatarImg }}" alt="" width="44" height="44" loading="lazy"></sc-if>
                     <sc-if value="{{ c.noLogo }}"><span class="avatar avatar-sm avatar-tone" style="background: {{ c.avatarBg }};" aria-hidden="true">{{ c.initials }}</span></sc-if>
-                    <h3 class="pro-name" style="font-size: 19px;"><a href="{{ c.href }}" onClick="{{ c.openNav }}">{{ c.name }}</a></h3>
+                    <div class="stack-sm" style="gap: 0; min-width: 0;">
+                      <h3 class="pro-name" style="font-size: 19px;"><a href="{{ c.href }}" onClick="{{ c.openNav }}">{{ c.name }}</a><sc-if value="{{ c.verified }}"> <span class="ms ms-fill verified-ic" title="Verified by FixMySlide" aria-label="Verified">verified</span></sc-if></h3>
+                      <p class="small"><span class="rating"><span class="star" aria-hidden="true">★</span>{{ c.ratingText }}</span> <span class="muted">({{ c.reviews }}) · {{ c.city }}</span><sc-if value="{{ c.distanceText }}"><span class="muted"> · {{ c.distanceText }}</span></sc-if></p>
+                    </div>
                   </div>
-                  <p class="small"><span class="rating"><span class="star" aria-hidden="true">★</span>{{ c.ratingText }}</span> <span class="muted">· {{ c.reviewsText }} · {{ c.city }}</span> <sc-if value="{{ c.distanceText }}"><span class="muted">· {{ c.distanceText }}</span></sc-if></p>
-                  <p class="small"><strong style="font-weight: 600;">{{ c.planPrice }}</strong> <span class="muted">· {{ c.responseText }}</span></p>
+                  <sc-if value="{{ c.notVerified }}"><span class="tag tag-ad" style="align-self: flex-start;">Not checked yet</span></sc-if>
+                  <sc-if value="{{ c.partial }}"><span class="tag tag-ad" style="align-self: flex-start;">{{ c.coverText }}</span></sc-if>
+                  <sc-if value="{{ c.isFeatured }}"><span class="tag tag-ad" style="align-self: flex-start;">Ad</span></sc-if>
+                  <p class="small"><strong style="font-weight: 600;">{{ c.planPrice }}</strong></p>
                   <sc-if value="{{ c.priceAbove }}"><p class="price-flag"><span class="ms" aria-hidden="true">info</span><span>{{ c.priceFlag }}</span></p></sc-if>
                   <sc-if value="{{ c.priceFair }}"><p class="price-ok"><span class="ms" aria-hidden="true">check_circle</span><span>{{ c.priceFlag }}</span></p></sc-if>
+                  <p class="tiny muted">{{ c.responseText }}</p>
                 </div>
                 <div class="plan-pro-actions">
                   <a class="btn btn-primary btn-block" href="{{ c.callHref }}"><span class="ms" aria-hidden="true">call</span>Call {{ c.phone }}</a>
-                  <div class="btn-pair">
-                    <a class="btn btn-secondary btn-sm text-btn" href="{{ c.textHref }}"><span class="ms" aria-hidden="true">chat</span>Text</a>
-                    <a class="btn btn-secondary btn-sm" href="{{ c.href }}" onClick="{{ c.openNav }}">See details</a>
-                  </div>
+                  <a class="btn btn-secondary btn-block text-btn" href="{{ c.textHref }}"><span class="ms" aria-hidden="true">chat</span>Text</a>
+                  <a class="btn btn-secondary btn-block btn-sm desk-only" href="{{ c.href }}" onClick="{{ c.openNav }}">See details</a>
                 </div>
               </article>
             </sc-for>
@@ -412,27 +326,26 @@
                     <sc-for list="{{ planFar }}" as="c" hint-placeholder-count="0">
               <article class="plan-pro">
                 <div class="stack-sm" style="gap: 6px; min-width: 0;">
-                  <div class="row" style="gap: 6px;">
-                    <span class="{{ c.badgeCls }}">{{ c.badgeLabel }}</span>
-                    <span class="{{ c.coverCls }}">{{ c.coverText }}</span>
-                    <sc-if value="{{ c.isFeatured }}"><span class="tag tag-ad">Ad</span></sc-if>
-                  </div>
                   <div class="pro-head">
                     <sc-if value="{{ c.hasLogo }}"><img class="avatar avatar-sm" src="{{ c.avatarImg }}" alt="" width="44" height="44" loading="lazy"></sc-if>
                     <sc-if value="{{ c.noLogo }}"><span class="avatar avatar-sm avatar-tone" style="background: {{ c.avatarBg }};" aria-hidden="true">{{ c.initials }}</span></sc-if>
-                    <h3 class="pro-name" style="font-size: 19px;"><a href="{{ c.href }}" onClick="{{ c.openNav }}">{{ c.name }}</a></h3>
+                    <div class="stack-sm" style="gap: 0; min-width: 0;">
+                      <h3 class="pro-name" style="font-size: 19px;"><a href="{{ c.href }}" onClick="{{ c.openNav }}">{{ c.name }}</a><sc-if value="{{ c.verified }}"> <span class="ms ms-fill verified-ic" title="Verified by FixMySlide" aria-label="Verified">verified</span></sc-if></h3>
+                      <p class="small"><span class="rating"><span class="star" aria-hidden="true">★</span>{{ c.ratingText }}</span> <span class="muted">({{ c.reviews }}) · {{ c.city }}</span><sc-if value="{{ c.distanceText }}"><span class="muted"> · {{ c.distanceText }}</span></sc-if></p>
+                    </div>
                   </div>
-                  <p class="small"><span class="rating"><span class="star" aria-hidden="true">★</span>{{ c.ratingText }}</span> <span class="muted">· {{ c.reviewsText }} · {{ c.city }}</span> <sc-if value="{{ c.distanceText }}"><span class="muted">· {{ c.distanceText }}</span></sc-if></p>
-                  <p class="small"><strong style="font-weight: 600;">{{ c.planPrice }}</strong> <span class="muted">· {{ c.responseText }}</span></p>
+                  <sc-if value="{{ c.notVerified }}"><span class="tag tag-ad" style="align-self: flex-start;">Not checked yet</span></sc-if>
+                  <sc-if value="{{ c.partial }}"><span class="tag tag-ad" style="align-self: flex-start;">{{ c.coverText }}</span></sc-if>
+                  <sc-if value="{{ c.isFeatured }}"><span class="tag tag-ad" style="align-self: flex-start;">Ad</span></sc-if>
+                  <p class="small"><strong style="font-weight: 600;">{{ c.planPrice }}</strong></p>
                   <sc-if value="{{ c.priceAbove }}"><p class="price-flag"><span class="ms" aria-hidden="true">info</span><span>{{ c.priceFlag }}</span></p></sc-if>
                   <sc-if value="{{ c.priceFair }}"><p class="price-ok"><span class="ms" aria-hidden="true">check_circle</span><span>{{ c.priceFlag }}</span></p></sc-if>
+                  <p class="tiny muted">{{ c.responseText }}</p>
                 </div>
                 <div class="plan-pro-actions">
                   <a class="btn btn-primary btn-block" href="{{ c.callHref }}"><span class="ms" aria-hidden="true">call</span>Call {{ c.phone }}</a>
-                  <div class="btn-pair">
-                    <a class="btn btn-secondary btn-sm text-btn" href="{{ c.textHref }}"><span class="ms" aria-hidden="true">chat</span>Text</a>
-                    <a class="btn btn-secondary btn-sm" href="{{ c.href }}" onClick="{{ c.openNav }}">See details</a>
-                  </div>
+                  <a class="btn btn-secondary btn-block text-btn" href="{{ c.textHref }}"><span class="ms" aria-hidden="true">chat</span>Text</a>
+                  <a class="btn btn-secondary btn-block btn-sm desk-only" href="{{ c.href }}" onClick="{{ c.openNav }}">See details</a>
                 </div>
               </article>
                     </sc-for>
@@ -638,7 +551,7 @@
             <div class="pro-main">
               <h3 class="pro-name"><a href="{{ c.href }}" onClick="{{ c.openNav }}">{{ c.name }}</a></h3>
               <p class="small"><span class="rating"><span class="star" aria-hidden="true">★</span>{{ c.ratingText }}</span> <span class="muted">· {{ c.reviewsText }} · {{ c.location }}</span></p>
-              <p class="small"><span class="{{ c.badgeCls }}">{{ c.badgeLabel }}</span> <span class="muted">· {{ c.honestyLine }}</span></p>
+              <sc-if value="{{ c.notVerified }}"><p class="small"><span class="tag tag-ad">Not checked yet</span></p></sc-if>
               <p class="small"><strong style="font-weight: 600;">{{ c.priceLine }}</strong><sc-if value="{{ c.priceAbove }}"><span class="price-flag-inline"> · {{ c.priceAboveText }}</span></sc-if></p>
               <div class="row" style="gap: 6px;">
                 <sc-if value="{{ c.emergency }}"><span class="tag tag-warn">24/7 storm calls</span></sc-if>
@@ -710,57 +623,52 @@
     <div class="stack">
       <nav class="crumbs" aria-label="Breadcrumb"><a href="/" onClick="{{ goHome }}">Home</a><span aria-hidden="true">/</span><span aria-current="page">Price guide</span></nav>
       <h1 class="h1 h1-sm" style="max-width: 22ch;">Sliding glass door repair cost in Florida</h1>
-      <p class="lead">These are real prices Florida homeowners reported after their repair: {{ totalReports }} reports in all. Most repairs cost far less than a new door. Use the ranges below to judge a quote before you say yes.</p>
+      <p class="lead">Pick the repair to see what Florida homeowners actually paid ({{ totalReports }} reports). Got a quote? Type it in to see if it’s fair.</p>
     </div>
-    <div class="notice notice-ok" role="note">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 2px;"><path d="M20 6 9 17l-5-5"></path></svg>
-      <span><strong>Rule of thumb:</strong> a quote inside the range is normal. A quote well above it isn't always wrong (big or impact doors cost more), but ask the pro to explain why.</span>
-    </div>
-    <div class="grid-2" style="align-items: start;">
-      <section class="card stack" id="calculator">
-        <h2 class="h3">Price calculator</h2>
-        <p class="small muted">Get a rough estimate for your door before you call.</p>
-        <label class="field">Repair<select class="input" value="{{ calcService }}" onChange="{{ onCalcService }}"><sc-for list="{{ calcServiceOpts }}" as="o" hint-placeholder-count="7"><option value="{{ o.value }}">{{ o.label }}</option></sc-for></select></label>
-        <label class="field">Door size<select class="input" value="{{ calcSize }}" onChange="{{ onCalcSize }}"><sc-for list="{{ calcSizeOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.value }}">{{ o.label }}</option></sc-for></select></label>
-        <label class="field">Door type<select class="input" value="{{ calcType }}" onChange="{{ onCalcType }}"><sc-for list="{{ calcTypeOpts }}" as="o" hint-placeholder-count="2"><option value="{{ o.value }}">{{ o.label }}</option></sc-for></select></label>
-        <div class="price-inline" style="display: flex;">
-          <span class="label">Estimated cost</span>
-          <p class="price-big" aria-live="polite">{{ calcRange }}</p>
-          <p class="tiny muted">{{ calcNote }}</p>
+    <form class="qc-card" id="checker" onSubmit="{{ qcSubmit }}">
+      <div class="qc-fields">
+        <label class="field">What repair?
+          <select class="input big-input" value="{{ checkService }}" onChange="{{ onCheckService }}">
+            <sc-for list="{{ qcServiceOpts }}" as="o" hint-placeholder-count="7"><option value="{{ o.value }}">{{ o.label }}</option></sc-for>
+          </select>
+        </label>
+        <label class="field">Your quote
+          <span class="money-input"><span aria-hidden="true">$</span><input class="input big-input" inputMode="numeric" value="{{ checkAmount }}" onChange="{{ onCheckAmount }}" placeholder="e.g. 350" aria-label="Quoted price in dollars"></span>
+        </label>
+      </div>
+
+      <sc-if value="{{ qcNoAmount }}" hint-placeholder-val="{{ true }}">
+        <div class="qc-result">
+          <span class="label">Normal price in Florida</span>
+          <p class="price-big">{{ qcRange }}</p>
+          <p class="small muted">Most homeowners pay {{ qcRange }} for {{ qcLower }}. Middle price: {{ qcMedian }}.</p>
         </div>
-      </section>
-      <section class="card stack" id="checker">
-        <h2 class="h3">Is my quote fair?</h2>
-        <p class="small muted">Enter the price you were quoted and we'll compare it with what Florida homeowners paid.</p>
-        <label class="field">Repair<select class="input" value="{{ checkService }}" onChange="{{ onCheckService }}"><sc-for list="{{ checkServiceOpts }}" as="o" hint-placeholder-count="7"><option value="{{ o.value }}">{{ o.label }}</option></sc-for></select></label>
-        <label class="field">Quoted price ($)<input class="input" inputMode="numeric" value="{{ checkAmount }}" onChange="{{ onCheckAmount }}" placeholder="e.g. 275"></label>
-        <div aria-live="polite">
-          <sc-if value="{{ hasVerdict }}" hint-placeholder-val="{{ false }}">
-            <div class="{{ verdict.cls }}" style="flex-direction: column; gap: 4px;"><strong>{{ verdict.title }}</strong><span>{{ verdict.text }}</span></div>
-          </sc-if>
+      </sc-if>
+
+      <sc-if value="{{ hasVerdict }}" hint-placeholder-val="{{ false }}">
+        <div class="{{ qcResultCls }}" role="status">
+          <div class="row" style="gap: 10px;"><span class="ms ms-fill" aria-hidden="true">{{ verdict.icon }}</span><strong class="h3">{{ verdict.title }}</strong></div>
+          <div class="qc-scale" aria-hidden="true">
+            <span class="qc-band" style="left: {{ qcBandLeft }}; width: {{ qcBandWidth }};"></span>
+            <span class="qc-mark" style="left: {{ qcMark }};"></span>
+          </div>
+          <div class="qc-scale-labels small muted" aria-hidden="true"><span>Low</span><span>Fair {{ qcRange }}</span><span>High</span></div>
+          <p class="small">{{ verdict.text }}</p>
         </div>
-        <p class="small">Not sure whether to fix it at all? <a href="/repair-or-replace" onClick="{{ goDecide }}">Repair or replace? Take the 1-minute check</a></p>
-      </section>
-    </div>
-    <h2 class="h2" style="margin-top: 16px;">Prices by repair</h2>
-    <div class="stack" style="gap: 16px;">
-      <sc-for list="{{ priceIndex }}" as="pi" hint-placeholder-count="7">
-        <section class="card stack" id="{{ pi.slug }}">
-          <div class="row" style="justify-content: space-between; align-items: baseline;">
-            <h2 class="h3">{{ pi.label }}</h2>
-            <p class="price-big tnum" style="font-size: 32px;">{{ pi.range }}</p>
-          </div>
-          <p class="muted small">Middle price <strong style="color: var(--color-text);">{{ pi.median }}</strong> · {{ pi.count }} reports · {{ pi.what }}</p>
-          <ul class="dotlist small">
-            <sc-for list="{{ pi.factors }}" as="f" hint-placeholder-count="3"><li>{{ f }}</li></sc-for>
-          </ul>
-          <div class="row">
-            <a class="btn btn-primary btn-sm btn-phone-block" href="/pros" onClick="{{ pi.onClick }}">Find pros for {{ pi.lower }}</a>
-            <a class="btn btn-ghost btn-sm" href="{{ pi.guideHref }}" onClick="{{ pi.openGuide }}">Is this my problem? →</a>
-          </div>
-        </section>
-      </sc-for>
-    </div>
+      </sc-if>
+
+      <a class="btn btn-primary btn-block" href="/start" onClick="{{ qcFindPros }}">{{ qcCta }}<span class="ms" aria-hidden="true">arrow_forward</span></a>
+    </form>
+    <section class="stack-sm" id="calculator">
+      <h2 class="h3">Every repair at a glance</h2>
+      <p class="small muted">What most Florida homeowners paid. Tap one to see if it’s your problem.</p>
+      <ul class="linklist" style="border-top: 0;">
+        <sc-for list="{{ priceIndex }}" as="pi" hint-placeholder-count="7">
+          <li id="{{ pi.slug }}"><a href="{{ pi.guideHref }}" onClick="{{ pi.openGuide }}"><span>{{ pi.label }}</span><span class="tnum" style="font-weight: 700;">{{ pi.range }}</span></a></li>
+        </sc-for>
+      </ul>
+      <p class="small">Not sure whether to fix it at all? <a href="/repair-or-replace" onClick="{{ goDecide }}">Repair or replace? Take the 1-minute check</a></p>
+    </section>
     <section class="faq stack-sm">
       <h2 class="h2" style="margin-bottom: 8px;">Price questions</h2>
       <sc-for list="{{ priceFaq }}" as="q" hint-placeholder-count="4">
@@ -849,10 +757,9 @@
                 <h3 class="pro-name" style="font-size: 19px;"><a href="{{ c.href }}" onClick="{{ c.openNav }}">{{ c.name }}</a></h3>
                 <span class="small"><span class="ms ms-fill star" style="font-size: 18px; vertical-align: -3px;" aria-hidden="true">star</span> <strong>{{ c.ratingText }}</strong> <span class="muted">({{ c.reviews }} reviews)</span></span>
               </div>
-              <span class="{{ c.badgeCls }}" style="align-self: flex-start;">{{ c.badgeLabel }}</span>
+              <sc-if value="{{ c.notVerified }}"><span class="tag tag-ad" style="align-self: flex-start;">Not checked yet</span></sc-if>
               <ul class="find-facts small">
                 <li><span class="ms" aria-hidden="true">sell</span><span>{{ c.priceLine }}<sc-if value="{{ c.priceAbove }}"><span class="price-flag-inline"> · {{ c.priceAboveText }}</span></sc-if></span></li>
-                <li><span class="ms" aria-hidden="true">payments</span>{{ c.honestyLine }}</li>
                 <li><span class="ms" aria-hidden="true">location_on</span>{{ c.where }}</li>
               </ul>
               <div class="pcard-actions">
@@ -880,10 +787,9 @@
                 <h3 class="pro-name" style="font-size: 19px;"><a href="{{ c.href }}" onClick="{{ c.openNav }}">{{ c.name }}</a></h3>
                 <span class="small"><span class="ms ms-fill star" style="font-size: 18px; vertical-align: -3px;" aria-hidden="true">star</span> <strong>{{ c.ratingText }}</strong> <span class="muted">({{ c.reviews }} reviews)</span></span>
               </div>
-              <span class="{{ c.badgeCls }}" style="align-self: flex-start;">{{ c.badgeLabel }}</span>
+              <sc-if value="{{ c.notVerified }}"><span class="tag tag-ad" style="align-self: flex-start;">Not checked yet</span></sc-if>
               <ul class="find-facts small">
                 <li><span class="ms" aria-hidden="true">sell</span><span>{{ c.priceLine }}<sc-if value="{{ c.priceAbove }}"><span class="price-flag-inline"> · {{ c.priceAboveText }}</span></sc-if></span></li>
-                <li><span class="ms" aria-hidden="true">payments</span>{{ c.honestyLine }}</li>
                 <li><span class="ms" aria-hidden="true">location_on</span>{{ c.where }}</li>
               </ul>
               <div class="pcard-actions">
@@ -967,7 +873,7 @@
             </div>
             <div class="stack-sm" style="gap: 0; align-items: flex-end;">
               <span class="price-big" style="font-size: 30px; color: var(--color-ok);">{{ sel.honestyText }}</span>
-              <span class="tiny muted">paid within posted price</span>
+              <span class="tiny muted">of customers paid within<br>their posted prices</span>
             </div>
           </div>
           <div class="table">
@@ -975,7 +881,7 @@
               <div class="price-row price-row-3">
                 <strong style="font-weight: 600;">{{ p.service }}</strong>
                 <span class="tnum" style="font-weight: 700;">{{ p.range }}</span>
-                <span class="tiny muted">{{ p.countText }} · middle paid {{ p.median }}<br>Florida usual: {{ p.fair }}<sc-if value="{{ p.above }}"> · <span class="price-flag-inline">above usual</span></sc-if></span>
+                <span class="tiny muted">{{ p.paidText }}<br>Florida usual: {{ p.fair }}<sc-if value="{{ p.above }}"> · <span class="price-flag-inline">above usual</span></sc-if></span>
               </div>
             </sc-for>
           </div>
@@ -1210,7 +1116,7 @@
       <nav class="stack-sm" aria-label="Help">
         <strong style="color: #0F172A;">Get help</strong>
         <a class="small" href="/#problems" onClick="{{ goProblems }}">Browse problems</a>
-        <a class="small" href="/cost" onClick="{{ goPrices }}">Prices &amp; calculator</a>
+        <a class="small" href="/cost" onClick="{{ goPrices }}">Repair prices</a>
         <a class="small" href="/cost#checker" onClick="{{ goPrices }}">Is my quote fair?</a>
         <a class="small" href="/repair-or-replace" onClick="{{ goDecide }}">Repair or replace?</a>
         <a class="small" href="/pros" onClick="{{ goAll }}">Verified pros</a>
@@ -1244,7 +1150,7 @@ const SERVICE_INFO = {
   'Locks & handles': { label: 'Lock & handle repair', lower: 'lock and handle repair', slug: 'lock-repair', symptom: 'wont-lock', what: 'adjusting or replacing the latch, lock or handle set', factors: ['Adjustment only vs. a new lock', 'Lock style: standard, keyed or double-bolt', 'Matching parts for older doors'] },
   'Screen doors': { label: 'Screen door repair', lower: 'screen door repair', slug: 'screen-door-repair', symptom: 'screen', what: 'new screen rollers, new mesh or a rebuilt frame', factors: ['New mesh vs. a new screen frame', 'Pet-proof or solar mesh costs more', 'Custom sizes'] },
   'Impact doors': { label: 'Impact door repair', lower: 'impact door repair', slug: 'impact-door-repair', symptom: 'storm', what: 'heavy-duty parts for hurricane-rated doors', factors: ['Impact-rated parts and glass cost more', 'Whether the frame is bent', 'After-hours emergency visits'] },
-  'Weatherstripping': { label: 'Leak & seal repair', lower: 'leak and seal repair', slug: 'leak-repair', symptom: 'leaking', what: 'new seals and cleared drain (weep) holes', factors: ['How many seals need replacing', 'Whether the sill or frame needs resealing', 'Water damage inside is a separate repair'] }
+  'Weatherstripping': { label: 'Leak & seal repair', lower: 'leak and seal repair', slug: 'leak-repair', symptom: 'leaking', what: 'new seals and cleared drain slots', factors: ['How many seals need replacing', 'Whether the sill or frame needs resealing', 'Water damage inside is a separate repair'] }
 };
 const BASE = { 'Rollers': [150, 250], 'Tracks': [120, 220], 'Glass replacement': [350, 800], 'Locks & handles': [85, 180], 'Screen doors': [60, 150], 'Impact doors': [600, 1800], 'Weatherstripping': [90, 180] };
 const DOORS = ['2-panel, 6 ft', '2-panel, 8 ft', '3-panel', '4-panel / multi-slide', 'Pocket slider', 'Impact-rated slider'];
@@ -1314,7 +1220,7 @@ const SYMPTOMS = [
     checks: ['Find the small slots on the outside bottom of the frame and clear them with a pipe cleaner.', 'Look at the seals along the door edges for gaps, flat spots or cracks.', 'Check the outside caulking around the frame for cracks.'],
     factors: ['How many seals need replacing', 'Whether the sill or frame needs resealing', 'Water damage inside is a separate repair'],
     note: 'Fix leaks before storm season. Water that keeps getting in can rot the subfloor and cause mold.',
-    diy: 'Clearing weep holes and re-caulking outside are safe weekend jobs. Replacing the seals in the door panel usually means taking the door out.',
+    diy: 'Clearing the drain slots and re-caulking outside are safe weekend jobs. Replacing the seals in the door panel usually means taking the door out.',
     replace: 'Rarely. Unless the frame itself is rotted or cracked, new seals and drains stop the leak.' },
   { id: 'glass', slug: 'sliding-door-glass-repair', service: 'Glass replacement', title: 'Cracked or foggy glass', sub: 'Broken pane or fog between panes',
     icon: 'M4 3h16v18H4z M11 3l2 6-3 3 3 4-1 5',
@@ -1547,7 +1453,7 @@ function ROUTE_LIST() {
   return r;
 }
 
-const DEFAULTS = { savedPlan: null, planShared: null, view: 'home', symptom: null, findSym: null, showAll: false, picked: [], wizStep: 1, describe: '', query: '', service: 'All services', price: 'Any', emergency: false, verifiedOnly: false, sort: 'best', mode: 'list', selectedId: null, compare: [], report: 'closed', problem: 'closed', review: 'closed', listSent: false, plan: 'free', calcService: 'Rollers', calcSize: 'standard', calcType: 'standard', checkService: 'Rollers', checkAmount: '', dAge: '', dFrame: '', dGlass: '', dGoal: '' };
+const DEFAULTS = { savedPlan: null, planShared: null, savedWhere: '', geo: null, planQuote: '', view: 'home', symptom: null, findSym: null, showAll: false, picked: [], wizStep: 1, describe: '', query: '', service: 'All services', price: 'Any', emergency: false, verifiedOnly: false, sort: 'best', mode: 'list', selectedId: null, compare: [], report: 'closed', problem: 'closed', review: 'closed', listSent: false, plan: 'free', calcService: 'Rollers', calcSize: 'standard', calcType: 'standard', checkService: 'Rollers', checkAmount: '', dAge: '', dFrame: '', dGlass: '', dGoal: '' };
 
 // ---------------------------------------------------------------------------
 // Component
@@ -1567,6 +1473,8 @@ class Component extends DCLogic {
     }
     // The last plan on this device, for "Pick up where you left off" on home.
     try { const saved = JSON.parse(localStorage.getItem('fms-plan') || 'null'); if (saved && Array.isArray(saved.picked) && saved.picked.length) patch.savedPlan = saved; } catch (e) { /* storage blocked */ }
+    // Where they said the door is, so the steps don't ask again.
+    try { const where = localStorage.getItem('fms-where'); if (where) patch.savedWhere = where; } catch (e) { /* storage blocked */ }
     const start = Object.assign({}, this.state, patch);
     if (Object.keys(patch).length) this.setState(patch);
     this._onMsg = (e) => {
@@ -1635,6 +1543,19 @@ class Component extends DCLogic {
     if (s.wizStep !== 3 || !s.picked.length) return '/start';
     return '/start?p=' + s.picked.join(',') + (s.query.trim() ? '&in=' + encodeURIComponent(s.query.trim()) : '');
   }
+  // "Use my location": the nearest Florida city we know, then straight to the plan.
+  useLocation() {
+    if (!navigator.geolocation) return this.setState({ geo: 'off' });
+    this.setState({ geo: 'busy' });
+    navigator.geolocation.getCurrentPosition((pos) => {
+      const here = [pos.coords.latitude, pos.coords.longitude];
+      let near = null, dist = Infinity;
+      Object.keys(FL_COORDS).forEach((k) => { const d = miles(here, FL_COORDS[k]); if (d < dist) { dist = d; near = k; } });
+      if (!near || dist > 40) return this.setState({ geo: 'far' });
+      this.setState({ geo: null });
+      this.wizGo(3, { query: near.replace(/(^|\s)\S/g, (m) => m.toUpperCase()) });
+    }, () => this.setState({ geo: 'off' }), { timeout: 10000, maximumAge: 600000 });
+  }
   sharePlan(text) {
     const url = location.origin + this.startPath(this.state);
     const copied = () => { this.setState({ planShared: 'copied' }); setTimeout(() => this.setState({ planShared: null }), 2500); };
@@ -1646,8 +1567,8 @@ class Component extends DCLogic {
     const next = Object.assign({}, this.state, { view: 'start', wizStep: step }, extra);
     if (step === 3 && next.picked.length) {
       const saved = { picked: next.picked, query: next.query.trim() };
-      try { localStorage.setItem('fms-plan', JSON.stringify(saved)); } catch (e) { /* storage blocked */ }
-      next.savedPlan = saved; extra = Object.assign({}, extra, { savedPlan: saved });
+      try { localStorage.setItem('fms-plan', JSON.stringify(saved)); if (saved.query) localStorage.setItem('fms-where', saved.query); } catch (e) { /* storage blocked */ }
+      next.savedPlan = saved; extra = Object.assign({}, extra, { savedPlan: saved, planQuote: '' }, saved.query ? { savedWhere: saved.query } : {});
     }
     this.setState(Object.assign({ view: 'start', wizStep: step }, extra));
     history.pushState({ dc: next }, '', this.startPath(next));
@@ -1686,8 +1607,9 @@ class Component extends DCLogic {
       const all = [p.lo, p.hi, ...p.reports.map((r) => r.paid)];
       const min = Math.min(...all) * 0.85, max = Math.max(...all) * 1.08, pct = (v) => ((v - min) / (max - min) * 100).toFixed(1) + '%';
       return {
-        service: p.service, range: `${money(p.lo)}–${money(p.hi)}`, fair: PRICE_STATS[p.service].range,
+        service: SERVICE_INFO[p.service].label, range: `${money(p.lo)}–${money(p.hi)}`, fair: PRICE_STATS[p.service].range,
         above: aboveUsual(p.hi, PRICE_NUM[p.service].p90), median: p.reports.length ? money(median(p.reports.map((r) => r.paid))) : '—',
+        paidText: p.reports.length ? `Most paid about ${money(median(p.reports.map((r) => r.paid)))} (${p.reports.length} ${p.reports.length === 1 ? 'report' : 'reports'})` : 'No price reports yet',
         countText: p.reports.length + ' reports', bandLeft: pct(p.lo), bandWidth: ((p.hi - p.lo) / (max - min) * 100).toFixed(1) + '%',
         dots: p.reports.map((r) => ({ left: pct(r.paid), color: r.within ? 'var(--color-accent-700)' : 'var(--color-warn)' }))
       };
@@ -1717,7 +1639,7 @@ class Component extends DCLogic {
       callout: c.callout || '—',
       warranty: c.warranty || '—',
       responseText: responseText(c.responseHours),
-      badgeLabel: c.verified ? 'Verified' : 'Basic listing',
+      badgeLabel: c.verified ? 'Verified' : 'Not checked yet',
       badgeCls: c.verified ? 'tag tag-ok' : 'tag tag-ad',
       licenseText: c.license ? `License ${c.license}` : '',
       specialtiesText: c.specialties.join(', '),
@@ -1732,7 +1654,7 @@ class Component extends DCLogic {
       reply: c.emergency ? '1 hour' : '1 business day',
       lastCheck: checks, nextCheck: next,
       honestyText: c.honesty != null ? c.honesty + '%' : '—',
-      honestyLine: c.honesty != null ? `${c.honesty}% of jobs at the quoted price` : 'No price reports yet',
+      honestyLine: c.honesty != null ? `${c.honesty}% paid within their posted prices` : 'No price reports yet',
       reportCountText: `${c.reports.length} price reports`,
       priceLine: `${SERVICE_INFO[shown.service].label}: ${money(shown.lo)}–${money(shown.hi)}`,
       prices, reportsList,
@@ -1808,7 +1730,7 @@ class Component extends DCLogic {
           qcResultCls: 'qc-result qc-' + (verdict ? verdict.level : 'none'),
           qcCta: !verdict ? `Find checked pros for ${info.lower}` : { ok: 'Find checked pros at this price', low: 'Compare with checked pros' }[verdict.level] || 'Get a second quote from a checked pro',
           qcSubmit: (e) => { e.preventDefault(); },
-          qcFindPros: nav(() => this.go('results', { query: '', service: s.checkService, emergency: false, symptom: null }))
+          qcFindPros: nav(() => { const picked = [SERVICE_INFO[s.checkService].symptom]; const where = s.query.trim() || s.savedWhere; this.wizGo(where ? 3 : 2, Object.assign({ picked }, where ? { query: where } : {})); })
         };
       })(),
       decideQs: [
@@ -1912,8 +1834,8 @@ class Component extends DCLogic {
       const fairLo = r5(own.reduce((t, pr) => t + PRICE_NUM[pr.service].p10, 0)), fairHi = r5(own.reduce((t, pr) => t + PRICE_NUM[pr.service].p90, 0));
       const above = aboveUsual(hi, fairHi);
       return Object.assign(dec(c), {
-        coverText: k === needs.length ? (needs.length > 1 ? `Fixes all ${needs.length}` : 'Does this repair') : `Fixes ${k} of ${needs.length}`,
-        coverCls: k === needs.length ? 'tag' : 'tag tag-ad',
+        partial: k < needs.length,
+        coverText: `Covers ${k} of your ${needs.length} repairs`,
         planPrice: `Their price: ${money(lo)}–${money(hi)}`,
         priceAbove: above, priceFair: !above,
         priceFlag: above ? `Higher than the usual ${money(fairLo)}–${money(fairHi)}. ${ABOVE_HINT}` : 'In line with the fair price',
@@ -1935,7 +1857,7 @@ class Component extends DCLogic {
       showFeatured,
       isDecide: s.view === 'decide', isHow: s.view === 'how',
       goHow: nav(() => this.go('how')),
-      navPros: s.view === 'results' || s.view === 'profile' ? 'page' : null,
+      navPros: s.view === 'results' || s.view === 'profile' || s.view === 'start' ? 'page' : null,
       navPrices: s.view === 'prices' ? 'page' : null,
       navHow: s.view === 'how' ? 'page' : null,
       img: { hero: IMG.hero || '', howHero: IMG['how-hero'] || '', proAtWork: IMG['pro-at-work'] || '' },
@@ -1991,7 +1913,7 @@ class Component extends DCLogic {
       noPicks: picked.length === 0,
       pickCta: picked.length === 0 ? 'Pick at least one' : `Continue with ${pickedWord}`,
       pickedText: picked.length === 0 ? 'Nothing picked yet' : `${pickedWord} picked`,
-      homeNext: () => this.go('start', { wizStep: 2 }),
+      homeNext: () => (s.query.trim() || s.savedWhere ? this.wizGo(3, { query: s.query.trim() || s.savedWhere }) : this.wizGo(2)),
       ...(() => {
         const sp = s.savedPlan;
         const titles = sp ? sp.picked.map((id) => (SYMPTOMS.find((x) => x.id === id) || {}).title).filter(Boolean) : [];
@@ -2010,7 +1932,17 @@ class Component extends DCLogic {
       wizStep, wizStep1: wizStep === 1, wizStep2: wizStep === 2, wizStep3: wizStep === 3,
       wizDot1: 'on', wizDot2: wizStep >= 2 ? 'on' : '', wizDot3: wizStep >= 3 ? 'on' : '',
       wizBack: () => (wizStep > 1 ? this.wizGo(wizStep - 1) : this.go('home')),
-      wizNext: (e) => { if (e && e.preventDefault) e.preventDefault(); if (!picked.length) return this.wizGo(1); this.wizGo(Math.min(wizStep + 1, 3)); },
+      wizNext: (e) => {
+        if (e && e.preventDefault) e.preventDefault();
+        if (!picked.length) return this.wizGo(1);
+        if (wizStep === 1 && (s.query.trim() || s.savedWhere)) return this.wizGo(3, { query: s.query.trim() || s.savedWhere });
+        this.wizGo(Math.min(wizStep + 1, 3));
+      },
+      useLocation: () => this.useLocation(),
+      geoText: s.geo === 'busy' ? 'Finding you…' : 'Use my location',
+      geoMsg: s.geo === 'off' ? 'Location is turned off. Type your city or ZIP instead.' : s.geo === 'far' ? 'We couldn’t place you in Florida. Type your city or ZIP instead.' : '',
+      changeArea: () => this.wizGo(2),
+      areaText: q ? 'Change area' : 'Add your area',
       wizSkipArea: () => this.wizGo(3, { query: '' }),
       wizEdit: () => this.wizGo(1),
       quickCities: CITIES.slice(0, 6).map(([name]) => ({ name, pick: () => this.wizGo(3, { query: name }) })),
@@ -2023,6 +1955,19 @@ class Component extends DCLogic {
         range: PRICE_STATS[sv].range
       })),
       planRange: planRangeText,
+      planQuote: s.planQuote,
+      onPlanQuote: (e) => set({ planQuote: e.target.value }),
+      ...(() => {
+        const amt = num(s.planQuote, null);
+        if (!needs.length || amt == null || amt <= 0) return { hasPlanVerdict: false, planVerdict: {} };
+        const lo = r5(needs.reduce((t, n) => t + PRICE_NUM[n].p10, 0)), hi = r5(needs.reduce((t, n) => t + PRICE_NUM[n].p90, 0));
+        const v = amt < lo * 0.85
+          ? { cls: 'notice notice-warn', icon: 'info', title: 'Lower than usual', text: `Most paid ${money(lo)}–${money(hi)}. A low quote can be fine, but ask exactly what’s included.` }
+          : amt <= hi * 1.05
+            ? { cls: 'notice notice-ok', icon: 'check_circle', title: 'That’s a fair price', text: `It’s within what most Florida homeowners paid (${money(lo)}–${money(hi)}).` }
+            : { cls: 'notice notice-warn', icon: 'warning', title: 'Higher than usual', text: `Most paid ${money(lo)}–${money(hi)}. Ask what’s driving the price, or get a second quote from a pro below.` };
+        return { hasPlanVerdict: true, planVerdict: v };
+      })(),
       planPriceNote: needs.length > 1
         ? `What Florida homeowners usually pay for these ${needs.length} repairs. One visit often fixes them together, so your total can be lower.`
         : picked.length > 1 ? 'These usually have the same cause, so one repair should fix both.' : 'What most Florida homeowners paid for this repair.',
@@ -2091,7 +2036,7 @@ class Component extends DCLogic {
         const whys = (c) => {
           const top = results.every((x) => (x.rating || 0) <= (c.rating || 0));
           const w = [`${top && results.length > 1 ? 'Highest rated' + near + ': ' : 'Rated '}${c.ratingText} out of 5 from ${c.reviews} reviews`];
-          if (c.honesty != null) w.push(`${c.honesty}% of jobs done at the quoted price`);
+          if (c.honesty != null) w.push(`${c.honesty}% of customers paid within their posted prices`);
           else if (c.verified) w.push('Checked by our team');
           w.push(c.priceLine);
           return w;
