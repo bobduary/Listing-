@@ -550,3 +550,28 @@ textarea.input { min-height: 120px; resize: vertical; }
 .footer-slim { padding-block: 24px; }
 .footer-slim .footer-cols { display: none; }
 .footer-slim .wrap > .row { padding-top: 0 !important; box-shadow: none !important; }
+
+/* Pro cards: colored initials until a logo is added, Text next to Call */
+.avatar-tone { color: #fff; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25); }
+.avatar-sm { width: 44px; height: 44px; font-size: 15px; }
+.pro-head { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.btn-pair { display: flex; gap: 8px; }
+.btn-pair > .btn { flex: 1 1 0; min-width: 0; }
+.btn-pair-call > .btn-primary { flex: 2 1 0; }
+.text-btn .ms { font-size: 20px; }
+/* Texting needs a phone; desktops get Call and the profile instead. */
+@media (min-width: 1024px) { .text-btn { display: none !important; } }
+.price-flag, .price-ok { display: flex; gap: 6px; align-items: flex-start; font-size: 13px; line-height: 1.45; }
+.price-flag { color: #8A4B00; }
+.price-ok { color: var(--color-ok); }
+.price-flag .ms, .price-ok .ms { font-size: 17px; margin-top: 1px; }
+.price-flag-inline { color: #8A4B00; font-weight: 600; }
+
+/* Home: pick up a saved repair plan */
+.resume { display: flex; align-items: center; gap: 12px; width: 100%; padding: 12px 14px; border: 0; border-radius: 14px; background: var(--color-accent-50); color: var(--color-text); text-align: left; cursor: pointer; font: inherit; }
+.resume > .ms { color: var(--color-accent); }
+.resume > .ms:last-child { margin-left: auto; }
+/* Profile price table: details under the price on phones */
+.price-row.price-row-3 { grid-template-columns: minmax(0, 1fr) auto; }
+.price-row-3 > :nth-child(3) { grid-column: 1 / -1; }
+@media (min-width: 760px) { .price-row.price-row-3 { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) minmax(0, 1fr); } .price-row-3 > :nth-child(3) { grid-column: auto; } }
