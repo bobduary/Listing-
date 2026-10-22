@@ -527,3 +527,26 @@ textarea.input { min-height: 120px; resize: vertical; }
 .find-facts li:last-child .ms { color: var(--color-accent); }
 @media (max-width: 759px) { .find-chips { flex-wrap: nowrap; overflow-x: auto; margin-inline: -20px; padding-inline: 20px; scrollbar-width: none; } .find-chips::-webkit-scrollbar { display: none; } .find-chips > * { flex: none; } .find-ask { padding: 18px 20px; } }
 @media (max-width: 759px) { .find-bar > .row { width: 100%; flex-wrap: nowrap; justify-content: space-between; } .find-bar .switch { font-size: 14px; } }
+
+/* Phones: shorter pages */
+@media (max-width: 759px) {
+  .section { padding-block: 48px; }
+  .section-head { margin-bottom: 24px; }
+  .trust-grid { gap: 10px; }
+  .trust-card { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 2px 14px; padding: 16px; border-radius: 16px; }
+  .trust-ic { width: 40px; height: 40px; border-radius: 12px; margin: 0; grid-row: span 2; }
+  .trust-ic .ms { font-size: 22px; }
+  .pcard { padding: 20px; gap: 14px; }
+  .pro-cta .wrap { gap: 20px; }
+  .pro-cta .btn { min-height: 56px; }
+  .footer { padding-block: 40px 24px; }
+  .footer .wrap { gap: 28px !important; }
+  .footer-cols { gap: 24px; }
+  .footer-cols nav { flex-direction: row; flex-wrap: wrap; gap: 6px 16px; }
+  .footer-cols nav > strong { flex-basis: 100%; }
+}
+
+/* Guided steps: only the bottom line of the footer */
+.footer-slim { padding-block: 24px; }
+.footer-slim .footer-cols { display: none; }
+.footer-slim .wrap > .row { padding-top: 0 !important; box-shadow: none !important; }
