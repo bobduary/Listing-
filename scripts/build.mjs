@@ -55,6 +55,9 @@ function loadSiteData() {
   return data;
 }
 const SITE_DATA = loadSiteData();
+// Build environment for page logic: Vercel production builds keep designs
+// that are still being previewed switched off.
+SITE_DATA.env = { production: process.env.VERCEL_ENV === 'production' };
 
 const DROP_WS_IN = new Set(['table', 'thead', 'tbody', 'tfoot', 'tr', 'colgroup', 'select', 'optgroup']);
 

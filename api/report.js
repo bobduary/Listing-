@@ -2,10 +2,11 @@
 // they did, what it cost, proof photos). Checks and trims the fields, saves
 // the photos to the project's private Vercel Blob store (Storage tab in
 // Vercel; BLOB_READ_WRITE_TOKEN, passed explicitly so another store linked
-// to the project through BLOB_STORE_ID is never used instead), then forwards the report as JSON to
-// REPORT_WEBHOOK_URL if set (e.g. a Make or Zapier webhook that adds a row
-// to a sheet or emails you). Every report is also written to the function log.
+// to the project through BLOB_STORE_ID is never used instead), then sends the
+// report to the Google Sheet (see _forward.js). Every report is also written
+// to the function log.
 import { put } from '@vercel/blob';
+import { forward } from './_forward.js';
 
 const text = (v, max) => String(v == null ? '' : v).replace(/\s+/g, ' ').trim().slice(0, max);
 const amount = (v) => { const n = Number(v); return Number.isFinite(n) && n > 0 && n < 100000 ? Math.round(n) : null; };
@@ -61,14 +62,12 @@ export default async function handler(req, res) {
   }
 
   console.log('job report', JSON.stringify(report));
-  const hook = process.env.REPORT_WEBHOOK_URL;
-  if (hook) {
-    try {
-      const r = await fetch(hook, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(report) });
-      if (!r.ok) throw new Error('webhook ' + r.status);
-    } catch (e) {
-      console.error('job report not forwarded', id, e.message);
-    }
+  // Photos are already saved, so a sheet failure doesn't lose the report:
+  // it stays in the function log.
+  try {
+    await forward({ type: 'job', ...report, listedText: report.listedPro ? 'Yes' : 'No', photosText: report.photos.join(', ') });
+  } catch (e) {
+    console.error('job report not forwarded', id, e.message);
   }
   return res.status(200).json({ ok: true, id });
 }
