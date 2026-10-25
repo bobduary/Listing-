@@ -64,6 +64,10 @@
           <li><span class="ms" aria-hidden="true">check_circle</span>Every verified pro checked by our team</li>
           <li><span class="ms" aria-hidden="true">check_circle</span>Free, no sign-up</li>
         </ul>
+        <div class="stack-sm" style="gap: 8px;">
+          <button type="button" class="btn btn-near btn-phone-block" onClick="{{ findNearMe }}" disabled="{{ geoBusy }}"><span class="ms" aria-hidden="true">near_me</span>{{ nearMeBtn }}</button>
+          <sc-if value="{{ geoMsg }}"><p class="small notice notice-warn" role="status" style="max-width: 460px;">{{ geoMsg }}</p></sc-if>
+        </div>
       </div>
       <div class="pick-panel" id="problems">
         <sc-if value="{{ hasSavedPlan }}" hint-placeholder-val="{{ false }}">
@@ -93,6 +97,53 @@
       </div>
     </div>
   </header>
+
+  <sc-if value="{{ hasNearMe }}" hint-placeholder-val="{{ false }}">
+    <section class="section near-me" id="near-me">
+      <div class="wrap stack" style="gap: 24px;">
+        <div class="stack-sm">
+          <span class="eyebrow"><span class="ms" style="font-size: 16px; vertical-align: -3px;" aria-hidden="true">location_on</span> Near {{ nearMeCity }}</span>
+          <h2 class="h2">Sliding door pros who serve your area</h2>
+          <p class="small muted">{{ nearMeNote }}</p>
+        </div>
+        <div class="near-list">
+          <sc-for list="{{ nearMeList }}" as="c" hint-placeholder-count="5">
+            <article class="{{ c.nearCls }}">
+              <div class="stack-sm" style="gap: 6px; min-width: 0;">
+                <sc-if value="{{ c.isPromoted }}"><span class="tag tag-promo" style="align-self: flex-start;">Promoted</span></sc-if>
+                <sc-if value="{{ c.rankText }}"><span class="tag" style="align-self: flex-start;">{{ c.rankText }}</span></sc-if>
+                <div class="pro-head">
+                  <sc-if value="{{ c.hasLogo }}"><img class="avatar avatar-sm" src="{{ c.avatarImg }}" alt="" width="44" height="44" loading="lazy"></sc-if>
+                  <sc-if value="{{ c.noLogo }}"><span class="avatar avatar-sm avatar-tone" style="background: {{ c.avatarBg }};" aria-hidden="true">{{ c.initials }}</span></sc-if>
+                  <div class="stack-sm" style="gap: 0; min-width: 0;">
+                    <h3 class="pro-name" style="font-size: 19px;"><a href="{{ c.href }}" onClick="{{ c.openNav }}">{{ c.name }}</a><sc-if value="{{ c.verified }}"> <span class="ms ms-fill verified-ic" title="Verified by FixMySlide" aria-label="Verified">verified</span></sc-if></h3>
+                    <p class="small"><span class="rating"><span class="star" aria-hidden="true">★</span>{{ c.ratingText }}</span> <span class="muted">({{ c.reviews }}) · {{ c.city }}</span><sc-if value="{{ c.distanceText }}"><span class="muted"> · {{ c.distanceText }}</span></sc-if></p>
+                  </div>
+                </div>
+                <p class="tiny muted">{{ c.servicesText }}</p>
+                <sc-if value="{{ c.emergency }}"><span class="tag tag-warn" style="align-self: flex-start;">24/7 storm calls</span></sc-if>
+              </div>
+              <div class="plan-pro-actions">
+                <a class="btn btn-primary btn-block" href="{{ c.callHref }}"><span class="ms" aria-hidden="true">call</span>Call {{ c.phone }}</a>
+                <a class="btn btn-secondary btn-block text-btn" href="{{ c.textHref }}"><span class="ms" aria-hidden="true">chat</span>Text</a>
+                <a class="btn btn-secondary btn-block btn-sm desk-only" href="{{ c.href }}" onClick="{{ c.openNav }}">See details</a>
+              </div>
+            </article>
+          </sc-for>
+        </div>
+        <sc-if value="{{ nearMeNone }}" hint-placeholder-val="{{ false }}">
+          <div class="card card-soft stack-sm">
+            <h3 class="h4">No checked pros serve {{ nearMeCity }} yet.</h3>
+            <p class="small">We’re adding pros across Florida every week. Until then, check the <a href="/cost" onClick="{{ goPrices }}">fair repair prices</a> before you hire a local company.</p>
+          </div>
+        </sc-if>
+        <div class="row">
+          <a class="btn btn-secondary" href="/start" onClick="{{ goStart }}">Tell us what’s wrong for a price</a>
+          <sc-if value="{{ nearMeMore }}"><a class="btn btn-ghost" href="{{ nearMeAllHref }}" onClick="{{ nearMeAll }}">See all {{ nearMeCount }} pros near {{ nearMeCity }}<span class="ms" aria-hidden="true">arrow_forward</span></a></sc-if>
+        </div>
+      </div>
+    </section>
+  </sc-if>
 
   <section class="section" id="trust">
     <div class="wrap">
@@ -299,6 +350,7 @@
                   </div>
                   <sc-if value="{{ c.notVerified }}"><span class="tag tag-ad" style="align-self: flex-start;">Not checked yet</span></sc-if>
                   <sc-if value="{{ c.partial }}"><span class="tag tag-ad" style="align-self: flex-start;">{{ c.coverText }}</span></sc-if>
+                  <sc-if value="{{ c.isPromoted }}"><span class="tag tag-promo" style="align-self: flex-start;">Promoted</span></sc-if>
                   <sc-if value="{{ c.isFeatured }}"><span class="tag tag-ad" style="align-self: flex-start;">Ad</span></sc-if>
                   <p class="small"><strong style="font-weight: 600;">{{ c.planPrice }}</strong></p>
                   <sc-if value="{{ c.priceAbove }}"><p class="price-flag"><span class="ms" aria-hidden="true">info</span><span>{{ c.priceFlag }}</span></p></sc-if>
@@ -341,6 +393,7 @@
                   </div>
                   <sc-if value="{{ c.notVerified }}"><span class="tag tag-ad" style="align-self: flex-start;">Not checked yet</span></sc-if>
                   <sc-if value="{{ c.partial }}"><span class="tag tag-ad" style="align-self: flex-start;">{{ c.coverText }}</span></sc-if>
+                  <sc-if value="{{ c.isPromoted }}"><span class="tag tag-promo" style="align-self: flex-start;">Promoted</span></sc-if>
                   <sc-if value="{{ c.isFeatured }}"><span class="tag tag-ad" style="align-self: flex-start;">Ad</span></sc-if>
                   <p class="small"><strong style="font-weight: 600;">{{ c.planPrice }}</strong></p>
                   <sc-if value="{{ c.priceAbove }}"><p class="price-flag"><span class="ms" aria-hidden="true">info</span><span>{{ c.priceFlag }}</span></p></sc-if>
@@ -1494,7 +1547,7 @@ const TRUST_POINTS = [
   { ms: 'verified_user', title: 'We check every pro ourselves', text: 'Before a pro gets our Verified badge, our team calls them, researches their business and reviews, and confirms their insurance. Then we re-check every 90 days.' },
   { ms: 'payments', title: 'Prices from real jobs', text: 'Our fair prices come from what Florida homeowners actually paid, not from what pros say they charge.' },
   { ms: 'star', title: 'Reviews from real homeowners', text: 'Every review comes from a homeowner and is screened for fake or bought reviews.' },
-  { ms: 'balance', title: 'Independent and neutral', text: 'We don’t do repairs, and no one can pay to rank higher. Ratings come only from homeowners, and you call pros directly, with no middleman.' }
+  { ms: 'balance', title: 'Independent and neutral', text: 'We don’t do repairs, and no one can pay for a better rating or ranking. Promoted spots are always labeled. Ratings come only from homeowners, and you call pros directly, with no middleman.' }
 ];
 // Photos (data/images.csv): key → url.
 const IMG = Object.fromEntries((SITE_DATA.images || []).map((r) => [r.key, r.url]));
@@ -1650,7 +1703,7 @@ function ROUTE_LIST() {
   return r;
 }
 
-const DEFAULTS = { savedPlan: null, planShared: null, savedWhere: '', geo: null, planQuote: '', view: 'home', symptom: null, post: null, jrServices: [], jrProText: '', jrProId: '', jrWhere: '', jrPaid: '', jrPhotos: [], jrPhotoBusy: false, jrRating: 0, jrNotes: '', jrEmail: '', jrHp: '', jrStatus: 'open', jrError: '', findSym: null, showAll: false, picked: [], wizStep: 1, describe: '', query: '', service: 'All services', price: 'Any', emergency: false, verifiedOnly: false, sort: 'best', mode: 'list', selectedId: null, compare: [], problem: 'closed', review: 'closed', listSent: false, plan: 'free', calcService: 'Rollers', calcSize: 'standard', calcType: 'standard', checkService: 'Rollers', checkAmount: '', dAge: '', dFrame: '', dGlass: '', dGoal: '' };
+const DEFAULTS = { savedPlan: null, planShared: null, savedWhere: '', geo: null, here: null, hereCity: '', planQuote: '', view: 'home', symptom: null, post: null, jrServices: [], jrProText: '', jrProId: '', jrWhere: '', jrPaid: '', jrPhotos: [], jrPhotoBusy: false, jrRating: 0, jrNotes: '', jrEmail: '', jrHp: '', jrStatus: 'open', jrError: '', findSym: null, showAll: false, picked: [], wizStep: 1, describe: '', query: '', service: 'All services', price: 'Any', emergency: false, verifiedOnly: false, sort: 'best', mode: 'list', selectedId: null, compare: [], problem: 'closed', review: 'closed', listSent: false, plan: 'free', calcService: 'Rollers', calcSize: 'standard', calcType: 'standard', checkService: 'Rollers', checkAmount: '', dAge: '', dFrame: '', dGlass: '', dGoal: '' };
 
 // ---------------------------------------------------------------------------
 // Component
@@ -1743,8 +1796,10 @@ class Component extends DCLogic {
     if (s.wizStep !== 3 || !s.picked.length) return '/start';
     return '/start?p=' + s.picked.join(',') + (s.query.trim() ? '&in=' + encodeURIComponent(s.query.trim()) : '');
   }
-  // "Use my location": the nearest Florida city we know, then straight to the plan.
-  useLocation() {
+  // "Use my location": where the homeowner is and the nearest Florida city we
+  // know (within 40 miles). Calls back with { here, city } or sets geo to
+  // 'off' / 'far'.
+  locate(done) {
     if (!navigator.geolocation) return this.setState({ geo: 'off' });
     this.setState({ geo: 'busy' });
     navigator.geolocation.getCurrentPosition((pos) => {
@@ -1752,9 +1807,20 @@ class Component extends DCLogic {
       let near = null, dist = Infinity;
       Object.keys(FL_COORDS).forEach((k) => { const d = miles(here, FL_COORDS[k]); if (d < dist) { dist = d; near = k; } });
       if (!near || dist > 40) return this.setState({ geo: 'far' });
-      this.setState({ geo: null });
-      this.wizGo(3, { query: near.replace(/(^|\s)\S/g, (m) => m.toUpperCase()) });
+      const city = near.replace(/(^|\s)\S/g, (m) => m.toUpperCase());
+      try { localStorage.setItem('fms-where', city); } catch (e) { /* storage blocked */ }
+      this.setState({ geo: null, here, hereCity: city, savedWhere: city });
+      done({ here, city });
     }, () => this.setState({ geo: 'off' }), { timeout: 10000, maximumAge: 600000 });
+  }
+  // Guided steps: straight to the plan for that city.
+  useLocation() { this.locate(({ city }) => this.wizGo(3, { query: city })); }
+  // Home: the pros near them, right under the hero.
+  findNearMe() {
+    this.locate(({ city }) => {
+      this.setState({ query: city });
+      setTimeout(() => { const el = document.getElementById('near-me'); if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 72, behavior: 'smooth' }); }, 60);
+    });
   }
   sharePlan(text) {
     const url = location.origin + this.startPath(this.state);
@@ -2010,7 +2076,8 @@ class Component extends DCLogic {
     const qRaw = s.query.trim().toLowerCase();
     const qLower = /^\d{3,5}$/.test(qRaw) ? zipCity(qRaw).toLowerCase() : qRaw;
     const sameCity = COMPANIES.filter((c) => c.city.toLowerCase() === qLower && c.lat != null);
-    const origin = qLower ? FL_COORDS[qLower] || (sameCity.length ? [sameCity[0].lat, sameCity[0].lng] : null) : null;
+    const origin = s.here && qLower && qLower === s.hereCity.toLowerCase() ? s.here
+      : qLower ? FL_COORDS[qLower] || (sameCity.length ? [sameCity[0].lat, sameCity[0].lng] : null) : null;
     COMPANIES.forEach((c) => { c.distance = origin ? miles(origin, [c.lat, c.lng]) : null; });
     // Best match: reviews, price honesty, verification, response time,
     // specialty for the chosen repair, and distance.
@@ -2095,7 +2162,13 @@ class Component extends DCLogic {
       });
     };
     const planSort = (a, b) => cover(b) - cover(a) || (showFeatured ? b.featured - a.featured : 0) || best(b) - best(a);
-    const planPros = planPool.slice().sort(planSort).slice(0, 3).map(planCard);
+    // Up to 2 promoted pros (featured, and they cover the place and the repair)
+    // above the top 3, which are ranked as usual and never bought.
+    const planPromoted = q ? planPool.filter((c) => c.featured).sort((a, b) => best(b) - best(a)).slice(0, 2) : [];
+    const planPros = [
+      ...planPromoted.map((c) => Object.assign(planCard(c), { isPromoted: true })),
+      ...planPool.filter((c) => !planPromoted.includes(c)).sort(planSort).slice(0, 3).map(planCard)
+    ];
     // Nobody covers the typed place: the closest pros, clearly marked as far away.
     const planFar = widened
       ? (origin ? pool.slice().sort((a, b) => (a.distance ?? 1e9) - (b.distance ?? 1e9)) : pool.slice().sort(planSort)).slice(0, 3).map(planCard)
@@ -2255,6 +2328,34 @@ class Component extends DCLogic {
       },
       useLocation: () => this.useLocation(),
       geoText: s.geo === 'busy' ? 'Finding you…' : 'Use my location',
+      geoBusy: s.geo === 'busy',
+      findNearMe: () => this.findNearMe(),
+      nearMeBtn: s.geo === 'busy' ? 'Finding you…' : s.here ? 'Update my location' : 'Find pros near me',
+      // Home "near me": up to 2 promoted pros that serve the area, then the
+      // top 3 by our ranking (reviews, honest pricing, distance).
+      ...(() => {
+        if (!s.here || !s.hereCity) return { hasNearMe: false };
+        const city = s.hereCity;
+        const serves = (c) => [c.city, ...c.areas].some((a) => a.toLowerCase() === city.toLowerCase()) || (c.lat != null && miles(s.here, [c.lat, c.lng]) <= 30);
+        const area = COMPANIES.filter(serves);
+        const promoted = area.filter((c) => c.featured).sort((a, b) => best(b) - best(a)).slice(0, 2);
+        const top = area.filter((c) => !promoted.includes(c)).sort((a, b) => best(b) - best(a)).slice(0, 3);
+        const card = (c, k, isPromoted) => Object.assign(dec(c), {
+          isPromoted, rankText: isPromoted ? '' : `#${k + 1} near you`, nearCls: isPromoted ? 'plan-pro plan-pro-promo' : 'plan-pro',
+          servicesText: c.services.map((x) => SERVICE_INFO[x].label).join(' · '),
+          textHref: smsHref(c.phone, `Hi! I found you on FixMySlide. I’m in ${city} and need help with my sliding glass door. When could you take a look?`)
+        });
+        const hit = CITIES.find(([name]) => name.toLowerCase() === city.toLowerCase());
+        return {
+          hasNearMe: true, nearMeCity: city,
+          nearMeList: [...promoted.map((c, k) => card(c, k, true)), ...top.map((c, k) => card(c, k, false))],
+          nearMeNone: area.length === 0,
+          nearMeNote: promoted.length ? 'Promoted pros pay to be shown first and are always labeled. The top 3 are ranked only by homeowner reviews, honest pricing and distance.' : 'Ranked by homeowner reviews, honest pricing and distance. No one can pay to rank higher.',
+          nearMeCount: area.length, nearMeMore: area.length > promoted.length + top.length,
+          nearMeAllHref: hit ? cityPath(hit[2]) : '/pros',
+          nearMeAll: nav(() => this.go('results', { query: city, service: 'All services', price: 'Any', emergency: false }))
+        };
+      })(),
       geoMsg: s.geo === 'off' ? 'Location is turned off. Type your city or ZIP instead.' : s.geo === 'far' ? 'We couldn’t place you in Florida. Type your city or ZIP instead.' : '',
       changeArea: () => this.wizGo(2),
       areaText: q ? 'Change area' : 'Add your area',
@@ -2289,6 +2390,7 @@ class Component extends DCLogic {
       planProsTitle: widened ? 'Checked pros' : urgent ? 'Pros who answer 24/7' : needs.length > 1 ? 'Checked pros who fix all of this' : 'Checked pros who fix this',
       planProsNote: widened ? '' : q && planPool.length > 0 && planPool.length < 3
         ? `Only ${planPool.length} checked ${planPool.length === 1 ? 'pro covers' : 'pros cover'} ${placeName} so far. We’re adding more every week.`
+        : planPromoted.length ? 'Promoted pros pay to be shown first and are always labeled. The rest are ranked only by reviews, honest pricing, response time and distance.'
         : 'Ranked by reviews, honest pricing, response time and distance. Call or text them directly. It’s free.',
       planPros, planNoPros: planPros.length === 0 && !widened, planCount: planPool.length, planMore: planPool.length > planPros.length,
       planWidened: widened, planFar, hasPlanFar: planFar.length > 0,

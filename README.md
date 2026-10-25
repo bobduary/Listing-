@@ -34,7 +34,7 @@ The directory is built from `data/companies.csv`: one row per company. Edit it i
 | `hours`, `response_hours` | Opening hours (text) and how fast they usually answer, in hours (e.g. `1`, `4`, `24`) |
 | `warranty`, `callout_fee`, `years_in_business` | Text, text, number |
 | `verified`, `license_number` | `yes` once they pass the full checks; license number if they have one |
-| `featured`, `premium` | `yes` for paid placement (shown as "Ad") and for a premium profile (photos and videos) |
+| `featured`, `premium` | `featured` = `yes` makes them a Promoted pro: when a homeowner uses their location (home page "Find pros near me", or the repair plan), up to 2 promoted pros that serve that area show first, labeled "Promoted", above the top 3 ranked pros. `premium` = `yes` for a premium profile (photos and videos) |
 | `rating`, `review_count` | From FixMySlide's own reviews |
 | `about`, `logo_url`, `photo_urls`, `video_urls` | Description; image/video links (`;`-separated). Photos and videos show on premium profiles. |
 | `lat`, `lng` | Optional. Without them, the city's location is used for distance. |
