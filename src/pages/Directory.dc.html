@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&icon_names=add,add_a_photo,analytics,arrow_back,arrow_forward,back_hand,badge,balance,bar_chart,build,call,chat,check,check_circle,chevron_left,chevron_right,close,door_sliding,edit,edit_document,edit_note,expand_more,favorite,format_quote,gpp_good,grid_on,help,history,info,ios_share,lightbulb,linear_scale,location_on,lock_open,menu,near_me,payments,request_quote,search,sell,shield,shield_with_heart,star,storefront,swap_horiz,thunderstorm,verified,verified_user,volume_up,warning,water_drop,window&display=block">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&icon_names=add,add_a_photo,analytics,arrow_back,arrow_forward,arrow_outward,back_hand,badge,balance,bar_chart,build,call,chat,check,check_circle,chevron_left,chevron_right,close,door_sliding,edit,edit_document,edit_note,expand_more,favorite,format_quote,gpp_good,grid_on,help,history,info,ios_share,lightbulb,linear_scale,location_on,lock_open,menu,near_me,payments,request_quote,search,sell,shield,shield_with_heart,star,storefront,swap_horiz,thunderstorm,verified,verified_user,volume_up,warning,water_drop,window&display=block">
 <link rel="stylesheet" href="/css/site.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@500;700;800;900&display=swap">
 <link rel="stylesheet" href="/css/fresh.css">
@@ -26,7 +26,8 @@
     <nav class="nav-links" aria-label="Main">
       <a href="/start" onClick="{{ goStart }}" aria-current="{{ navPros }}">Find a Pro</a>
       <a href="/cost" onClick="{{ goPrices }}" aria-current="{{ navPrices }}">Pricing</a>
-      <a href="/how-it-works" onClick="{{ goHow }}" aria-current="{{ navHow }}">How it Works</a>
+      <a href="/diy" onClick="{{ goDiy }}" aria-current="{{ navDiy }}">DIY</a>
+      <a href="/shop" onClick="{{ goShop }}" aria-current="{{ navShop }}">Shop</a>
       <a href="/blog" onClick="{{ goBlog }}" aria-current="{{ navBlog }}">Blog</a>
       <a href="/problems/hurricane-damaged-sliding-door" onClick="{{ goStorm }}">Storm Help</a>
     </nav>
@@ -42,6 +43,8 @@
         <a href="/repair-or-replace" onClick="{{ goDecide }}"><span class="ms" aria-hidden="true">help</span>Repair or replace?</a>
         <a href="/problems/hurricane-damaged-sliding-door" onClick="{{ goStorm }}"><span class="ms" aria-hidden="true">thunderstorm</span>Storm help</a>
         <a href="/blog" onClick="{{ goBlog }}"><span class="ms" aria-hidden="true">lightbulb</span>Fix-it tips (blog)</a>
+        <a href="/diy" onClick="{{ goDiy }}"><span class="ms" aria-hidden="true">build</span>DIY: fix it yourself</a>
+        <a href="/shop" onClick="{{ goShop }}"><span class="ms" aria-hidden="true">storefront</span>Shop parts</a>
         <a href="/how-it-works" onClick="{{ goHow }}"><span class="ms" aria-hidden="true">info</span>How it Works</a>
         <a href="/list-your-business" onClick="{{ goList }}"><span class="ms" aria-hidden="true">storefront</span>Join as a Pro</a>
       </div>
@@ -718,6 +721,13 @@
           <sc-for list="{{ sym.checks }}" as="t" hint-placeholder-count="3"><li>{{ t }}</li></sc-for>
         </ul>
 
+        <sc-if value="{{ guideHasDiy }}">
+          <h2 class="h3">Fix it yourself</h2>
+          <ul class="linklist">
+            <sc-for list="{{ guideDiy }}" as="f" hint-placeholder-count="2"><li><a href="{{ f.href }}" onClick="{{ f.open }}"><span>{{ f.title }}</span><span class="{{ f.levelCls }}">{{ f.level }}</span></a></li></sc-for>
+          </ul>
+        </sc-if>
+
         <h2 class="h3">What changes the price</h2>
         <ul class="dotlist">
           <sc-for list="{{ sym.factors }}" as="f" hint-placeholder-count="3"><li>{{ f }}</li></sc-for>
@@ -1329,6 +1339,180 @@
   </div>
 </sc-if>
 
+<!-- ================= DIY ================= -->
+<sc-if value="{{ isDiy }}" hint-placeholder-val="{{ false }}">
+  <div class="wrap page stack" style="gap: 28px;">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/" onClick="{{ goHome }}">Home</a><span aria-hidden="true">/</span><span aria-current="page">DIY</span></nav>
+    <div class="stack-sm">
+      <h1 class="h1 h1-sm">Fix your sliding door yourself</h1>
+      <p class="lead">Simple, safe fixes with step-by-step instructions, the tools you need and the parts to buy. If it’s more than you want to take on, every guide links to local pros who do it.</p>
+    </div>
+    <div class="diy-grid">
+      <sc-for list="{{ diyFixes }}" as="f" hint-placeholder-count="6">
+        <a class="diy-card" href="{{ f.href }}" onClick="{{ f.open }}">
+          <span class="row" style="gap: 8px;"><span class="{{ f.levelCls }}">{{ f.level }}</span><span class="tiny muted">{{ f.time }}</span></span>
+          <strong class="h4">{{ f.title }}</strong>
+          <span class="small muted">{{ f.intro }}</span>
+          <span class="small diy-more">{{ f.partsText }}<span class="ms" aria-hidden="true">arrow_forward</span></span>
+        </a>
+      </sc-for>
+    </div>
+    <sc-if value="{{ hasShop }}">
+      <section class="stack-sm" style="margin-top: 12px;">
+        <h2 class="h3">Parts for DIY repairs</h2>
+        <div class="shop-grid">
+          <sc-for list="{{ shopAll }}" as="pr" hint-placeholder-count="3">
+          <article class="shop-card">
+            <a class="shop-img" href="{{ pr.href }}" onClick="{{ pr.open }}" aria-label="{{ pr.name }}">
+              <sc-if value="{{ pr.image }}"><img src="{{ pr.image }}" alt="" loading="lazy"></sc-if>
+              <sc-if value="{{ pr.isRoller }}"><svg viewBox="0 0 120 80" aria-hidden="true"><rect x="14" y="22" width="92" height="30" rx="6" fill="#CBD5E1"></rect><rect x="14" y="22" width="92" height="8" rx="4" fill="#94A3B8"></rect><circle cx="40" cy="54" r="16" fill="#0E2236"></circle><circle cx="40" cy="54" r="7" fill="#E2E8F0"></circle><circle cx="80" cy="54" r="16" fill="#0E2236"></circle><circle cx="80" cy="54" r="7" fill="#E2E8F0"></circle></svg></sc-if>
+              <sc-if value="{{ pr.isTrack }}"><svg viewBox="0 0 120 80" aria-hidden="true"><rect x="6" y="46" width="108" height="14" rx="3" fill="#94A3B8"></rect><rect x="6" y="40" width="108" height="8" rx="3" fill="#CBD5E1"></rect><rect x="56" y="24" width="8" height="18" rx="3" fill="#0E2236"></rect><circle cx="22" cy="53" r="3" fill="#475569"></circle><circle cx="60" cy="53" r="3" fill="#475569"></circle><circle cx="98" cy="53" r="3" fill="#475569"></circle></svg></sc-if>
+            </a>
+            <div class="stack-sm" style="gap: 4px; flex: 1;">
+              <span class="tiny muted">{{ pr.category }}</span>
+              <h3 class="shop-name"><a href="{{ pr.href }}" onClick="{{ pr.open }}">{{ pr.name }}</a></h3>
+              <p class="shop-price">{{ pr.priceText }}</p>
+              <p class="small muted">{{ pr.description }}</p>
+            </div>
+            <div class="stack-sm">
+              <a class="btn btn-primary btn-block" href="{{ pr.buyUrl }}" target="_blank" rel="noopener">Buy from Gators<span class="ms" aria-hidden="true">arrow_outward</span></a>
+              <a class="btn btn-secondary btn-block btn-sm" href="{{ pr.href }}" onClick="{{ pr.open }}">Details</a>
+            </div>
+          </article>
+          </sc-for>
+        </div>
+        <p class="notice owner-note small" role="note"><span class="ms" aria-hidden="true">info</span><span>Parts are sold by <strong>Gators Sliding Doors</strong>, which has the same owner as FixMySlide. You check out on their site; prices are before sales tax. Any part that fits your door works, from any store. <a href="/ownership" onClick="{{ goOwnership }}">Ownership</a></span></p>
+      </section>
+    </sc-if>
+  </div>
+</sc-if>
+
+<!-- ================= DIY FIX ================= -->
+<sc-if value="{{ isDiyFix }}" hint-placeholder-val="{{ false }}">
+  <div class="wrap page">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/" onClick="{{ goHome }}">Home</a><span aria-hidden="true">/</span><a href="/diy" onClick="{{ goDiy }}">DIY</a><span aria-hidden="true">/</span><span aria-current="page">{{ fix.title }}</span></nav>
+    <div class="article-layout">
+      <aside class="side">
+        <div class="price-panel">
+          <span class="label">Rather have a pro do it?</span>
+          <p class="small">{{ fix.pro }}</p>
+          <p class="small muted">Fair price for {{ fixPrice.label }}: <strong>{{ fixPrice.range }}</strong></p>
+          <a class="btn btn-primary btn-block" href="/pros" onClick="{{ fixFindPro }}">See {{ fixProCount }} local pros</a>
+        </div>
+      </aside>
+      <article class="article">
+        <p class="row" style="gap: 8px;"><span class="{{ fix.levelCls }}">{{ fix.level }}</span><span class="small muted">{{ fix.time }}</span></p>
+        <h1 class="h1 h1-sm">How to {{ fix.titleLower }}</h1>
+        <p class="lead">{{ fix.intro }}</p>
+        <div class="notice notice-warn" role="note"><span class="ms" aria-hidden="true">warning</span><span>{{ fix.avoid }}</span></div>
+        <h2 class="h3">What you need</h2>
+        <ul class="dotlist"><sc-for list="{{ fix.tools }}" as="t" hint-placeholder-count="3"><li>{{ t }}</li></sc-for></ul>
+        <sc-if value="{{ fixHasParts }}">
+          <h2 class="h3">Parts to buy</h2>
+          <div class="shop-grid">
+            <sc-for list="{{ fixParts }}" as="pr" hint-placeholder-count="2">
+            <article class="shop-card">
+            <a class="shop-img" href="{{ pr.href }}" onClick="{{ pr.open }}" aria-label="{{ pr.name }}">
+              <sc-if value="{{ pr.image }}"><img src="{{ pr.image }}" alt="" loading="lazy"></sc-if>
+              <sc-if value="{{ pr.isRoller }}"><svg viewBox="0 0 120 80" aria-hidden="true"><rect x="14" y="22" width="92" height="30" rx="6" fill="#CBD5E1"></rect><rect x="14" y="22" width="92" height="8" rx="4" fill="#94A3B8"></rect><circle cx="40" cy="54" r="16" fill="#0E2236"></circle><circle cx="40" cy="54" r="7" fill="#E2E8F0"></circle><circle cx="80" cy="54" r="16" fill="#0E2236"></circle><circle cx="80" cy="54" r="7" fill="#E2E8F0"></circle></svg></sc-if>
+              <sc-if value="{{ pr.isTrack }}"><svg viewBox="0 0 120 80" aria-hidden="true"><rect x="6" y="46" width="108" height="14" rx="3" fill="#94A3B8"></rect><rect x="6" y="40" width="108" height="8" rx="3" fill="#CBD5E1"></rect><rect x="56" y="24" width="8" height="18" rx="3" fill="#0E2236"></rect><circle cx="22" cy="53" r="3" fill="#475569"></circle><circle cx="60" cy="53" r="3" fill="#475569"></circle><circle cx="98" cy="53" r="3" fill="#475569"></circle></svg></sc-if>
+            </a>
+            <div class="stack-sm" style="gap: 4px; flex: 1;">
+              <span class="tiny muted">{{ pr.category }}</span>
+              <h3 class="shop-name"><a href="{{ pr.href }}" onClick="{{ pr.open }}">{{ pr.name }}</a></h3>
+              <p class="shop-price">{{ pr.priceText }}</p>
+              <p class="small muted">{{ pr.description }}</p>
+            </div>
+            <div class="stack-sm">
+              <a class="btn btn-primary btn-block" href="{{ pr.buyUrl }}" target="_blank" rel="noopener">Buy from Gators<span class="ms" aria-hidden="true">arrow_outward</span></a>
+              <a class="btn btn-secondary btn-block btn-sm" href="{{ pr.href }}" onClick="{{ pr.open }}">Details</a>
+            </div>
+          </article>
+            </sc-for>
+          </div>
+          <p class="notice owner-note small" role="note"><span class="ms" aria-hidden="true">info</span><span>Parts are sold by <strong>Gators Sliding Doors</strong>, which has the same owner as FixMySlide. You check out on their site; prices are before sales tax. Any part that fits your door works, from any store. <a href="/ownership" onClick="{{ goOwnership }}">Ownership</a></span></p>
+        </sc-if>
+        <h2 class="h3">Step by step</h2>
+        <ol class="numlist"><sc-for list="{{ fix.steps }}" as="st" hint-placeholder-count="5"><li>{{ st }}</li></sc-for></ol>
+        <sc-if value="{{ fix.postHref }}"><p class="small">More detail: <a href="{{ fix.postHref }}" onClick="{{ fix.openPost }}">{{ fix.postTitle }}</a></p></sc-if>
+        <div class="price-inline">
+          <span class="label">Rather have a pro do it?</span>
+          <p class="small">{{ fix.pro }} Fair price: <strong>{{ fixPrice.range }}</strong>.</p>
+          <a class="btn btn-primary btn-block" href="/pros" onClick="{{ fixFindPro }}">See {{ fixProCount }} local pros</a>
+        </div>
+      </article>
+    </div>
+    <section class="stack-sm" style="margin-top: 56px;">
+      <h2 class="h3">More DIY fixes</h2>
+      <ul class="linklist grid-3" style="border-top: 0;">
+        <sc-for list="{{ fixOthers }}" as="f" hint-placeholder-count="5"><li><a href="{{ f.href }}" onClick="{{ f.open }}"><span>{{ f.title }}</span><span class="tiny muted">{{ f.level }}</span></a></li></sc-for>
+      </ul>
+    </section>
+  </div>
+</sc-if>
+
+<!-- ================= SHOP ================= -->
+<sc-if value="{{ isShop }}" hint-placeholder-val="{{ false }}">
+  <div class="wrap page stack" style="gap: 24px;">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/" onClick="{{ goHome }}">Home</a><span aria-hidden="true">/</span><span aria-current="page">Shop</span></nav>
+    <div class="stack-sm">
+      <h1 class="h1 h1-sm">Sliding door parts</h1>
+      <p class="lead">Rollers and track covers for DIY repairs, picked for Florida’s sand, salt air and humidity.</p>
+    </div>
+    <p class="notice owner-note small" role="note"><span class="ms" aria-hidden="true">info</span><span>Parts are sold by <strong>Gators Sliding Doors</strong>, which has the same owner as FixMySlide. You check out on their site; prices are before sales tax. Any part that fits your door works, from any store. <a href="/ownership" onClick="{{ goOwnership }}">Ownership</a></span></p>
+    <div class="dir-chiprow" role="group" aria-label="Category"><sc-for list="{{ shopCats }}" as="sc" hint-placeholder-count="3"><button type="button" class="{{ sc.cls }}" aria-pressed="{{ sc.on }}" onClick="{{ sc.pick }}">{{ sc.label }}</button></sc-for></div>
+    <div class="shop-grid">
+      <sc-for list="{{ shopList }}" as="pr" hint-placeholder-count="5">
+      <article class="shop-card">
+            <a class="shop-img" href="{{ pr.href }}" onClick="{{ pr.open }}" aria-label="{{ pr.name }}">
+              <sc-if value="{{ pr.image }}"><img src="{{ pr.image }}" alt="" loading="lazy"></sc-if>
+              <sc-if value="{{ pr.isRoller }}"><svg viewBox="0 0 120 80" aria-hidden="true"><rect x="14" y="22" width="92" height="30" rx="6" fill="#CBD5E1"></rect><rect x="14" y="22" width="92" height="8" rx="4" fill="#94A3B8"></rect><circle cx="40" cy="54" r="16" fill="#0E2236"></circle><circle cx="40" cy="54" r="7" fill="#E2E8F0"></circle><circle cx="80" cy="54" r="16" fill="#0E2236"></circle><circle cx="80" cy="54" r="7" fill="#E2E8F0"></circle></svg></sc-if>
+              <sc-if value="{{ pr.isTrack }}"><svg viewBox="0 0 120 80" aria-hidden="true"><rect x="6" y="46" width="108" height="14" rx="3" fill="#94A3B8"></rect><rect x="6" y="40" width="108" height="8" rx="3" fill="#CBD5E1"></rect><rect x="56" y="24" width="8" height="18" rx="3" fill="#0E2236"></rect><circle cx="22" cy="53" r="3" fill="#475569"></circle><circle cx="60" cy="53" r="3" fill="#475569"></circle><circle cx="98" cy="53" r="3" fill="#475569"></circle></svg></sc-if>
+            </a>
+            <div class="stack-sm" style="gap: 4px; flex: 1;">
+              <span class="tiny muted">{{ pr.category }}</span>
+              <h3 class="shop-name"><a href="{{ pr.href }}" onClick="{{ pr.open }}">{{ pr.name }}</a></h3>
+              <p class="shop-price">{{ pr.priceText }}</p>
+              <p class="small muted">{{ pr.description }}</p>
+            </div>
+            <div class="stack-sm">
+              <a class="btn btn-primary btn-block" href="{{ pr.buyUrl }}" target="_blank" rel="noopener">Buy from Gators<span class="ms" aria-hidden="true">arrow_outward</span></a>
+              <a class="btn btn-secondary btn-block btn-sm" href="{{ pr.href }}" onClick="{{ pr.open }}">Details</a>
+            </div>
+          </article>
+      </sc-for>
+    </div>
+    <div class="card card-soft stack-sm">
+      <h2 class="h4">Not sure which part fits?</h2>
+      <p class="small">Compare it with your old one: wheel size, housing length and shape. Or follow a <a href="/diy" onClick="{{ goDiy }}">DIY guide</a>, or <a href="/pros" onClick="{{ goAll }}">have a local pro do it</a>.</p>
+    </div>
+  </div>
+</sc-if>
+
+<!-- ================= PRODUCT ================= -->
+<sc-if value="{{ isProduct }}" hint-placeholder-val="{{ false }}">
+  <div class="wrap page stack" style="gap: 24px; max-width: 980px;">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/" onClick="{{ goHome }}">Home</a><span aria-hidden="true">/</span><a href="/shop" onClick="{{ goShop }}">Shop</a><span aria-hidden="true">/</span><span aria-current="page">{{ prod.name }}</span></nav>
+    <div class="prod-layout">
+      <div class="shop-img prod-img">
+        <sc-if value="{{ prod.image }}"><img src="{{ prod.image }}" alt="{{ prod.name }}"></sc-if>
+        <sc-if value="{{ prod.isRoller }}"><svg viewBox="0 0 120 80" aria-hidden="true"><rect x="14" y="22" width="92" height="30" rx="6" fill="#CBD5E1"></rect><rect x="14" y="22" width="92" height="8" rx="4" fill="#94A3B8"></rect><circle cx="40" cy="54" r="16" fill="#0E2236"></circle><circle cx="40" cy="54" r="7" fill="#E2E8F0"></circle><circle cx="80" cy="54" r="16" fill="#0E2236"></circle><circle cx="80" cy="54" r="7" fill="#E2E8F0"></circle></svg></sc-if>
+        <sc-if value="{{ prod.isTrack }}"><svg viewBox="0 0 120 80" aria-hidden="true"><rect x="6" y="46" width="108" height="14" rx="3" fill="#94A3B8"></rect><rect x="6" y="40" width="108" height="8" rx="3" fill="#CBD5E1"></rect><rect x="56" y="24" width="8" height="18" rx="3" fill="#0E2236"></rect><circle cx="22" cy="53" r="3" fill="#475569"></circle><circle cx="60" cy="53" r="3" fill="#475569"></circle><circle cx="98" cy="53" r="3" fill="#475569"></circle></svg></sc-if>
+      </div>
+      <div class="stack" style="gap: 14px;">
+        <span class="tiny muted">{{ prod.category }}</span>
+        <h1 class="h1 h1-sm" style="font-size: clamp(28px, 4vw, 40px);">{{ prod.name }}</h1>
+        <p class="price-big">{{ prod.priceText }}</p>
+        <p>{{ prod.description }}</p>
+        <a class="btn btn-primary" href="{{ prod.buyUrl }}" target="_blank" rel="noopener" style="align-self: flex-start;">Buy from Gators Sliding Doors<span class="ms" aria-hidden="true">arrow_outward</span></a>
+        <p class="notice owner-note small" role="note"><span class="ms" aria-hidden="true">info</span><span>Parts are sold by <strong>Gators Sliding Doors</strong>, which has the same owner as FixMySlide. You check out on their site; prices are before sales tax. Any part that fits your door works, from any store. <a href="/ownership" onClick="{{ goOwnership }}">Ownership</a></span></p>
+        <sc-if value="{{ prodHasFixes }}"><div class="stack-sm"><strong class="small">How to install it</strong><sc-for list="{{ prodFixes }}" as="f" hint-placeholder-count="1"><a class="small" href="{{ f.href }}" onClick="{{ f.open }}">DIY guide: {{ f.title }} ({{ f.level }}, {{ f.time }})</a></sc-for></div></sc-if>
+        <a class="btn btn-secondary" href="/pros" onClick="{{ prodFindPro }}" style="align-self: flex-start;">Rather have it installed? Find a local pro</a>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
 <!-- ================= HOW WE RANK ================= -->
 <sc-if value="{{ isRank }}" hint-placeholder-val="{{ false }}">
   <div class="wrap page stack" style="gap: 28px; max-width: 820px;">
@@ -1595,6 +1779,8 @@
         <a class="small" href="/pros" onClick="{{ goAll }}">All pros</a>
         <a class="small" href="/blog" onClick="{{ goBlog }}">Fix-it tips (blog)</a>
         <a class="small" href="/report" onClick="{{ goReport }}">Report a job</a>
+        <a class="small" href="/diy" onClick="{{ goDiy }}">DIY fixes</a>
+        <a class="small" href="/shop" onClick="{{ goShop }}">Shop parts</a>
       </nav>
       <nav class="stack-sm" aria-label="Door problems">
         <strong style="color: #0F172A;">Door problems</strong>
@@ -1793,6 +1979,53 @@ const POSTS = (SITE_DATA.blog || []).filter((p) => p.slug && p.title && p.body).
   };
 }).sort((a, b) => b.date.localeCompare(a.date));
 const postPath = (p) => '/blog/' + p.slug;
+// Shop (data/products.csv): parts sold by Gators Sliding Doors, which has the
+// same owner as FixMySlide. "Buy" goes to their store's checkout.
+const PRODUCTS = (SITE_DATA.products || []).filter((r) => r.slug && r.name).map((r) => ({
+  slug: r.slug, name: r.name, priceNum: num(r.price, null), category: r.category || 'Parts',
+  fixes: list(r.fixes), problems: list(r.problems), description: r.description || '', buyUrl: r.buy_url || '', image: r.image_url || ''
+}));
+const productPath = (pr) => '/shop/' + pr.slug;
+// DIY fixes: what you can safely do yourself, what to buy, and when to call a pro.
+const DIY_FIXES = [
+  { slug: 'clean-sliding-door-track', title: 'Clean the track', level: 'Easy', time: '15 minutes', problem: 'hard-to-slide',
+    intro: 'Sand and grit in the bottom track make a door drag. Cleaning it fixes more “broken” doors than anything else, and it costs nothing.',
+    tools: ['Vacuum with a crevice tool', 'Old toothbrush', 'Warm soapy water and a rag', 'Dry silicone spray (optional)'],
+    steps: ['Open the door all the way and vacuum the loose sand out of the track.', 'Scrub the track with the toothbrush, then vacuum again.', 'Wipe it with soapy water and dry it completely.', 'Clear the drain holes (weep holes) on the outside of the frame with a pipe cleaner.', 'Optional: mist a little dry silicone spray on the rail and slide the door back and forth.'],
+    avoid: 'Don’t use WD-40, grease or oil on the track. They trap sand and wear out the rollers.',
+    pro: 'Still drags after cleaning? The rollers are probably worn.', post: 'how-to-clean-a-sliding-door-track' },
+  { slug: 'adjust-sliding-door-rollers', title: 'Adjust the roller height', level: 'Easy', time: '10 minutes', problem: 'hard-to-slide',
+    intro: 'Most sliding doors have two screws that raise or lower the rollers. A small turn can stop a door from scraping or fix a lock that no longer lines up.',
+    tools: ['Phillips screwdriver'],
+    steps: ['Find the adjustment screws at the bottom corners of the door panel, often behind small plastic caps.', 'Turn each screw a half turn at a time. On most doors, clockwise raises that end.', 'Slide the door after each change.', 'Stop when it glides easily and the gap along the side is even from top to bottom.'],
+    avoid: 'Don’t raise it so far that the top of the door rubs the frame.',
+    pro: 'If the screws turn but nothing changes, the rollers are worn out and need replacing.', post: 'signs-your-sliding-door-rollers-are-bad' },
+  { slug: 'replace-sliding-door-rollers', title: 'Replace the rollers', level: 'Hard', time: '1–2 hours, 2 people', problem: 'hard-to-slide', fix: 'replace-rollers',
+    intro: 'New rollers make an old door glide like new. It’s the most common repair, but it means lifting a heavy glass panel out of its frame.',
+    tools: ['A helper (panels weigh 80–150 lb)', 'Phillips screwdriver', 'Flat pry bar or stiff putty knife', 'Blankets or padded sawhorses', 'Work gloves'],
+    steps: ['Turn the adjustment screws to lower the rollers all the way.', 'With your helper, lift the door up into the top track and swing the bottom out toward you. Some doors need a head stop removed first.', 'Lay the panel flat on blankets or padded sawhorses.', 'Unscrew the rollers at each bottom corner and slide them out.', 'Match the new rollers to the old ones: wheel size, housing length and shape.', 'Slide the new rollers in, screw them down and put the door back, bottom last.', 'Adjust the height until the door glides and the side gap is even.'],
+    avoid: 'Never do this alone. A tipping glass panel can cause serious injury. Impact doors are even heavier.',
+    pro: 'Most homeowners hire this one out. A pro also checks the track and sets the door height.', post: 'signs-your-sliding-door-rollers-are-bad' },
+  { slug: 'cover-damaged-sliding-door-track', title: 'Cover a damaged track', level: 'Medium', time: '1 hour', problem: 'off-track', fix: 'cover-track',
+    intro: 'A dented or worn bottom rail makes the door bump or jump the track. A screw-down track cover gives the rollers a new, smooth rail without replacing the frame.',
+    tools: ['Tape measure', 'Hacksaw (to cut the cover to length)', 'Drill with a small bit', 'Screwdriver', 'A helper to take the door out'],
+    steps: ['Take the door out (see “Replace the rollers”) and clean the track.', 'Measure the track and cut the cover to length.', 'Set the cover over the old rail and make sure it sits flat.', 'Pre-drill and screw it down.', 'Put the door back and adjust the rollers. The cover raises the door slightly.'],
+    avoid: 'If the frame itself is bent or the door won’t close square, a cover won’t fix it.',
+    pro: 'Not handy with a drill? This is a quick job for a pro.', post: '' },
+  { slug: 'stop-sliding-door-leaks', title: 'Stop a leak', level: 'Easy', time: '20 minutes', problem: 'leaking',
+    intro: 'Most leaks come from clogged drain holes or worn seals. Both are easy to check.',
+    tools: ['Pipe cleaner or stiff wire', 'A cup of water', 'Flashlight'],
+    steps: ['Find the weep holes on the outside bottom of the frame.', 'Clear them with a pipe cleaner.', 'Pour a cup of water into the track. It should drain out within a minute.', 'Close the door and look for daylight around the seals. Flattened or missing seals need replacing.', 'Check the caulk where the frame meets the wall outside.'],
+    avoid: 'Don’t caulk the weep holes shut. They’re how the track drains.',
+    pro: 'Still leaking, or soft or stained floor near the door? Call a pro before the damage spreads.', post: 'why-does-my-sliding-door-leak-when-it-rains' },
+  { slug: 'fix-sliding-door-lock', title: 'Fix a lock that won’t catch', level: 'Easy', time: '15 minutes', problem: 'wont-lock',
+    intro: 'Usually the lock is fine. The door has sagged and the latch no longer meets its catch.',
+    tools: ['Phillips screwdriver'],
+    steps: ['Clean the catch (keeper) on the frame and tighten its screws.', 'Close the door slowly, flip the lock and watch where the hook lands.', 'If it’s too high or low, adjust the roller height.', 'If the keeper has slotted holes, loosen it, slide it to meet the hook and tighten.'],
+    avoid: 'Until it’s fixed, put a security bar or a wooden dowel in the bottom track.',
+    pro: 'A broken lock or bent frame needs a pro and the right parts.', post: 'sliding-door-wont-lock' }
+];
+const diyPath = (f) => '/diy/' + f.slug;
 // Homeowner reviews shown on the home page (data/reviews.csv). The section
 // stays hidden until real reviews are added.
 // Each review's "pro" names the company it's about; a profile shows only
@@ -1951,6 +2184,10 @@ function ROUTE_LIST() {
   r.push({ path: '/start', initial: { view: 'start', wizStep: 1 }, title: 'What’s Wrong With Your Sliding Door? Get a Fair Price | FixMySlide', description: 'Tap what your sliding door is doing and see the fair Florida repair price and checked pros who fix it, in under a minute.', noindex: true });
   r.push({ path: '/how-it-works', initial: { view: 'how' }, title: 'How FixMySlide Works | Fair Prices & Verified Sliding Door Pros in Florida', description: 'Describe your sliding door problem, see the fair Florida price, then call a checked local pro. Free for homeowners, no lead fees for pros.' });
   r.push({ path: '/repair-or-replace', initial: { view: 'decide' }, title: 'Repair or Replace a Sliding Glass Door? Quick Florida Guide | FixMySlide', description: 'Answer four quick questions to see whether repairing or replacing your sliding glass door makes more sense, with Florida repair prices.' });
+  r.push({ path: '/diy', initial: { view: 'diy' }, title: 'DIY Sliding Door Repair: Fixes You Can Do Yourself | FixMySlide', description: 'Step-by-step sliding door fixes you can safely do yourself: clean the track, adjust or replace rollers, cover a damaged track, stop leaks and fix a lock.' });
+  DIY_FIXES.forEach((f) => r.push({ path: diyPath(f), initial: { view: 'diyfix', diy: f.slug }, title: `How to ${f.title.toLowerCase()} on a sliding door (DIY) | FixMySlide`, description: f.intro }));
+  if (PRODUCTS.length) r.push({ path: '/shop', initial: { view: 'shop' }, title: 'Sliding Door Parts: Rollers & Track Covers | FixMySlide Shop', description: 'Sliding glass door rollers and track covers for DIY repairs, sold by Gators Sliding Doors in Daytona Beach.' });
+  PRODUCTS.forEach((pr) => r.push({ path: productPath(pr), initial: { view: 'product', product: pr.slug }, title: `${pr.name} | FixMySlide Shop`, description: `${pr.description} ${pr.priceNum != null ? money(pr.priceNum) + '.' : ''} Sold by Gators Sliding Doors.` }));
   r.push({ path: '/how-we-rank', initial: { view: 'rank' }, title: 'How We Rank Sliding Door Repair Pros | FixMySlide', description: 'What decides the order of sliding door pros on FixMySlide: homeowner ratings, honest pricing, verification, specialty, reply speed and distance. Rankings can’t be bought.' });
   r.push({ path: '/verification', initial: { view: 'verify' }, title: 'What Our Badges Mean: Business Verified & Licensed Installer | FixMySlide', description: 'What FixMySlide checks before a sliding door company gets a badge: Sunbiz registration, phone and address, Google and social pages, and DBPR licenses for installers.' });
   r.push({ path: '/ownership', initial: { view: 'ownership' }, title: 'Ownership Disclosure | FixMySlide', description: 'Who owns FixMySlide, which listed company shares that owner, and the rules that keep rankings and reviews fair.' });
@@ -1968,7 +2205,7 @@ function ROUTE_LIST() {
   return r;
 }
 
-const DEFAULTS = { savedPlan: null, planShared: null, savedWhere: '', geo: null, here: null, hereCity: '', urgency: '', spanish: false, formSending: false, formError: '', planQuote: '', view: 'home', symptom: null, post: null, jrServices: [], jrProText: '', jrProId: '', jrWhere: '', jrPaid: '', jrPhotos: [], jrPhotoBusy: false, jrRating: 0, jrNotes: '', jrEmail: '', jrHp: '', jrStatus: 'open', jrError: '', findSym: null, showAll: false, picked: [], wizStep: 1, describe: '', query: '', service: 'All services', price: 'Any', emergency: false, verifiedOnly: false, sort: 'best', mode: 'list', selectedId: null, compare: [], problem: 'closed', review: 'closed', listSent: false, plan: 'free', calcService: 'Rollers', calcSize: 'standard', calcType: 'standard', checkService: 'Rollers', checkAmount: '', dAge: '', dFrame: '', dGlass: '', dGoal: '' };
+const DEFAULTS = { savedPlan: null, planShared: null, savedWhere: '', geo: null, here: null, hereCity: '', urgency: '', spanish: false, diy: null, product: null, shopCat: '', formSending: false, formError: '', planQuote: '', view: 'home', symptom: null, post: null, jrServices: [], jrProText: '', jrProId: '', jrWhere: '', jrPaid: '', jrPhotos: [], jrPhotoBusy: false, jrRating: 0, jrNotes: '', jrEmail: '', jrHp: '', jrStatus: 'open', jrError: '', findSym: null, showAll: false, picked: [], wizStep: 1, describe: '', query: '', service: 'All services', price: 'Any', emergency: false, verifiedOnly: false, sort: 'best', mode: 'list', selectedId: null, compare: [], problem: 'closed', review: 'closed', listSent: false, plan: 'free', calcService: 'Rollers', calcSize: 'standard', calcType: 'standard', checkService: 'Rollers', checkAmount: '', dAge: '', dFrame: '', dGlass: '', dGoal: '' };
 
 // ---------------------------------------------------------------------------
 // Component
@@ -2031,6 +2268,10 @@ class Component extends DCLogic {
     if (s.view === 'how') return '/how-it-works';
     if (s.view === 'blog') return '/blog';
     if (s.view === 'report') return '/report';
+    if (s.view === 'diy') return '/diy';
+    if (s.view === 'diyfix') { const f = DIY_FIXES.find((x) => x.slug === s.diy); return f ? diyPath(f) : '/diy'; }
+    if (s.view === 'shop') return '/shop';
+    if (s.view === 'product') { const pr = PRODUCTS.find((x) => x.slug === s.product); return pr ? productPath(pr) : '/shop'; }
     if (s.view === 'rank') return '/how-we-rank';
     if (s.view === 'ownership') return '/ownership';
     if (s.view === 'verify') return '/verification';
@@ -2485,7 +2726,38 @@ class Component extends DCLogic {
       navHow: s.view === 'how' ? 'page' : null,
       navBlog: s.view === 'blog' || s.view === 'post' ? 'page' : null,
       navReport: s.view === 'report' ? 'page' : null,
-      isReport: s.view === 'report', isRank: s.view === 'rank', isVerify: s.view === 'verify',
+      isReport: s.view === 'report',
+      // DIY and shop
+      ...(() => {
+        const levelCls = (l) => 'tag ' + (l === 'Easy' ? 'tag-ok' : l === 'Medium' ? 'tag-promo' : 'tag-warn');
+        const prodVals = (pr) => Object.assign({}, pr, { href: productPath(pr), open: nav(() => this.go('product', { product: pr.slug })), priceText: pr.priceNum != null ? money(pr.priceNum) : 'See price', isRoller: !pr.image && pr.category === 'Rollers', isTrack: !pr.image && pr.category !== 'Rollers' });
+        const partsFor = (f) => (f.fix ? PRODUCTS.filter((pr) => pr.fixes.includes(f.fix)) : []);
+        const fixVals = (f) => { const post = POSTS.find((x) => x.slug === f.post); const parts = partsFor(f);
+          return Object.assign({}, f, { href: diyPath(f), open: nav(() => this.go('diyfix', { diy: f.slug })), levelCls: levelCls(f.level), titleLower: f.title.charAt(0).toLowerCase() + f.title.slice(1),
+            partsText: parts.length ? `Parts from ${money(Math.min(...parts.map((x) => x.priceNum || 0)))}` : 'No parts needed',
+            postHref: post ? postPath(post) : '', postTitle: post ? post.title : '', openPost: post ? nav(() => this.go('post', { post: post.slug })) : null }); };
+        const fix = DIY_FIXES.find((x) => x.slug === s.diy) || DIY_FIXES[0];
+        const fixSym = SYMPTOMS.find((x) => x.id === fix.problem) || SYMPTOMS[0];
+        const prod = PRODUCTS.find((x) => x.slug === s.product) || PRODUCTS[0] || { fixes: [], problems: [] };
+        const prodSym = SYMPTOMS.find((x) => prod.problems && x.id === prod.problems[0]) || SYMPTOMS[0];
+        const findFor = (x) => nav(() => this.go('results', { findSym: x.id, service: x.service, emergency: !!x.emergency, showAll: false }));
+        const cats = [...new Set(PRODUCTS.map((pr) => pr.category))];
+        return {
+          isDiy: s.view === 'diy', isDiyFix: s.view === 'diyfix', isShop: s.view === 'shop', isProduct: s.view === 'product',
+          goDiy: nav(() => this.go('diy')), goShop: nav(() => this.go('shop')),
+          navDiy: s.view === 'diy' || s.view === 'diyfix' ? 'page' : null, navShop: s.view === 'shop' || s.view === 'product' ? 'page' : null,
+          diyFixes: DIY_FIXES.map(fixVals),
+          guideDiy: DIY_FIXES.filter((f) => f.problem === s.symptom).map(fixVals), guideHasDiy: DIY_FIXES.some((f) => f.problem === s.symptom), hasShop: PRODUCTS.length > 0, shopAll: PRODUCTS.map(prodVals),
+          fix: fixVals(fix), fixParts: partsFor(fix).map(prodVals), fixHasParts: partsFor(fix).length > 0,
+          fixOthers: DIY_FIXES.filter((x) => x.slug !== fix.slug).map(fixVals),
+          fixPrice: Object.assign({ label: SERVICE_INFO[fixSym.service].lower }, PRICE_STATS[fixSym.service]),
+          fixProCount: COMPANIES.filter((c) => c.services.includes(fixSym.service)).length, fixFindPro: findFor(fixSym),
+          shopCats: [['', 'All parts'], ...cats.map((c) => [c, c])].map(([v, label]) => ({ label, on: s.shopCat === v, cls: s.shopCat === v ? 'chip chip-on' : 'chip', pick: () => set({ shopCat: v }) })),
+          shopList: PRODUCTS.filter((pr) => !s.shopCat || pr.category === s.shopCat).map(prodVals),
+          prod: prod.slug ? prodVals(prod) : {}, prodFixes: DIY_FIXES.filter((f) => f.fix && prod.fixes.includes(f.fix)).map(fixVals),
+          prodHasFixes: DIY_FIXES.some((f) => f.fix && prod.fixes.includes(f.fix)), prodFindPro: findFor(prodSym)
+        };
+      })(), isRank: s.view === 'rank', isVerify: s.view === 'verify',
       goRank: nav(() => this.go('rank')), goVerify: nav(() => this.go('verify')),
       isOwnership: s.view === 'ownership', goOwnership: nav(() => this.go('ownership')),
       ownerCompanies: COMPANIES.filter((c) => c.sharesOwner).map((c) => c.name).join(' and ') || 'no listed company',

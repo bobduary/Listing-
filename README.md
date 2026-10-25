@@ -14,6 +14,8 @@ The directory designed in the "Florida Sliding Door Directory" canvas, built as 
   - `/pros/<company>`: company pages
   - `/repair-or-replace`: the repair-or-replace helper
   - `/blog` and `/blog/<slug>`: help articles (from `data/blog.csv`), linked from the matching problem guide
+  - `/diy` and `/diy/<fix>`: 6 step-by-step DIY fixes (difficulty, time, tools, steps, parts to buy, and a link to local pros for that problem). The fixes live in `DIY_FIXES` in the page logic.
+  - `/shop` and `/shop/<product>`: parts from `data/products.csv` (Gators Sliding Doors' store). "Buy" opens that product on gatorsslidingdoors.com for checkout; every page says the seller has the same owner as FixMySlide.
   - `/compare` (noindex) and `/list-your-business`
 - `/how-we-rank` and `/verification`: how Best match works and what each badge means (only what's actually checked).
 - `src/runtime/`: renders canvas templates with React (`{{holes}}`, `sc-for`, `sc-if`, `style-hover`).
@@ -51,6 +53,8 @@ City pages are created automatically for every city a company is based in.
 `data/images.csv` holds the site photos (hero, problem cards, How it Works) by key; swap a `url` to change a photo. They currently point to the images from the Stitch design; download them into `public/` and use local paths before launch, since those links may expire.
 
 `data/blog.csv` holds the blog posts: `slug`, `title`, `description`, `date` (YYYY-MM-DD), `problem` (e.g. `leaking`; ties the post to that problem's price and guide) and `body`. In the body, a blank line starts a new paragraph, `## ` starts a heading, lines starting `- ` make a list, `1. ` lines make numbered steps, and `**Words**` at the start of a paragraph or list item makes them bold.
+
+`data/products.csv` holds the shop: `slug`, `name`, `price`, `category` (`Rollers` or `Tracks`), `fixes` (which DIY fix uses it: `replace-rollers` or `cover-track`), `problems`, `description`, `buy_url` (the product page on Gator's store), `image_url` (optional; a drawing is shown without one). Prices were copied from gatorsslidingdoors.com in October 2026; update them here when the store changes.
 
 `data/videos.csv` lists how-to videos for the problem pages: `problem` (e.g. `leaking` or `hard-to-slide`), `title`, `url`.
 
