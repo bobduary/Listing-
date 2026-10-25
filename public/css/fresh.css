@@ -175,3 +175,29 @@
 .theme-fresh .footer .row.small { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12) !important; }
 
 @media (prefers-reduced-motion: reduce) { .fx-btn, .fx-pick { transition: none; } .fx-btn:hover, .fx-pick:hover { transform: none; } }
+
+/* Directory home */
+.dx-hero { background: var(--fx-cream); padding-block: 40px 44px; }
+@media (min-width: 760px) { .dx-hero { padding-block: 64px 56px; } }
+.dx-h1 { font-size: clamp(36px, 5.6vw, 64px); max-width: 18ch; }
+.theme-fresh .dir-go { background: var(--fx-green); color: var(--fx-navy); font-family: var(--fx-head); font-weight: 800; }
+.theme-fresh .dir-go:hover { background: #14AE63; color: var(--fx-navy); }
+.theme-fresh .dir-field:focus-within { box-shadow: inset 0 0 0 2px var(--fx-green-ink); }
+.dx-dir { padding-block: 36px 56px; }
+.dx-dir-head .h2 { font-family: var(--fx-head); font-weight: 900; letter-spacing: -0.03em; font-size: clamp(26px, 3.4vw, 38px); }
+.theme-fresh .dir-card .btn { border-radius: 999px; font-family: var(--fx-head); font-weight: 700; }
+.theme-fresh .dir-card .btn-primary { background: var(--fx-green); color: var(--fx-navy); }
+.theme-fresh .dir-card .btn-primary:hover { background: #14AE63; color: var(--fx-navy); }
+.theme-fresh .dir-name { font-family: var(--fx-head); }
+.theme-fresh .tag-top { background: var(--fx-mint); color: var(--fx-green-ink); }
+.dx-browse { padding-block: 24px 72px; }
+.dx-cities { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 180px), 1fr)); }
+.dx-city { display: flex; flex-direction: column; gap: 2px; padding: 16px 18px; border-radius: 18px; background: #F4F6F9; text-decoration: none; color: var(--fx-ink) !important; }
+.dx-city:hover { background: var(--fx-mint); }
+.dx-city strong { font-family: var(--fx-head); font-size: 17px; }
+.dx-problems { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); }
+.dx-problem { display: flex; gap: 12px; align-items: center; padding: 12px 14px; border-radius: 18px; background: #F4F6F9; text-decoration: none; color: var(--fx-ink) !important; }
+.dx-problem:hover { background: #fff; box-shadow: inset 0 0 0 2px var(--c); }
+.dx-problem .fx-route { width: 40px; height: 40px; margin: 0; border-radius: 12px; flex: none; }
+.dx-problem .fx-route .ms { font-size: 22px; }
+.dx-problem > span:last-child { display: flex; flex-direction: column; }

@@ -55,95 +55,103 @@
 <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
 
   <sc-if value="{{ freshHome }}">
-  <header class="fx-hero">
-    <div class="wrap fx-hero-in">
-      <div class="fx-hero-copy">
-        <span class="fx-pill fx-pill-soft"><span class="ms" aria-hidden="true">location_on</span>Sliding door repair across Florida</span>
-        <h1 class="fx-h1">Door stuck? Let’s get it <span class="fx-mark">gliding</span> again.</h1>
-        <p class="fx-lead">See the fair price for your repair, then call a checked pro near you. Free, no sign-up, no spam.</p>
-        <div class="fx-cta-row">
-          <button type="button" class="fx-btn fx-btn-go" onClick="{{ findNearMe }}" disabled="{{ geoBusy }}"><span class="ms" aria-hidden="true">near_me</span>{{ nearMeBtn }}</button>
-          <a class="fx-btn fx-btn-line" href="/#problems" onClick="{{ goProblems }}">What’s wrong with my door?</a>
+  <header class="dx-hero">
+    <div class="wrap dx-hero-in">
+      <div class="stack" style="gap: 18px;">
+        <h1 class="fx-h1 dx-h1">Find a sliding door repair company near you</h1>
+        <p class="fx-lead" style="max-width: 46ch;">Compare local companies in Central Florida, see the fair price for your repair, then call or text them directly. Free, no sign-up.</p>
+        <form class="dir-search" onSubmit="{{ dirSubmit }}" role="search">
+          <label class="dir-field"><span class="ms" aria-hidden="true">location_on</span><span class="sr-only">City or ZIP</span><input value="{{ query }}" onChange="{{ onQuery }}" placeholder="City or ZIP, e.g. Orlando" autoComplete="postal-code" enterKeyHint="search"></label>
+          <label class="dir-field"><span class="ms" aria-hidden="true">build</span><span class="sr-only">What needs fixing</span>
+            <select value="{{ dirProblem }}" onChange="{{ onDirProblem }}"><option value="">Any sliding door repair</option><sc-for list="{{ dirProblemChips }}" as="f" hint-placeholder-count="8"><option value="{{ f.id }}">{{ f.title }}</option></sc-for></select>
+          </label>
+          <button type="submit" class="btn btn-primary dir-go"><span class="ms" aria-hidden="true">search</span>Search</button>
+        </form>
+        <div class="dx-near">
+          <button type="button" class="link-btn dx-loc" onClick="{{ findNearMe }}" disabled="{{ geoBusy }}"><span class="ms" aria-hidden="true">near_me</span>{{ nearMeBtn }}</button>
+          <span class="tiny muted">or pick a city:</span>
+          <sc-for list="{{ dirCityChips }}" as="cc" hint-placeholder-count="6"><button type="button" class="{{ cc.cls }}" onClick="{{ cc.pick }}">{{ cc.name }} <span class="dx-count">{{ cc.count }}</span></button></sc-for>
         </div>
-        <sc-if value="{{ geoMsg }}"><p class="small notice notice-warn" role="status" style="max-width: 460px;">{{ geoMsg }}</p></sc-if>
-        <ul class="fx-ticks">
-          <li><span class="ms ms-fill" aria-hidden="true">sell</span>Fair Florida prices</li>
-          <li><span class="ms ms-fill" aria-hidden="true">verified</span>Pros checked by our team</li>
-          <li><span class="ms ms-fill" aria-hidden="true">favorite</span>Free for homeowners</li>
-        </ul>
-      </div>
-      <div class="fx-stage" aria-hidden="true">
-        <svg class="fx-art" viewBox="0 0 440 440" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="318" cy="104" r="74" fill="#FFC93C"></circle>
-          <circle cx="318" cy="104" r="98" fill="none" stroke="#FFC93C" stroke-width="6" stroke-dasharray="4 18" stroke-linecap="round"></circle>
-          <path d="M0 360 Q 55 340 110 360 T 220 360 T 330 360 T 440 360 V440 H0 Z" fill="#BDEBFF"></path>
-          <path d="M0 384 Q 55 366 110 384 T 220 384 T 330 384 T 440 384 V440 H0 Z" fill="#8FD8FF"></path>
-          <rect x="34" y="118" width="250" height="262" rx="20" fill="#0E2236"></rect>
-          <rect x="52" y="136" width="108" height="226" rx="10" fill="#D7F3FF"></rect>
-          <rect x="142" y="136" width="124" height="226" rx="10" fill="#A8E3FF"></rect>
-          <rect x="142" y="136" width="124" height="226" rx="10" fill="none" stroke="#0E2236" stroke-width="5"></rect>
-          <path d="M70 180 L120 150 M70 210 L140 168" stroke="#fff" stroke-width="8" stroke-linecap="round" opacity="0.8"></path>
-          <path d="M168 200 L230 164" stroke="#fff" stroke-width="8" stroke-linecap="round" opacity="0.7"></path>
-          <rect x="150" y="236" width="10" height="44" rx="5" fill="#FF8A1F"></rect>
-          <rect x="24" y="372" width="270" height="14" rx="7" fill="#0E2236"></rect>
-          <circle cx="182" cy="379" r="5" fill="#FFC93C"></circle><circle cx="236" cy="379" r="5" fill="#FFC93C"></circle>
-          <path d="M392 380 C 384 300 378 240 352 178" stroke="#7A4A1E" stroke-width="12" fill="none" stroke-linecap="round"></path>
-          <path d="M352 178 C 320 150 286 156 262 176 C 296 168 322 172 352 178 Z" fill="#14B866"></path>
-          <path d="M352 178 C 352 140 330 116 300 108 C 326 132 340 152 352 178 Z" fill="#0B8F50"></path>
-          <path d="M352 178 C 378 146 410 142 436 156 C 404 160 380 166 352 178 Z" fill="#14B866"></path>
-          <path d="M352 178 C 384 172 412 188 428 214 C 400 196 378 188 352 178 Z" fill="#0B8F50"></path>
-          <path d="M352 178 C 334 190 322 212 320 238 C 332 214 342 198 352 178 Z" fill="#14B866"></path>
-          <path d="M60 70 l6 14 14 6 -14 6 -6 14 -6 -14 -14 -6 14 -6 Z" fill="#FF4FA0"></path>
-          <path d="M210 40 l4 9 9 4 -9 4 -4 9 -4 -9 -9 -4 9 -4 Z" fill="#7C5CFF"></path>
-        </svg>
-        <div class="fx-phone">
-          <div class="fx-notch"></div>
-          <div class="fx-screen">
-            <div class="fx-app-search"><span class="ms" aria-hidden="true">near_me</span>Pros near {{ mock.city }}</div>
-            <div class="fx-app-pills">
-              <sc-for list="{{ mock.pills }}" as="mp" hint-placeholder-count="4"><span class="fx-route-pill" style="--c: {{ mp.color }}; --ink: {{ mp.ink }};"><span class="ms" aria-hidden="true">{{ mp.ms }}</span>{{ mp.short }}</span></sc-for>
-            </div>
-            <div class="fx-app-price"><span>Fair price · rollers</span><strong>{{ mock.price }}</strong></div>
-            <sc-for list="{{ mock.pros }}" as="mpro" hint-placeholder-count="2">
-              <div class="fx-app-pro">
-                <span class="fx-app-av" style="background: {{ mpro.bg }};">{{ mpro.initials }}</span>
-                <span class="fx-app-pro-t"><b>{{ mpro.name }}</b><small>{{ mpro.sub }}</small></span>
-                <span class="fx-app-call"><span class="ms ms-fill" aria-hidden="true">call</span></span>
-              </div>
-            </sc-for>
-          </div>
-        </div>
+        <sc-if value="{{ geoMsg }}"><p class="small notice notice-warn" role="status" style="max-width: 520px;">{{ geoMsg }}</p></sc-if>
       </div>
     </div>
   </header>
 
-  <section class="fx-pick-sec" id="problems">
-    <div class="wrap stack" style="gap: 24px;">
-      <sc-if value="{{ hasSavedPlan }}" hint-placeholder-val="{{ false }}">
-        <button type="button" class="resume fx-resume" onClick="{{ openSavedPlan }}">
-          <span class="ms" aria-hidden="true">history</span>
-          <span class="stack-sm" style="gap: 0; min-width: 0;"><strong class="small">Pick up your repair plan</strong><span class="tiny muted">{{ savedPlanText }}</span></span>
-          <span class="ms" aria-hidden="true">arrow_forward</span>
-        </button>
-      </sc-if>
-      <div class="fx-sec-head">
-        <span class="fx-pill fx-pill-dark">Step 1 of 3</span>
-        <h2 class="fx-h2">What’s your door doing?</h2>
-        <p class="fx-sub">Tap everything that sounds familiar. We’ll tell you the likely fix and the fair price.</p>
+  <section class="dx-dir" id="directory">
+    <div class="wrap stack" style="gap: 18px;">
+      <div class="dx-dir-head">
+        <h2 class="h2" role="status">{{ dirCountText }}</h2>
+        <sc-if value="{{ dirHasFilter }}"><button type="button" class="link-btn" onClick="{{ dirClear }}">Clear search</button></sc-if>
       </div>
-      <div class="fx-pick-grid">
-        <sc-for list="{{ pickCards }}" as="p" hint-placeholder-count="8">
-          <button type="button" class="{{ p.fxCls }}" style="--c: {{ p.color }}; --ink: {{ p.ink }};" aria-pressed="{{ p.on }}" onClick="{{ p.toggle }}">
-            <span class="fx-route"><span class="ms" aria-hidden="true">{{ p.ms }}</span></span>
-            <span class="fx-pick-t">{{ p.title }}</span>
-            <span class="fx-pick-s">{{ p.sub }}</span>
-            <span class="ms fx-pick-check" aria-hidden="true">check</span>
-          </button>
+      <div class="dir-filters">
+          <div class="dir-chiprow" role="group" aria-label="What needs fixing">
+            <sc-for list="{{ dirProblemChips }}" as="f" hint-placeholder-count="8"><button type="button" class="{{ f.cls }}" style="--c: {{ f.color }}; --ink: {{ f.ink }};" aria-pressed="{{ f.on }}" onClick="{{ f.toggle }}"><span class="ms" aria-hidden="true">{{ f.ms }}</span>{{ f.label }}</button></sc-for>
+          </div>
+          <div class="dir-chiprow" role="group" aria-label="More filters">
+            <sc-for list="{{ urgencyChips }}" as="u" hint-placeholder-count="3"><button type="button" class="{{ u.cls }}" aria-pressed="{{ u.on }}" onClick="{{ u.pick }}">{{ u.label }}</button></sc-for>
+            <sc-if value="{{ spanishAvailable }}"><button type="button" class="{{ spanishCls }}" aria-pressed="{{ spanishOn }}" onClick="{{ toggleSpanish }}">Habla español</button></sc-if>
+            <label class="sort">Sort
+              <select value="{{ sort }}" onChange="{{ onSort }}">
+                <sc-for list="{{ sortOpts }}" as="o" hint-placeholder-count="4"><option value="{{ o.value }}">{{ o.label }}</option></sc-for>
+              </select>
+            </label>
+          </div>
+        </div>
+      <sc-if value="{{ dirNone }}"><div class="card card-soft stack-sm"><h3 class="h4">No companies match that yet.</h3><p class="small">Try a nearby city or clear the filters. We’re adding companies every week.</p><button type="button" class="btn btn-secondary" onClick="{{ dirClear }}" style="align-self: flex-start;">Show all companies</button></div></sc-if>
+      <div class="dir-list">
+        <sc-for list="{{ dirHome }}" as="c" hint-placeholder-count="6">
+            <article class="{{ c.dirCls }}">
+              <div class="dir-main">
+                <div class="dir-head">
+                  <sc-if value="{{ c.hasLogo }}"><img class="dir-av" src="{{ c.avatarImg }}" alt="" width="52" height="52" loading="lazy"></sc-if>
+                  <sc-if value="{{ c.noLogo }}"><span class="dir-av" style="background: {{ c.avatarBg }};" aria-hidden="true">{{ c.initials }}</span></sc-if>
+                  <div class="dir-title">
+                    <div class="dir-tags">
+                      <sc-if value="{{ c.isPromoted }}"><span class="tag tag-promo">Promoted</span></sc-if>
+                      <sc-if value="{{ c.topLabel }}"><span class="tag tag-top">{{ c.topLabel }}</span></sc-if>
+                      <span class="{{ c.badgeCls }}">{{ c.badgeLabel }}</span>
+                      <sc-if value="{{ c.licenseBadge }}"><span class="tag tag-ok">Licensed installer</span></sc-if>
+                      <sc-if value="{{ c.sharesOwner }}"><span class="tag tag-owner">Same owner as FixMySlide</span></sc-if>
+                    </div>
+                    <h3 class="dir-name"><a href="{{ c.href }}" onClick="{{ c.openNav }}">{{ c.name }}</a></h3>
+                    <p class="small"><sc-if value="{{ c.hasReviews }}"><span class="rating"><span class="star" aria-hidden="true">★</span>{{ c.ratingText }}</span> <span class="muted">({{ c.reviews }} reviews) · </span></sc-if><sc-if value="{{ c.isNew }}"><span class="tag tag-new">New on FixMySlide</span> </sc-if><span class="muted">{{ c.where }}</span></p>
+                  </div>
+                </div>
+                <p class="dir-services"><span class="ms" aria-hidden="true">build</span><span>{{ c.servicesText }}</span></p>
+                <p class="dir-areas"><span class="ms" aria-hidden="true">location_on</span><span>Serves {{ c.areasShort }}</span></p>
+                <sc-if value="{{ c.factChips.length }}"><div class="fact-chips"><sc-for list="{{ c.factChips }}" as="fc" hint-placeholder-count="2"><span class="fact-chip">{{ fc }}</span></sc-for></div></sc-if>
+              </div>
+              <div class="dir-actions">
+                <a class="btn btn-primary btn-block" href="{{ c.callHref }}"><span class="ms" aria-hidden="true">call</span>Call {{ c.phone }}</a>
+                <div class="btn-pair">
+                  <a class="btn btn-secondary text-btn" href="{{ c.textHref }}"><span class="ms" aria-hidden="true">chat</span>Text</a>
+                  <a class="btn btn-secondary" href="{{ c.href }}" onClick="{{ c.openNav }}">Details</a>
+                </div>
+                <sc-if value="{{ c.website }}"><a class="dir-web" href="{{ c.website }}" target="_blank" rel="noopener nofollow">Website · {{ c.websiteHost }}</a></sc-if>
+              </div>
+            </article>
         </sc-for>
       </div>
-      <div class="fx-pick-bar">
-        <button type="button" class="fx-btn fx-btn-go" disabled="{{ noPicks }}" onClick="{{ homeNext }}">{{ pickCta }}<span class="ms" aria-hidden="true">arrow_forward</span></button>
-        <a href="/start" onClick="{{ goDescribe }}">Not sure? Describe it in your own words</a>
+      <sc-if value="{{ dirHomeMore }}"><a class="btn btn-secondary" href="/pros" onClick="{{ dirSeeAll }}" style="align-self: center;">See all {{ dirCount }} companies<span class="ms" aria-hidden="true">arrow_forward</span></a></sc-if>
+      <p class="tiny muted">Promoted companies pay to be shown first and are always labeled. Everyone else is ranked only by homeowner reviews, our checks, the repairs they do and distance. <a href="/how-we-rank" onClick="{{ goRank }}">How we rank</a></p>
+    </div>
+  </section>
+
+  <section class="dx-browse">
+    <div class="wrap stack" style="gap: 32px;">
+      <div class="stack-sm">
+        <h2 class="h3">Browse by city</h2>
+        <div class="dx-cities">
+          <sc-for list="{{ dirCityChips }}" as="cc" hint-placeholder-count="6"><a class="dx-city" href="{{ cc.href }}" onClick="{{ cc.open }}"><strong>{{ cc.name }}</strong><span class="tiny muted">{{ cc.countText }}</span></a></sc-for>
+        </div>
+      </div>
+      <div class="stack-sm" id="problems">
+        <h2 class="h3">What’s your door doing?</h2>
+        <p class="small muted">Plain-English guides: the likely cause, what you can check yourself and the fair price.</p>
+        <div class="dx-problems">
+          <sc-for list="{{ dirProblemChips }}" as="f" hint-placeholder-count="8"><a class="dx-problem" href="{{ f.href }}" onClick="{{ f.open }}" style="--c: {{ f.color }}; --ink: {{ f.ink }};"><span class="fx-route"><span class="ms" aria-hidden="true">{{ f.ms }}</span></span><span><strong>{{ f.title }}</strong><span class="tiny muted">Fair price {{ f.price }}</span></span></a></sc-for>
+        </div>
+        <a class="small" href="/start" onClick="{{ goStart }}" style="font-weight: 600;">Not sure? Answer 3 quick questions</a>
       </div>
     </div>
   </section>
@@ -196,7 +204,7 @@
   </header>
   </sc-if>
 
-  <sc-if value="{{ hasNearMe }}" hint-placeholder-val="{{ false }}">
+  <sc-if value="{{ hasNearMeClassic }}" hint-placeholder-val="{{ false }}">
     <section class="section near-me" id="near-me">
       <div class="wrap stack" style="gap: 24px;">
         <div class="stack-sm">
@@ -903,128 +911,124 @@
         <p class="muted" style="max-width: 68ch;">{{ resultsIntro }}</p>
       </div>
 
-      <div class="find-ask">
-        <label class="field find-where">Where are you?
-          <span class="money-input"><span class="ms" aria-hidden="true" style="font-size: 22px;">location_on</span><input class="input big-input" value="{{ query }}" onChange="{{ onQuery }}" placeholder="City or ZIP code" autoComplete="postal-code"></span>
-        </label>
-        <div class="stack-sm">
-          <span class="field" style="display: block;">What’s wrong? <span class="muted" style="font-weight: 500;">(optional)</span></span>
-          <div class="find-chips">
-            <sc-for list="{{ findChips }}" as="f" hint-placeholder-count="8">
-              <button type="button" class="{{ f.cls }}" aria-pressed="{{ f.on }}" onClick="{{ f.toggle }}"><span class="ms" style="font-size: 18px;" aria-hidden="true">{{ f.ms }}</span>{{ f.title }}</button>
-            </sc-for>
+      <form class="dir-search" onSubmit="{{ dirSubmit }}" role="search">
+          <label class="dir-field"><span class="ms" aria-hidden="true">location_on</span><span class="sr-only">City or ZIP</span><input value="{{ query }}" onChange="{{ onQuery }}" placeholder="City or ZIP, e.g. Orlando" autoComplete="postal-code" enterKeyHint="search"></label>
+          <label class="dir-field"><span class="ms" aria-hidden="true">build</span><span class="sr-only">What needs fixing</span>
+            <select value="{{ dirProblem }}" onChange="{{ onDirProblem }}"><option value="">Any sliding door repair</option><sc-for list="{{ dirProblemChips }}" as="f" hint-placeholder-count="8"><option value="{{ f.id }}">{{ f.title }}</option></sc-for></select>
+          </label>
+          <button type="submit" class="btn btn-primary dir-go"><span class="ms" aria-hidden="true">search</span>Search</button>
+        </form>
+      <div class="dx-near"><button type="button" class="link-btn dx-loc" onClick="{{ findNearMe }}" disabled="{{ geoBusy }}"><span class="ms" aria-hidden="true">near_me</span>{{ nearMeBtn }}</button><sc-if value="{{ geoMsg }}"><span class="small" role="status">{{ geoMsg }}</span></sc-if></div>
+
+      <div class="dir-filters">
+          <div class="dir-chiprow" role="group" aria-label="What needs fixing">
+            <sc-for list="{{ dirProblemChips }}" as="f" hint-placeholder-count="8"><button type="button" class="{{ f.cls }}" style="--c: {{ f.color }}; --ink: {{ f.ink }};" aria-pressed="{{ f.on }}" onClick="{{ f.toggle }}"><span class="ms" aria-hidden="true">{{ f.ms }}</span>{{ f.label }}</button></sc-for>
+          </div>
+          <div class="dir-chiprow" role="group" aria-label="More filters">
+            <sc-for list="{{ urgencyChips }}" as="u" hint-placeholder-count="3"><button type="button" class="{{ u.cls }}" aria-pressed="{{ u.on }}" onClick="{{ u.pick }}">{{ u.label }}</button></sc-for>
+            <sc-if value="{{ spanishAvailable }}"><button type="button" class="{{ spanishCls }}" aria-pressed="{{ spanishOn }}" onClick="{{ toggleSpanish }}">Habla español</button></sc-if>
+            <label class="sort">Sort
+              <select value="{{ sort }}" onChange="{{ onSort }}">
+                <sc-for list="{{ sortOpts }}" as="o" hint-placeholder-count="4"><option value="{{ o.value }}">{{ o.label }}</option></sc-for>
+              </select>
+            </label>
           </div>
         </div>
-      </div>
-
-      <div class="fit-bar" role="group" aria-label="Narrow it down">
-          <span class="tiny muted" style="font-weight: 700;">When do you need it?</span>
-          <sc-for list="{{ urgencyChips }}" as="u" hint-placeholder-count="3"><button type="button" class="{{ u.cls }}" aria-pressed="{{ u.on }}" onClick="{{ u.pick }}">{{ u.label }}</button></sc-for>
-          <sc-if value="{{ spanishAvailable }}"><button type="button" class="{{ spanishCls }}" aria-pressed="{{ spanishOn }}" onClick="{{ toggleSpanish }}">Habla español</button></sc-if>
-        </div>
       <div class="find-bar">
-        <p class="h4" role="status">{{ findCount }}</p>
+        <p class="h4" role="status">{{ dirCountText }}</p>
         <div class="row" style="gap: 10px 18px;">
           <label class="switch"><input type="checkbox" checked="{{ verifiedOnly }}" onChange="{{ toggleVerified }}"><span aria-hidden="true"></span>Verified only</label>
-          <label class="sort">Sort
-            <select value="{{ sort }}" onChange="{{ onSort }}">
-              <sc-for list="{{ sortOpts }}" as="o" hint-placeholder-count="4"><option value="{{ o.value }}">{{ o.label }}</option></sc-for>
-            </select>
-          </label>
+          <div class="seg" role="group" aria-label="View"><button type="button" class="{{ listBtnCls }}" onClick="{{ showList }}">List</button><button type="button" class="{{ mapBtnCls }}" onClick="{{ showMap }}">Map</button></div>
         </div>
       </div>
 
       <sc-if value="{{ noResultsAtAll }}" hint-placeholder-val="{{ false }}">
         <div class="card card-soft stack" style="align-items: flex-start;">
-          <h2 class="h3">No checked pros match yet.</h2>
-          <p class="muted">Try a nearby city, or clear your choices to see every pro in Florida.</p>
+          <h2 class="h3">No companies match yet.</h2>
+          <p class="muted">Try a nearby city, or clear your choices to see every company.</p>
           <button type="button" class="btn btn-secondary" onClick="{{ clearFilters }}">Clear and show all</button>
         </div>
       </sc-if>
 
-      <sc-if value="{{ hasTopPick }}" hint-placeholder-val="{{ true }}">
-        <article class="top-pick">
-          <span class="top-pick-tag"><span class="ms ms-fill" aria-hidden="true">star</span>{{ topPickLabel }}</span>
-          <div class="top-pick-body">
-            <div class="stack-sm" style="gap: 8px; min-width: 0;">
-              <h2 class="pro-name" style="font-size: 24px;"><a href="{{ topPick.href }}" onClick="{{ topPick.openNav }}">{{ topPick.name }}</a></h2>
-              <p class="small"><sc-if value="{{ topPick.hasReviews }}"><span class="rating"><span class="star" aria-hidden="true">★</span>{{ topPick.ratingText }}</span></sc-if><sc-if value="{{ topPick.isNew }}"><span class="tag tag-new">New on FixMySlide</span></sc-if> <span class="muted"><sc-if value="{{ topPick.hasReviews }}">({{ topPick.reviews }} reviews) · </sc-if>{{ topPick.where }}</span></p>
-              <span class="{{ topPick.badgeCls }}" style="align-self: flex-start;">{{ topPick.badgeLabel }}</span><sc-if value="{{ topPick.sharesOwner }}"><span class="tag tag-owner" style="align-self: flex-start;">Same owner as FixMySlide</span></sc-if>
-              <p class="small" style="font-weight: 700; margin-top: 6px;">Why we picked them</p>
-              <ul class="checklist small" style="gap: 8px;">
-                <sc-for list="{{ topPick.whys }}" as="w" hint-placeholder-count="3"><li>{{ w }}</li></sc-for>
-              </ul>
-            </div>
-            <div class="plan-pro-actions">
-              <a class="btn btn-primary btn-block" href="{{ topPick.callHref }}"><span class="ms" aria-hidden="true">call</span>Call {{ topPick.phone }}</a>
-              <div class="btn-pair">
-                <a class="btn btn-secondary text-btn" href="{{ topPick.textHref }}"><span class="ms" aria-hidden="true">chat</span>Text</a>
-                <a class="btn btn-secondary" href="{{ topPick.href }}" onClick="{{ topPick.openNav }}">View profile</a>
+      <sc-if value="{{ isMapMode }}"><iframe class="dir-map" data-srfl-map="" src="/map-view.html" title="Map of sliding door companies" loading="lazy"></iframe></sc-if>
+      <div class="dir-list">
+        <sc-for list="{{ dirResults }}" as="c" hint-placeholder-count="6">
+            <article class="{{ c.dirCls }}">
+              <div class="dir-main">
+                <div class="dir-head">
+                  <sc-if value="{{ c.hasLogo }}"><img class="dir-av" src="{{ c.avatarImg }}" alt="" width="52" height="52" loading="lazy"></sc-if>
+                  <sc-if value="{{ c.noLogo }}"><span class="dir-av" style="background: {{ c.avatarBg }};" aria-hidden="true">{{ c.initials }}</span></sc-if>
+                  <div class="dir-title">
+                    <div class="dir-tags">
+                      <sc-if value="{{ c.isPromoted }}"><span class="tag tag-promo">Promoted</span></sc-if>
+                      <sc-if value="{{ c.topLabel }}"><span class="tag tag-top">{{ c.topLabel }}</span></sc-if>
+                      <span class="{{ c.badgeCls }}">{{ c.badgeLabel }}</span>
+                      <sc-if value="{{ c.licenseBadge }}"><span class="tag tag-ok">Licensed installer</span></sc-if>
+                      <sc-if value="{{ c.sharesOwner }}"><span class="tag tag-owner">Same owner as FixMySlide</span></sc-if>
+                    </div>
+                    <h3 class="dir-name"><a href="{{ c.href }}" onClick="{{ c.openNav }}">{{ c.name }}</a></h3>
+                    <p class="small"><sc-if value="{{ c.hasReviews }}"><span class="rating"><span class="star" aria-hidden="true">★</span>{{ c.ratingText }}</span> <span class="muted">({{ c.reviews }} reviews) · </span></sc-if><sc-if value="{{ c.isNew }}"><span class="tag tag-new">New on FixMySlide</span> </sc-if><span class="muted">{{ c.where }}</span></p>
+                  </div>
+                </div>
+                <p class="dir-services"><span class="ms" aria-hidden="true">build</span><span>{{ c.servicesText }}</span></p>
+                <p class="dir-areas"><span class="ms" aria-hidden="true">location_on</span><span>Serves {{ c.areasShort }}</span></p>
+                <sc-if value="{{ c.factChips.length }}"><div class="fact-chips"><sc-for list="{{ c.factChips }}" as="fc" hint-placeholder-count="2"><span class="fact-chip">{{ fc }}</span></sc-for></div></sc-if>
               </div>
-            </div>
-          </div>
-        </article>
-      </sc-if>
-
-      <sc-if value="{{ hasMore }}" hint-placeholder-val="{{ true }}">
-        <h2 class="h3" style="margin-top: 8px;">More pros</h2>
-        <div class="grid-3">
-          <sc-for list="{{ morePros }}" as="c" hint-placeholder-count="4">
-            <article class="pcard find-card">
-              <div class="stack-sm" style="gap: 4px; min-width: 0;">
-                <h3 class="pro-name" style="font-size: 19px;"><a href="{{ c.href }}" onClick="{{ c.openNav }}">{{ c.name }}</a></h3>
-                <sc-if value="{{ c.hasReviews }}"><span class="small"><span class="ms ms-fill star" style="font-size: 18px; vertical-align: -3px;" aria-hidden="true">star</span> <strong>{{ c.ratingText }}</strong> <span class="muted">({{ c.reviews }} reviews)</span></span></sc-if><sc-if value="{{ c.isNew }}"><span class="tag tag-new" style="align-self: flex-start;">New on FixMySlide</span></sc-if>
-              </div>
-              <sc-if value="{{ c.notVerified }}"><span class="tag tag-ad" style="align-self: flex-start;">Not checked yet</span></sc-if>
-              <ul class="find-facts small">
-                <li><span class="ms" aria-hidden="true">sell</span><span>{{ c.priceLine }}<sc-if value="{{ c.priceAbove }}"><span class="price-flag-inline"> · {{ c.priceAboveText }}</span></sc-if></span></li>
-                <li><span class="ms" aria-hidden="true">location_on</span>{{ c.where }}</li>
-              </ul>
-              <sc-if value="{{ c.sharesOwner }}"><span class="tag tag-owner">Same owner as FixMySlide</span></sc-if><sc-if value="{{ c.factChips.length }}"><div class="fact-chips"><sc-for list="{{ c.factChips }}" as="fc" hint-placeholder-count="2"><span class="fact-chip">{{ fc }}</span></sc-for></div></sc-if>
-              <div class="pcard-actions">
+              <div class="dir-actions">
                 <a class="btn btn-primary btn-block" href="{{ c.callHref }}"><span class="ms" aria-hidden="true">call</span>Call {{ c.phone }}</a>
                 <div class="btn-pair">
                   <a class="btn btn-secondary text-btn" href="{{ c.textHref }}"><span class="ms" aria-hidden="true">chat</span>Text</a>
-                  <a class="btn btn-secondary" href="{{ c.href }}" onClick="{{ c.openNav }}">View profile</a>
+                  <a class="btn btn-secondary" href="{{ c.href }}" onClick="{{ c.openNav }}">Details</a>
                 </div>
+                <sc-if value="{{ c.website }}"><a class="dir-web" href="{{ c.website }}" target="_blank" rel="noopener nofollow">Website · {{ c.websiteHost }}</a></sc-if>
               </div>
             </article>
-          </sc-for>
-        </div>
-        <sc-if value="{{ hasShowAll }}"><button type="button" class="btn btn-secondary" onClick="{{ showAll }}" style="align-self: center;">{{ showAllText }}<span class="ms" aria-hidden="true">expand_more</span></button></sc-if>
-      </sc-if>
+        </sc-for>
+      </div>
+      <sc-if value="{{ dirResultsMore }}"><button type="button" class="btn btn-secondary" onClick="{{ showAll }}" style="align-self: center;">Show all {{ dirCount }} companies<span class="ms" aria-hidden="true">expand_more</span></button></sc-if>
 
       <sc-if value="{{ hasAlso }}" hint-placeholder-val="{{ false }}">
         <div class="stack-sm" style="margin-top: 8px;">
           <h2 class="h3">{{ alsoTitle }}</h2>
           <p class="small muted">{{ alsoNote }}</p>
         </div>
-        <div class="grid-3">
+        <div class="dir-list">
           <sc-for list="{{ alsoPros }}" as="c" hint-placeholder-count="3">
-            <article class="pcard find-card">
-              <div class="stack-sm" style="gap: 4px; min-width: 0;">
-                <h3 class="pro-name" style="font-size: 19px;"><a href="{{ c.href }}" onClick="{{ c.openNav }}">{{ c.name }}</a></h3>
-                <sc-if value="{{ c.hasReviews }}"><span class="small"><span class="ms ms-fill star" style="font-size: 18px; vertical-align: -3px;" aria-hidden="true">star</span> <strong>{{ c.ratingText }}</strong> <span class="muted">({{ c.reviews }} reviews)</span></span></sc-if><sc-if value="{{ c.isNew }}"><span class="tag tag-new" style="align-self: flex-start;">New on FixMySlide</span></sc-if>
+            <article class="{{ c.dirCls }}">
+              <div class="dir-main">
+                <div class="dir-head">
+                  <sc-if value="{{ c.hasLogo }}"><img class="dir-av" src="{{ c.avatarImg }}" alt="" width="52" height="52" loading="lazy"></sc-if>
+                  <sc-if value="{{ c.noLogo }}"><span class="dir-av" style="background: {{ c.avatarBg }};" aria-hidden="true">{{ c.initials }}</span></sc-if>
+                  <div class="dir-title">
+                    <div class="dir-tags">
+                      <sc-if value="{{ c.isPromoted }}"><span class="tag tag-promo">Promoted</span></sc-if>
+                      <sc-if value="{{ c.topLabel }}"><span class="tag tag-top">{{ c.topLabel }}</span></sc-if>
+                      <span class="{{ c.badgeCls }}">{{ c.badgeLabel }}</span>
+                      <sc-if value="{{ c.licenseBadge }}"><span class="tag tag-ok">Licensed installer</span></sc-if>
+                      <sc-if value="{{ c.sharesOwner }}"><span class="tag tag-owner">Same owner as FixMySlide</span></sc-if>
+                    </div>
+                    <h3 class="dir-name"><a href="{{ c.href }}" onClick="{{ c.openNav }}">{{ c.name }}</a></h3>
+                    <p class="small"><sc-if value="{{ c.hasReviews }}"><span class="rating"><span class="star" aria-hidden="true">★</span>{{ c.ratingText }}</span> <span class="muted">({{ c.reviews }} reviews) · </span></sc-if><sc-if value="{{ c.isNew }}"><span class="tag tag-new">New on FixMySlide</span> </sc-if><span class="muted">{{ c.where }}</span></p>
+                  </div>
+                </div>
+                <p class="dir-services"><span class="ms" aria-hidden="true">build</span><span>{{ c.servicesText }}</span></p>
+                <p class="dir-areas"><span class="ms" aria-hidden="true">location_on</span><span>Serves {{ c.areasShort }}</span></p>
+                <sc-if value="{{ c.factChips.length }}"><div class="fact-chips"><sc-for list="{{ c.factChips }}" as="fc" hint-placeholder-count="2"><span class="fact-chip">{{ fc }}</span></sc-for></div></sc-if>
               </div>
-              <sc-if value="{{ c.notVerified }}"><span class="tag tag-ad" style="align-self: flex-start;">Not checked yet</span></sc-if>
-              <ul class="find-facts small">
-                <li><span class="ms" aria-hidden="true">sell</span><span>{{ c.priceLine }}<sc-if value="{{ c.priceAbove }}"><span class="price-flag-inline"> · {{ c.priceAboveText }}</span></sc-if></span></li>
-                <li><span class="ms" aria-hidden="true">location_on</span>{{ c.where }}</li>
-              </ul>
-              <sc-if value="{{ c.sharesOwner }}"><span class="tag tag-owner">Same owner as FixMySlide</span></sc-if><sc-if value="{{ c.factChips.length }}"><div class="fact-chips"><sc-for list="{{ c.factChips }}" as="fc" hint-placeholder-count="2"><span class="fact-chip">{{ fc }}</span></sc-for></div></sc-if>
-              <div class="pcard-actions">
+              <div class="dir-actions">
                 <a class="btn btn-primary btn-block" href="{{ c.callHref }}"><span class="ms" aria-hidden="true">call</span>Call {{ c.phone }}</a>
                 <div class="btn-pair">
                   <a class="btn btn-secondary text-btn" href="{{ c.textHref }}"><span class="ms" aria-hidden="true">chat</span>Text</a>
-                  <a class="btn btn-secondary" href="{{ c.href }}" onClick="{{ c.openNav }}">View profile</a>
+                  <a class="btn btn-secondary" href="{{ c.href }}" onClick="{{ c.openNav }}">Details</a>
                 </div>
+                <sc-if value="{{ c.website }}"><a class="dir-web" href="{{ c.website }}" target="_blank" rel="noopener nofollow">Website · {{ c.websiteHost }}</a></sc-if>
               </div>
             </article>
           </sc-for>
         </div>
       </sc-if>
 
-      <p class="tiny muted">Ranked by reviews, honest pricing, verification, response time and distance. No one can pay to rank higher.</p>
+      <p class="tiny muted">Promoted companies pay to be shown first and are always labeled. Everyone else is ranked only by homeowner reviews, our checks, the repairs they do and distance. <a href="/how-we-rank" onClick="{{ goRank }}">How we rank</a></p>
     </div>
   </div>
 </sc-if>
@@ -2082,9 +2086,14 @@ class Component extends DCLogic {
   // Home: the pros near them, right under the hero.
   findNearMe() {
     this.locate(({ city }) => {
-      this.setState({ query: city });
-      setTimeout(() => { const el = document.getElementById('near-me'); if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 72, behavior: 'smooth' }); }, 60);
+      this.setState({ query: city, showAll: false });
+      if (this.state.view !== 'home') return;
+      setTimeout(() => { const el = document.getElementById('directory') || document.getElementById('near-me'); if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 72, behavior: 'smooth' }); }, 60);
     });
+  }
+  // Home: bring the company list into view after a search.
+  scrollToDir() {
+    setTimeout(() => { const el = document.getElementById('directory'); if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 72, behavior: 'smooth' }); }, 60);
   }
   sharePlan(text) {
     const url = location.origin + this.startPath(this.state);
@@ -2252,7 +2261,7 @@ class Component extends DCLogic {
       photoList: c.premium ? c.photos.map((u, k) => ({ src: u, alt: `${c.name} sliding door repair job photo ${k + 1}` })) : [],
       videoList: c.premium ? c.videos.map((u, k) => ({ url: u, label: `Watch repair video ${k + 1}` })) : [],
       hasLogo: !!(c.logo || (c.premium && c.photos[0])), noLogo: !(c.logo || (c.premium && c.photos[0])), notVerified: !c.verified,
-      initials: c.name.split(' ').slice(0, 2).map((w) => w[0]).join(''),
+      initials: c.name.replace(/[^A-Za-z ]/g, ' ').trim().split(/\s+/).slice(0, 2).map((w) => w[0].toUpperCase()).join(''),
       distanceText: c.distance != null && c.distance >= 1 ? `${Math.round(c.distance)} mi away` : '',
       shortName: c.name.replace(/,?\s+(LLC|Inc\.?|Co\.)$/i, ''),
       reply: c.emergency ? '1 hour' : '1 business day',
@@ -2381,7 +2390,8 @@ class Component extends DCLogic {
       near: (a, b) => (a.distance ?? 1e9) - (b.distance ?? 1e9),
       fast: (a, b) => (a.responseHours ?? 1e9) - (b.responseHours ?? 1e9) || best(b) - best(a)
     }[s.sort] || ((a, b) => best(b) - best(a));
-    const rank = (list) => list.sort((a, b) => (showFeatured ? (b.featured - a.featured) : 0) || key(a, b));
+    // Ties (e.g. no reviews or checks yet) go alphabetically, never by file order.
+    const rank = (list) => list.sort((a, b) => (showFeatured ? (b.featured - a.featured) : 0) || key(a, b) || a.name.localeCompare(b.name));
     const results = rank(COMPANIES.filter((c) => this.matches(c, s))).map(dec);
     const all = COMPANIES.map(dec);
     this._mapItems = s.view === 'results' ? results : all;
@@ -2449,10 +2459,10 @@ class Component extends DCLogic {
         textHref: smsHref(c.phone, planMsg)
       });
     };
-    const planSort = (a, b) => cover(b) - cover(a) || (showFeatured ? b.featured - a.featured : 0) || best(b) - best(a);
+    const planSort = (a, b) => cover(b) - cover(a) || (showFeatured ? b.featured - a.featured : 0) || best(b) - best(a) || a.name.localeCompare(b.name);
     // Up to 2 promoted pros (featured, and they cover the place and the repair)
     // above the top 3, which are ranked as usual and never bought.
-    const planPromoted = q ? planPool.filter((c) => c.featured).sort((a, b) => best(b) - best(a)).slice(0, 2) : [];
+    const planPromoted = q ? planPool.filter((c) => c.featured).sort((a, b) => best(b) - best(a) || a.name.localeCompare(b.name)).slice(0, 2) : [];
     const planPros = [
       ...planPromoted.map((c) => Object.assign(planCard(c), { isPromoted: true })),
       ...planPool.filter((c) => !planPromoted.includes(c)).sort(planSort).slice(0, 3).map(planCard)
@@ -2550,7 +2560,7 @@ class Component extends DCLogic {
         const local = q ? rank(COMPANIES.filter((c) => this.matches(c, Object.assign({}, s, { service: 'All services', price: 'Any', emergency: false, verifiedOnly: false })))) : [];
         const none = !!q && local.length === 0;
         // Only pros who serve the typed place; statewide top-rated until one is typed.
-        const list = q ? local : [...COMPANIES].sort((a, b) => best(b) - best(a));
+        const list = q ? local : [...COMPANIES].sort((a, b) => best(b) - best(a) || a.name.localeCompare(b.name));
         const pros = list.slice(0, 3).map((c) => Object.assign(dec(c), { nearWhere: c.distance != null && c.distance >= 1 ? `${c.city} · ${Math.round(c.distance)} mi away` : `${c.city} · ${c.county} County` }));
         const nearPlace = /^\d{3,5}$/.test(q) ? (zipCity(q) || 'ZIP ' + q) : place;
         return {
@@ -2592,7 +2602,7 @@ class Component extends DCLogic {
         city: s.hereCity || s.savedWhere || 'Orlando',
         price: PRICE_STATS['Rollers'].range,
         pills: ['hard-to-slide', 'noisy', 'leaking', 'wont-lock'].map((id) => ({ short: SHORT[id], ms: PICK[id].ms, color: PICK_COLORS[id][0], ink: PICK_COLORS[id][1] })),
-        pros: [...COMPANIES].sort((a, b) => best(b) - best(a)).slice(0, 2).map((c) => ({ name: c.name, sub: c.reviews && c.rating != null ? `★ ${c.rating.toFixed(1)} · ${c.reviews} reviews` : 'New on FixMySlide', initials: c.name.split(' ').slice(0, 2).map((w) => w[0]).join(''), bg: AVATAR_COLORS[c.id % AVATAR_COLORS.length] }))
+        pros: [...COMPANIES].sort((a, b) => best(b) - best(a) || a.name.localeCompare(b.name)).slice(0, 2).map((c) => ({ name: c.name, sub: c.reviews && c.rating != null ? `★ ${c.rating.toFixed(1)} · ${c.reviews} reviews` : 'New on FixMySlide', initials: c.name.split(' ').slice(0, 2).map((w) => w[0]).join(''), bg: AVATAR_COLORS[c.id % AVATAR_COLORS.length] }))
       },
       isStart: s.view === 'start',
       footerCls: s.view === 'start' ? 'footer footer-slim' : 'footer',
@@ -2638,12 +2648,12 @@ class Component extends DCLogic {
       // Home "near me": up to 2 promoted pros that serve the area, then the
       // top 3 by our ranking (reviews, honest pricing, distance).
       ...(() => {
-        if (!s.here || !s.hereCity) return { hasNearMe: false };
+        if (!s.here || !s.hereCity) return { hasNearMe: false, hasNearMeClassic: false };
         const city = s.hereCity;
         const serves = (c) => [c.city, ...c.areas].some((a) => a.toLowerCase() === city.toLowerCase()) || (c.lat != null && miles(s.here, [c.lat, c.lng]) <= 30);
         const area = COMPANIES.filter((c) => serves(c) && (!s.spanish || c.spanish));
-        const promoted = area.filter((c) => c.featured).sort((a, b) => best(b) - best(a)).slice(0, 2);
-        const top = area.filter((c) => !promoted.includes(c)).sort((a, b) => best(b) - best(a)).slice(0, 3);
+        const promoted = area.filter((c) => c.featured).sort((a, b) => best(b) - best(a) || a.name.localeCompare(b.name)).slice(0, 2);
+        const top = area.filter((c) => !promoted.includes(c)).sort((a, b) => best(b) - best(a) || a.name.localeCompare(b.name)).slice(0, 3);
         const card = (c, k, isPromoted) => Object.assign(dec(c), {
           isPromoted, rankText: isPromoted ? '' : `#${k + 1} near you`, nearCls: isPromoted ? 'plan-pro plan-pro-promo' : 'plan-pro',
           servicesText: c.services.map((x) => SERVICE_INFO[x].label).join(' · '),
@@ -2651,7 +2661,7 @@ class Component extends DCLogic {
         });
         const hit = CITIES.find(([name]) => name.toLowerCase() === city.toLowerCase());
         return {
-          hasNearMe: true, nearMeCity: city,
+          hasNearMe: true, hasNearMeClassic: !FRESH_HOME, nearMeCity: city,
           nearMeList: [...promoted.map((c, k) => card(c, k, true)), ...top.map((c, k) => card(c, k, false))],
           nearMeNone: area.length === 0,
           nearMeNote: promoted.length ? 'Promoted pros pay to be shown first and are always labeled. The top 3 are ranked only by homeowner reviews, honest pricing and distance.' : 'Ranked by homeowner reviews, honest pricing and distance. No one can pay to rank higher.',
@@ -2753,7 +2763,7 @@ class Component extends DCLogic {
       ...(() => {
         const activeChip = s.findSym || (s.emergency ? 'storm' : s.service !== 'All services' ? SERVICE_INFO[s.service].symptom : null);
         const chipSym = SYMPTOMS.find((x) => x.id === activeChip);
-        const near = q ? ` near ${/^\d+$/.test(q) ? 'ZIP ' + q : place}` : ' in Florida';
+        const near = q ? ` near ${/^\d+$/.test(q) ? 'ZIP ' + q : place}` : ' in Central Florida';
         const where = (c) => (c.distance != null && c.distance >= 1 ? `${c.city} · ${Math.round(c.distance)} mi away` : `${c.city}, FL`);
         const whys = (c) => {
           const top = results.every((x) => (x.rating || 0) <= (c.rating || 0));
@@ -2765,7 +2775,44 @@ class Component extends DCLogic {
           return w;
         };
         const withWhere = (c) => Object.assign({}, c, { where: where(c) });
+        // Directory listing card (home and the pros list).
+        const host = (u) => String(u || '').replace(/^https?:\/\//, '').replace(/^www\./, '').replace(/\/.*$/, '');
+        const dirCard = (c, extra) => Object.assign(withWhere(c), {
+          areasShort: c.areas.length > 4 ? `${c.areas.slice(0, 4).join(', ')} +${c.areas.length - 4} more` : c.areas.join(', '),
+          websiteHost: host(c.website), isPromoted: false, topLabel: '', dirCls: 'dir-card'
+        }, extra || {});
+        // Up to 2 promoted companies (labeled), then everyone else in ranked order.
+        const promoted = results.filter((c) => c.featured).slice(0, 2);
+        const rest = results.filter((c) => !promoted.includes(c));
+        const dirList = [
+          ...promoted.map((c) => dirCard(c, { isPromoted: true, dirCls: 'dir-card dir-card-promo' })),
+          ...rest.map((c, k) => dirCard(c, k === 0 && rest.length > 1 && s.sort === 'best' && best(rest[0]) > best(rest[1]) ? { topLabel: 'Top match', dirCls: 'dir-card dir-card-top' } : {}))
+        ];
+        const pickProblem = (id) => { const x = SYMPTOMS.find((y) => y.id === id); set(x ? { findSym: x.id, service: x.service, emergency: !!x.emergency } : { findSym: null, service: 'All services', emergency: false }); };
+        const nCo = (n) => `${n} ${n === 1 ? 'company' : 'companies'}`;
         return {
+          dirList, dirCount: results.length, dirNone: results.length === 0,
+          dirHome: dirList.slice(0, 6), dirHomeMore: results.length > 6,
+          dirResults: s.showAll ? dirList : dirList.slice(0, 10), dirResultsMore: !s.showAll && results.length > 10,
+          dirCountText: results.length === 0 ? `No companies${near}${chipSym ? ' for ' + chipSym.title.toLowerCase() : ''} yet` : `${nCo(results.length)}${near}${chipSym ? ' for ' + chipSym.title.toLowerCase() : ''}`,
+          dirHasFilter: !!(q || activeChip || s.urgency || s.spanish),
+          dirClear: () => set({ query: '', findSym: null, service: 'All services', emergency: false, urgency: '', spanish: false, showAll: false }),
+          dirProblem: activeChip || '',
+          onDirProblem: (e) => pickProblem(e.target.value),
+          dirProblemChips: SYMPTOMS.map((x) => {
+            const on = activeChip === x.id;
+            return { id: x.id, title: x.title, label: SHORT[x.id], ms: PICK[x.id].ms, color: PICK_COLORS[x.id][0], ink: PICK_COLORS[x.id][1], on,
+              cls: 'dchip' + (on ? ' dchip-on' : ''), toggle: () => pickProblem(on ? '' : x.id),
+              href: symptomPath(x), open: nav(() => this.pickSymptom(x.id)), price: PRICE_STATS[x.service].range };
+          }),
+          dirCityChips: CITIES.map(([name, county, slug, n]) => ({ name, count: n, countText: nCo(n), href: cityPath(slug),
+            cls: q.toLowerCase() === name.toLowerCase() ? 'chip chip-on' : 'chip',
+            pick: () => { set({ query: name, showAll: false }); this.scrollToDir(); },
+            open: nav(() => this.go('results', { query: name, showAll: false })) })),
+          dirSubmit: (e) => { e.preventDefault(); const i = e.target.querySelector('input'); if (i) i.blur(); if (s.view === 'home') this.scrollToDir(); },
+          dirSeeAll: nav(() => this.go('results', { showAll: false })),
+          isMapMode: s.mode === 'map', showList: () => set({ mode: 'list' }), showMap: () => set({ mode: 'map' }),
+          listBtnCls: s.mode === 'map' ? 'seg-btn' : 'seg-btn seg-on', mapBtnCls: s.mode === 'map' ? 'seg-btn seg-on' : 'seg-btn',
           findChips: SYMPTOMS.map((x) => {
             const on = activeChip === x.id;
             return { title: x.title, ms: PICK[x.id].ms, on, cls: 'chip' + (on ? ' chip-on' : '') + (x.emergency ? ' chip-warn' : ''),
@@ -2773,7 +2820,7 @@ class Component extends DCLogic {
           }),
           findCount: results.length === 0 ? `No pros${near}${chipSym ? ' for “' + chipSym.title.toLowerCase() + '”' : ''} yet` : `${results.length} ${results.length === 1 ? 'pro' : 'pros'}${near}${chipSym ? ' for “' + chipSym.title.toLowerCase() + '”' : ''}`,
           sort: s.sort,
-          sortOpts: [['best', 'Best match'], ['rating', 'Top rated'], ...(origin ? [['near', 'Nearest']] : []), ['fast', 'Fastest reply']].map(([value, label]) => ({ value, label })),
+          sortOpts: [['best', 'Best match'], ['rating', 'Top rated'], ...(origin ? [['near', 'Nearest']] : [])].map(([value, label]) => ({ value, label })),
           onSort: (e) => set({ sort: e.target.value }),
           hasTopPick: results.length > 0,
           topPickLabel: `Best match${near}`,
@@ -2788,10 +2835,10 @@ class Component extends DCLogic {
             if (!q || results.length >= 4) return { hasAlso: false, alsoPros: [] };
             const ids = new Set(results.map((c) => c.id));
             const pool = COMPANIES.filter((c) => !ids.has(c.id) && this.matches(c, Object.assign({}, s, { query: '' })));
-            const also = (origin ? pool.sort((a, b) => (a.distance ?? 1e9) - (b.distance ?? 1e9)) : pool.sort((a, b) => best(b) - best(a))).slice(0, 3).map(dec).map(withWhere);
+            const also = (origin ? pool.sort((a, b) => (a.distance ?? 1e9) - (b.distance ?? 1e9)) : pool.sort((a, b) => best(b) - best(a) || a.name.localeCompare(b.name))).slice(0, 3).map(dec).map((c) => dirCard(c));
             return {
               hasAlso: also.length > 0, alsoPros: also,
-              alsoTitle: origin ? `Also close to ${place}` : `Top-rated pros elsewhere in Florida`,
+              alsoTitle: origin ? `Also close to ${place}` : `Companies elsewhere in Florida`,
               alsoNote: results.length ? 'These pros are based nearby. Call to ask if they come to you.' : `We don’t have pros listed in ${place} yet. ${origin ? 'These are the closest.' : 'These are the best-rated in Florida. Call to ask if they come to you.'}`
             };
           })()
