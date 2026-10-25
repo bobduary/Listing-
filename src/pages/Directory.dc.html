@@ -1195,7 +1195,7 @@
         <a class="btn btn-primary btn-block" href="{{ sel.callHref }}" style="min-height: 56px; font-size: 18px;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>{{ sel.phone }}
         </a>
-        <p class="small muted">{{ sel.responseText }} · {{ sel.hours }}</p>
+        <sc-if value="{{ sel.responseText }}"><p class="small muted">{{ sel.responseText }}</p></sc-if><sc-if value="{{ sel.hours }}"><p class="small muted">{{ sel.hours }}</p></sc-if>
         <hr style="border: 0; border-top: 1px solid var(--color-divider); margin: 4px 0;">
         <p class="small"><strong>Tip:</strong> mention what's wrong and your door size. Ask for their price range before they come out.</p>
       </aside>
@@ -1588,7 +1588,7 @@
         <a class="small" href="/cost" onClick="{{ goPrices }}">Repair prices</a>
         <a class="small" href="/cost#checker" onClick="{{ goPrices }}">Is my quote fair?</a>
         <a class="small" href="/repair-or-replace" onClick="{{ goDecide }}">Repair or replace?</a>
-        <a class="small" href="/pros" onClick="{{ goAll }}">Verified pros</a>
+        <a class="small" href="/pros" onClick="{{ goAll }}">All pros</a>
         <a class="small" href="/blog" onClick="{{ goBlog }}">Fix-it tips (blog)</a>
         <a class="small" href="/report" onClick="{{ goReport }}">Report a job</a>
       </nav>
@@ -1791,9 +1791,11 @@ const POSTS = (SITE_DATA.blog || []).filter((p) => p.slug && p.title && p.body).
 const postPath = (p) => '/blog/' + p.slug;
 // Homeowner reviews shown on the home page (data/reviews.csv). The section
 // stays hidden until real reviews are added.
+// Each review's "pro" names the company it's about; a profile shows only
+// that company's reviews.
 const HOME_REVIEWS = (SITE_DATA.reviews || []).filter((r) => r.name && r.text).map((r) => {
   const n = Math.max(1, Math.min(5, Math.round(num(r.rating, 5))));
-  return { name: r.name, city: r.city || 'Florida', text: r.text, stars: '★'.repeat(n) + '☆'.repeat(5 - n), label: `${n} out of 5 stars`, proText: r.pro ? ` · hired ${r.pro}` : '' };
+  return { name: r.name, city: r.city || 'Florida', pro: r.pro || '', text: r.text, stars: '★'.repeat(n) + '☆'.repeat(5 - n), label: `${n} out of 5 stars`, proText: r.pro ? ` · hired ${r.pro}` : '' };
 });
 // "Why homeowners trust us": only promises that match how we work today.
 const TRUST_POINTS = [
@@ -1807,11 +1809,6 @@ const TRUST_POINTS = [
 // keeps the classic home until it's approved (set by scripts/build.mjs).
 const FRESH_HOME = !(SITE_DATA.env && SITE_DATA.env.production);
 const IMG = Object.fromEntries((SITE_DATA.images || []).map((r) => [r.key, r.url]));
-const REVIEWS = [
-  { stars: '★★★★★', label: '5 out of 5 stars', text: 'Door had been grinding for a year. They replaced both rollers and straightened the track. It slides with one finger now, and the final bill matched the quote.', author: 'Dana R.' },
-  { stars: '★★★★★', label: '5 out of 5 stars', text: 'Called at 7am after the storm, and the tech was here by noon. The price was inside the range on their profile, and he explained everything before starting.', author: 'Marco P.' },
-  { stars: '★★★★☆', label: '4 out of 5 stars', text: 'Good work on a cracked panel. The glass took a week to arrive, but the install was quick and clean.', author: 'Lisa T.' }
-];
 
 const slugify = (s) => s.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const money = (v) => (v == null ? '—' : '$' + v.toLocaleString('en-US'));
@@ -2242,7 +2239,7 @@ class Component extends DCLogic {
       priceAbove: !!shown && aboveUsual(shown.hi, PRICE_NUM[shown.service].p90),
       priceAboveText: shown ? `Above the usual ${PRICE_STATS[shown.service].range}` : '',
       anyAbove: c.prices.some((p) => aboveUsual(p.hi, PRICE_NUM[p.service].p90)),
-      hours: c.hours || '—',
+      hours: c.hours || '',
       callout: c.callout || '—',
       warranty: c.warranty || '—',
       responseText: responseText(c.responseHours),
@@ -2257,7 +2254,7 @@ class Component extends DCLogic {
       hasLogo: !!(c.logo || (c.premium && c.photos[0])), noLogo: !(c.logo || (c.premium && c.photos[0])), notVerified: !c.verified,
       initials: c.name.split(' ').slice(0, 2).map((w) => w[0]).join(''),
       distanceText: c.distance != null && c.distance >= 1 ? `${Math.round(c.distance)} mi away` : '',
-      shortName: c.name.split(' ').slice(0, 2).join(' '),
+      shortName: c.name.replace(/,?\s+(LLC|Inc\.?|Co\.)$/i, ''),
       reply: c.emergency ? '1 hour' : '1 business day',
       checkedText, links, hasLinks: links.length > 0,
       licenseBadge: c.installs && c.licenseVerified && !!c.license,
@@ -2807,7 +2804,7 @@ class Component extends DCLogic {
       clearFilters: () => set({ query: '', findSym: null, service: 'All services', price: 'Any', emergency: false, verifiedOnly: false }),
 
       sel, aboveHint: ABOVE_HINT,
-      reviews: REVIEWS.map((r) => ({ ...r, where: sel.areas[0] })),
+      reviews: HOME_REVIEWS.filter((r) => r.pro.toLowerCase() === sel.name.toLowerCase()).map((r) => ({ ...r, author: r.name, where: r.city })),
       problemClosed: s.problem === 'closed', problemOpen: s.problem === 'open', problemSent: s.problem === 'sent',
       openProblem: () => set({ problem: 'open', formError: '' }),
       sendProblem: (e) => { e.preventDefault(); const c = COMPANIES.find((x) => x.id === s.selectedId); this.submitForm('problem', e.target, { company: c ? c.name : '' }, { problem: 'sent' }); },
