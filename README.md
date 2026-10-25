@@ -15,6 +15,7 @@ The directory designed in the "Florida Sliding Door Directory" canvas, built as 
   - `/repair-or-replace`: the repair-or-replace helper
   - `/blog` and `/blog/<slug>`: help articles (from `data/blog.csv`), linked from the matching problem guide
   - `/compare` (noindex) and `/list-your-business`
+- `/how-we-rank` and `/verification`: how Best match works and what each badge means (only what's actually checked).
 - `src/runtime/`: renders canvas templates with React (`{{holes}}`, `sc-for`, `sc-if`, `style-hover`).
 - `scripts/build.mjs`: server-renders every route, bundles the JavaScript, and writes `robots.txt` (plus `sitemap.xml` once `src/site.js` has a domain).
 - `public/css/site.css`: the "Coastal Professional" design system (Trust Blue + Emerald, Plus Jakarta Sans + Inter, tonal layers instead of borders, Material Symbols icons).
@@ -33,7 +34,9 @@ The directory is built from `data/companies.csv`: one row per company. Edit it i
 | `emergency_24_7` | `yes` if they take 24/7 storm calls |
 | `hours`, `response_hours` | Opening hours (text) and how fast they usually answer, in hours (e.g. `1`, `4`, `24`) |
 | `warranty`, `callout_fee`, `years_in_business` | Text, text, number |
-| `verified`, `license_number` | `yes` once they pass the full checks; license number if they have one |
+| `verified`, `verified_on` | `yes` once they pass the business checks (Sunbiz registration, phone and Florida address, Google Business Profile and social pages), and the date of that check (`YYYY-MM-DD`, shown as "Last checked"). Shown as **Business verified**; without it the company is **Listed**. |
+| `does_installation`, `license_number`, `license_verified` | For companies that do installation themselves (no subcontractor): `does_installation` = `yes`, their Florida license number, and `license_verified` = `yes` once you've looked it up on DBPR. All three give the **Licensed installer** badge. |
+| `website`, `google_business_url`, `social_urls` | Links shown under "What we checked" (`social_urls` is `;`-separated) |
 | `featured`, `premium` | `featured` = `yes` makes them a Promoted pro: when a homeowner uses their location (home page "Find pros near me", or the repair plan), up to 2 promoted pros that serve that area show first, labeled "Promoted", above the top 3 ranked pros. `premium` = `yes` for a premium profile (photos and videos) |
 | `rating`, `review_count` | From FixMySlide's own reviews |
 | `about`, `logo_url`, `photo_urls`, `video_urls` | Description; image/video links (`;`-separated). Photos and videos show on premium profiles. |
@@ -62,6 +65,6 @@ npm run preview   # serves dist/ locally
 
 ## Status
 
-The 14 companies in `data/companies.csv` (marked `sample`), their reviews and price reports are demo data. Replace them with real companies before launch. **Report a job (`/report`):** the "Report a job" button (header, menu, footer, pro pages, blog posts) opens a one-page form: who did the job (type any name; listed companies are suggested as you type), what they did, the price paid and city, at least one proof photo (receipt, texts with the company, business card or the finished door; up to 3, or a PDF), and an optional star rating and email. Photos are shrunk in the browser before upload. The form posts to `api/report.js`, a Vercel function that checks the fields, saves the photos to the private Vercel Blob store `fixmyslide-job-proof` (Vercel → Storage, under `job-reports/<report id>/`), writes the report to the function log, and forwards it as JSON to the webhook in the `REPORT_WEBHOOK_URL` environment variable if one is set (for example a Make or Zapier webhook that adds a row to a Google Sheet or emails you). Approved reports go into `data/price_reports.csv` to feed the fair prices.
+The 14 companies in `data/companies.csv` (marked `sample`), their reviews and the price reports shown on their profiles are demo data. Fair prices use only `data/price_reports.csv`: with fewer than 5 reports for a repair, the site shows the typical Florida range and labels it an estimate. Replace them with real companies before launch. **Report a job (`/report`):** the "Report a job" button (header, menu, footer, pro pages, blog posts) opens a one-page form: who did the job (type any name; listed companies are suggested as you type), what they did, the price paid and city, at least one proof photo (receipt, texts with the company, business card or the finished door; up to 3, or a PDF), and an optional star rating and email. Photos are shrunk in the browser before upload. The form posts to `api/report.js`, a Vercel function that checks the fields, saves the photos to the private Vercel Blob store `fixmyslide-job-proof` (Vercel → Storage, under `job-reports/<report id>/`), writes the report to the function log, and forwards it as JSON to the webhook in the `REPORT_WEBHOOK_URL` environment variable if one is set (for example a Make or Zapier webhook that adds a row to a Google Sheet or emails you). Approved reports go into `data/price_reports.csv` to feed the fair prices.
 
 The other forms (list your business, review, report a problem) only show a confirmation and don't send anything yet.

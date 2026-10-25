@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&icon_names=add,add_a_photo,analytics,arrow_back,arrow_forward,back_hand,balance,bar_chart,build,call,chat,check,check_circle,chevron_left,chevron_right,close,door_sliding,edit,edit_document,edit_note,expand_more,format_quote,gpp_good,grid_on,help,history,info,ios_share,lightbulb,linear_scale,location_on,lock_open,menu,near_me,payments,request_quote,search,sell,shield,shield_with_heart,star,storefront,swap_horiz,thunderstorm,verified,verified_user,volume_up,warning,water_drop,window&display=block">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&icon_names=add,add_a_photo,analytics,arrow_back,arrow_forward,back_hand,badge,balance,bar_chart,build,call,chat,check,check_circle,chevron_left,chevron_right,close,door_sliding,edit,edit_document,edit_note,expand_more,format_quote,gpp_good,grid_on,help,history,info,ios_share,lightbulb,linear_scale,location_on,lock_open,menu,near_me,payments,request_quote,search,sell,shield,shield_with_heart,star,storefront,swap_horiz,thunderstorm,verified,verified_user,volume_up,warning,water_drop,window&display=block">
 <link rel="stylesheet" href="/css/site.css">
 </helmet>
 
@@ -58,9 +58,9 @@
     <div class="wrap hero-pick-in">
       <div class="stack" style="gap: 24px;">
         <h1 class="h1"><span class="h1-kicker">Sliding Glass Door Repair in Florida</span> Know the fair price. Call the right pro.</h1>
-        <p class="lead">FixMySlide is a free, independent guide to sliding glass door repair in Florida. See the fair repair cost from real local jobs so you never overpay, then call checked pros near you for rollers, tracks, locks, glass and screens.</p>
+        <p class="lead">FixMySlide is a free guide to sliding glass door repair in Florida. See the fair repair cost so you never overpay, then call checked pros near you for rollers, tracks, locks, glass and screens.</p>
         <ul class="hero-ticks">
-          <li><span class="ms" aria-hidden="true">check_circle</span>Prices from real Florida jobs</li>
+          <li><span class="ms" aria-hidden="true">check_circle</span>Fair Florida prices for every repair</li>
           <li><span class="ms" aria-hidden="true">check_circle</span>Every verified pro checked by our team</li>
           <li><span class="ms" aria-hidden="true">check_circle</span>Free, no sign-up</li>
         </ul>
@@ -116,7 +116,7 @@
                   <sc-if value="{{ c.hasLogo }}"><img class="avatar avatar-sm" src="{{ c.avatarImg }}" alt="" width="44" height="44" loading="lazy"></sc-if>
                   <sc-if value="{{ c.noLogo }}"><span class="avatar avatar-sm avatar-tone" style="background: {{ c.avatarBg }};" aria-hidden="true">{{ c.initials }}</span></sc-if>
                   <div class="stack-sm" style="gap: 0; min-width: 0;">
-                    <h3 class="pro-name" style="font-size: 19px;"><a href="{{ c.href }}" onClick="{{ c.openNav }}">{{ c.name }}</a><sc-if value="{{ c.verified }}"> <span class="ms ms-fill verified-ic" title="Verified by FixMySlide" aria-label="Verified">verified</span></sc-if></h3>
+                    <h3 class="pro-name" style="font-size: 19px;"><a href="{{ c.href }}" onClick="{{ c.openNav }}">{{ c.name }}</a><sc-if value="{{ c.verified }}"> <span class="ms ms-fill verified-ic" title="Business verified by FixMySlide" aria-label="Business verified">verified</span></sc-if></h3>
                     <p class="small"><span class="rating"><span class="star" aria-hidden="true">★</span>{{ c.ratingText }}</span> <span class="muted">({{ c.reviews }}) · {{ c.city }}</span><sc-if value="{{ c.distanceText }}"><span class="muted"> · {{ c.distanceText }}</span></sc-if></p>
                   </div>
                 </div>
@@ -152,7 +152,7 @@
           <span class="eyebrow">Why homeowners trust us</span>
           <h2 class="h2">We’re on your side, not the repair company’s.</h2>
         </div>
-        <p class="muted" style="max-width: 460px;">FixMySlide doesn’t do repairs. Our only job is making sure you pay a fair price and hire a pro you can trust.</p>
+        <p class="muted" style="max-width: 460px;">We show what we checked about each company and when, so you can pay a fair price and hire a pro you can trust.</p>
       </div>
       <div class="trust-grid">
         <sc-for list="{{ trustPoints }}" as="t" hint-placeholder-count="4">
@@ -344,7 +344,7 @@
                     <sc-if value="{{ c.hasLogo }}"><img class="avatar avatar-sm" src="{{ c.avatarImg }}" alt="" width="44" height="44" loading="lazy"></sc-if>
                     <sc-if value="{{ c.noLogo }}"><span class="avatar avatar-sm avatar-tone" style="background: {{ c.avatarBg }};" aria-hidden="true">{{ c.initials }}</span></sc-if>
                     <div class="stack-sm" style="gap: 0; min-width: 0;">
-                      <h3 class="pro-name" style="font-size: 19px;"><a href="{{ c.href }}" onClick="{{ c.openNav }}">{{ c.name }}</a><sc-if value="{{ c.verified }}"> <span class="ms ms-fill verified-ic" title="Verified by FixMySlide" aria-label="Verified">verified</span></sc-if></h3>
+                      <h3 class="pro-name" style="font-size: 19px;"><a href="{{ c.href }}" onClick="{{ c.openNav }}">{{ c.name }}</a><sc-if value="{{ c.verified }}"> <span class="ms ms-fill verified-ic" title="Business verified by FixMySlide" aria-label="Business verified">verified</span></sc-if></h3>
                       <p class="small"><span class="rating"><span class="star" aria-hidden="true">★</span>{{ c.ratingText }}</span> <span class="muted">({{ c.reviews }}) · {{ c.city }}</span><sc-if value="{{ c.distanceText }}"><span class="muted"> · {{ c.distanceText }}</span></sc-if></p>
                     </div>
                   </div>
@@ -387,7 +387,7 @@
                     <sc-if value="{{ c.hasLogo }}"><img class="avatar avatar-sm" src="{{ c.avatarImg }}" alt="" width="44" height="44" loading="lazy"></sc-if>
                     <sc-if value="{{ c.noLogo }}"><span class="avatar avatar-sm avatar-tone" style="background: {{ c.avatarBg }};" aria-hidden="true">{{ c.initials }}</span></sc-if>
                     <div class="stack-sm" style="gap: 0; min-width: 0;">
-                      <h3 class="pro-name" style="font-size: 19px;"><a href="{{ c.href }}" onClick="{{ c.openNav }}">{{ c.name }}</a><sc-if value="{{ c.verified }}"> <span class="ms ms-fill verified-ic" title="Verified by FixMySlide" aria-label="Verified">verified</span></sc-if></h3>
+                      <h3 class="pro-name" style="font-size: 19px;"><a href="{{ c.href }}" onClick="{{ c.openNav }}">{{ c.name }}</a><sc-if value="{{ c.verified }}"> <span class="ms ms-fill verified-ic" title="Business verified by FixMySlide" aria-label="Business verified">verified</span></sc-if></h3>
                       <p class="small"><span class="rating"><span class="star" aria-hidden="true">★</span>{{ c.ratingText }}</span> <span class="muted">({{ c.reviews }}) · {{ c.city }}</span><sc-if value="{{ c.distanceText }}"><span class="muted"> · {{ c.distanceText }}</span></sc-if></p>
                     </div>
                   </div>
@@ -454,7 +454,7 @@
         <div class="photo" role="img" aria-label="Florida home with large sliding glass doors opening to a pool" style="background-image: url({{ img.howHero }});"></div>
         <div class="glass-badge">
           <span class="ic" aria-hidden="true"><span class="ms">verified</span></span>
-          <div><p style="font-weight: 700; font-size: 15px;">{{ verifiedCount }} verified pros</p><p class="tiny muted">Checked for insurance &amp; licensing</p></div>
+          <div><p style="font-weight: 700; font-size: 15px;">{{ verifiedCount }} verified pros</p><p class="tiny muted">Business checked by our team</p></div>
         </div>
       </div>
     </div>
@@ -487,7 +487,7 @@
         <div class="card card-lift stack" style="gap: 20px;">
           <span class="avatar" style="border-radius: 16px; width: 56px; height: 56px; background: var(--color-ok-50); color: var(--color-ok-ink);" aria-hidden="true"><span class="ms" style="font-size: 30px;">verified_user</span></span>
           <h3 class="h3">3. Call a verified pro</h3>
-          <p class="muted" style="flex: 1;">Verified pros pass our checks for active insurance, Florida licensing where required, and posted prices. Call them directly.</p>
+          <p class="muted" style="flex: 1;">Business-verified pros passed our checks: Sunbiz registration, a real phone and Florida address, and their Google and social pages. Call them directly.</p>
           <a class="btn btn-ghost" href="/pros" onClick="{{ goAll }}" style="align-self: flex-start; padding-left: 0;">Find a pro<span class="ms" aria-hidden="true">arrow_forward</span></a>
         </div>
       </div>
@@ -506,7 +506,7 @@
         </div>
         <div class="nsteps">
           <div class="nstep"><span class="n">1</span><div class="stack-sm" style="gap: 4px;"><h3 class="h4" style="font-size: 18px;">Join the directory</h3><p class="muted">Claim your profile <strong style="color: var(--color-text);">free during launch</strong>. Add your repairs, prices and service area.</p></div></div>
-          <div class="nstep"><span class="n">2</span><div class="stack-sm" style="gap: 4px;"><h3 class="h4" style="font-size: 18px;">Get verified</h3><p class="muted">Pass our insurance, licensing and Sunbiz checks to earn the Verified badge and rank higher.</p></div></div>
+          <div class="nstep"><span class="n">2</span><div class="stack-sm" style="gap: 4px;"><h3 class="h4" style="font-size: 18px;">Get verified</h3><p class="muted">Pass our business checks (Sunbiz, phone and address, Google and social pages) to earn the Business verified badge. Installers can add a License badge.</p></div></div>
           <div class="nstep"><span class="n">3</span><div class="stack-sm" style="gap: 4px;"><h3 class="h4" style="font-size: 18px;">Grow your business</h3><p class="muted">Homeowners call you directly. Keep <strong style="color: var(--color-text);">100% of your profits</strong>. We never charge for leads or completed jobs.</p></div></div>
         </div>
         <a class="btn btn-primary" href="/list-your-business" onClick="{{ goList }}" style="align-self: flex-start;">List your business today</a>
@@ -520,9 +520,9 @@
       <h2 class="h2">The FixMySlide promise</h2>
       <p class="lead" style="margin: 0 auto;">If you ever have a problem with a pro, tap “Report a problem” on their profile. We follow up with the company, and pros with repeated complaints are removed.</p>
       <div class="row" style="justify-content: center; gap: 28px; color: var(--color-muted); font-weight: 700;">
-        <span class="row" style="gap: 6px;"><span class="ms" aria-hidden="true">gpp_good</span>Licensed</span>
-        <span class="row" style="gap: 6px;"><span class="ms" aria-hidden="true">gpp_good</span>Insured</span>
-        <span class="row" style="gap: 6px;"><span class="ms" aria-hidden="true">gpp_good</span>Checked every 90 days</span>
+        <span class="row" style="gap: 6px;"><span class="ms" aria-hidden="true">gpp_good</span>Business checked</span>
+        <span class="row" style="gap: 6px;"><span class="ms" aria-hidden="true">gpp_good</span>Licenses checked for installers</span>
+        <span class="row" style="gap: 6px;"><span class="ms" aria-hidden="true">gpp_good</span>Last check date shown</span>
       </div>
     </div>
   </section>
@@ -541,7 +541,7 @@
         <div class="price-panel">
           <span class="label">Fair price in Florida</span>
           <p class="price-big">{{ guidePrice.range }}</p>
-          <p class="small muted">What most homeowners paid for {{ guidePrice.label }}. Middle price {{ guidePrice.median }}, from {{ guidePrice.count }} reports.</p>
+          <p class="small muted">Fair price for {{ guidePrice.label }}, middle {{ guidePrice.median }}. {{ guidePrice.basis }}</p>
           <a class="btn btn-primary btn-block" href="#pros">See {{ guideCount }} checked pros</a>
           <a class="btn btn-ghost" href="/cost" onClick="{{ goPrices }}" style="align-self: flex-start;">How we get these prices</a>
         </div>
@@ -552,7 +552,7 @@
         <div class="price-inline">
           <span class="label">Fair price in Florida</span>
           <p class="price-big">{{ guidePrice.range }}</p>
-          <p class="small muted">What most homeowners paid for {{ guidePrice.label }}. Middle price {{ guidePrice.median }}, from {{ guidePrice.count }} reports.</p>
+          <p class="small muted">Fair price for {{ guidePrice.label }}, middle {{ guidePrice.median }}. {{ guidePrice.basis }}</p>
           <a class="btn btn-primary btn-block" href="#pros">See {{ guideCount }} checked pros</a>
         </div>
         <sc-if value="{{ sym.warning }}" hint-placeholder-val="{{ false }}">
@@ -585,7 +585,7 @@
           <li>What's your price range for this repair? <span class="muted">Compare it to the fair price.</span></li>
           <li>Is there a call-out fee, and is it waived if I hire you?</li>
           <li>What warranty do you give on parts and labor? <span class="muted">90 days is common; a year is better.</span></li>
-          <li>Are you insured? <span class="muted">Every pro listed here is, and we confirm it with the insurer.</span></li>
+          <li>Are you insured? <span class="muted">Ask to see their certificate. We don’t check insurance.</span></li>
         </ol>
 
         <h2 class="h3">Common questions</h2>
@@ -690,7 +690,7 @@
     <div class="stack">
       <nav class="crumbs" aria-label="Breadcrumb"><a href="/" onClick="{{ goHome }}">Home</a><span aria-hidden="true">/</span><span aria-current="page">Price guide</span></nav>
       <h1 class="h1 h1-sm" style="max-width: 22ch;">Sliding glass door repair cost in Florida</h1>
-      <p class="lead">Pick the repair to see what Florida homeowners actually paid ({{ totalReports }} reports). Got a quote? Type it in to see if it’s fair.</p>
+      <p class="lead">Pick the repair to see the fair Florida price. {{ priceBasisNote }} Got a quote? Type it in to see if it’s fair.</p>
     </div>
     <form class="qc-card" id="checker" onSubmit="{{ qcSubmit }}">
       <div class="qc-fields">
@@ -891,6 +891,7 @@
       <div class="stack-sm" style="gap: 6px; min-width: 0;">
         <div class="row" style="gap: 8px;">
           <span class="{{ sel.badgeCls }}">{{ sel.badgeLabel }}</span>
+          <sc-if value="{{ sel.licenseBadge }}"><span class="tag tag-ok"><span class="ms" style="font-size: 15px;" aria-hidden="true">badge</span>Licensed installer</span></sc-if>
           <sc-if value="{{ sel.emergency }}"><span class="tag tag-warn">24/7 storm calls</span></sc-if>
           <sc-if value="{{ sel.isFeatured }}"><span class="tag tag-ad">Ad</span></sc-if>
         </div>
@@ -907,6 +908,7 @@
           <div class="stat" style="align-items: flex-start; text-align: left;"><span class="stat-l">Hours</span><strong class="small">{{ sel.hours }}</strong></div>
           <div class="stat" style="align-items: flex-start; text-align: left;"><span class="stat-l">Warranty</span><strong class="small">{{ sel.warranty }}</strong></div>
           <div class="stat" style="align-items: flex-start; text-align: left;"><span class="stat-l">Call-out fee</span><strong class="small">{{ sel.callout }}</strong></div>
+          <p class="tiny muted" style="grid-column: 1 / -1;">Reported by the company. We haven’t checked these details.</p>
         </section>
 
         <section class="stack-sm">
@@ -994,13 +996,15 @@
           </div>
           <sc-if value="{{ sel.verified }}">
             <ul class="checklist">
-              <sc-for list="{{ sel.checks }}" as="ck" hint-placeholder-count="7">
+              <sc-for list="{{ sel.checks }}" as="ck" hint-placeholder-count="4">
                 <li><strong>{{ ck.label }}</strong><br><span class="muted small">{{ ck.detail }}</span></li>
               </sc-for>
             </ul>
+            <sc-if value="{{ sel.hasLinks }}"><p class="small row" style="gap: 14px;"><sc-for list="{{ sel.links }}" as="l" hint-placeholder-count="2"><a href="{{ l.url }}" target="_blank" rel="noopener nofollow">{{ l.label }}</a></sc-for></p></sc-if>
+            <p class="tiny muted">{{ sel.checkedText }} We don’t check insurance or guarantee anyone’s work. <a href="/verification" onClick="{{ goVerify }}">What our badges mean</a></p>
           </sc-if>
           <sc-if value="{{ sel.notVerified }}">
-            <p class="muted">This is a basic listing: we confirmed it's a real Florida business with a working phone number. It hasn't completed our full checks (insurance, license and posted prices) yet.</p>
+            <p class="muted">Listed: we have this company’s basic details but haven’t checked them yet. <a href="/verification" onClick="{{ goVerify }}">What our badges mean</a></p>
           </sc-if>
         </section>
 
@@ -1108,11 +1112,10 @@
       <div class="card stack-sm">
         <h2 class="h4">To get Verified</h2>
         <ul class="checklist small">
-          <li>Valid insurance (we confirm it with the insurer)</li>
           <li>Active Florida business registration (Sunbiz)</li>
-          <li>A Florida license where the work requires one</li>
-          <li>Posted price ranges for every repair you list</li>
-          <li>Re-checked every 90 days</li>
+          <li>A phone we can reach and a real Florida address</li>
+          <li>Your Google Business Profile and social pages</li>
+          <li>Do installation yourself (no subcontractor)? Add your Florida license for the License badge</li>
         </ul>
       </div>
       <div class="card card-soft stack-sm">
@@ -1135,8 +1138,8 @@
           </label>
           <label class="field">Cities you serve<input class="input" placeholder="Tampa, Brandon, Riverview…"></label>
           <label class="field">Repairs and price ranges<textarea class="input" required="" placeholder="Roller replacement $150–$250; Track repair $120–$200…"></textarea></label>
-          <label class="field">Florida license # (if any)<input class="input"></label>
-          <label class="field">Insurance certificate (for Verified)<input class="input" type="file" accept=".pdf,image/*"></label>
+          <label class="field">Florida license # (if you do installation yourself)<input class="input"></label>
+          <label class="field">Google Business Profile or website link<input class="input" type="url" placeholder="https://"></label>
           <div class="stack-sm">
             <span class="tiny muted" style="font-weight: 700;">Plan</span>
             <div class="seg" style="align-self: flex-start; flex-wrap: wrap;">
@@ -1154,6 +1157,64 @@
         </div>
       </sc-if>
     </div>
+  </div>
+</sc-if>
+
+<!-- ================= HOW WE RANK ================= -->
+<sc-if value="{{ isRank }}" hint-placeholder-val="{{ false }}">
+  <div class="wrap page stack" style="gap: 28px; max-width: 820px;">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/" onClick="{{ goHome }}">Home</a><span aria-hidden="true">/</span><span aria-current="page">How we rank</span></nav>
+    <div class="stack-sm">
+      <h1 class="h1 h1-sm">How we rank sliding door pros</h1>
+      <p class="lead">“Best match” is our default order. Here’s exactly what goes into it, and what doesn’t.</p>
+    </div>
+    <section class="card stack-sm">
+      <h2 class="h3">What moves a company up</h2>
+      <ul class="checklist">
+        <li><strong>Homeowner ratings and how many reviews</strong><br><span class="small muted">A 4.8 from 200 reviews counts for more than a 5.0 from 3.</span></li>
+        <li><strong>Honest pricing</strong><br><span class="small muted">How often homeowners report paying within the company’s posted prices.</span></li>
+        <li><strong>Business verified</strong><br><span class="small muted">Companies that passed our checks rank higher than ones we haven’t checked.</span></li>
+        <li><strong>The right specialty</strong><br><span class="small muted">A company that specializes in your repair ranks above one that only offers it.</span></li>
+        <li><strong>Fast replies</strong><br><span class="small muted">How quickly they usually answer.</span></li>
+        <li><strong>Distance</strong><br><span class="small muted">Closer companies rank higher, and we only show companies that serve your area.</span></li>
+      </ul>
+    </section>
+    <section class="card stack-sm">
+      <h2 class="h3">What can’t be bought</h2>
+      <p>No company can pay for a better rating, a badge or a higher spot in the ranking. A company with a free listing can rank first.</p>
+      <p><strong>Promoted spots</strong> are ads. Up to 2 can appear above the ranked list, always labeled “Promoted” and outlined so they’re easy to tell apart. They must serve your area too.</p>
+    </section>
+    <section class="card stack-sm">
+      <h2 class="h3">Prefer another order?</h2>
+      <p>On the pros list you can sort by rating, price, distance or fastest reply instead.</p>
+      <div class="row"><a class="btn btn-primary" href="/pros" onClick="{{ goAll }}">See pros</a><a class="btn btn-ghost" href="/verification" onClick="{{ goVerify }}">What our badges mean</a></div>
+    </section>
+  </div>
+</sc-if>
+
+<!-- ================= VERIFICATION ================= -->
+<sc-if value="{{ isVerify }}" hint-placeholder-val="{{ false }}">
+  <div class="wrap page stack" style="gap: 28px; max-width: 820px;">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/" onClick="{{ goHome }}">Home</a><span aria-hidden="true">/</span><span aria-current="page">What our badges mean</span></nav>
+    <div class="stack-sm">
+      <h1 class="h1 h1-sm">What our badges mean</h1>
+      <p class="lead">Every profile shows what we checked and when. A badge means we checked those facts. It doesn’t mean we guarantee the company’s work.</p>
+    </div>
+    <div class="stack" style="gap: 14px;">
+      <div class="card stack-sm"><span class="tag tag-ad" style="align-self: flex-start;">Listed</span><p>We have the company’s basic details, but we haven’t checked them yet.</p></div>
+      <div class="card stack-sm"><span class="tag tag-ok" style="align-self: flex-start;">Business verified</span><p>Our team checked:</p>
+        <ul class="checklist small"><sc-for list="{{ vetChecks }}" as="v" hint-placeholder-count="3"><sc-if value="{{ v.business }}"><li><strong>{{ v.label }}</strong>: {{ v.how }}</li></sc-if></sc-for></ul>
+      </div>
+      <div class="card stack-sm"><span class="tag tag-ok" style="align-self: flex-start;"><span class="ms" style="font-size: 15px;" aria-hidden="true">badge</span>Licensed installer</span>
+        <p>For companies that do installation themselves, not through a subcontractor. We looked up their Florida license on DBPR (the state licensing board) and it was active. Repair-only work often doesn’t need a state license, so repair companies don’t need this badge.</p>
+      </div>
+    </div>
+    <section class="card card-soft stack-sm">
+      <h2 class="h4">What we don’t check</h2>
+      <p class="small">We don’t check insurance, and we don’t guarantee anyone’s work. Before you hire, ask to see their insurance certificate and get the price and warranty in writing. Details like warranty, hours and call-out fees are reported by the company and labeled that way.</p>
+      <p class="small">Something wrong on a profile? Use “Report a problem” on that company’s page and we’ll look into it.</p>
+    </section>
+    <div class="row"><a class="btn btn-primary" href="/pros" onClick="{{ goAll }}">See checked pros</a><a class="btn btn-ghost" href="/how-we-rank" onClick="{{ goRank }}">How we rank</a></div>
   </div>
 </sc-if>
 
@@ -1287,7 +1348,7 @@
         <div class="price-panel">
           <span class="label">Fair price in Florida</span>
           <p class="price-big">{{ postPrice.range }}</p>
-          <p class="small muted">What most homeowners paid for {{ postPrice.label }}. Middle price {{ postPrice.median }}.</p>
+          <p class="small muted">Fair price for {{ postPrice.label }}, middle {{ postPrice.median }}. {{ postPrice.basis }}</p>
           <a class="btn btn-primary btn-block" href="/pros" onClick="{{ goPostPros }}">See checked pros</a>
           <a class="btn btn-ghost" href="{{ postSym.href }}" onClick="{{ postSym.pick }}" style="align-self: flex-start;">Guide: {{ postSym.title }}</a>
         </div>
@@ -1305,7 +1366,7 @@
         <div class="price-inline">
           <span class="label">Fair price in Florida</span>
           <p class="price-big">{{ postPrice.range }}</p>
-          <p class="small muted">What most homeowners paid for {{ postPrice.label }}. Middle price {{ postPrice.median }}.</p>
+          <p class="small muted">Fair price for {{ postPrice.label }}, middle {{ postPrice.median }}. {{ postPrice.basis }}</p>
           <a class="btn btn-primary btn-block" href="/pros" onClick="{{ goPostPros }}">See checked pros</a>
         </div>
         <p class="small">Had this fixed already? <a href="/report" onClick="{{ goReport }}">Report what you paid</a> and help the next homeowner.</p>
@@ -1355,7 +1416,7 @@
     </div>
     <div class="row small" style="justify-content: space-between; color: #64748B; padding-top: 24px; box-shadow: inset 0 1px 0 #E2E8F0;">
       <span>© 2026 FixMySlide. Florida's Sliding Door Authority.</span>
-      <span class="row" style="gap: 20px;"><a href="/how-it-works" onClick="{{ goHow }}">How it Works</a><a href="/list-your-business" onClick="{{ goList }}">For Pros</a></span>
+      <span class="row" style="gap: 20px;"><a href="/how-it-works" onClick="{{ goHow }}">How it Works</a><a href="/how-we-rank" onClick="{{ goRank }}">How we rank</a><a href="/verification" onClick="{{ goVerify }}">Our badges</a><a href="/list-your-business" onClick="{{ goList }}">For Pros</a></span>
     </div>
   </div>
 </footer>
@@ -1378,14 +1439,12 @@ const SERVICE_INFO = {
 const BASE = { 'Rollers': [150, 250], 'Tracks': [120, 220], 'Glass replacement': [350, 800], 'Locks & handles': [85, 180], 'Screen doors': [60, 150], 'Impact doors': [600, 1800], 'Weatherstripping': [90, 180] };
 const DOORS = ['2-panel, 6 ft', '2-panel, 8 ft', '3-panel', '4-panel / multi-slide', 'Pocket slider', 'Impact-rated slider'];
 const MONTHS = ['Oct 2026', 'Sep 2026', 'Sep 2026', 'Aug 2026', 'Jul 2026', 'Jun 2026', 'May 2026'];
+// What the badges mean (shown on /verification). Only what we actually check.
 const VET = [
-  { label: 'Insurance', how: 'confirmed with the insurer, not just uploaded' },
-  { label: 'Florida license', how: 'looked up on DBPR wherever the work requires one' },
-  { label: 'Business registration', how: 'active and in good standing on Sunbiz' },
-  { label: 'Real Florida address', how: 'confirmed in person or by video' },
-  { label: 'Owner ID & background', how: 'government ID plus a background check' },
-  { label: 'Posted prices', how: 'a price range for every repair they list' },
-  { label: 'Review check', how: 'screened for fake or bought reviews' }
+  { business: true, label: 'Business registration', how: 'active on Sunbiz, Florida’s business registry' },
+  { business: true, label: 'Phone and address', how: 'we call the number and confirm a real Florida address' },
+  { business: true, label: 'Google and social pages', how: 'their Google Business Profile and social pages match the business' },
+  { label: 'Florida license (installers only)', how: 'for companies that do installation themselves, not through a subcontractor, we look the license up on DBPR' }
 ];
 
 const SYMPTOMS = [
@@ -1507,7 +1566,9 @@ function normalizeCompany(r, i) {
     prices, services, specialties: list(r.specialties).map((k) => KEYS[k.toLowerCase()] || k),
     emergency: yes(r.emergency_24_7), hours: r.hours || '', responseHours: num(r.response_hours, null),
     warranty: r.warranty || '', callout: r.callout_fee || '', years: num(r.years_in_business, null),
-    verified: yes(r.verified), license: r.license_number || '', licensed: !!r.license_number,
+    verified: yes(r.verified), verifiedOn: r.verified_on || '', license: r.license_number || '', licensed: !!r.license_number,
+    installs: yes(r.does_installation), licenseVerified: yes(r.license_verified),
+    website: r.website || '', gbp: r.google_business_url || '', socials: list(r.social_urls),
     featured: yes(r.featured), premium: yes(r.premium),
     rating: num(r.rating, null), reviews: num(r.review_count, 0), blurb: r.about || '',
     logo: r.logo_url || '', photos: list(r.photo_urls), videos: list(r.video_urls),
@@ -1544,10 +1605,10 @@ const HOME_REVIEWS = (SITE_DATA.reviews || []).filter((r) => r.name && r.text).m
 });
 // "Why homeowners trust us": only promises that match how we work today.
 const TRUST_POINTS = [
-  { ms: 'verified_user', title: 'We check every pro ourselves', text: 'Before a pro gets our Verified badge, our team calls them, researches their business and reviews, and confirms their insurance. Then we re-check every 90 days.' },
-  { ms: 'payments', title: 'Prices from real jobs', text: 'Our fair prices come from what Florida homeowners actually paid, not from what pros say they charge.' },
+  { ms: 'verified_user', title: 'We check every pro ourselves', text: 'Before a pro gets our Business verified badge, our team checks their Sunbiz registration, calls them, confirms their address and looks at their Google and social pages. Every profile shows the date of the last check.' },
+  { ms: 'payments', title: 'Fair prices, honestly labeled', text: 'Fair prices come from what Florida homeowners report paying, with proof. Until a repair has enough reports, we show the typical range and say it’s an estimate.' },
   { ms: 'star', title: 'Reviews from real homeowners', text: 'Every review comes from a homeowner and is screened for fake or bought reviews.' },
-  { ms: 'balance', title: 'Independent and neutral', text: 'We don’t do repairs, and no one can pay for a better rating or ranking. Promoted spots are always labeled. Ratings come only from homeowners, and you call pros directly, with no middleman.' }
+  { ms: 'balance', title: 'Rankings you can see', text: 'No one can pay for a better rating or ranking, and we publish how we rank. Promoted spots are always labeled. You call pros directly, with no middleman.' }
 ];
 // Photos (data/images.csv): key → url.
 const IMG = Object.fromEntries((SITE_DATA.images || []).map((r) => [r.key, r.url]));
@@ -1598,13 +1659,15 @@ const PRICE_NUM = {};
 const REAL_REPORTS = (SITE_DATA.price_reports || [])
   .map((r) => ({ service: KEYS[String(r.repair || '').trim().toLowerCase()], paid: num(r.paid, null) }))
   .filter((r) => r.service && r.paid > 0);
+// With fewer than 5 real reports for a repair, the fair price is the typical
+// Florida range (BASE) and is labeled as an estimate.
 SERVICES.forEach((name) => {
   const real = REAL_REPORTS.filter((r) => r.service === name);
-  let v = (real.length ? real : ALL_REPORTS.filter((r) => r.service === name)).map((r) => r.paid).sort((a, b) => a - b);
-  if (v.length < 5) v = [BASE[name][0], (BASE[name][0] + BASE[name][1]) / 2, BASE[name][1]];
+  const enough = real.length >= 5;
+  const v = enough ? real.map((r) => r.paid).sort((a, b) => a - b) : [BASE[name][0], (BASE[name][0] + BASE[name][1]) / 2, BASE[name][1]];
   const at = (f) => v[Math.min(v.length - 1, Math.floor(v.length * f))];
   PRICE_NUM[name] = { p10: at(0.1), p50: at(0.5), p90: at(0.9) };
-  PRICE_STATS[name] = { median: money(at(0.5)), range: `${money(at(0.1))}–${money(at(0.9))}`, count: real.length || ALL_REPORTS.filter((r) => r.service === name).length };
+  PRICE_STATS[name] = { median: money(at(0.5)), range: `${money(at(0.1))}–${money(at(0.9))}`, count: enough ? real.length : 0, basis: enough ? `From ${real.length} homeowner price reports.` : 'Typical Florida range. An estimate until we have 5+ homeowner reports.' };
 });
 const miles = (a, b) => {
   if (a[0] == null || b[0] == null) return null;
@@ -1683,12 +1746,14 @@ function postJsonLd(p) {
 // Every public URL of the directory, with the state it opens in and its SEO tags.
 function ROUTE_LIST() {
   const r = [];
-  r.push({ path: '/', initial: { view: 'home' }, title: 'Sliding Glass Door Repair in Florida | Checked Pros & Fair Prices | FixMySlide', description: 'Sliding glass door repair in Florida: see the fair repair cost from real local jobs, then call checked, insured pros near you for rollers, tracks, locks and glass. Free.', jsonld: homeJsonLd() });
-  r.push({ path: '/cost', initial: { view: 'prices' }, title: 'Sliding Glass Door Repair Cost in Florida (2026 Prices) | FixMySlide', description: `What Florida homeowners actually paid for sliding door repairs: rollers ${PRICE_STATS['Rollers'].range}, tracks ${PRICE_STATS['Tracks'].range}, locks, glass, leaks and impact doors.`, jsonld: faqJsonLd(PRICE_FAQ) });
+  r.push({ path: '/', initial: { view: 'home' }, title: 'Sliding Glass Door Repair in Florida | Checked Pros & Fair Prices | FixMySlide', description: 'Sliding glass door repair in Florida: see the fair repair cost, then call checked local pros near you for rollers, tracks, locks and glass. Free, no sign-up.', jsonld: homeJsonLd() });
+  r.push({ path: '/cost', initial: { view: 'prices' }, title: 'Sliding Glass Door Repair Cost in Florida (2026 Prices) | FixMySlide', description: `Fair Florida prices for sliding door repairs: rollers ${PRICE_STATS['Rollers'].range}, tracks ${PRICE_STATS['Tracks'].range}, locks, glass, leaks and impact doors.`, jsonld: faqJsonLd(PRICE_FAQ) });
   SYMPTOMS.forEach((s) => r.push({ path: symptomPath(s), initial: { view: 'guide', symptom: s.id }, title: s.seoTitle + ' | FixMySlide', description: `${s.explain.split('. ').slice(0, 2).join('. ')}. See fair Florida prices and checked pros.`, jsonld: faqJsonLd(symptomFaq(s)) }));
   r.push({ path: '/start', initial: { view: 'start', wizStep: 1 }, title: 'What’s Wrong With Your Sliding Door? Get a Fair Price | FixMySlide', description: 'Tap what your sliding door is doing and see the fair Florida repair price and checked pros who fix it, in under a minute.', noindex: true });
-  r.push({ path: '/how-it-works', initial: { view: 'how' }, title: 'How FixMySlide Works | Fair Prices & Verified Sliding Door Pros in Florida', description: 'Describe your sliding door problem, see the fair Florida price, then call a verified, insured local pro. Free for homeowners, no lead fees for pros.' });
+  r.push({ path: '/how-it-works', initial: { view: 'how' }, title: 'How FixMySlide Works | Fair Prices & Verified Sliding Door Pros in Florida', description: 'Describe your sliding door problem, see the fair Florida price, then call a checked local pro. Free for homeowners, no lead fees for pros.' });
   r.push({ path: '/repair-or-replace', initial: { view: 'decide' }, title: 'Repair or Replace a Sliding Glass Door? Quick Florida Guide | FixMySlide', description: 'Answer four quick questions to see whether repairing or replacing your sliding glass door makes more sense, with Florida repair prices.' });
+  r.push({ path: '/how-we-rank', initial: { view: 'rank' }, title: 'How We Rank Sliding Door Repair Pros | FixMySlide', description: 'What decides the order of sliding door pros on FixMySlide: homeowner ratings, honest pricing, verification, specialty, reply speed and distance. Rankings can’t be bought.' });
+  r.push({ path: '/verification', initial: { view: 'verify' }, title: 'What Our Badges Mean: Business Verified & Licensed Installer | FixMySlide', description: 'What FixMySlide checks before a sliding door company gets a badge: Sunbiz registration, phone and address, Google and social pages, and DBPR licenses for installers.' });
   r.push({ path: '/report', initial: { view: 'report' }, title: 'Report a Sliding Door Repair Job: What Did You Pay? | FixMySlide', description: 'Had your sliding glass door fixed in Florida? Share what was repaired, who did it and what you paid. It takes a minute and keeps prices fair for everyone.' });
   if (POSTS.length) r.push({ path: '/blog', initial: { view: 'blog' }, title: 'Sliding Door Repair Blog | DIY Fixes, Costs & Florida Tips | FixMySlide', description: 'Plain-English sliding glass door help: how to clean tracks, spot worn rollers, stop leaks, fix locks and prep for hurricanes, plus when to call a pro.' });
   POSTS.forEach((p) => r.push({ path: postPath(p), initial: { view: 'post', post: p.slug }, title: p.title + ' | FixMySlide', description: p.description, jsonld: postJsonLd(p) }));
@@ -1766,6 +1831,8 @@ class Component extends DCLogic {
     if (s.view === 'how') return '/how-it-works';
     if (s.view === 'blog') return '/blog';
     if (s.view === 'report') return '/report';
+    if (s.view === 'rank') return '/how-we-rank';
+    if (s.view === 'verify') return '/verification';
     if (s.view === 'post') { const p = POSTS.find((x) => x.slug === s.post); return p ? postPath(p) : '/blog'; }
     if (s.view === 'start') return '/start';
     const city = CITIES.find(([name]) => name.toLowerCase() === (s.query || '').trim().toLowerCase());
@@ -1917,9 +1984,9 @@ class Component extends DCLogic {
   }
 
   decorate(c, showFeatured, compare, service) {
-    const checks = c.verified ? ['Oct 2026', 'Sep 2026', 'Aug 2026'][c.id % 3] : '';
-    const next = ['Jan 2027', 'Dec 2026', 'Nov 2026'][c.id % 3];
-    const ins = ['Mar 2027', 'Jun 2027', 'Feb 2027', 'Nov 2027'][c.id % 4];
+    const checkedOn = c.verifiedOn ? new Date(c.verifiedOn + 'T12:00:00Z') : null;
+    const checkedText = checkedOn && !isNaN(checkedOn) ? 'Last checked ' + checkedOn.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' }) + '.' : '';
+    const links = [c.gbp && { label: 'Google Business Profile', url: c.gbp }, c.website && { label: 'Website', url: c.website }, ...c.socials.map((u) => ({ label: /facebook/i.test(u) ? 'Facebook' : /instagram/i.test(u) ? 'Instagram' : /yelp/i.test(u) ? 'Yelp' : 'Social page', url: u }))].filter(Boolean);
     const shown = c.prices.find((p) => p.service === service) || c.prices[0] || { service: 'Rollers', lo: 0, hi: 0, reports: [] };
     const prices = c.prices.map((p) => {
       const all = [p.lo, p.hi, ...p.reports.map((r) => r.paid)];
@@ -1957,7 +2024,7 @@ class Component extends DCLogic {
       callout: c.callout || '—',
       warranty: c.warranty || '—',
       responseText: responseText(c.responseHours),
-      badgeLabel: c.verified ? 'Verified' : 'Not checked yet',
+      badgeLabel: c.verified ? 'Business verified' : 'Listed',
       badgeCls: c.verified ? 'tag tag-ok' : 'tag tag-ad',
       licenseText: c.license ? `License ${c.license}` : '',
       specialtiesText: c.specialties.join(', '),
@@ -1970,20 +2037,18 @@ class Component extends DCLogic {
       distanceText: c.distance != null && c.distance >= 1 ? `${Math.round(c.distance)} mi away` : '',
       shortName: c.name.split(' ').slice(0, 2).join(' '),
       reply: c.emergency ? '1 hour' : '1 business day',
-      lastCheck: checks, nextCheck: next,
+      checkedText, links, hasLinks: links.length > 0,
+      licenseBadge: c.installs && c.licenseVerified && !!c.license,
       honestyText: c.honesty != null ? c.honesty + '%' : '—',
       honestyLine: c.honesty != null ? `${c.honesty}% paid within their posted prices` : 'No price reports yet',
       reportCountText: `${c.reports.length} price reports`,
       priceLine: `${SERVICE_INFO[shown.service].label}: ${money(shown.lo)}–${money(shown.hi)}`,
       prices, reportsList,
       checks: [
-        { label: 'Insurance', detail: `$1M general liability · confirmed with insurer · expires ${ins}` },
-        { label: 'Florida license', detail: c.licensed ? `${c.license} · active on DBPR` : 'Not required for repair-only hardware work' },
         { label: 'Business registration', detail: 'Active on Sunbiz' },
-        { label: 'Florida address', detail: `Confirmed in ${c.city}` },
-        { label: 'Owner ID & background', detail: 'Passed' },
-        { label: 'Posted prices', detail: `${c.services.length} of ${c.services.length} repairs priced` },
-        { label: 'Review check', detail: `No suspicious patterns · ${checks}` }
+        { label: 'Phone and address', detail: `Phone answered · Florida address confirmed in ${c.city}` },
+        { label: 'Google and social pages', detail: links.length ? 'Checked and match the business' : 'Checked' },
+        ...(c.installs ? [{ label: 'Florida license (installation)', detail: c.licenseVerified && c.license ? `${c.license} · active on DBPR, for installation they do themselves` : 'They do installation; license not checked yet' }] : [])
       ],
       compareCls: comparing ? 'btn btn-sm btn-primary' : 'btn btn-sm btn-ghost',
       compareLabel: comparing ? '✓ In comparison' : '+ Compare',
@@ -2187,7 +2252,8 @@ class Component extends DCLogic {
       navHow: s.view === 'how' ? 'page' : null,
       navBlog: s.view === 'blog' || s.view === 'post' ? 'page' : null,
       navReport: s.view === 'report' ? 'page' : null,
-      isReport: s.view === 'report',
+      isReport: s.view === 'report', isRank: s.view === 'rank', isVerify: s.view === 'verify',
+      goRank: nav(() => this.go('rank')), goVerify: nav(() => this.go('verify')),
       goReport: nav(() => this.go('report', { jrStatus: 'open', jrError: '', jrWhere: s.jrWhere || s.savedWhere })),
       reportThisPro: nav(() => { const c = COMPANIES.find((x) => x.id === s.selectedId); this.go('report', { jrStatus: 'open', jrError: '', jrProId: c ? String(c.id) : '', jrProText: c ? c.name : '', jrWhere: s.jrWhere || s.savedWhere }); }),
       ...(() => {
@@ -2415,7 +2481,7 @@ class Component extends DCLogic {
       otherSymptoms: SYMPTOMS.filter((x) => x.id !== sym.id).map(symVals),
       hasSymptom: !!s.symptom,
       sym: Object.assign(symVals(sym), { faq: symptomFaq(sym), videos: VIDEOS.filter((v) => v.problem === sym.id || v.problem === sym.slug), hasVideos: VIDEOS.some((v) => v.problem === sym.id || v.problem === sym.slug) }),
-      guidePrice: { range: PRICE_STATS[sym.service].range, median: PRICE_STATS[sym.service].median, count: PRICE_STATS[sym.service].count, label: symInfo.lower },
+      guidePrice: { range: PRICE_STATS[sym.service].range, median: PRICE_STATS[sym.service].median, count: PRICE_STATS[sym.service].count, basis: PRICE_STATS[sym.service].basis, label: symInfo.lower },
       guidePros, guideNone: guidePros.length === 0,
       guideCount: forService.length,
       onGuideSearch: (e) => { e.preventDefault(); const el = document.getElementById('pros'); if (el) window.scrollTo(0, el.getBoundingClientRect().top + window.scrollY - 72); },
@@ -2428,7 +2494,8 @@ class Component extends DCLogic {
       toggleEmergency: () => set({ emergency: !s.emergency }),
       serviceOptions: ['All services', ...SERVICES],
       totalCount: COMPANIES.length,
-      totalReports: ALL_REPORTS.length,
+      totalReports: REAL_REPORTS.length,
+      priceBasisNote: REAL_REPORTS.length >= 5 ? `Based on ${REAL_REPORTS.length} homeowner price reports.` : 'Until we have enough homeowner reports, these are typical Florida price ranges.',
       priceIndex: SERVICES.map((name) => {
         const info = SERVICE_INFO[name], st = PRICE_STATS[name], g = SYMPTOMS.find((x) => x.id === info.symptom);
         return { label: info.label, lower: info.lower, slug: info.slug, what: info.what, factors: info.factors, median: st.median, range: st.range, count: st.count, guideHref: symptomPath(g), openGuide: nav(() => this.pickSymptom(g.id)), onClick: nav(() => this.go('results', { query: '', service: name, symptom: null })) };
