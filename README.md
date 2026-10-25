@@ -13,6 +13,7 @@ The directory designed in the "Florida Sliding Door Directory" canvas, built as 
   - `/pros` and `/sliding-glass-door-repair/<city>`: 12 city pages
   - `/pros/<company>`: company pages
   - `/repair-or-replace`: the repair-or-replace helper
+  - `/blog` and `/blog/<slug>`: help articles (from `data/blog.csv`), linked from the matching problem guide
   - `/compare` (noindex) and `/list-your-business`
 - `src/runtime/`: renders canvas templates with React (`{{holes}}`, `sc-for`, `sc-if`, `style-hover`).
 - `scripts/build.mjs`: server-renders every route, bundles the JavaScript, and writes `robots.txt` (plus `sitemap.xml` once `src/site.js` has a domain).
@@ -42,6 +43,8 @@ The directory is built from `data/companies.csv`: one row per company. Edit it i
 City pages are created automatically for every city a company is based in.
 
 `data/images.csv` holds the site photos (hero, problem cards, How it Works) by key; swap a `url` to change a photo. They currently point to the images from the Stitch design; download them into `public/` and use local paths before launch, since those links may expire.
+
+`data/blog.csv` holds the blog posts: `slug`, `title`, `description`, `date` (YYYY-MM-DD), `problem` (e.g. `leaking`; ties the post to that problem's price and guide) and `body`. In the body, a blank line starts a new paragraph, `## ` starts a heading, lines starting `- ` make a list, `1. ` lines make numbered steps, and `**Words**` at the start of a paragraph or list item makes them bold.
 
 `data/videos.csv` lists how-to videos for the problem pages: `problem` (e.g. `leaking` or `hard-to-slide`), `title`, `url`.
 

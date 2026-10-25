@@ -581,3 +581,10 @@ textarea.input { min-height: 120px; resize: vertical; }
 .desk-only { display: none !important; }
 @media (min-width: 1024px) { .desk-only { display: flex !important; } }
 .plan-quote { margin-top: 4px; padding-top: 14px; box-shadow: inset 0 1px 0 var(--color-divider); }
+
+/* Blog */
+.post-card { position: relative; }
+.post-card h2 a { color: var(--color-text); text-decoration: none; }
+.post-card h2 a::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+.post-card:hover h2 a { color: var(--color-accent); }
+.post-body > p:not(.lead):not(.tiny):not(.small) { font-size: 17px; line-height: 1.7; }

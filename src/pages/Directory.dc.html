@@ -25,6 +25,7 @@
       <a href="/start" onClick="{{ goStart }}" aria-current="{{ navPros }}">Find a Pro</a>
       <a href="/cost" onClick="{{ goPrices }}" aria-current="{{ navPrices }}">Pricing</a>
       <a href="/how-it-works" onClick="{{ goHow }}" aria-current="{{ navHow }}">How it Works</a>
+      <a href="/blog" onClick="{{ goBlog }}" aria-current="{{ navBlog }}">Blog</a>
       <a href="/problems/hurricane-damaged-sliding-door" onClick="{{ goStorm }}">Storm Help</a>
     </nav>
     <a class="btn btn-primary btn-sm nav-cta" href="/list-your-business" onClick="{{ goList }}">Join as a Pro</a>
@@ -35,6 +36,7 @@
         <a href="/cost" onClick="{{ goPrices }}"><span class="ms" aria-hidden="true">payments</span>Prices &amp; quote check</a>
         <a href="/repair-or-replace" onClick="{{ goDecide }}"><span class="ms" aria-hidden="true">help</span>Repair or replace?</a>
         <a href="/problems/hurricane-damaged-sliding-door" onClick="{{ goStorm }}"><span class="ms" aria-hidden="true">thunderstorm</span>Storm help</a>
+        <a href="/blog" onClick="{{ goBlog }}"><span class="ms" aria-hidden="true">lightbulb</span>Fix-it tips (blog)</a>
         <a href="/how-it-works" onClick="{{ goHow }}"><span class="ms" aria-hidden="true">info</span>How it Works</a>
         <a href="/list-your-business" onClick="{{ goList }}"><span class="ms" aria-hidden="true">storefront</span>Join as a Pro</a>
       </div>
@@ -536,6 +538,15 @@
             <details><summary>{{ q.q }}</summary><p>{{ q.a }}</p></details>
           </sc-for>
         </div>
+
+        <sc-if value="{{ hasGuidePosts }}" hint-placeholder-val="{{ false }}">
+          <h2 class="h3">Read next</h2>
+          <ul class="linklist">
+            <sc-for list="{{ guidePosts }}" as="p" hint-placeholder-count="2">
+              <li><a href="{{ p.href }}" onClick="{{ p.open }}"><span>{{ p.title }}</span><span class="ms" aria-hidden="true">arrow_forward</span></a></li>
+            </sc-for>
+          </ul>
+        </sc-if>
       </article>
     </div>
 
@@ -1103,6 +1114,83 @@
   </div>
 </sc-if>
 
+<!-- ================= BLOG ================= -->
+<sc-if value="{{ isBlog }}" hint-placeholder-val="{{ false }}">
+  <div class="wrap page stack" style="gap: 32px;">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/" onClick="{{ goHome }}">Home</a><span aria-hidden="true">/</span><span aria-current="page">Blog</span></nav>
+    <div class="stack-sm">
+      <h1 class="h1 h1-sm">Sliding door help, in plain English</h1>
+      <p class="lead">Step-by-step fixes you can safely try yourself, how to tell when it’s time to call a pro, and what Florida homeowners should expect to pay.</p>
+    </div>
+    <div class="grid-3">
+      <sc-for list="{{ posts }}" as="p" hint-placeholder-count="6">
+        <article class="card card-lift stack-sm post-card">
+          <span class="eyebrow">{{ p.topic }}</span>
+          <h2 class="h4" style="font-size: 19px; line-height: 1.35;"><a href="{{ p.href }}" onClick="{{ p.open }}">{{ p.title }}</a></h2>
+          <p class="small muted" style="flex: 1;">{{ p.description }}</p>
+          <p class="tiny muted">{{ p.dateText }} · {{ p.minutes }} min read</p>
+        </article>
+      </sc-for>
+    </div>
+    <div class="card card-accent row" style="justify-content: space-between; align-items: center;">
+      <div class="stack-sm" style="max-width: 560px;">
+        <h2 class="h3">Not sure what’s wrong?</h2>
+        <p class="small muted">Tap what your door is doing and we’ll show the likely cause, the fair Florida price and checked pros who fix it.</p>
+      </div>
+      <a class="btn btn-primary btn-phone-block" href="/start" onClick="{{ goStart }}">Find what’s wrong</a>
+    </div>
+  </div>
+</sc-if>
+
+<!-- ================= BLOG POST ================= -->
+<sc-if value="{{ isPost }}" hint-placeholder-val="{{ false }}">
+  <div class="wrap page">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="/" onClick="{{ goHome }}">Home</a><span aria-hidden="true">/</span>
+      <a href="/blog" onClick="{{ goBlog }}">Blog</a><span aria-hidden="true">/</span>
+      <span aria-current="page">{{ post.title }}</span>
+    </nav>
+    <div class="article-layout">
+      <aside class="side">
+        <div class="price-panel">
+          <span class="label">Fair price in Florida</span>
+          <p class="price-big">{{ postPrice.range }}</p>
+          <p class="small muted">What most homeowners paid for {{ postPrice.label }}. Middle price {{ postPrice.median }}.</p>
+          <a class="btn btn-primary btn-block" href="/pros" onClick="{{ goPostPros }}">See checked pros</a>
+          <a class="btn btn-ghost" href="{{ postSym.href }}" onClick="{{ postSym.pick }}" style="align-self: flex-start;">Guide: {{ postSym.title }}</a>
+        </div>
+      </aside>
+      <article class="article post-body">
+        <p class="tiny muted">{{ post.dateText }} · {{ post.minutes }} min read</p>
+        <h1 class="h1 h1-sm">{{ post.title }}</h1>
+        <p class="lead">{{ post.description }}</p>
+        <sc-for list="{{ post.blocks }}" as="b" hint-placeholder-count="6">
+          <sc-if value="{{ b.isH }}"><h2 class="h3">{{ b.text }}</h2></sc-if>
+          <sc-if value="{{ b.isP }}"><p><sc-if value="{{ b.lead }}"><strong>{{ b.lead }}</strong> </sc-if>{{ b.text }}</p></sc-if>
+          <sc-if value="{{ b.isList }}"><ul class="dotlist"><sc-for list="{{ b.items }}" as="it"><li><sc-if value="{{ it.lead }}"><strong>{{ it.lead }}</strong> </sc-if>{{ it.text }}</li></sc-for></ul></sc-if>
+          <sc-if value="{{ b.isSteps }}"><ol class="numlist"><sc-for list="{{ b.items }}" as="it"><li><sc-if value="{{ it.lead }}"><strong>{{ it.lead }}</strong> </sc-if>{{ it.text }}</li></sc-for></ol></sc-if>
+        </sc-for>
+        <div class="price-inline">
+          <span class="label">Fair price in Florida</span>
+          <p class="price-big">{{ postPrice.range }}</p>
+          <p class="small muted">What most homeowners paid for {{ postPrice.label }}. Middle price {{ postPrice.median }}.</p>
+          <a class="btn btn-primary btn-block" href="/pros" onClick="{{ goPostPros }}">See checked pros</a>
+        </div>
+        <p class="small">More on this problem: <a href="{{ postSym.href }}" onClick="{{ postSym.pick }}">{{ postSym.linkText }}</a>. Got a quote already? <a href="/cost#checker" onClick="{{ goPrices }}">See if it’s fair</a>.</p>
+      </article>
+    </div>
+
+    <section class="stack-sm" style="margin-top: 64px;">
+      <h2 class="h3">More from the blog</h2>
+      <ul class="linklist grid-3" style="border-top: 0;">
+        <sc-for list="{{ morePosts }}" as="p" hint-placeholder-count="3">
+          <li><a href="{{ p.href }}" onClick="{{ p.open }}"><span>{{ p.title }}</span><span class="tiny muted">{{ p.minutes }} min</span></a></li>
+        </sc-for>
+      </ul>
+    </section>
+  </div>
+</sc-if>
+
 </main>
 
 
@@ -1120,6 +1208,7 @@
         <a class="small" href="/cost#checker" onClick="{{ goPrices }}">Is my quote fair?</a>
         <a class="small" href="/repair-or-replace" onClick="{{ goDecide }}">Repair or replace?</a>
         <a class="small" href="/pros" onClick="{{ goAll }}">Verified pros</a>
+        <a class="small" href="/blog" onClick="{{ goBlog }}">Fix-it tips (blog)</a>
       </nav>
       <nav class="stack-sm" aria-label="Door problems">
         <strong style="color: #0F172A;">Door problems</strong>
@@ -1293,6 +1382,26 @@ function normalizeCompany(r, i) {
 }
 const COMPANIES = (SITE_DATA.companies || []).map(normalizeCompany).filter((c) => c.name && c.phone);
 const VIDEOS = (SITE_DATA.videos || []).filter((v) => v.url);
+// Blog posts (data/blog.csv). The body is plain text: a blank line starts a
+// new paragraph, "## " a heading, "- " lines a list and "1. " lines steps.
+// "**Words**" at the start of a paragraph or list item makes them bold.
+const splitLead = (t) => { const m = t.match(/^\*\*(.+?)\*\*\s*([\s\S]*)$/); return m ? { lead: m[1], text: m[2] } : { lead: '', text: t }; };
+const POSTS = (SITE_DATA.blog || []).filter((p) => p.slug && p.title && p.body).map((p) => {
+  const blocks = p.body.split(/\n\s*\n/).map((chunk) => {
+    const lines = chunk.trim().split('\n').map((l) => l.trim());
+    if (lines[0].startsWith('## ')) return { isH: true, text: lines[0].slice(3) };
+    if (lines.every((l) => l.startsWith('- '))) return { isList: true, items: lines.map((l) => splitLead(l.slice(2))) };
+    if (lines.every((l) => /^\d+\.\s/.test(l))) return { isSteps: true, items: lines.map((l) => splitLead(l.replace(/^\d+\.\s+/, ''))) };
+    return Object.assign({ isP: true }, splitLead(lines.join(' ')));
+  });
+  const d = new Date(p.date + 'T12:00:00Z');
+  return {
+    slug: p.slug, title: p.title, description: p.description || '', date: p.date, problem: p.problem, blocks,
+    dateText: isNaN(d) ? '' : d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' }),
+    minutes: Math.max(1, Math.round(p.body.split(/\s+/).length / 220))
+  };
+}).sort((a, b) => b.date.localeCompare(a.date));
+const postPath = (p) => '/blog/' + p.slug;
 // Homeowner reviews shown on the home page (data/reviews.csv). The section
 // stays hidden until real reviews are added.
 const HOME_REVIEWS = (SITE_DATA.reviews || []).filter((r) => r.name && r.text).map((r) => {
@@ -1433,6 +1542,10 @@ function faqJsonLd(faq) {
   return { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
 }
 
+function postJsonLd(p) {
+  return { '@context': 'https://schema.org', '@type': 'BlogPosting', headline: p.title, description: p.description, datePublished: p.date, author: { '@type': 'Organization', name: 'FixMySlide' }, publisher: { '@type': 'Organization', name: 'FixMySlide' } };
+}
+
 // Every public URL of the directory, with the state it opens in and its SEO tags.
 function ROUTE_LIST() {
   const r = [];
@@ -1442,6 +1555,8 @@ function ROUTE_LIST() {
   r.push({ path: '/start', initial: { view: 'start', wizStep: 1 }, title: 'What’s Wrong With Your Sliding Door? Get a Fair Price | FixMySlide', description: 'Tap what your sliding door is doing and see the fair Florida repair price and checked pros who fix it, in under a minute.', noindex: true });
   r.push({ path: '/how-it-works', initial: { view: 'how' }, title: 'How FixMySlide Works | Fair Prices & Verified Sliding Door Pros in Florida', description: 'Describe your sliding door problem, see the fair Florida price, then call a verified, insured local pro. Free for homeowners, no lead fees for pros.' });
   r.push({ path: '/repair-or-replace', initial: { view: 'decide' }, title: 'Repair or Replace a Sliding Glass Door? Quick Florida Guide | FixMySlide', description: 'Answer four quick questions to see whether repairing or replacing your sliding glass door makes more sense, with Florida repair prices.' });
+  if (POSTS.length) r.push({ path: '/blog', initial: { view: 'blog' }, title: 'Sliding Door Repair Blog | DIY Fixes, Costs & Florida Tips | FixMySlide', description: 'Plain-English sliding glass door help: how to clean tracks, spot worn rollers, stop leaks, fix locks and prep for hurricanes, plus when to call a pro.' });
+  POSTS.forEach((p) => r.push({ path: postPath(p), initial: { view: 'post', post: p.slug }, title: p.title + ' | FixMySlide', description: p.description, jsonld: postJsonLd(p) }));
   r.push({ path: '/pros', initial: { view: 'results' }, title: 'Find a Sliding Glass Door Repair Pro in Florida | FixMySlide', description: 'Checked sliding glass door repair companies across Florida. Compare ratings, posted prices and what homeowners actually paid, then call direct.' });
   CITIES.forEach(([name, county, slug]) => {
     const n = COMPANIES.filter((c) => c.city === name || c.areas.includes(name)).length;
@@ -1453,7 +1568,7 @@ function ROUTE_LIST() {
   return r;
 }
 
-const DEFAULTS = { savedPlan: null, planShared: null, savedWhere: '', geo: null, planQuote: '', view: 'home', symptom: null, findSym: null, showAll: false, picked: [], wizStep: 1, describe: '', query: '', service: 'All services', price: 'Any', emergency: false, verifiedOnly: false, sort: 'best', mode: 'list', selectedId: null, compare: [], report: 'closed', problem: 'closed', review: 'closed', listSent: false, plan: 'free', calcService: 'Rollers', calcSize: 'standard', calcType: 'standard', checkService: 'Rollers', checkAmount: '', dAge: '', dFrame: '', dGlass: '', dGoal: '' };
+const DEFAULTS = { savedPlan: null, planShared: null, savedWhere: '', geo: null, planQuote: '', view: 'home', symptom: null, post: null, findSym: null, showAll: false, picked: [], wizStep: 1, describe: '', query: '', service: 'All services', price: 'Any', emergency: false, verifiedOnly: false, sort: 'best', mode: 'list', selectedId: null, compare: [], report: 'closed', problem: 'closed', review: 'closed', listSent: false, plan: 'free', calcService: 'Rollers', calcSize: 'standard', calcType: 'standard', checkService: 'Rollers', checkAmount: '', dAge: '', dFrame: '', dGlass: '', dGoal: '' };
 
 // ---------------------------------------------------------------------------
 // Component
@@ -1514,6 +1629,8 @@ class Component extends DCLogic {
     if (s.view === 'list') return '/list-your-business';
     if (s.view === 'decide') return '/repair-or-replace';
     if (s.view === 'how') return '/how-it-works';
+    if (s.view === 'blog') return '/blog';
+    if (s.view === 'post') { const p = POSTS.find((x) => x.slug === s.post); return p ? postPath(p) : '/blog'; }
     if (s.view === 'start') return '/start';
     const city = CITIES.find(([name]) => name.toLowerCase() === (s.query || '').trim().toLowerCase());
     return city ? cityPath(city[2]) : '/pros';
@@ -1860,6 +1977,24 @@ class Component extends DCLogic {
       navPros: s.view === 'results' || s.view === 'profile' || s.view === 'start' ? 'page' : null,
       navPrices: s.view === 'prices' ? 'page' : null,
       navHow: s.view === 'how' ? 'page' : null,
+      navBlog: s.view === 'blog' || s.view === 'post' ? 'page' : null,
+      isBlog: s.view === 'blog', isPost: s.view === 'post',
+      goBlog: nav(() => this.go('blog')),
+      ...(() => {
+        const postVals = (p) => { const ps = SYMPTOMS.find((x) => x.id === p.problem); return Object.assign({}, p, { href: postPath(p), topic: ps ? ps.title : 'Sliding doors', open: nav(() => this.go('post', { post: p.slug })) }); };
+        const post = POSTS.find((x) => x.slug === s.post) || POSTS[0] || { blocks: [] };
+        const ps = SYMPTOMS.find((x) => x.id === post.problem) || SYMPTOMS[0];
+        const guidePosts = POSTS.filter((p) => p.problem === sym.id).map(postVals);
+        return {
+          posts: POSTS.map(postVals),
+          post,
+          postSym: symVals(ps),
+          postPrice: Object.assign({ label: SERVICE_INFO[ps.service].lower }, PRICE_STATS[ps.service]),
+          goPostPros: nav(() => this.go('results', { service: ps.service, emergency: !!ps.emergency })),
+          morePosts: POSTS.filter((p) => p.slug !== post.slug).slice(0, 3).map(postVals),
+          guidePosts, hasGuidePosts: guidePosts.length > 0
+        };
+      })(),
       img: { hero: IMG.hero || '', howHero: IMG['how-hero'] || '', proAtWork: IMG['pro-at-work'] || '' },
       priceBars: (() => { const list = ['Rollers', 'Tracks', 'Locks & handles', 'Glass replacement']; const max = Math.max(...list.map((n) => PRICE_NUM[n].p90)); return list.map((n, k) => ({ label: SERVICE_INFO[n].label, range: PRICE_STATS[n].range, width: Math.max(12, Math.round(PRICE_NUM[n].p50 / max * 100)) + '%', cls: k % 2 ? 'bar bar-alt' : 'bar' })); })(),
       miniPrices: ['Rollers', 'Tracks', 'Glass replacement'].map((n) => ({ label: SERVICE_INFO[n].label, range: PRICE_STATS[n].range })),
