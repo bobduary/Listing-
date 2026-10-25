@@ -28,11 +28,14 @@
       <a href="/blog" onClick="{{ goBlog }}" aria-current="{{ navBlog }}">Blog</a>
       <a href="/problems/hurricane-damaged-sliding-door" onClick="{{ goStorm }}">Storm Help</a>
     </nav>
+    <a class="btn btn-secondary btn-sm nav-cta" href="/report" onClick="{{ goReport }}" aria-current="{{ navReport }}">Report a job</a>
     <a class="btn btn-primary btn-sm nav-cta" href="/list-your-business" onClick="{{ goList }}">Join as a Pro</a>
+    <a class="btn btn-secondary btn-sm nav-report-phone" href="/report" onClick="{{ goReport }}">Report a job</a>
     <details class="menu">
       <summary aria-label="Open menu"><span class="ms" aria-hidden="true">menu</span></summary>
       <div class="menu-panel">
         <a href="/start" onClick="{{ goStart }}"><span class="ms" aria-hidden="true">search</span>Find a Pro</a>
+        <a href="/report" onClick="{{ goReport }}"><span class="ms" aria-hidden="true">edit_note</span>Report a job you had done</a>
         <a href="/cost" onClick="{{ goPrices }}"><span class="ms" aria-hidden="true">payments</span>Prices &amp; quote check</a>
         <a href="/repair-or-replace" onClick="{{ goDecide }}"><span class="ms" aria-hidden="true">help</span>Repair or replace?</a>
         <a href="/problems/hurricane-damaged-sliding-door" onClick="{{ goStorm }}"><span class="ms" aria-hidden="true">thunderstorm</span>Storm help</a>
@@ -897,20 +900,7 @@
             </sc-for>
           </div>
           <sc-if value="{{ sel.anyAbove }}"><p class="price-flag"><span class="ms" aria-hidden="true">info</span><span>Some of their prices are above what most Florida homeowners paid. {{ aboveHint }}</span></p></sc-if>
-          <sc-if value="{{ reportClosed }}" hint-placeholder-val="{{ true }}">
-            <button type="button" class="btn btn-ghost" onClick="{{ openReport }}" style="align-self: flex-start;">Hired them? Report what you paid →</button>
-          </sc-if>
-          <sc-if value="{{ reportFormOpen }}" hint-placeholder-val="{{ false }}">
-            <form class="card card-soft" onSubmit="{{ sendReport }}" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 14px;">
-              <h3 class="h4" style="grid-column: 1 / -1;">Report what you paid {{ sel.shortName }}</h3>
-              <label class="field">Repair<select class="input"><sc-for list="{{ sel.services }}" as="s" hint-placeholder-count="4"><option>{{ s }}</option></sc-for></select></label>
-              <label class="field">Quoted ($)<input class="input" inputMode="numeric"></label>
-              <label class="field">Final price paid ($)<input class="input" inputMode="numeric" required=""></label>
-              <label class="field">Month of the job<input class="input" type="month"></label>
-              <div class="row" style="grid-column: 1 / -1;"><button type="submit" class="btn btn-primary">Send price report</button><span class="tiny muted">Your name stays private.</span></div>
-            </form>
-          </sc-if>
-          <sc-if value="{{ reportSent }}" hint-placeholder-val="{{ false }}"><p class="notice notice-ok">Thanks. Your report goes live after we check it.</p></sc-if>
+          <a class="btn btn-secondary" href="/report" onClick="{{ reportThisPro }}" style="align-self: flex-start;"><span class="ms" aria-hidden="true">edit_note</span>Hired them? Report the job</a>
         </section>
 
         <section class="stack">
@@ -1114,6 +1104,88 @@
   </div>
 </sc-if>
 
+<!-- ================= REPORT A JOB ================= -->
+<sc-if value="{{ isReport }}" hint-placeholder-val="{{ false }}">
+  <div class="wrap page stack" style="gap: 28px; max-width: 760px;">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/" onClick="{{ goHome }}">Home</a><span aria-hidden="true">/</span><span aria-current="page">Report a job</span></nav>
+    <sc-if value="{{ jrOpen }}" hint-placeholder-val="{{ true }}">
+      <div class="stack-sm">
+        <h1 class="h1 h1-sm">Report a job you had done</h1>
+        <p class="lead">Tell us what was fixed and what you paid. It takes a minute, and it keeps prices fair for the next Florida homeowner.</p>
+      </div>
+      <form class="card stack" onSubmit="{{ jrSubmit }}" style="gap: 22px;">
+        <fieldset class="stack-sm" style="border: 0; padding: 0; margin: 0;">
+          <legend class="h4" style="margin-bottom: 8px;">1. What was fixed? <span class="tiny muted" style="font-weight: 500;">Pick all that apply</span></legend>
+          <div class="chips">
+            <sc-for list="{{ jrServiceChips }}" as="ch" hint-placeholder-count="7"><button type="button" class="{{ ch.cls }}" aria-pressed="{{ ch.on }}" onClick="{{ ch.toggle }}">{{ ch.label }}</button></sc-for>
+          </div>
+        </fieldset>
+
+        <div class="stack-sm">
+          <span class="h4">2. Who did the job?</span>
+          <div class="report-grid">
+            <label class="field">Company
+              <select class="input" value="{{ jrPro }}" onChange="{{ onJrPro }}">
+                <option value="">Choose a company…</option>
+                <sc-for list="{{ jrProOptions }}" as="o" hint-placeholder-count="10"><option value="{{ o.value }}">{{ o.label }}</option></sc-for>
+                <option value="other">Not listed here</option>
+              </select>
+            </label>
+            <sc-if value="{{ jrProIsOther }}"><label class="field">Company name<input class="input" value="{{ jrProOther }}" onChange="{{ onJrProOther }}" maxLength="120" placeholder="e.g. Sunshine Door Repair"></label></sc-if>
+            <label class="field">Your city or ZIP<input class="input" value="{{ jrWhere }}" onChange="{{ onJrWhere }}" maxLength="80" placeholder="e.g. Tampa or 33602" autoComplete="postal-code"></label>
+          </div>
+        </div>
+
+        <div class="stack-sm">
+          <span class="h4">3. What did it cost?</span>
+          <div class="report-grid">
+            <label class="field">Final price you paid
+              <span class="money-input"><span aria-hidden="true">$</span><input class="input" inputMode="numeric" required="" value="{{ jrPaid }}" onChange="{{ onJrPaid }}" placeholder="e.g. 240"></span>
+            </label>
+            <label class="field">First quote <span class="tiny muted" style="font-weight: 500;">(if different)</span>
+              <span class="money-input"><span aria-hidden="true">$</span><input class="input" inputMode="numeric" value="{{ jrQuoted }}" onChange="{{ onJrQuoted }}" placeholder="optional"></span>
+            </label>
+            <label class="field">When was the job?
+              <select class="input" value="{{ jrWhen }}" onChange="{{ onJrWhen }}">
+                <sc-for list="{{ jrWhenOptions }}" as="o" hint-placeholder-count="5"><option>{{ o }}</option></sc-for>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <fieldset class="stack-sm" style="border: 0; padding: 0; margin: 0;">
+          <legend class="h4" style="margin-bottom: 8px;">4. How did it go?</legend>
+          <div class="chips">
+            <sc-for list="{{ jrStars }}" as="st" hint-placeholder-count="5"><button type="button" class="{{ st.cls }}" aria-pressed="{{ st.on }}" onClick="{{ st.pick }}">{{ st.label }}</button></sc-for>
+          </div>
+          <label class="field" style="margin-top: 8px;">Anything else? <span class="tiny muted" style="font-weight: 500;">Door type, warranty, how they treated you</span><textarea class="input" value="{{ jrNotes }}" onChange="{{ onJrNotes }}" maxLength="2000" rows="4"></textarea></label>
+        </fieldset>
+
+        <label class="field">Email <span class="tiny muted" style="font-weight: 500;">(optional, only so we can check your report, never shown)</span><input class="input" type="email" value="{{ jrEmail }}" onChange="{{ onJrEmail }}" maxLength="160" autoComplete="email"></label>
+        <input class="hp" tabIndex="-1" autoComplete="off" aria-hidden="true" value="{{ jrHp }}" onChange="{{ onJrHp }}">
+
+        <sc-if value="{{ jrError }}"><p class="notice notice-warn" role="alert">{{ jrError }}</p></sc-if>
+        <div class="row" style="align-items: center;">
+          <button type="submit" class="btn btn-primary btn-phone-block" disabled="{{ jrSending }}">{{ jrButton }}</button>
+          <span class="tiny muted">Your name and email stay private. We check every report before it counts.</span>
+        </div>
+      </form>
+    </sc-if>
+    <sc-if value="{{ jrSent }}" hint-placeholder-val="{{ false }}">
+      <div class="card stack" style="gap: 16px;">
+        <span class="ms ms-fill" style="font-size: 44px; color: var(--color-ok);" aria-hidden="true">check_circle</span>
+        <h1 class="h2">Thanks, your report is in.</h1>
+        <p class="lead">We’ll check it, then it counts toward the fair prices homeowners see on FixMySlide.</p>
+        <sc-if value="{{ jrVerdict }}"><p class="notice notice-ok">{{ jrVerdict }}</p></sc-if>
+        <div class="row">
+          <button type="button" class="btn btn-secondary" onClick="{{ jrAnother }}">Report another job</button>
+          <a class="btn btn-ghost" href="/" onClick="{{ goHome }}">Back to FixMySlide</a>
+        </div>
+      </div>
+    </sc-if>
+  </div>
+</sc-if>
+
 <!-- ================= BLOG ================= -->
 <sc-if value="{{ isBlog }}" hint-placeholder-val="{{ false }}">
   <div class="wrap page stack" style="gap: 32px;">
@@ -1176,6 +1248,7 @@
           <p class="small muted">What most homeowners paid for {{ postPrice.label }}. Middle price {{ postPrice.median }}.</p>
           <a class="btn btn-primary btn-block" href="/pros" onClick="{{ goPostPros }}">See checked pros</a>
         </div>
+        <p class="small">Had this fixed already? <a href="/report" onClick="{{ goReport }}">Report what you paid</a> and help the next homeowner.</p>
         <p class="small">More on this problem: <a href="{{ postSym.href }}" onClick="{{ postSym.pick }}">{{ postSym.linkText }}</a>. Got a quote already? <a href="/cost#checker" onClick="{{ goPrices }}">See if it’s fair</a>.</p>
       </article>
     </div>
@@ -1209,6 +1282,7 @@
         <a class="small" href="/repair-or-replace" onClick="{{ goDecide }}">Repair or replace?</a>
         <a class="small" href="/pros" onClick="{{ goAll }}">Verified pros</a>
         <a class="small" href="/blog" onClick="{{ goBlog }}">Fix-it tips (blog)</a>
+        <a class="small" href="/report" onClick="{{ goReport }}">Report a job</a>
       </nav>
       <nav class="stack-sm" aria-label="Door problems">
         <strong style="color: #0F172A;">Door problems</strong>
@@ -1555,6 +1629,7 @@ function ROUTE_LIST() {
   r.push({ path: '/start', initial: { view: 'start', wizStep: 1 }, title: 'What’s Wrong With Your Sliding Door? Get a Fair Price | FixMySlide', description: 'Tap what your sliding door is doing and see the fair Florida repair price and checked pros who fix it, in under a minute.', noindex: true });
   r.push({ path: '/how-it-works', initial: { view: 'how' }, title: 'How FixMySlide Works | Fair Prices & Verified Sliding Door Pros in Florida', description: 'Describe your sliding door problem, see the fair Florida price, then call a verified, insured local pro. Free for homeowners, no lead fees for pros.' });
   r.push({ path: '/repair-or-replace', initial: { view: 'decide' }, title: 'Repair or Replace a Sliding Glass Door? Quick Florida Guide | FixMySlide', description: 'Answer four quick questions to see whether repairing or replacing your sliding glass door makes more sense, with Florida repair prices.' });
+  r.push({ path: '/report', initial: { view: 'report' }, title: 'Report a Sliding Door Repair Job: What Did You Pay? | FixMySlide', description: 'Had your sliding glass door fixed in Florida? Share what was repaired, who did it and what you paid. It takes a minute and keeps prices fair for everyone.' });
   if (POSTS.length) r.push({ path: '/blog', initial: { view: 'blog' }, title: 'Sliding Door Repair Blog | DIY Fixes, Costs & Florida Tips | FixMySlide', description: 'Plain-English sliding glass door help: how to clean tracks, spot worn rollers, stop leaks, fix locks and prep for hurricanes, plus when to call a pro.' });
   POSTS.forEach((p) => r.push({ path: postPath(p), initial: { view: 'post', post: p.slug }, title: p.title + ' | FixMySlide', description: p.description, jsonld: postJsonLd(p) }));
   r.push({ path: '/pros', initial: { view: 'results' }, title: 'Find a Sliding Glass Door Repair Pro in Florida | FixMySlide', description: 'Checked sliding glass door repair companies across Florida. Compare ratings, posted prices and what homeowners actually paid, then call direct.' });
@@ -1568,7 +1643,7 @@ function ROUTE_LIST() {
   return r;
 }
 
-const DEFAULTS = { savedPlan: null, planShared: null, savedWhere: '', geo: null, planQuote: '', view: 'home', symptom: null, post: null, findSym: null, showAll: false, picked: [], wizStep: 1, describe: '', query: '', service: 'All services', price: 'Any', emergency: false, verifiedOnly: false, sort: 'best', mode: 'list', selectedId: null, compare: [], report: 'closed', problem: 'closed', review: 'closed', listSent: false, plan: 'free', calcService: 'Rollers', calcSize: 'standard', calcType: 'standard', checkService: 'Rollers', checkAmount: '', dAge: '', dFrame: '', dGlass: '', dGoal: '' };
+const DEFAULTS = { savedPlan: null, planShared: null, savedWhere: '', geo: null, planQuote: '', view: 'home', symptom: null, post: null, jrServices: [], jrPro: '', jrProOther: '', jrWhere: '', jrPaid: '', jrQuoted: '', jrWhen: 'This month', jrRating: 0, jrNotes: '', jrEmail: '', jrHp: '', jrStatus: 'open', jrError: '', findSym: null, showAll: false, picked: [], wizStep: 1, describe: '', query: '', service: 'All services', price: 'Any', emergency: false, verifiedOnly: false, sort: 'best', mode: 'list', selectedId: null, compare: [], problem: 'closed', review: 'closed', listSent: false, plan: 'free', calcService: 'Rollers', calcSize: 'standard', calcType: 'standard', checkService: 'Rollers', checkAmount: '', dAge: '', dFrame: '', dGlass: '', dGoal: '' };
 
 // ---------------------------------------------------------------------------
 // Component
@@ -1630,6 +1705,7 @@ class Component extends DCLogic {
     if (s.view === 'decide') return '/repair-or-replace';
     if (s.view === 'how') return '/how-it-works';
     if (s.view === 'blog') return '/blog';
+    if (s.view === 'report') return '/report';
     if (s.view === 'post') { const p = POSTS.find((x) => x.slug === s.post); return p ? postPath(p) : '/blog'; }
     if (s.view === 'start') return '/start';
     const city = CITIES.find(([name]) => name.toLowerCase() === (s.query || '').trim().toLowerCase());
@@ -1696,7 +1772,24 @@ class Component extends DCLogic {
   togglePick(id) {
     this.setState((s) => ({ picked: s.picked.includes(id) ? s.picked.filter((x) => x !== id) : [...s.picked, id] }));
   }
-  openProfile(id) { this.go('profile', { selectedId: id, report: 'closed', problem: 'closed', review: 'closed' }); }
+  // "Report a job": sends to /api/report (api/report.js), which passes it on.
+  sendJob() {
+    const s = this.state;
+    const paid = Number(String(s.jrPaid).replace(/[^\d.]/g, ''));
+    if (!s.jrServices.length) return this.setState({ jrError: 'Pick what was fixed (step 1).' });
+    if (!(paid > 0)) return this.setState({ jrError: 'Enter the final price you paid (step 3).' });
+    const pro = COMPANIES.find((c) => String(c.id) === s.jrPro);
+    const body = {
+      repairs: s.jrServices.map((k) => SERVICE_INFO[k].label), pro: pro ? pro.name : s.jrPro === 'other' ? s.jrProOther : '',
+      listedPro: !!pro, where: s.jrWhere, paid, quoted: Number(String(s.jrQuoted).replace(/[^\d.]/g, '')) || null,
+      when: s.jrWhen, rating: s.jrRating || null, notes: s.jrNotes, email: s.jrEmail, website: s.jrHp, page: location.pathname
+    };
+    this.setState({ jrStatus: 'sending', jrError: '' });
+    fetch('/api/report', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
+      .then((r) => { if (!r.ok) throw new Error(String(r.status)); this.setState({ jrStatus: 'sent' }); if (s.jrWhere.trim()) { try { localStorage.setItem('fms-where', s.jrWhere.trim()); } catch (e) { /* storage blocked */ } } window.scrollTo({ top: 0, behavior: 'instant' }); })
+      .catch(() => this.setState({ jrStatus: 'open', jrError: 'Sorry, that didn’t go through. Check your connection and try again.' }));
+  }
+  openProfile(id) { this.go('profile', { selectedId: id, problem: 'closed', review: 'closed' }); }
   pickSymptom(id) { this.go('guide', { symptom: id }); }
   toggleCompare(id) {
     this.setState((s) => ({ compare: s.compare.includes(id) ? s.compare.filter((x) => x !== id) : (s.compare.length < 3 ? [...s.compare, id] : s.compare) }));
@@ -1978,6 +2071,35 @@ class Component extends DCLogic {
       navPrices: s.view === 'prices' ? 'page' : null,
       navHow: s.view === 'how' ? 'page' : null,
       navBlog: s.view === 'blog' || s.view === 'post' ? 'page' : null,
+      navReport: s.view === 'report' ? 'page' : null,
+      isReport: s.view === 'report',
+      goReport: nav(() => this.go('report', { jrStatus: 'open', jrError: '', jrWhere: s.jrWhere || s.savedWhere })),
+      reportThisPro: nav(() => { const c = COMPANIES.find((x) => x.id === s.selectedId); this.go('report', { jrStatus: 'open', jrError: '', jrPro: c ? String(c.id) : '', jrWhere: s.jrWhere || s.savedWhere }); }),
+      ...(() => {
+        const paid = Number(String(s.jrPaid).replace(/[^\d.]/g, ''));
+        const one = s.jrServices.length === 1 ? s.jrServices[0] : null;
+        const fair = one && PRICE_NUM[one];
+        return {
+          jrOpen: s.jrStatus !== 'sent', jrSent: s.jrStatus === 'sent', jrSending: s.jrStatus === 'sending',
+          jrButton: s.jrStatus === 'sending' ? 'Sending…' : 'Send my report',
+          jrError: s.jrError,
+          jrServiceChips: SERVICES.map((k) => { const on = s.jrServices.includes(k); return { label: SERVICE_INFO[k].label, on, cls: on ? 'chip chip-on' : 'chip', toggle: () => this.setState((st) => ({ jrServices: st.jrServices.includes(k) ? st.jrServices.filter((x) => x !== k) : [...st.jrServices, k], jrError: '' })) }; }),
+          jrProOptions: [...COMPANIES].sort((a, b) => a.name.localeCompare(b.name)).map((c) => ({ value: String(c.id), label: `${c.name} (${c.city})` })),
+          jrPro: s.jrPro, jrProIsOther: s.jrPro === 'other', jrProOther: s.jrProOther, jrWhere: s.jrWhere, jrPaid: s.jrPaid, jrQuoted: s.jrQuoted, jrWhen: s.jrWhen, jrNotes: s.jrNotes, jrEmail: s.jrEmail, jrHp: s.jrHp,
+          jrWhenOptions: ['This month', 'Last month', '2–3 months ago', '4–6 months ago', 'Over 6 months ago'],
+          jrStars: [5, 4, 3, 2, 1].map((n) => ({ label: '★'.repeat(n) + (n === 5 ? ' Great' : n === 4 ? ' Good' : n === 3 ? ' Okay' : n === 2 ? ' Poor' : ' Bad'), on: s.jrRating === n, cls: s.jrRating === n ? 'chip chip-on' : 'chip', pick: () => set({ jrRating: s.jrRating === n ? 0 : n }) })),
+          onJrPro: (e) => set({ jrPro: e.target.value }), onJrProOther: (e) => set({ jrProOther: e.target.value }), onJrWhere: (e) => set({ jrWhere: e.target.value }),
+          onJrPaid: (e) => set({ jrPaid: e.target.value, jrError: '' }), onJrQuoted: (e) => set({ jrQuoted: e.target.value }), onJrWhen: (e) => set({ jrWhen: e.target.value }),
+          onJrNotes: (e) => set({ jrNotes: e.target.value }), onJrEmail: (e) => set({ jrEmail: e.target.value }), onJrHp: (e) => set({ jrHp: e.target.value }),
+          jrSubmit: (e) => { e.preventDefault(); this.sendJob(); },
+          jrAnother: () => { set({ jrStatus: 'open', jrServices: [], jrPro: '', jrProOther: '', jrPaid: '', jrQuoted: '', jrWhen: 'This month', jrRating: 0, jrNotes: '' }); window.scrollTo({ top: 0, behavior: 'instant' }); },
+          // One repair: how the price compares with what other Florida homeowners paid.
+          jrVerdict: !fair || !(paid > 0) ? ''
+            : paid > fair.p90 * 1.05 ? `You paid ${money(paid)}, more than most Florida homeowners pay for ${SERVICE_INFO[one].lower} (usually ${PRICE_STATS[one].range}). Bigger, impact or high-rise doors often cost more.`
+            : paid < fair.p10 * 0.95 ? `You paid ${money(paid)}, less than most Florida homeowners pay for ${SERVICE_INFO[one].lower} (usually ${PRICE_STATS[one].range}). Nice.`
+            : `You paid ${money(paid)}, right in the usual Florida range for ${SERVICE_INFO[one].lower} (${PRICE_STATS[one].range}).`
+        };
+      })(),
       isBlog: s.view === 'blog', isPost: s.view === 'post',
       goBlog: nav(() => this.go('blog')),
       ...(() => {
@@ -2223,9 +2345,6 @@ class Component extends DCLogic {
       reviewClosed: s.review === 'closed', reviewOpen: s.review === 'open', reviewSent: s.review === 'sent',
       openReview: () => set({ review: 'open' }),
       sendReview: (e) => { e.preventDefault(); set({ review: 'sent' }); },
-      reportClosed: s.report === 'closed', reportFormOpen: s.report === 'open', reportSent: s.report === 'sent',
-      openReport: () => set({ report: 'open' }),
-      sendReport: (e) => { e.preventDefault(); set({ report: 'sent' }); },
 
       compareEmpty: n === 0, compareHas: n > 0,
       compareList: cmp, compareRows,

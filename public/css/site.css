@@ -588,3 +588,11 @@ textarea.input { min-height: 120px; resize: vertical; }
 .post-card h2 a::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
 .post-card:hover h2 a { color: var(--color-accent); }
 .post-body > p:not(.lead):not(.tiny):not(.small) { font-size: 17px; line-height: 1.7; }
+
+/* Report a job */
+.report-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.nav-report-phone { margin-left: auto; min-height: 38px; padding: 0 12px; font-size: 13px; }
+@media (min-width: 900px) { .nav-report-phone { display: none !important; } }
+@media (max-width: 899px) { .topbar-in { gap: 10px; } }
+@media (max-width: 359px) { .brand { font-size: 19px; } .brand .ms { font-size: 26px; } .nav-report-phone { padding: 0 10px; } }

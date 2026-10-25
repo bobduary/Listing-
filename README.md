@@ -62,4 +62,6 @@ npm run preview   # serves dist/ locally
 
 ## Status
 
-The 14 companies in `data/companies.csv` (marked `sample`), their reviews and price reports are demo data. Replace them with real companies before launch. The forms (list your business, price report, review, report a problem) only show a confirmation and don't send anything yet.
+The 14 companies in `data/companies.csv` (marked `sample`), their reviews and price reports are demo data. Replace them with real companies before launch. **Report a job (`/report`):** the "Report a job" button (header, menu, footer, pro pages, blog posts) opens a one-page form: what was fixed, who did it, city, price paid and quoted, when, a star rating and notes. It posts to `api/report.js`, a Vercel function that checks the fields and forwards each report as JSON to the webhook in the `REPORT_WEBHOOK_URL` environment variable (for example a Make or Zapier webhook that adds a row to a Google Sheet or emails you). Every report is also written to the Vercel function log. Approved reports go into `data/price_reports.csv` to feed the fair prices.
+
+The other forms (list your business, review, report a problem) only show a confirmation and don't send anything yet.
