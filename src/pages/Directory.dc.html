@@ -12,11 +12,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&icon_names=add,add_a_photo,analytics,arrow_back,arrow_forward,back_hand,badge,balance,bar_chart,build,call,chat,check,check_circle,chevron_left,chevron_right,close,door_sliding,edit,edit_document,edit_note,expand_more,format_quote,gpp_good,grid_on,help,history,info,ios_share,lightbulb,linear_scale,location_on,lock_open,menu,near_me,payments,request_quote,search,sell,shield,shield_with_heart,star,storefront,swap_horiz,thunderstorm,verified,verified_user,volume_up,warning,water_drop,window&display=block">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&icon_names=add,add_a_photo,analytics,arrow_back,arrow_forward,back_hand,badge,balance,bar_chart,build,call,chat,check,check_circle,chevron_left,chevron_right,close,door_sliding,edit,edit_document,edit_note,expand_more,favorite,format_quote,gpp_good,grid_on,help,history,info,ios_share,lightbulb,linear_scale,location_on,lock_open,menu,near_me,payments,request_quote,search,sell,shield,shield_with_heart,star,storefront,swap_horiz,thunderstorm,verified,verified_user,volume_up,warning,water_drop,window&display=block">
 <link rel="stylesheet" href="/css/site.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@500;700;800;900&display=swap">
+<link rel="stylesheet" href="/css/fresh.css">
 </helmet>
 
-<div class="app">
+<div class="{{ appCls }}">
 
 <header class="topbar">
   <div class="wrap topbar-in">
@@ -52,51 +54,98 @@
 <!-- ================= HOME ================= -->
 <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
 
-  <header class="hero-photo hero-pick">
-    <div class="bg" style="background-image: url({{ img.hero }});" aria-hidden="true"></div>
-    <div class="tint" aria-hidden="true"></div>
-    <div class="wrap hero-pick-in">
-      <div class="stack" style="gap: 24px;">
-        <h1 class="h1"><span class="h1-kicker">Sliding Glass Door Repair in Florida</span> Know the fair price. Call the right pro.</h1>
-        <p class="lead">FixMySlide is a free guide to sliding glass door repair in Florida. See the fair repair cost so you never overpay, then call checked pros near you for rollers, tracks, locks, glass and screens.</p>
-        <ul class="hero-ticks">
-          <li><span class="ms" aria-hidden="true">check_circle</span>Fair Florida prices for every repair</li>
-          <li><span class="ms" aria-hidden="true">check_circle</span>Every verified pro checked by our team</li>
-          <li><span class="ms" aria-hidden="true">check_circle</span>Free, no sign-up</li>
+  <header class="fx-hero">
+    <div class="wrap fx-hero-in">
+      <div class="fx-hero-copy">
+        <span class="fx-pill fx-pill-soft"><span class="ms" aria-hidden="true">location_on</span>Sliding door repair across Florida</span>
+        <h1 class="fx-h1">Door stuck? Let’s get it <span class="fx-mark">gliding</span> again.</h1>
+        <p class="fx-lead">See the fair price for your repair, then call a checked pro near you. Free, no sign-up, no spam.</p>
+        <div class="fx-cta-row">
+          <button type="button" class="fx-btn fx-btn-go" onClick="{{ findNearMe }}" disabled="{{ geoBusy }}"><span class="ms" aria-hidden="true">near_me</span>{{ nearMeBtn }}</button>
+          <a class="fx-btn fx-btn-line" href="/#problems" onClick="{{ goProblems }}">What’s wrong with my door?</a>
+        </div>
+        <sc-if value="{{ geoMsg }}"><p class="small notice notice-warn" role="status" style="max-width: 460px;">{{ geoMsg }}</p></sc-if>
+        <ul class="fx-ticks">
+          <li><span class="ms ms-fill" aria-hidden="true">sell</span>Fair Florida prices</li>
+          <li><span class="ms ms-fill" aria-hidden="true">verified</span>Pros checked by our team</li>
+          <li><span class="ms ms-fill" aria-hidden="true">favorite</span>Free for homeowners</li>
         </ul>
-        <div class="stack-sm" style="gap: 8px;">
-          <button type="button" class="btn btn-near btn-phone-block" onClick="{{ findNearMe }}" disabled="{{ geoBusy }}"><span class="ms" aria-hidden="true">near_me</span>{{ nearMeBtn }}</button>
-          <sc-if value="{{ geoMsg }}"><p class="small notice notice-warn" role="status" style="max-width: 460px;">{{ geoMsg }}</p></sc-if>
-        </div>
       </div>
-      <div class="pick-panel" id="problems">
-        <sc-if value="{{ hasSavedPlan }}" hint-placeholder-val="{{ false }}">
-          <button type="button" class="resume" onClick="{{ openSavedPlan }}">
-            <span class="ms" aria-hidden="true">history</span>
-            <span class="stack-sm" style="gap: 0; min-width: 0;"><strong class="small">Pick up your repair plan</strong><span class="tiny muted">{{ savedPlanText }}</span></span>
-            <span class="ms" aria-hidden="true">arrow_forward</span>
-          </button>
-        </sc-if>
-        <div class="stack-sm" style="gap: 4px;">
-          <span class="eyebrow">Step 1 of 3</span>
-          <h2 class="h3">What’s your door doing?</h2>
-          <p class="small muted">Tap all that apply.</p>
+      <div class="fx-stage" aria-hidden="true">
+        <svg class="fx-art" viewBox="0 0 440 440" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="318" cy="104" r="74" fill="#FFC93C"></circle>
+          <circle cx="318" cy="104" r="98" fill="none" stroke="#FFC93C" stroke-width="6" stroke-dasharray="4 18" stroke-linecap="round"></circle>
+          <path d="M0 360 Q 55 340 110 360 T 220 360 T 330 360 T 440 360 V440 H0 Z" fill="#BDEBFF"></path>
+          <path d="M0 384 Q 55 366 110 384 T 220 384 T 330 384 T 440 384 V440 H0 Z" fill="#8FD8FF"></path>
+          <rect x="34" y="118" width="250" height="262" rx="20" fill="#0E2236"></rect>
+          <rect x="52" y="136" width="108" height="226" rx="10" fill="#D7F3FF"></rect>
+          <rect x="142" y="136" width="124" height="226" rx="10" fill="#A8E3FF"></rect>
+          <rect x="142" y="136" width="124" height="226" rx="10" fill="none" stroke="#0E2236" stroke-width="5"></rect>
+          <path d="M70 180 L120 150 M70 210 L140 168" stroke="#fff" stroke-width="8" stroke-linecap="round" opacity="0.8"></path>
+          <path d="M168 200 L230 164" stroke="#fff" stroke-width="8" stroke-linecap="round" opacity="0.7"></path>
+          <rect x="150" y="236" width="10" height="44" rx="5" fill="#FF8A1F"></rect>
+          <rect x="24" y="372" width="270" height="14" rx="7" fill="#0E2236"></rect>
+          <circle cx="182" cy="379" r="5" fill="#FFC93C"></circle><circle cx="236" cy="379" r="5" fill="#FFC93C"></circle>
+          <path d="M392 380 C 384 300 378 240 352 178" stroke="#7A4A1E" stroke-width="12" fill="none" stroke-linecap="round"></path>
+          <path d="M352 178 C 320 150 286 156 262 176 C 296 168 322 172 352 178 Z" fill="#14B866"></path>
+          <path d="M352 178 C 352 140 330 116 300 108 C 326 132 340 152 352 178 Z" fill="#0B8F50"></path>
+          <path d="M352 178 C 378 146 410 142 436 156 C 404 160 380 166 352 178 Z" fill="#14B866"></path>
+          <path d="M352 178 C 384 172 412 188 428 214 C 400 196 378 188 352 178 Z" fill="#0B8F50"></path>
+          <path d="M352 178 C 334 190 322 212 320 238 C 332 214 342 198 352 178 Z" fill="#14B866"></path>
+          <path d="M60 70 l6 14 14 6 -14 6 -6 14 -6 -14 -14 -6 14 -6 Z" fill="#FF4FA0"></path>
+          <path d="M210 40 l4 9 9 4 -9 4 -4 9 -4 -9 -9 -4 9 -4 Z" fill="#7C5CFF"></path>
+        </svg>
+        <div class="fx-phone">
+          <div class="fx-notch"></div>
+          <div class="fx-screen">
+            <div class="fx-app-search"><span class="ms" aria-hidden="true">near_me</span>Pros near {{ mock.city }}</div>
+            <div class="fx-app-pills">
+              <sc-for list="{{ mock.pills }}" as="mp" hint-placeholder-count="4"><span class="fx-route-pill" style="--c: {{ mp.color }}; --ink: {{ mp.ink }};"><span class="ms" aria-hidden="true">{{ mp.ms }}</span>{{ mp.short }}</span></sc-for>
+            </div>
+            <div class="fx-app-price"><span>Fair price · rollers</span><strong>{{ mock.price }}</strong></div>
+            <sc-for list="{{ mock.pros }}" as="mpro" hint-placeholder-count="2">
+              <div class="fx-app-pro">
+                <span class="fx-app-av" style="background: {{ mpro.bg }};">{{ mpro.initials }}</span>
+                <span class="fx-app-pro-t"><b>{{ mpro.name }}</b><small>★ {{ mpro.rating }} · {{ mpro.reviews }} reviews</small></span>
+                <span class="fx-app-call"><span class="ms ms-fill" aria-hidden="true">call</span></span>
+              </div>
+            </sc-for>
+          </div>
         </div>
-        <div class="pick-grid">
-          <sc-for list="{{ pickCards }}" as="p" hint-placeholder-count="8">
-            <button type="button" class="{{ p.cls }}" aria-pressed="{{ p.on }}" onClick="{{ p.toggle }}">
-              <span class="ms pick-ic" aria-hidden="true">{{ p.ms }}</span>
-              <span class="pick-t">{{ p.title }}</span>
-              <span class="pick-s">{{ p.sub }}</span>
-              <span class="ms pick-check" aria-hidden="true">check</span>
-            </button>
-          </sc-for>
-        </div>
-        <button type="button" class="btn btn-primary btn-block" disabled="{{ noPicks }}" onClick="{{ homeNext }}">{{ pickCta }}<span class="ms" aria-hidden="true">arrow_forward</span></button>
-        <a class="small" href="/start" onClick="{{ goDescribe }}" style="text-align: center; font-weight: 600;">Not sure? Describe it in your own words</a>
       </div>
     </div>
   </header>
+
+  <section class="fx-pick-sec" id="problems">
+    <div class="wrap stack" style="gap: 24px;">
+      <sc-if value="{{ hasSavedPlan }}" hint-placeholder-val="{{ false }}">
+        <button type="button" class="resume fx-resume" onClick="{{ openSavedPlan }}">
+          <span class="ms" aria-hidden="true">history</span>
+          <span class="stack-sm" style="gap: 0; min-width: 0;"><strong class="small">Pick up your repair plan</strong><span class="tiny muted">{{ savedPlanText }}</span></span>
+          <span class="ms" aria-hidden="true">arrow_forward</span>
+        </button>
+      </sc-if>
+      <div class="fx-sec-head">
+        <span class="fx-pill fx-pill-dark">Step 1 of 3</span>
+        <h2 class="fx-h2">What’s your door doing?</h2>
+        <p class="fx-sub">Tap everything that sounds familiar. We’ll tell you the likely fix and the fair price.</p>
+      </div>
+      <div class="fx-pick-grid">
+        <sc-for list="{{ pickCards }}" as="p" hint-placeholder-count="8">
+          <button type="button" class="{{ p.fxCls }}" style="--c: {{ p.color }}; --ink: {{ p.ink }};" aria-pressed="{{ p.on }}" onClick="{{ p.toggle }}">
+            <span class="fx-route"><span class="ms" aria-hidden="true">{{ p.ms }}</span></span>
+            <span class="fx-pick-t">{{ p.title }}</span>
+            <span class="fx-pick-s">{{ p.sub }}</span>
+            <span class="ms fx-pick-check" aria-hidden="true">check</span>
+          </button>
+        </sc-for>
+      </div>
+      <div class="fx-pick-bar">
+        <button type="button" class="fx-btn fx-btn-go" disabled="{{ noPicks }}" onClick="{{ homeNext }}">{{ pickCta }}<span class="ms" aria-hidden="true">arrow_forward</span></button>
+        <a href="/start" onClick="{{ goDescribe }}">Not sure? Describe it in your own words</a>
+      </div>
+    </div>
+  </section>
 
   <sc-if value="{{ hasNearMe }}" hint-placeholder-val="{{ false }}">
     <section class="section near-me" id="near-me">
@@ -145,25 +194,38 @@
     </section>
   </sc-if>
 
-  <section class="section" id="trust">
-    <div class="wrap">
-      <div class="section-head">
-        <div class="stack-sm">
-          <span class="eyebrow">Why homeowners trust us</span>
-          <h2 class="h2">We’re on your side, not the repair company’s.</h2>
-        </div>
-        <p class="muted" style="max-width: 460px;">We show what we checked about each company and when, so you can pay a fair price and hire a pro you can trust.</p>
+  <section class="fx-sec" id="trust">
+    <div class="wrap stack" style="gap: 32px;">
+      <div class="fx-sec-head">
+        <span class="fx-pill fx-pill-dark">How it works</span>
+        <h2 class="fx-h2">Three taps to a fixed door.</h2>
       </div>
-      <div class="trust-grid">
+      <div class="fx-steps">
+        <article class="fx-card fx-card-yellow">
+          <svg class="fx-ill" viewBox="0 0 160 120" aria-hidden="true"><rect x="20" y="14" width="76" height="96" rx="10" fill="#0E2236"></rect><rect x="30" y="24" width="56" height="76" rx="6" fill="#FFF3C4"></rect><rect x="58" y="24" width="28" height="76" rx="4" fill="#FFE07A"></rect><circle cx="118" cy="38" r="26" fill="#fff"></circle><path d="M110 30 q8 -10 16 0 q2 8 -8 12 v6" stroke="#0E2236" stroke-width="6" fill="none" stroke-linecap="round"></path><circle cx="118" cy="56" r="4" fill="#0E2236"></circle></svg>
+          <h3 class="fx-h3">1. Tap what’s wrong</h3>
+          <p>Sticking, grinding, leaking, won’t lock? We explain the likely cause in plain English.</p>
+        </article>
+        <article class="fx-card fx-card-pink">
+          <svg class="fx-ill" viewBox="0 0 160 120" aria-hidden="true"><path d="M30 30 h62 l40 40 -44 44 -58 -58 Z" fill="#0E2236"></path><path d="M38 38 h50 l34 34 -34 34 -50 -50 Z" fill="#FFD3E8"></path><circle cx="58" cy="56" r="8" fill="#0E2236"></circle><text x="82" y="90" font-family="Rubik, sans-serif" font-weight="900" font-size="26" fill="#0E2236">$</text></svg>
+          <h3 class="fx-h3">2. See the fair price</h3>
+          <p>Know what the repair should cost in Florida before anyone quotes you.</p>
+        </article>
+        <article class="fx-card fx-card-blue">
+          <svg class="fx-ill" viewBox="0 0 160 120" aria-hidden="true"><rect x="46" y="6" width="64" height="110" rx="14" fill="#0E2236"></rect><rect x="53" y="18" width="50" height="84" rx="6" fill="#DCEBFF"></rect><circle cx="78" cy="60" r="18" fill="#14B866"></circle><path d="M70 54 q2 -4 5 -1 l3 3 q2 2 -1 4 q3 6 8 8 q2 -3 4 -1 l3 3 q3 3 -1 5 q-14 3 -21 -21 Z" fill="#fff"></path><path d="M124 40 q10 10 0 22 M132 32 q18 18 0 38" stroke="#2D7FF9" stroke-width="5" fill="none" stroke-linecap="round"></path></svg>
+          <h3 class="fx-h3">3. Call a checked pro</h3>
+          <p>Call or text local pros directly. No middleman, no lead forms.</p>
+        </article>
+      </div>
+      <div class="fx-trust">
         <sc-for list="{{ trustPoints }}" as="t" hint-placeholder-count="4">
-          <article class="trust-card">
-            <span class="trust-ic" aria-hidden="true"><span class="ms">{{ t.ms }}</span></span>
-            <h3 class="h4">{{ t.title }}</h3>
-            <p class="small muted">{{ t.text }}</p>
+          <article class="fx-trust-item">
+            <span class="fx-trust-ic" aria-hidden="true"><span class="ms ms-fill">{{ t.ms }}</span></span>
+            <div class="stack-sm" style="gap: 4px;"><h3 class="h4">{{ t.title }}</h3><p class="small muted">{{ t.text }}</p></div>
           </article>
         </sc-for>
       </div>
-      <a class="btn btn-ghost" href="/how-it-works" onClick="{{ goHow }}" style="margin-top: 20px; padding-left: 0;">See exactly how we check pros<span class="ms" aria-hidden="true">arrow_forward</span></a>
+      <a class="fx-link" href="/how-we-rank" onClick="{{ goRank }}">How we rank pros<span class="ms" aria-hidden="true">arrow_forward</span></a>
     </div>
   </section>
 
@@ -1700,6 +1762,9 @@ const PICK = {
   'screen': { ms: 'grid_on', words: ['screen', 'mesh', 'bug', 'pet', 'torn', 'rip', 'hole'] },
   'storm': { ms: 'thunderstorm', words: ['storm', 'hurricane', 'tree', 'emergency', 'bent', 'smash', 'break-in', 'broke in', 'urgent'] }
 };
+// Route-style colors for each problem (fresh home design): fill and text color.
+const PICK_COLORS = { 'hard-to-slide': ['#FF8A1F', '#0E2236'], 'noisy': ['#7C5CFF', '#FFFFFF'], 'off-track': ['#2D7FF9', '#FFFFFF'], 'wont-lock': ['#FF4FA0', '#0E2236'], 'leaking': ['#0FB5D6', '#0E2236'], 'glass': ['#FFC93C', '#0E2236'], 'screen': ['#7ACC29', '#0E2236'], 'storm': ['#F0443A', '#FFFFFF'] };
+const SHORT = { 'hard-to-slide': 'Sticks', 'noisy': 'Grinds', 'off-track': 'Off track', 'wont-lock': 'Won’t lock', 'leaking': 'Leaks', 'glass': 'Glass', 'screen': 'Screen', 'storm': 'Storm' };
 const PICK_RE = Object.fromEntries(Object.entries(PICK).map(([id, p]) => [id, p.words.map((w) => new RegExp('\\b' + w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i'))]));
 const guessProblems = (text) => (String(text || '').trim().length < 3 ? [] : SYMPTOMS.filter((x) => PICK_RE[x.id].some((re) => re.test(text))));
 const PARTS = [['Rollers', 'hard-to-slide'], ['Track', 'off-track'], ['Lock & handle', 'wont-lock'], ['Seals & drains', 'leaking'], ['Glass', 'glass']];
@@ -2356,13 +2421,21 @@ class Component extends DCLogic {
       seeAllForSymptom: nav(() => this.go('results', { service: sym.service, emergency: !!sym.emergency })),
 
       symptoms: SYMPTOMS.map(symVals),
+      appCls: s.view === 'home' ? 'app theme-fresh' : 'app',
+      // The phone in the home hero: a picture of the app, from real data.
+      mock: {
+        city: s.hereCity || s.savedWhere || 'Orlando',
+        price: PRICE_STATS['Rollers'].range,
+        pills: ['hard-to-slide', 'noisy', 'leaking', 'wont-lock'].map((id) => ({ short: SHORT[id], ms: PICK[id].ms, color: PICK_COLORS[id][0], ink: PICK_COLORS[id][1] })),
+        pros: [...COMPANIES].sort((a, b) => best(b) - best(a)).slice(0, 2).map((c) => ({ name: c.name, rating: c.rating != null ? c.rating.toFixed(1) : 'New', reviews: c.reviews, initials: c.name.split(' ').slice(0, 2).map((w) => w[0]).join(''), bg: AVATAR_COLORS[c.id % AVATAR_COLORS.length] }))
+      },
       isStart: s.view === 'start',
       footerCls: s.view === 'start' ? 'footer footer-slim' : 'footer',
       goStart: nav(() => this.go('start', { wizStep: 1 })),
       goDescribe: nav(() => { this.go('start', { wizStep: 1 }); setTimeout(() => { const el = document.getElementById('describe-box'); if (el) el.focus(); }, 80); }),
       pickCards: SYMPTOMS.map((x) => {
         const on = s.picked.includes(x.id);
-        return { id: x.id, title: x.title, sub: x.sub, ms: PICK[x.id].ms, on, cls: 'pick' + (x.emergency ? ' pick-warn' : '') + (on ? ' pick-on' : ''), toggle: () => this.togglePick(x.id) };
+        return { id: x.id, title: x.title, sub: x.sub, ms: PICK[x.id].ms, on, cls: 'pick' + (x.emergency ? ' pick-warn' : '') + (on ? ' pick-on' : ''), fxCls: 'fx-pick' + (on ? ' fx-pick-on' : ''), color: PICK_COLORS[x.id][0], ink: PICK_COLORS[x.id][1], toggle: () => this.togglePick(x.id) };
       }),
       noPicks: picked.length === 0,
       pickCta: picked.length === 0 ? 'Pick at least one' : `Continue with ${pickedWord}`,
