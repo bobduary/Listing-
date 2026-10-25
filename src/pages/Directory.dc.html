@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&icon_names=add,analytics,arrow_back,arrow_forward,back_hand,balance,bar_chart,build,call,chat,check,check_circle,chevron_left,chevron_right,door_sliding,edit,edit_document,edit_note,expand_more,format_quote,gpp_good,grid_on,help,history,info,ios_share,lightbulb,linear_scale,location_on,lock_open,menu,near_me,payments,request_quote,search,sell,shield,shield_with_heart,star,storefront,swap_horiz,thunderstorm,verified,verified_user,volume_up,warning,water_drop,window&display=block">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&icon_names=add,add_a_photo,analytics,arrow_back,arrow_forward,back_hand,balance,bar_chart,build,call,chat,check,check_circle,chevron_left,chevron_right,close,door_sliding,edit,edit_document,edit_note,expand_more,format_quote,gpp_good,grid_on,help,history,info,ios_share,lightbulb,linear_scale,location_on,lock_open,menu,near_me,payments,request_quote,search,sell,shield,shield_with_heart,star,storefront,swap_horiz,thunderstorm,verified,verified_user,volume_up,warning,water_drop,window&display=block">
 <link rel="stylesheet" href="/css/site.css">
 </helmet>
 
@@ -1111,63 +1111,70 @@
     <sc-if value="{{ jrOpen }}" hint-placeholder-val="{{ true }}">
       <div class="stack-sm">
         <h1 class="h1 h1-sm">Report a job you had done</h1>
-        <p class="lead">Tell us what was fixed and what you paid. It takes a minute, and it keeps prices fair for the next Florida homeowner.</p>
+        <p class="lead">Tell us who fixed your door, what they did and what you paid. Add a photo as proof. It takes a minute and keeps prices honest for the next Florida homeowner.</p>
       </div>
-      <form class="card stack" onSubmit="{{ jrSubmit }}" style="gap: 22px;">
-        <fieldset class="stack-sm" style="border: 0; padding: 0; margin: 0;">
-          <legend class="h4" style="margin-bottom: 8px;">1. What was fixed? <span class="tiny muted" style="font-weight: 500;">Pick all that apply</span></legend>
+      <form class="card stack" onSubmit="{{ jrSubmit }}" style="gap: 26px;">
+        <div class="stack-sm">
+          <label class="field"><span class="h4">1. Who did the job?</span>
+            <input class="input" value="{{ jrProText }}" onChange="{{ onJrProText }}" maxLength="120" placeholder="Type the company name" autoComplete="off">
+          </label>
+          <sc-if value="{{ jrProPicked }}"><p class="small pro-picked"><span class="ms ms-fill" aria-hidden="true">verified</span>{{ jrProPicked }} <button type="button" class="link-btn" onClick="{{ jrProClear }}">Change</button></p></sc-if>
+          <sc-if value="{{ jrHasMatches }}">
+            <div class="chips" aria-label="Matching companies">
+              <sc-for list="{{ jrMatches }}" as="m" hint-placeholder-count="3"><button type="button" class="chip" onClick="{{ m.pick }}">{{ m.name }} <span class="tiny muted">· {{ m.city }}</span></button></sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ jrNoMatch }}"><p class="tiny muted">Not on FixMySlide yet? That’s fine, just keep typing their name.</p></sc-if>
+        </div>
+
+        <div class="stack-sm">
+          <label class="field"><span class="h4">2. What did they do for you?</span>
+            <textarea class="input" value="{{ jrNotes }}" onChange="{{ onJrNotes }}" maxLength="2000" rows="3" placeholder="e.g. Replaced both rollers and cleaned the track. Door slides easily now."></textarea>
+          </label>
+          <span class="tiny muted">Quick pick (optional):</span>
           <div class="chips">
             <sc-for list="{{ jrServiceChips }}" as="ch" hint-placeholder-count="7"><button type="button" class="{{ ch.cls }}" aria-pressed="{{ ch.on }}" onClick="{{ ch.toggle }}">{{ ch.label }}</button></sc-for>
           </div>
-        </fieldset>
-
-        <div class="stack-sm">
-          <span class="h4">2. Who did the job?</span>
-          <div class="report-grid">
-            <label class="field">Company
-              <select class="input" value="{{ jrPro }}" onChange="{{ onJrPro }}">
-                <option value="">Choose a company…</option>
-                <sc-for list="{{ jrProOptions }}" as="o" hint-placeholder-count="10"><option value="{{ o.value }}">{{ o.label }}</option></sc-for>
-                <option value="other">Not listed here</option>
-              </select>
-            </label>
-            <sc-if value="{{ jrProIsOther }}"><label class="field">Company name<input class="input" value="{{ jrProOther }}" onChange="{{ onJrProOther }}" maxLength="120" placeholder="e.g. Sunshine Door Repair"></label></sc-if>
-            <label class="field">Your city or ZIP<input class="input" value="{{ jrWhere }}" onChange="{{ onJrWhere }}" maxLength="80" placeholder="e.g. Tampa or 33602" autoComplete="postal-code"></label>
-          </div>
         </div>
 
         <div class="stack-sm">
-          <span class="h4">3. What did it cost?</span>
+          <span class="h4">3. What did you pay?</span>
           <div class="report-grid">
-            <label class="field">Final price you paid
+            <label class="field">Final price
               <span class="money-input"><span aria-hidden="true">$</span><input class="input" inputMode="numeric" required="" value="{{ jrPaid }}" onChange="{{ onJrPaid }}" placeholder="e.g. 240"></span>
             </label>
-            <label class="field">First quote <span class="tiny muted" style="font-weight: 500;">(if different)</span>
-              <span class="money-input"><span aria-hidden="true">$</span><input class="input" inputMode="numeric" value="{{ jrQuoted }}" onChange="{{ onJrQuoted }}" placeholder="optional"></span>
-            </label>
-            <label class="field">When was the job?
-              <select class="input" value="{{ jrWhen }}" onChange="{{ onJrWhen }}">
-                <sc-for list="{{ jrWhenOptions }}" as="o" hint-placeholder-count="5"><option>{{ o }}</option></sc-for>
-              </select>
-            </label>
+            <label class="field">Your city or ZIP<input class="input" value="{{ jrWhere }}" onChange="{{ onJrWhere }}" maxLength="80" placeholder="e.g. Tampa" autoComplete="postal-code"></label>
           </div>
         </div>
 
-        <fieldset class="stack-sm" style="border: 0; padding: 0; margin: 0;">
-          <legend class="h4" style="margin-bottom: 8px;">4. How did it go?</legend>
+        <div class="stack-sm">
+          <span class="h4">4. Add proof of the job</span>
+          <p class="small muted">A photo of the receipt or invoice, your texts with the company, their business card, or the finished door. Only our team sees it.</p>
+          <div class="proof-row">
+            <sc-for list="{{ jrPhotoList }}" as="ph" hint-placeholder-count="0">
+              <div class="proof-thumb"><sc-if value="{{ ph.isImage }}"><img src="{{ ph.src }}" alt="{{ ph.alt }}"></sc-if><sc-if value="{{ ph.isPdf }}"><span class="proof-pdf">PDF<br><span class="tiny">{{ ph.alt }}</span></span></sc-if><button type="button" class="proof-x" aria-label="Remove photo" onClick="{{ ph.remove }}"><span class="ms" aria-hidden="true">close</span></button></div>
+            </sc-for>
+            <sc-if value="{{ jrCanAddPhoto }}">
+              <label class="proof-add"><span class="ms" aria-hidden="true">add_a_photo</span><span>{{ jrAddText }}</span><input type="file" accept="image/*,application/pdf" onChange="{{ onJrPhotos }}" multiple=""></label>
+            </sc-if>
+          </div>
+          <sc-if value="{{ jrPhotoBusy }}"><p class="tiny muted">Getting your photo ready…</p></sc-if>
+        </div>
+
+        <div class="stack-sm">
+          <span class="h4">5. How did it go? <span class="tiny muted" style="font-weight: 500;">(optional)</span></span>
           <div class="chips">
             <sc-for list="{{ jrStars }}" as="st" hint-placeholder-count="5"><button type="button" class="{{ st.cls }}" aria-pressed="{{ st.on }}" onClick="{{ st.pick }}">{{ st.label }}</button></sc-for>
           </div>
-          <label class="field" style="margin-top: 8px;">Anything else? <span class="tiny muted" style="font-weight: 500;">Door type, warranty, how they treated you</span><textarea class="input" value="{{ jrNotes }}" onChange="{{ onJrNotes }}" maxLength="2000" rows="4"></textarea></label>
-        </fieldset>
+        </div>
 
-        <label class="field">Email <span class="tiny muted" style="font-weight: 500;">(optional, only so we can check your report, never shown)</span><input class="input" type="email" value="{{ jrEmail }}" onChange="{{ onJrEmail }}" maxLength="160" autoComplete="email"></label>
+        <label class="field">Email <span class="tiny muted" style="font-weight: 500;">(optional, only if we need to ask about your report)</span><input class="input" type="email" value="{{ jrEmail }}" onChange="{{ onJrEmail }}" maxLength="160" autoComplete="email"></label>
         <input class="hp" tabIndex="-1" autoComplete="off" aria-hidden="true" value="{{ jrHp }}" onChange="{{ onJrHp }}">
 
         <sc-if value="{{ jrError }}"><p class="notice notice-warn" role="alert">{{ jrError }}</p></sc-if>
         <div class="row" style="align-items: center;">
           <button type="submit" class="btn btn-primary btn-phone-block" disabled="{{ jrSending }}">{{ jrButton }}</button>
-          <span class="tiny muted">Your name and email stay private. We check every report before it counts.</span>
+          <span class="tiny muted">Your name, email and photos stay private. We check every report before it counts.</span>
         </div>
       </form>
     </sc-if>
@@ -1643,7 +1650,7 @@ function ROUTE_LIST() {
   return r;
 }
 
-const DEFAULTS = { savedPlan: null, planShared: null, savedWhere: '', geo: null, planQuote: '', view: 'home', symptom: null, post: null, jrServices: [], jrPro: '', jrProOther: '', jrWhere: '', jrPaid: '', jrQuoted: '', jrWhen: 'This month', jrRating: 0, jrNotes: '', jrEmail: '', jrHp: '', jrStatus: 'open', jrError: '', findSym: null, showAll: false, picked: [], wizStep: 1, describe: '', query: '', service: 'All services', price: 'Any', emergency: false, verifiedOnly: false, sort: 'best', mode: 'list', selectedId: null, compare: [], problem: 'closed', review: 'closed', listSent: false, plan: 'free', calcService: 'Rollers', calcSize: 'standard', calcType: 'standard', checkService: 'Rollers', checkAmount: '', dAge: '', dFrame: '', dGlass: '', dGoal: '' };
+const DEFAULTS = { savedPlan: null, planShared: null, savedWhere: '', geo: null, planQuote: '', view: 'home', symptom: null, post: null, jrServices: [], jrProText: '', jrProId: '', jrWhere: '', jrPaid: '', jrPhotos: [], jrPhotoBusy: false, jrRating: 0, jrNotes: '', jrEmail: '', jrHp: '', jrStatus: 'open', jrError: '', findSym: null, showAll: false, picked: [], wizStep: 1, describe: '', query: '', service: 'All services', price: 'Any', emergency: false, verifiedOnly: false, sort: 'best', mode: 'list', selectedId: null, compare: [], problem: 'closed', review: 'closed', listSent: false, plan: 'free', calcService: 'Rollers', calcSize: 'standard', calcType: 'standard', checkService: 'Rollers', checkAmount: '', dAge: '', dFrame: '', dGlass: '', dGoal: '' };
 
 // ---------------------------------------------------------------------------
 // Component
@@ -1772,22 +1779,57 @@ class Component extends DCLogic {
   togglePick(id) {
     this.setState((s) => ({ picked: s.picked.includes(id) ? s.picked.filter((x) => x !== id) : [...s.picked, id] }));
   }
-  // "Report a job": sends to /api/report (api/report.js), which passes it on.
+  // "Report a job": sends to /api/report (api/report.js), which stores the
+  // proof photos and passes the report on.
   sendJob() {
     const s = this.state;
     const paid = Number(String(s.jrPaid).replace(/[^\d.]/g, ''));
-    if (!s.jrServices.length) return this.setState({ jrError: 'Pick what was fixed (step 1).' });
-    if (!(paid > 0)) return this.setState({ jrError: 'Enter the final price you paid (step 3).' });
-    const pro = COMPANIES.find((c) => String(c.id) === s.jrPro);
+    const fail = (jrError) => this.setState({ jrError });
+    if (!s.jrProText.trim()) return fail('Type the company that did the job (step 1).');
+    if (!s.jrNotes.trim() && !s.jrServices.length) return fail('Tell us what they did for you (step 2).');
+    if (!(paid > 0)) return fail('Enter what you paid (step 3).');
+    if (!s.jrPhotos.length) return fail('Add a photo as proof of the job (step 4). A receipt, a text from the company or their business card is perfect.');
+    const photos = s.jrPhotos.map((ph) => ({ name: ph.name, type: ph.type, data: ph.data }));
+    if (photos.reduce((n, ph) => n + ph.data.length, 0) > 4.2e6) return fail('Those files are too big to send together. Remove one and try again.');
+    const pro = COMPANIES.find((c) => String(c.id) === s.jrProId);
     const body = {
-      repairs: s.jrServices.map((k) => SERVICE_INFO[k].label), pro: pro ? pro.name : s.jrPro === 'other' ? s.jrProOther : '',
-      listedPro: !!pro, where: s.jrWhere, paid, quoted: Number(String(s.jrQuoted).replace(/[^\d.]/g, '')) || null,
-      when: s.jrWhen, rating: s.jrRating || null, notes: s.jrNotes, email: s.jrEmail, website: s.jrHp, page: location.pathname
+      pro: pro ? pro.name : s.jrProText, listedPro: !!pro, did: s.jrNotes, repairs: s.jrServices.map((k) => SERVICE_INFO[k].label),
+      where: s.jrWhere, paid, rating: s.jrRating || null, email: s.jrEmail, website: s.jrHp, photos, page: location.pathname
     };
     this.setState({ jrStatus: 'sending', jrError: '' });
     fetch('/api/report', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
       .then((r) => { if (!r.ok) throw new Error(String(r.status)); this.setState({ jrStatus: 'sent' }); if (s.jrWhere.trim()) { try { localStorage.setItem('fms-where', s.jrWhere.trim()); } catch (e) { /* storage blocked */ } } window.scrollTo({ top: 0, behavior: 'instant' }); })
       .catch(() => this.setState({ jrStatus: 'open', jrError: 'Sorry, that didn’t go through. Check your connection and try again.' }));
+  }
+  // Proof photos: shrunk in the browser (long side 1600px, JPEG) so phone
+  // photos upload fast; PDFs (e.g. an emailed invoice) are sent as they are.
+  addPhotos(files) {
+    const list = [...files].slice(0, 3 - this.state.jrPhotos.length);
+    if (!list.length) return;
+    this.setState({ jrPhotoBusy: true, jrError: '' });
+    const read = (f) => new Promise((ok, bad) => {
+      if (f.type === 'application/pdf') {
+        if (f.size > 2.5e6) return bad(new Error('too big'));
+        const r = new FileReader();
+        r.onload = () => ok({ name: f.name, type: f.type, data: r.result });
+        r.onerror = bad;
+        return r.readAsDataURL(f);
+      }
+      const url = URL.createObjectURL(f), img = new Image();
+      img.onload = () => {
+        const k = Math.min(1, 1600 / Math.max(img.width, img.height)), c = document.createElement('canvas');
+        c.width = Math.round(img.width * k); c.height = Math.round(img.height * k);
+        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+        URL.revokeObjectURL(url);
+        ok({ name: (f.name || 'photo').replace(/\.[^.]+$/, '') + '.jpg', type: 'image/jpeg', data: c.toDataURL('image/jpeg', 0.75) });
+      };
+      img.onerror = () => { URL.revokeObjectURL(url); bad(new Error('unreadable')); };
+      img.src = url;
+    });
+    Promise.allSettled(list.map(read)).then((rs) => {
+      const added = rs.filter((r) => r.status === 'fulfilled').map((r) => r.value);
+      this.setState((st) => ({ jrPhotos: [...st.jrPhotos, ...added].slice(0, 3), jrPhotoBusy: false, jrError: added.length < list.length ? 'One file couldn’t be added. Try a photo or screenshot, or a PDF under 2.5 MB.' : '' }));
+    });
   }
   openProfile(id) { this.go('profile', { selectedId: id, problem: 'closed', review: 'closed' }); }
   pickSymptom(id) { this.go('guide', { symptom: id }); }
@@ -2074,7 +2116,7 @@ class Component extends DCLogic {
       navReport: s.view === 'report' ? 'page' : null,
       isReport: s.view === 'report',
       goReport: nav(() => this.go('report', { jrStatus: 'open', jrError: '', jrWhere: s.jrWhere || s.savedWhere })),
-      reportThisPro: nav(() => { const c = COMPANIES.find((x) => x.id === s.selectedId); this.go('report', { jrStatus: 'open', jrError: '', jrPro: c ? String(c.id) : '', jrWhere: s.jrWhere || s.savedWhere }); }),
+      reportThisPro: nav(() => { const c = COMPANIES.find((x) => x.id === s.selectedId); this.go('report', { jrStatus: 'open', jrError: '', jrProId: c ? String(c.id) : '', jrProText: c ? c.name : '', jrWhere: s.jrWhere || s.savedWhere }); }),
       ...(() => {
         const paid = Number(String(s.jrPaid).replace(/[^\d.]/g, ''));
         const one = s.jrServices.length === 1 ? s.jrServices[0] : null;
@@ -2084,15 +2126,31 @@ class Component extends DCLogic {
           jrButton: s.jrStatus === 'sending' ? 'Sending…' : 'Send my report',
           jrError: s.jrError,
           jrServiceChips: SERVICES.map((k) => { const on = s.jrServices.includes(k); return { label: SERVICE_INFO[k].label, on, cls: on ? 'chip chip-on' : 'chip', toggle: () => this.setState((st) => ({ jrServices: st.jrServices.includes(k) ? st.jrServices.filter((x) => x !== k) : [...st.jrServices, k], jrError: '' })) }; }),
-          jrProOptions: [...COMPANIES].sort((a, b) => a.name.localeCompare(b.name)).map((c) => ({ value: String(c.id), label: `${c.name} (${c.city})` })),
-          jrPro: s.jrPro, jrProIsOther: s.jrPro === 'other', jrProOther: s.jrProOther, jrWhere: s.jrWhere, jrPaid: s.jrPaid, jrQuoted: s.jrQuoted, jrWhen: s.jrWhen, jrNotes: s.jrNotes, jrEmail: s.jrEmail, jrHp: s.jrHp,
-          jrWhenOptions: ['This month', 'Last month', '2–3 months ago', '4–6 months ago', 'Over 6 months ago'],
+          // Company: type any name; listed companies that match show as quick picks.
+          ...(() => {
+            const t = s.jrProText.trim().toLowerCase();
+            const matches = !s.jrProId && t.length >= 2
+              ? COMPANIES.filter((c) => c.name.toLowerCase().split(/[^a-z0-9]+/).some((w) => w.startsWith(t)) || c.name.toLowerCase().includes(t) || c.city.toLowerCase().startsWith(t)).slice(0, 4)
+              : [];
+            const picked = COMPANIES.find((c) => String(c.id) === s.jrProId);
+            return {
+              jrProText: s.jrProText, jrProPicked: picked ? `${picked.name}, ${picked.city} · listed on FixMySlide` : '',
+              jrMatches: matches.map((c) => ({ name: c.name, city: c.city, pick: () => set({ jrProId: String(c.id), jrProText: c.name, jrError: '' }) })),
+              jrHasMatches: matches.length > 0, jrNoMatch: !picked && t.length >= 3 && !matches.length,
+              onJrProText: (e) => set({ jrProText: e.target.value, jrProId: '', jrError: '' }),
+              jrProClear: () => set({ jrProId: '', jrProText: '' })
+            };
+          })(),
+          jrWhere: s.jrWhere, jrPaid: s.jrPaid, jrNotes: s.jrNotes, jrEmail: s.jrEmail, jrHp: s.jrHp,
+          jrPhotoList: s.jrPhotos.map((ph, i) => ({ src: ph.data, alt: ph.name, isPdf: ph.type === 'application/pdf', isImage: ph.type !== 'application/pdf', remove: () => this.setState((st) => ({ jrPhotos: st.jrPhotos.filter((_, k) => k !== i) })) })),
+          jrCanAddPhoto: s.jrPhotos.length < 3 && !s.jrPhotoBusy, jrPhotoBusy: s.jrPhotoBusy,
+          jrAddText: s.jrPhotos.length ? 'Add another' : 'Add a photo',
+          onJrPhotos: (e) => { this.addPhotos(e.target.files || []); e.target.value = ''; },
           jrStars: [5, 4, 3, 2, 1].map((n) => ({ label: '★'.repeat(n) + (n === 5 ? ' Great' : n === 4 ? ' Good' : n === 3 ? ' Okay' : n === 2 ? ' Poor' : ' Bad'), on: s.jrRating === n, cls: s.jrRating === n ? 'chip chip-on' : 'chip', pick: () => set({ jrRating: s.jrRating === n ? 0 : n }) })),
-          onJrPro: (e) => set({ jrPro: e.target.value }), onJrProOther: (e) => set({ jrProOther: e.target.value }), onJrWhere: (e) => set({ jrWhere: e.target.value }),
-          onJrPaid: (e) => set({ jrPaid: e.target.value, jrError: '' }), onJrQuoted: (e) => set({ jrQuoted: e.target.value }), onJrWhen: (e) => set({ jrWhen: e.target.value }),
-          onJrNotes: (e) => set({ jrNotes: e.target.value }), onJrEmail: (e) => set({ jrEmail: e.target.value }), onJrHp: (e) => set({ jrHp: e.target.value }),
+          onJrWhere: (e) => set({ jrWhere: e.target.value }), onJrPaid: (e) => set({ jrPaid: e.target.value, jrError: '' }),
+          onJrNotes: (e) => set({ jrNotes: e.target.value, jrError: '' }), onJrEmail: (e) => set({ jrEmail: e.target.value }), onJrHp: (e) => set({ jrHp: e.target.value }),
           jrSubmit: (e) => { e.preventDefault(); this.sendJob(); },
-          jrAnother: () => { set({ jrStatus: 'open', jrServices: [], jrPro: '', jrProOther: '', jrPaid: '', jrQuoted: '', jrWhen: 'This month', jrRating: 0, jrNotes: '' }); window.scrollTo({ top: 0, behavior: 'instant' }); },
+          jrAnother: () => { set({ jrStatus: 'open', jrServices: [], jrProText: '', jrProId: '', jrPaid: '', jrPhotos: [], jrRating: 0, jrNotes: '' }); window.scrollTo({ top: 0, behavior: 'instant' }); },
           // One repair: how the price compares with what other Florida homeowners paid.
           jrVerdict: !fair || !(paid > 0) ? ''
             : paid > fair.p90 * 1.05 ? `You paid ${money(paid)}, more than most Florida homeowners pay for ${SERVICE_INFO[one].lower} (usually ${PRICE_STATS[one].range}). Bigger, impact or high-rise doors often cost more.`
