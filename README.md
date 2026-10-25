@@ -76,4 +76,4 @@ npm run preview   # serves dist/ locally
 
 **Where submissions go:** every form (report a job, list your business, report a problem, review) goes through `api/report.js` or `api/submit.js` to the Make webhook in `SUBMIT_WEBHOOK_URL`. The Make scenario "FixMySlide → Google Sheet (form submissions)" adds a row to the matching tab of the **FixMySlide submissions** Google Sheet (in the office@gatorslidingdoors.com Drive) with Status `New`. Values are stored as plain text, so form input can't become a spreadsheet formula.
 
-**Home page design:** the new home design (`public/css/fresh.css`) shows on preview deployments and locally. Production builds (`VERCEL_ENV=production`) keep the classic home until it's approved; see `FRESH_HOME` in the page logic.
+**Home page design:** the home page is the directory-style design (`public/css/fresh.css`): search, then the company list, then browse by city and problem. Set `FRESH_HOME` to `false` in the page logic to bring back the classic home page.
